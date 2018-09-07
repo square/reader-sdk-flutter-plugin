@@ -33,12 +33,13 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.square.readersdkflutterpluginexample"
-        minSdkVersion 16
+        applicationId "com.example.flutter.squareup.sdk.reader"
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -48,6 +49,11 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    dexOptions {
+        preDexLibraries true
+        jumboMode true
+        keepRuntimeAnnotatedClasses false
+    }
 }
 
 flutter {
@@ -55,7 +61,25 @@ flutter {
 }
 
 dependencies {
+    implementation 'com.android.support:multidex:1.0.3' // Add this dependency if your minSdkVersion < 21
+    implementation 'com.google.android.gms:play-services-safetynet:15.0.1'
+    implementation 'com.google.android.gms:play-services-ads-identifier:15.0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+configurations.all {
+    resolutionStrategy {
+        eachDependency { details ->
+            // Force all primary support libraries to the same version
+            if (details.requested.group == 'com.android.support'
+                && details.requested.name != 'multidex'
+                && details.requested.name != 'multidex-instrumentation') {
+                // Force the version that works for you.
+                // Square has tested ReaderSDK with 26.0.2
+                details.useVersion '26.0.2'
+            }
+        }
+    }
 }
