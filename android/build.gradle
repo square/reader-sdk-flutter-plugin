@@ -16,6 +16,13 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            url "https://sdk.squareup.com/android"
+            credentials {
+                username SQUARE_READER_SDK_APPLICATION_ID
+                password SQUARE_READER_SDK_REPOSITORY_PASSWORD
+            }
+        }
     }
 }
 
@@ -25,10 +32,25 @@ android {
     compileSdkVersion 27
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 19
+        targetSdkVersion 27
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     lintOptions {
         disable 'InvalidPackage'
     }
+    dexOptions {
+        preDexLibraries true
+        jumboMode true
+        keepRuntimeAnnotatedClasses false
+    }
+}
+
+def DEFAULT_PLAY_SERVICES_BASE_VERSION = '12.0.1'
+dependencies {
+    def readerSdkMinVersion = '1.0.4'
+    api "com.squareup.sdk.reader:reader-sdk-$SQUARE_READER_SDK_APPLICATION_ID:$readerSdkMinVersion"
+    runtimeOnly "com.squareup.sdk.reader:reader-sdk-internals:$readerSdkMinVersion"
+    implementation 'com.android.support:multidex:1.0.3' // Add this dependency if your minSdkVersion < 21
 }
