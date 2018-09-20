@@ -13,11 +13,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
+  bool _isAuthorized = true;
 
   @override
   void initState() {
     super.initState();
     initPlatformState();
+    initAuthorizeState();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -40,6 +42,76 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Future initAuthorizeState() async {
+    bool isAuthorized;
+    try {
+      isAuthorized = await ReaderSdkFlutterPlugin.isAuthorized;
+    } on PlatformException{
+      isAuthorized = true;
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _isAuthorized = isAuthorized;
+    });
+  }
+
+  onAuthorize() async {
+    try {
+      await ReaderSdkFlutterPlugin.authorize('sq0acp--X0w72McG0jwL6ws5SQB8pDLgBpS788iejtzZ4kxkqY');
+      setState(() {
+        _isAuthorized = true;
+      });
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+  }
+  
+  onDeauthorize() async {
+    try {
+      await ReaderSdkFlutterPlugin.deauthorize();
+      setState(() {
+        _isAuthorized = false;
+      });
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+  }
+
+  onCheckout() async {
+    var checkoutParams = {
+      'amountMoney': {
+        'amount': 100,
+        'currencyCode': 'USD', // optional, use authorized location's currency code by default
+      },
+      // Optional for all following configuration
+      'skipReceipt': false,
+      'alwaysRequireSignature': true,
+      'allowSplitTender': false,
+      'note': 'Hello 💳 💰 World!',
+      'tipSettings': {
+        'showCustomTipField': true,
+        'showSeparateTipScreen': false,
+        'tipPercentages': [15, 20, 30],
+      },
+      'additionalPaymentTypes': ['cash', 'manual_card_entry', 'other'],
+    };
+    try {
+      await ReaderSdkFlutterPlugin.startCheckout(checkoutParams);
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+  }
+
+  onReaderSettings() async {
+    try {
+      await ReaderSdkFlutterPlugin.startReaderSettings();
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -47,8 +119,26 @@ class _MyAppState extends State<MyApp> {
         appBar: new AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: new Center(
-          child: new Text('Running on: $_platformVersion\n'),
+        body: Column(
+          children: <Widget>[
+            Text('Running on: $_platformVersion'),
+            RaisedButton(
+              onPressed: _isAuthorized ? null : onAuthorize,
+              child: Text('Authorize'),
+            ),
+            RaisedButton(
+              onPressed: _isAuthorized ? onDeauthorize : null,
+              child: Text('Deauthorize'),
+            ),
+            RaisedButton(
+              onPressed: _isAuthorized ? onCheckout : null,
+              child: Text('Checkout'),
+            ),
+            RaisedButton(
+              onPressed: _isAuthorized ? onReaderSettings : null,
+              child: Text('Reader Settings'),
+            ),
+          ],
         ),
       ),
     );

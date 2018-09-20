@@ -25,14 +25,14 @@ public final class LocationConverter {
         moneyConverter = new MoneyConverter();
     }
 
-    public HashMap<String, Object> toJSObject(Location location) {
+    public HashMap<String, Object> toMapObject(Location location) {
         HashMap<String, Object> mapToReturn = new HashMap<>();
         mapToReturn.put("locationId", location.getLocationId());
         mapToReturn.put("name", location.getName());
         mapToReturn.put("businessName", location.getBusinessName());
         mapToReturn.put("isCardProcessingActivated", location.isCardProcessingActivated());
-        mapToReturn.put("minimumCardPaymentAmountMoney", moneyConverter.toJSObject(location.getMinimumCardPaymentAmountMoney()));
-        mapToReturn.put("maximumCardPaymentAmountMoney", moneyConverter.toJSObject(location.getMaximumCardPaymentAmountMoney()));
+        mapToReturn.put("minimumCardPaymentAmountMoney", moneyConverter.toMapObject(location.getMinimumCardPaymentAmountMoney()));
+        mapToReturn.put("maximumCardPaymentAmountMoney", moneyConverter.toMapObject(location.getMaximumCardPaymentAmountMoney()));
         mapToReturn.put("currencyCode", location.getCurrencyCode().name());
 
         return mapToReturn;

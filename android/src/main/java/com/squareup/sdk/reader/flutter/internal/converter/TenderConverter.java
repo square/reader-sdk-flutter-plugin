@@ -53,17 +53,17 @@ class TenderConverter {
         tenderCashDetailsConverter = new TenderCashDetailsConverter();
     }
 
-    public HashMap<String, Object>  toJSObject(Tender tender) {
+    public HashMap<String, Object> toMapObject(Tender tender) {
         HashMap<String, Object>  mapToReturn = new HashMap<> ();
         mapToReturn.put("createdAt", DateFormatUtils.formatISO8601UTC(tender.getCreatedAt()));
-        mapToReturn.put("tipMoney", moneyConverter.toJSObject(tender.getTipMoney()));
-        mapToReturn.put("totalMoney", moneyConverter.toJSObject(tender.getTotalMoney()));
+        mapToReturn.put("tipMoney", moneyConverter.toMapObject(tender.getTipMoney()));
+        mapToReturn.put("totalMoney", moneyConverter.toMapObject(tender.getTotalMoney()));
         Tender.Type tenderType = tender.getType();
         mapToReturn.put("type", tenderTypeMap.get(tenderType));
 
         if (tenderType == Tender.Type.CARD) {
             mapToReturn.put("tenderId", tender.getTenderId());
-            mapToReturn.put("cardDetails", tenderCardDetailsConverter.toJSObject(tender.getCardDetails()));
+            mapToReturn.put("cardDetails", tenderCardDetailsConverter.toMapObject(tender.getCardDetails()));
         } else if (tenderType == Tender.Type.CASH) {
             mapToReturn.put("cashDetails", tenderCashDetailsConverter.toJSObject(tender.getCashDetails()));
         }

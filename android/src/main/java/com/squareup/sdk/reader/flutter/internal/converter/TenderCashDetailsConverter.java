@@ -27,8 +27,8 @@ class TenderCashDetailsConverter {
 
     public HashMap<String, Object> toJSObject(TenderCashDetails tenderCashDetails) {
         HashMap<String, Object> mapToReturn = new HashMap<>();
-        mapToReturn.put("buyerTenderedMoney", moneyConverter.toJSObject(tenderCashDetails.getBuyerTenderedMoney()));
-        mapToReturn.put("changeBackMoney", moneyConverter.toJSObject(tenderCashDetails.getChangeBackMoney()));
+        mapToReturn.put("buyerTenderedMoney", moneyConverter.toMapObject(tenderCashDetails.getBuyerTenderedMoney()));
+        mapToReturn.put("changeBackMoney", moneyConverter.toMapObject(tenderCashDetails.getChangeBackMoney()));
         return mapToReturn;
     }
 }

@@ -62,7 +62,7 @@ class CardConverter {
         }
     }
 
-    public HashMap<String, Object> toJSObject(Card card) {
+    public HashMap<String, Object> toMapObject(Card card) {
         HashMap<String, Object> mapToReturn = new HashMap<>();
         mapToReturn.put("brand", brandStringMap.get(card.getBrand()));
         mapToReturn.put("lastFourDigits", card.getLastFourDigits());

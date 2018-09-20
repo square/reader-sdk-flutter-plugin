@@ -43,7 +43,7 @@ public final class AuthorizeModule implements IReaderSdkModule {
 
   public void authorizedLocation(Result flutterResult) {
     if (ReaderSdk.authorizationManager().getAuthorizationState().isAuthorized()) {
-      flutterResult.success(locationConverter.toJSObject(ReaderSdk.authorizationManager().getAuthorizationState().getAuthorizedLocation()));
+      flutterResult.success(locationConverter.toMapObject(ReaderSdk.authorizationManager().getAuthorizationState().getAuthorizedLocation()));
     } else {
       String errorJsonMessage = ErrorHandlerUtils.createNativeModuleError(FL_AUTH_LOCATION_NOT_AUTHORIZED, FL_MESSAGE_AUTH_LOCATION_NOT_AUTHORIZED);
       flutterResult.error(ErrorHandlerUtils.USAGE_ERROR, errorJsonMessage, null);
@@ -69,7 +69,7 @@ public final class AuthorizeModule implements IReaderSdkModule {
         }
         Location location = result.getSuccessValue();
         LocationConverter locationConverter = new LocationConverter();
-        flutterResult.success(locationConverter.toJSObject(location));
+        flutterResult.success(locationConverter.toMapObject(location));
       }
     };
     authorizeCallbackRef = ReaderSdk.authorizationManager().addAuthorizeCallback(authCallback);
@@ -101,6 +101,7 @@ public final class AuthorizeModule implements IReaderSdkModule {
     };
     deauthorizeCallbackRef = ReaderSdk.authorizationManager().addDeauthorizeCallback(deauthCallback);
     ReaderSdk.authorizationManager().deauthorize();
+    flutterResult.success(null);
   }
 
   public void onDestroy() {

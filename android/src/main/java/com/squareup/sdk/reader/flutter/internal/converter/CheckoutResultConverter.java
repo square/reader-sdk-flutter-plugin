@@ -31,7 +31,7 @@ public class CheckoutResultConverter {
         tenderConverter = new TenderConverter();
     }
 
-    public HashMap<String, Object> toJSObject(CheckoutResult result) {
+    public HashMap<String, Object> toMapObject(CheckoutResult result) {
         HashMap<String, Object> mapToReturn = new HashMap<>();
         if (result.getTransactionId() != null) {
             mapToReturn.put("transactionId", result.getTransactionId());
@@ -40,13 +40,13 @@ public class CheckoutResultConverter {
         mapToReturn.put("locationId", result.getLocationId());
         mapToReturn.put("createdAt", DateFormatUtils.formatISO8601UTC(result.getCreatedAt()));
         Money totalMoney = result.getTotalMoney();
-        mapToReturn.put("totalMoney", moneyConverter.toJSObject(totalMoney));
+        mapToReturn.put("totalMoney", moneyConverter.toMapObject(totalMoney));
         Money totalTipMoney = result.getTotalTipMoney();
-        mapToReturn.put("totalTipMoney", moneyConverter.toJSObject(totalTipMoney));
+        mapToReturn.put("totalTipMoney", moneyConverter.toMapObject(totalTipMoney));
 
         ArrayList<HashMap<String, Object>> jsTenders = new ArrayList<>();
         for (Tender tender : result.getTenders()) {
-            jsTenders.add(tenderConverter.toJSObject(tender));
+            jsTenders.add(tenderConverter.toMapObject(tender));
         }
         mapToReturn.put("tenders", jsTenders);
 

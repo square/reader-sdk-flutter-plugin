@@ -19,7 +19,7 @@ import com.squareup.sdk.reader.checkout.Money;
 import java.util.HashMap;
 
 class MoneyConverter {
-    public HashMap<String, Object> toJSObject(Money money) {
+    public HashMap<String, Object> toMapObject(Money money) {
         HashMap<String, Object> mapToReturn = new HashMap<>();
         mapToReturn.put("amount", money.getAmount());
         mapToReturn.put("currencyCode", money.getCurrencyCode().name());

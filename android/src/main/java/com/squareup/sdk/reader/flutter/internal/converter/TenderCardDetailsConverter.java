@@ -50,10 +50,10 @@ class TenderCardDetailsConverter {
         cardConverter = new CardConverter();
     }
 
-    public HashMap<String, Object> toJSObject(TenderCardDetails tenderCardDetails) {
+    public HashMap<String, Object> toMapObject(TenderCardDetails tenderCardDetails) {
         HashMap<String, Object> mapToReturn = new HashMap<>();
         mapToReturn.put("entryMethod", entryMethodStringMap.get(tenderCardDetails.getEntryMethod()));
-        mapToReturn.put("card", cardConverter.toJSObject(tenderCardDetails.getCard()));
+        mapToReturn.put("card", cardConverter.toMapObject(tenderCardDetails.getCard()));
         return mapToReturn;
     }
 }
