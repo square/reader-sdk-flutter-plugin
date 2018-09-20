@@ -1,4 +1,4 @@
-package com.square.readersdkflutterpluginexample;
+package com.squareup.readersdkflutterpluginexample;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
