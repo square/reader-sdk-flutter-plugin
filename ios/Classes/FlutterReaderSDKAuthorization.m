@@ -1,0 +1,101 @@
+/*
+ Copyright 2018 Square Inc.
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+#import "FlutterReaderSDKAuthorization.h"
+#import "FlutterReaderSDKErrorUtilities.h"
+#import "Converters/SQRDLocation+FlutterReaderSDKAdditions.h"
+#import <CoreLocation/CoreLocation.h>
+#import <AVFoundation/AVFoundation.h>
+
+// Define all the error codes and messages below
+// These error codes and messages **MUST** align with iOS error codes and javascript error codes
+// Search KEEP_IN_SYNC_AUTHORIZE_ERROR to update all places
+
+// Expected errors:
+static NSString *const FlutterReaderSDKAuthorizeNoNetwork = @"AUTHORIZE_NO_NETWORK";
+
+// React native module debug error codes
+static NSString *const FlutterReaderSDKRNAuthLocationNotAuthorized = @"rn_auth_location_not_authorized";
+
+// react native module debug messages
+static NSString *const FlutterReaderSDKRNMessageAuthLocationNotAuthorized = @"This device must be authorized with a Square location in order to get that location. Obtain an authorization code for a Square location from the mobile/authorization-code endpoint and then call authorizeAsync.";
+
+@implementation FlutterReaderSDKAuthorization
+
+- (void) isAuthorized:(FlutterResult)result {
+    result(@(SQRDReaderSDK.sharedSDK.isAuthorized));
+}
+
+- (void) authorizedLocation:(FlutterResult)result {
+    if (SQRDReaderSDK.sharedSDK.isAuthorized) {
+        result([SQRDReaderSDK.sharedSDK.authorizedLocation jsonDictionary]);
+    } else {
+        result([FlutterError errorWithCode:FlutterReaderSDKUsageError
+                                   message:[FlutterReaderSDKErrorUtilities createNativeModuleError:FlutterReaderSDKRNAuthLocationNotAuthorized debugMessage:FlutterReaderSDKRNMessageAuthLocationNotAuthorized]
+                                   details:nil]);
+    }
+}
+
+- (void) authorize:(FlutterResult)result authCode:(NSString*)authCode {
+    [SQRDReaderSDK.sharedSDK authorizeWithCode:authCode
+                             completionHandler:^(SQRDLocation *_Nullable location, NSError *_Nullable error) {
+                                 if (error != nil) {
+                                     NSString *message = error.localizedDescription;
+                                     NSString *debugCode = error.userInfo[SQRDErrorDebugCodeKey];
+                                     NSString *debugMessage = error.userInfo[SQRDErrorDebugMessageKey];
+                                     result([FlutterError errorWithCode:[self getAuthorizationErrorCode:error.code]
+                                                                message:[FlutterReaderSDKErrorUtilities serializeErrorToJson:debugCode message:message debugMessage:debugMessage]
+                                                                details:nil]);
+                                     return;
+                                 }
+                                 result([location jsonDictionary]);
+                             }];
+}
+
+- (void) canDeauthorize:(FlutterResult)result {
+    result(@(SQRDReaderSDK.sharedSDK.canDeauthorize));
+}
+
+- (void) deauthorize:(FlutterResult)result {
+    [SQRDReaderSDK.sharedSDK deauthorizeWithCompletionHandler:^(NSError *_Nullable error) {
+        if (error != nil) {
+            NSString *message = error.localizedDescription;
+            NSString *debugCode = error.userInfo[SQRDErrorDebugCodeKey];
+            NSString *debugMessage = error.userInfo[SQRDErrorDebugMessageKey];
+            result([FlutterError errorWithCode:FlutterReaderSDKUsageError
+                                       message:[FlutterReaderSDKErrorUtilities serializeErrorToJson:debugCode message:message debugMessage:debugMessage]
+                                       details:nil]);
+            return;
+        }
+        result(nil);
+    }];
+}
+
+- (NSString *)getAuthorizationErrorCode:(NSInteger)nativeErrorCode {
+    NSString *errorCode = @"UNKNOWN";
+    if (nativeErrorCode == SQRDAuthorizationErrorUsageError) {
+        errorCode = FlutterReaderSDKUsageError;
+    } else {
+        switch (nativeErrorCode) {
+            case SQRDAuthorizationErrorNoNetworkConnection:
+                errorCode = FlutterReaderSDKAuthorizeNoNetwork;
+                break;
+        }
+    }
+    return errorCode;
+}
+
+@end

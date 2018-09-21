@@ -18,6 +18,6 @@ A new flutter plugin project.
   s.frameworks       = 'SquareReaderSDK'
   s.xcconfig         = { 'FRAMEWORK_SEARCH_PATHS' => '$(PROJECT_DIR)/../' }
   
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '11.1'
 end
 

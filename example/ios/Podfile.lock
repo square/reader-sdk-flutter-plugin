@@ -21,8 +21,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
   permission_handler: d18559f3fbbc767b9c3af4849bf7b95c92467b22
-  reader_sdk_flutter_plugin: 8e65f9392dc08cabf20935ee2a576c8eaabb92ee
+  reader_sdk_flutter_plugin: dea52c53664ef9b509a73267d9da040b27df26f1
 
-PODFILE CHECKSUM: 163c0ed91a53b9302b30c1d31c603a2daa9b9166
+PODFILE CHECKSUM: cb6b50d323655cc2ec3bd136559937da3b86ed80
 
 COCOAPODS: 1.5.2
