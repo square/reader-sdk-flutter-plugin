@@ -3,6 +3,9 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:reader_sdk_flutter_plugin/reader_sdk_flutter_plugin.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import 'widgets/permission_button.dart';
 
 void main() => runApp(new MyApp());
 
@@ -14,10 +17,15 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   bool _isAuthorized = true;
+  Map<PermissionGroup, PermissionStatus> permissionStates = {
+    PermissionGroup.microphone: PermissionStatus.unknown,
+    PermissionGroup.location: PermissionStatus.unknown,
+  };
 
   @override
   void initState() {
     super.initState();
+    initPermissionState();
     initPlatformState();
     initAuthorizeState();
   }
@@ -57,9 +65,37 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  initPermissionState() {
+    for(PermissionGroup permissionGroup in this.permissionStates.keys) {
+      this.updatePermissionState(permissionGroup);
+    }
+  }
+
+  Future updatePermissionState(PermissionGroup permissionGroup) async {
+    PermissionStatus status = await PermissionHandler().checkPermissionStatus(permissionGroup);
+    if (mounted && status != this.permissionStates[permissionGroup]) {
+      this.setState(() {
+        this.permissionStates[permissionGroup] = status;
+      });
+    }
+  }
+
+  Future onRequestPermission(PermissionGroup permissionGroup) async {
+    if (this.permissionStates[permissionGroup] == PermissionStatus.unknown) {
+      Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler().requestPermissions([permissionGroup]);
+      this.setState(() {
+        this.permissionStates[permissionGroup] = permissions[permissionGroup];
+      });
+    } else if (this.permissionStates[permissionGroup] == PermissionStatus.denied) {
+      PermissionHandler().openAppSettings();
+    } else {
+      print('Unknown status to request permission.');
+    }
+  }
+
   onAuthorize() async {
     try {
-      await ReaderSdkFlutterPlugin.authorize('sq0acp--X0w72McG0jwL6ws5SQB8pDLgBpS788iejtzZ4kxkqY');
+      await ReaderSdkFlutterPlugin.authorize('sq0acp-N7OvCGy4s_IIu8eGsfZqH8mJGaCNqfCfd-eG6X-4Q70');
       setState(() {
         _isAuthorized = true;
       });
@@ -122,6 +158,16 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: <Widget>[
             Text('Running on: $_platformVersion'),
+            PermissionButton(
+              permissionName: 'microphone',
+              onPressed: this.permissionStates[PermissionGroup.microphone] == PermissionStatus.granted ? null : () { onRequestPermission(PermissionGroup.microphone ); },
+              permissionStatus: this.permissionStates[PermissionGroup.microphone],
+            ),
+            PermissionButton(
+              permissionName: 'location',
+              onPressed: this.permissionStates[PermissionGroup.location] == PermissionStatus.granted ? null : () { onRequestPermission(PermissionGroup.location ); },
+              permissionStatus: this.permissionStates[PermissionGroup.location],
+            ),
             RaisedButton(
               onPressed: _isAuthorized ? null : onAuthorize,
               child: Text('Authorize'),
