@@ -17,10 +17,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   bool _isAuthorized = true;
-  Map<PermissionGroup, PermissionStatus> permissionStates = {
+  Map<PermissionGroup, PermissionStatus> _permissionStates = {
     PermissionGroup.microphone: PermissionStatus.unknown,
     PermissionGroup.location: PermissionStatus.unknown,
   };
+  final _authCodeInputController = TextEditingController();
 
   @override
   void initState() {
@@ -66,27 +67,27 @@ class _MyAppState extends State<MyApp> {
   }
 
   initPermissionState() {
-    for(PermissionGroup permissionGroup in this.permissionStates.keys) {
+    for(PermissionGroup permissionGroup in this._permissionStates.keys) {
       this.updatePermissionState(permissionGroup);
     }
   }
 
   Future updatePermissionState(PermissionGroup permissionGroup) async {
     PermissionStatus status = await PermissionHandler().checkPermissionStatus(permissionGroup);
-    if (mounted && status != this.permissionStates[permissionGroup]) {
+    if (mounted && status != this._permissionStates[permissionGroup]) {
       this.setState(() {
-        this.permissionStates[permissionGroup] = status;
+        this._permissionStates[permissionGroup] = status;
       });
     }
   }
 
   Future onRequestPermission(PermissionGroup permissionGroup) async {
-    if (this.permissionStates[permissionGroup] == PermissionStatus.unknown) {
+    if (this._permissionStates[permissionGroup] == PermissionStatus.unknown) {
       Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler().requestPermissions([permissionGroup]);
       this.setState(() {
-        this.permissionStates[permissionGroup] = permissions[permissionGroup];
+        this._permissionStates[permissionGroup] = permissions[permissionGroup];
       });
-    } else if (this.permissionStates[permissionGroup] == PermissionStatus.denied) {
+    } else if (this._permissionStates[permissionGroup] == PermissionStatus.denied) {
       PermissionHandler().openAppSettings();
     } else {
       print('Unknown status to request permission.');
@@ -95,7 +96,9 @@ class _MyAppState extends State<MyApp> {
 
   onAuthorize() async {
     try {
-      await ReaderSdkFlutterPlugin.authorize('sq0acp-N7OvCGy4s_IIu8eGsfZqH8mJGaCNqfCfd-eG6X-4Q70');
+      String authCode = _authCodeInputController.text;
+      await ReaderSdkFlutterPlugin.authorize(authCode);
+      _authCodeInputController.clear();
       setState(() {
         _isAuthorized = true;
       });
@@ -149,6 +152,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
+  void dispose() {
+    // Clean up the controller when the Widget is disposed
+    _authCodeInputController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return new MaterialApp(
       home: new Scaffold(
@@ -160,13 +170,25 @@ class _MyAppState extends State<MyApp> {
             Text('Running on: $_platformVersion'),
             PermissionButton(
               permissionName: 'microphone',
-              onPressed: this.permissionStates[PermissionGroup.microphone] == PermissionStatus.granted ? null : () { onRequestPermission(PermissionGroup.microphone ); },
-              permissionStatus: this.permissionStates[PermissionGroup.microphone],
+              onPressed: this._permissionStates[PermissionGroup.microphone] == PermissionStatus.granted ? null : () { onRequestPermission(PermissionGroup.microphone ); },
+              permissionStatus: this._permissionStates[PermissionGroup.microphone],
             ),
             PermissionButton(
               permissionName: 'location',
-              onPressed: this.permissionStates[PermissionGroup.location] == PermissionStatus.granted ? null : () { onRequestPermission(PermissionGroup.location ); },
-              permissionStatus: this.permissionStates[PermissionGroup.location],
+              onPressed: this._permissionStates[PermissionGroup.location] == PermissionStatus.granted ? null : () { onRequestPermission(PermissionGroup.location ); },
+              permissionStatus: this._permissionStates[PermissionGroup.location],
+            ),
+            TextField(
+              enabled: !_isAuthorized,
+              style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.black,
+              ),
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                hintText: !_isAuthorized ? 'Please enter your auth code' : 'You have authorized',
+              ),
+              controller: _authCodeInputController,
             ),
             RaisedButton(
               onPressed: _isAuthorized ? null : onAuthorize,
