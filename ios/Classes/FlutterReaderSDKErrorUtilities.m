@@ -23,24 +23,15 @@ NSString *const FlutterReaderSDKUsageError = @"USAGE_ERROR";
 
 @implementation FlutterReaderSDKErrorUtilities
 
-+ (NSString *)createNativeModuleError:(NSString *)nativeModuleErrorCode debugMessage:(NSString *)debugMessage {
-    return [self serializeErrorToJson:nativeModuleErrorCode
-                              message:[NSString stringWithFormat:@"Something went wrong. Please contact the developer of this application and provide them with this error code: %@", nativeModuleErrorCode]
-                         debugMessage:debugMessage];
++ (NSString *)getNativeModuleErrorMessage:(NSString *)nativeModuleErrorCode {
+    return [NSString stringWithFormat:@"Something went wrong. Please contact the developer of this application and provide them with this error code: %@", nativeModuleErrorCode];
 }
 
-+ (NSString *)serializeErrorToJson:(NSString *)debugCode message:(NSString *)message debugMessage:(NSString *)debugMessage {
-    NSMutableDictionary *errObject = [[NSMutableDictionary alloc] init];
-    errObject[@"debugCode"] = debugCode;
-    errObject[@"message"] = message;
-    errObject[@"debugMessage"] = debugMessage;
-    NSError *writeError = nil;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:errObject options:NSJSONWritingPrettyPrinted error:&writeError];
-    if (jsonData) {
-        return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    } else {
-        return [NSString stringWithFormat:@"{'message': '%@'}",
-                                          @"failed to serialize error"];
-    }
++ (NSDictionary *)getDebugErrorObject:(NSString *)debugCode debugMessage:(NSString *)debugMessage {
+    NSMutableDictionary *errorObject = [[NSMutableDictionary alloc] init];
+    errorObject[@"debugCode"] = debugCode;
+    errorObject[@"debugMessage"] = debugMessage;
+    return errorObject;
 }
+
 @end

@@ -29,8 +29,10 @@ public final class ReaderSettingsModule implements IReaderSdkModule {
 
   public void startReaderSettings(final Result flutterResult) {
     if (readerSettingCallbackRef != null) {
-      String errorJsonMessage = ErrorHandlerUtils.createNativeModuleError(FL_READER_SETTINGS_ALREADY_IN_PROGRESS, FL_MESSAGE_READER_SETTINGS_ALREADY_IN_PROGRESS);
-      flutterResult.error(ErrorHandlerUtils.USAGE_ERROR, errorJsonMessage, null);
+      flutterResult.error(
+          ErrorHandlerUtils.USAGE_ERROR,
+          ErrorHandlerUtils.getNativeModuleErrorMessage(FL_READER_SETTINGS_ALREADY_IN_PROGRESS),
+          ErrorHandlerUtils.getDebugErrorObject(FL_READER_SETTINGS_ALREADY_IN_PROGRESS, FL_MESSAGE_READER_SETTINGS_ALREADY_IN_PROGRESS));
       return;
     }
     ReaderSettingsActivityCallback readerSettingsCallback = new ReaderSettingsActivityCallback() {
@@ -40,8 +42,10 @@ public final class ReaderSettingsModule implements IReaderSdkModule {
         readerSettingCallbackRef = null;
         if (result.isError()) {
           ResultError<ReaderSettingsErrorCode> error = result.getError();
-          String errorJsonMessage = ErrorHandlerUtils.serializeErrorToJson(error.getDebugCode(), error.getMessage(), error.getDebugMessage());
-          flutterResult.error(ErrorHandlerUtils.getErrorCode(error.getCode()), errorJsonMessage, null);
+          flutterResult.error(
+              ErrorHandlerUtils.getErrorCode(error.getCode()),
+              error.getMessage(),
+              ErrorHandlerUtils.getDebugErrorObject(error.getDebugCode(), error.getDebugMessage()));
           return;
         }
         flutterResult.success(null);

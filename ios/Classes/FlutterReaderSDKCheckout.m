@@ -32,16 +32,16 @@
 // Search KEEP_IN_SYNC_CHECKOUT_ERROR to update all places
 
 // Expected errors:
-static NSString *const RNReaderSDKCheckoutCancelled = @"CHECKOUT_CANCELED";
-static NSString *const RNReaderSDKCheckoutSdkNotAuthorized = @"CHECKOUT_SDK_NOT_AUTHORIZED";
+static NSString *const FlutterReaderSDKCheckoutCancelled = @"CHECKOUT_CANCELED";
+static NSString *const FlutterReaderSDKCheckoutSdkNotAuthorized = @"CHECKOUT_SDK_NOT_AUTHORIZED";
 
 // React native module debug error codes
-static NSString *const RNReaderSDKRNCheckoutAlreadyInProgress = @"rn_checkout_already_in_progress";
-static NSString *const RNReaderSDKRNCheckoutInvalidParameter = @"rn_checkout_invalid_parameter";
+static NSString *const FlutterReaderSDKCheckoutAlreadyInProgress = @"fl_checkout_already_in_progress";
+static NSString *const FlutterReaderSDKCheckoutInvalidParameter = @"fl_checkout_invalid_parameter";
 
 // react native module debug messages
-static NSString *const RNReaderSDKRNMessageCheckoutAlreadyInProgress = @"A checkout operation is already in progress. Ensure that the in-progress checkout is completed before calling startCheckoutAsync again.";
-static NSString *const RNReaderSDKRNMessageCheckoutInvalidParameter = @"Invalid parameter found in checkout parameters.";
+static NSString *const FlutterReaderSDKMessageCheckoutAlreadyInProgress = @"A checkout operation is already in progress. Ensure that the in-progress checkout is completed before calling startCheckoutAsync again.";
+static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Invalid parameter found in checkout parameters.";
 
 
 @implementation FlutterReaderSDKCheckout
@@ -49,16 +49,16 @@ static NSString *const RNReaderSDKRNMessageCheckoutInvalidParameter = @"Invalid 
 - (void) startCheckout:(FlutterResult)result checkoutParametersDictionary:(NSDictionary*)checkoutParametersDictionary {
     if (self.checkoutResolver != nil) {
         self.checkoutResolver([FlutterError errorWithCode:FlutterReaderSDKUsageError
-                                                  message:[FlutterReaderSDKErrorUtilities createNativeModuleError:RNReaderSDKRNCheckoutAlreadyInProgress debugMessage:RNReaderSDKRNMessageCheckoutAlreadyInProgress]
-                                                  details:nil]);
+                                                  message:[FlutterReaderSDKErrorUtilities getNativeModuleErrorMessage:FlutterReaderSDKCheckoutAlreadyInProgress]
+                                                  details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:FlutterReaderSDKCheckoutAlreadyInProgress debugMessage:FlutterReaderSDKMessageCheckoutAlreadyInProgress]]);
         return;
     }
     NSString *paramError = nil;
     if ([self validateCheckoutParameters:checkoutParametersDictionary errorMsg:&paramError] == NO) {
-        NSString *paramErrorDebugMessage = [NSString stringWithFormat:@"%@ %@", RNReaderSDKRNMessageCheckoutInvalidParameter, paramError];
+        NSString *paramErrorDebugMessage = [NSString stringWithFormat:@"%@ %@", FlutterReaderSDKMessageCheckoutInvalidParameter, paramError];
         self.checkoutResolver([FlutterError errorWithCode:FlutterReaderSDKUsageError
-                                                  message:[FlutterReaderSDKErrorUtilities createNativeModuleError:RNReaderSDKRNCheckoutInvalidParameter debugMessage:paramErrorDebugMessage]
-                                                  details:nil]);
+                                                  message:[FlutterReaderSDKErrorUtilities getNativeModuleErrorMessage:FlutterReaderSDKCheckoutInvalidParameter]
+                                                  details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:FlutterReaderSDKCheckoutInvalidParameter debugMessage:paramErrorDebugMessage]]);
         return;
     }
     NSDictionary *amountMoneyDictionary = checkoutParametersDictionary[@"amountMoney"];
@@ -104,21 +104,20 @@ static NSString *const RNReaderSDKRNMessageCheckoutInvalidParameter = @"Invalid 
 
 - (void)checkoutController:(SQRDCheckoutController *)checkoutController didFailWithError:(NSError *)error
 {
-    NSString *message = error.localizedDescription;
     NSString *debugCode = error.userInfo[SQRDErrorDebugCodeKey];
     NSString *debugMessage = error.userInfo[SQRDErrorDebugMessageKey];
     self.checkoutResolver([FlutterError errorWithCode:[self getCheckoutErrorCode:error.code]
-                                              message:[FlutterReaderSDKErrorUtilities serializeErrorToJson:debugCode message:message debugMessage:debugMessage]
-                                              details:nil]);
+                                              message:error.localizedDescription
+                                              details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:debugCode debugMessage:debugMessage]]);
     [self clearCheckoutHooks];
 }
 
 - (void)checkoutControllerDidCancel:(SQRDCheckoutController *)checkoutController
 {
     // Return transaction cancel as an error in order to align with Android implementation
-    self.checkoutResolver([FlutterError errorWithCode:RNReaderSDKCheckoutCancelled
-                                              message:[FlutterReaderSDKErrorUtilities createNativeModuleError:RNReaderSDKCheckoutCancelled debugMessage:@"The user canceled the transaction."]
-                                              details:nil]);
+    self.checkoutResolver([FlutterError errorWithCode:FlutterReaderSDKCheckoutCancelled
+                                              message:[FlutterReaderSDKErrorUtilities getNativeModuleErrorMessage:FlutterReaderSDKCheckoutCancelled]
+                                              details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:FlutterReaderSDKCheckoutCancelled debugMessage:@"The user canceled the transaction."]]);
     [self clearCheckoutHooks];
 }
 
@@ -234,7 +233,7 @@ static NSString *const RNReaderSDKRNMessageCheckoutInvalidParameter = @"Invalid 
     } else {
         switch (nativeErrorCode) {
             case SQRDCheckoutControllerErrorSDKNotAuthorized:
-                errorCode = RNReaderSDKCheckoutSdkNotAuthorized;
+                errorCode = FlutterReaderSDKCheckoutSdkNotAuthorized;
                 break;
         }
     }

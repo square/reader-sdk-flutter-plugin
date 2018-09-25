@@ -30,21 +30,21 @@
 // Search KEEP_IN_SYNC_READER_SETTINGS_ERROR to update all places
 
 // Expected errors:
-static NSString *const RNReaderSDKReaderSettingsSdkNotAuthorized = @"READER_SETTINGS_SDK_NOT_AUTHORIZED";
+static NSString *const FlutterReaderSDKReaderSettingsSdkNotAuthorized = @"READER_SETTINGS_SDK_NOT_AUTHORIZED";
 
 // React native module debug error codes
-static NSString *const RNReaderSDKRNReaderSettingsAlreadyInProgress = @"rn_reader_settings_already_in_progress";
+static NSString *const FlutterReaderSDKReaderSettingsAlreadyInProgress = @"rn_reader_settings_already_in_progress";
 
 // react native module debug messages
-static NSString *const RNReaderSDKRNMessageReaderSettingsAlreadyInProgress = @"A reader settings operation is already in progress. Ensure that the in-progress reader settings is completed before calling startReaderSettingsAsync again.";
+static NSString *const FlutterReaderSDKMessageReaderSettingsAlreadyInProgress = @"A reader settings operation is already in progress. Ensure that the in-progress reader settings is completed before calling startReaderSettingsAsync again.";
 
 @implementation FlutterReaderSDKReaderSettings
 
 - (void) startReaderSettings:(FlutterResult)result {
     if (self.readerSettingResolver != nil) {
         result([FlutterError errorWithCode:FlutterReaderSDKUsageError
-                                   message:[FlutterReaderSDKErrorUtilities createNativeModuleError:RNReaderSDKRNReaderSettingsAlreadyInProgress debugMessage:RNReaderSDKRNMessageReaderSettingsAlreadyInProgress]
-                                   details:nil]);
+                                   message:[FlutterReaderSDKErrorUtilities getNativeModuleErrorMessage:FlutterReaderSDKReaderSettingsAlreadyInProgress]
+                                   details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:FlutterReaderSDKReaderSettingsAlreadyInProgress debugMessage:FlutterReaderSDKMessageReaderSettingsAlreadyInProgress]]);
         return;
     }
     SQRDReaderSettingsController *readerSettingsController = [[SQRDReaderSettingsController alloc] initWithDelegate:self];
@@ -61,12 +61,11 @@ static NSString *const RNReaderSDKRNMessageReaderSettingsAlreadyInProgress = @"A
 
 - (void)readerSettingsController:(SQRDReaderSettingsController *)readerSettingsController didFailToPresentWithError:(NSError *)error
 {
-    NSString *message = error.localizedDescription;
     NSString *debugCode = error.userInfo[SQRDErrorDebugCodeKey];
     NSString *debugMessage = error.userInfo[SQRDErrorDebugMessageKey];
     self.readerSettingResolver([FlutterError errorWithCode:[self getReaderSettingsErrorCode:error.code]
-                                                   message:[FlutterReaderSDKErrorUtilities serializeErrorToJson:debugCode message:message debugMessage:debugMessage]
-                                                   details:nil]);
+                                                   message:error.localizedDescription
+                                                   details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:debugCode debugMessage:debugMessage]]);
     [self clearReaderSettingHooks];
 }
 
@@ -83,7 +82,7 @@ static NSString *const RNReaderSDKRNMessageReaderSettingsAlreadyInProgress = @"A
     } else {
         switch (nativeErrorCode) {
             case SQRDReaderSettingsControllerErrorSDKNotAuthorized:
-                errorCode = RNReaderSDKReaderSettingsSdkNotAuthorized;
+                errorCode = FlutterReaderSDKReaderSettingsSdkNotAuthorized;
                 break;
         }
     }

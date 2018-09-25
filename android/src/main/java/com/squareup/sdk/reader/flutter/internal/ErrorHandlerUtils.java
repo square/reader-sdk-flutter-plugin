@@ -87,24 +87,15 @@ public class ErrorHandlerUtils {
         }
     }
 
-    public static String createNativeModuleError(String nativeModuleErrorCode, String debugMessage) {
-        return serializeErrorToJson(
-                nativeModuleErrorCode,
-                String.format("Something went wrong. Please contact the developer of this application and provide them with this error code: %s", nativeModuleErrorCode),
-                debugMessage);
+    public static String getNativeModuleErrorMessage(String nativeModuleErrorCode) {
+        return String.format("Something went wrong. Please contact the developer of this application and provide them with this error code: %s", nativeModuleErrorCode);
     }
 
-    public static String serializeErrorToJson(String debugCode, String message, String debugMessage) {
-        JSONObject errorData = new JSONObject();
-        try {
-            errorData.put("debugCode", debugCode);
-            errorData.put("message", message);
-            errorData.put("debugMessage", debugMessage);
-        } catch (JSONException ex) {
-            return "{ 'message': 'failed to serialize error'}";
-        }
-
-        return errorData.toString();
+    public static HashMap<String, String> getDebugErrorObject(String debugCode, String debugMessage) {
+        HashMap<String, String> errorData = new HashMap<>();
+        errorData.put("debugCode", debugCode);
+        errorData.put("debugMessage", debugMessage);
+        return errorData;
     }
 
     public static String getErrorCode(ErrorCode nativeErrorCode) {

@@ -45,15 +45,19 @@ public final class AuthorizeModule implements IReaderSdkModule {
     if (ReaderSdk.authorizationManager().getAuthorizationState().isAuthorized()) {
       flutterResult.success(locationConverter.toMapObject(ReaderSdk.authorizationManager().getAuthorizationState().getAuthorizedLocation()));
     } else {
-      String errorJsonMessage = ErrorHandlerUtils.createNativeModuleError(FL_AUTH_LOCATION_NOT_AUTHORIZED, FL_MESSAGE_AUTH_LOCATION_NOT_AUTHORIZED);
-      flutterResult.error(ErrorHandlerUtils.USAGE_ERROR, errorJsonMessage, null);
+      flutterResult.error(
+          ErrorHandlerUtils.USAGE_ERROR,
+          ErrorHandlerUtils.getNativeModuleErrorMessage(FL_AUTH_LOCATION_NOT_AUTHORIZED),
+          ErrorHandlerUtils.getDebugErrorObject(FL_AUTH_LOCATION_NOT_AUTHORIZED, FL_MESSAGE_AUTH_LOCATION_NOT_AUTHORIZED));
     }
   }
 
   public void authorize(final String authCode, final Result flutterResult) {
     if (authorizeCallbackRef != null) {
-      String errorJsonMessage = ErrorHandlerUtils.createNativeModuleError(FL_AUTHORIZE_ALREADY_IN_PROGRESS, FL_MESSAGE_AUTHORIZE_ALREADY_IN_PROGRESS);
-      flutterResult.error(ErrorHandlerUtils.USAGE_ERROR, errorJsonMessage, null);
+      flutterResult.error(
+          ErrorHandlerUtils.USAGE_ERROR,
+          ErrorHandlerUtils.getNativeModuleErrorMessage(FL_AUTHORIZE_ALREADY_IN_PROGRESS),
+          ErrorHandlerUtils.getDebugErrorObject(FL_AUTHORIZE_ALREADY_IN_PROGRESS, FL_MESSAGE_AUTHORIZE_ALREADY_IN_PROGRESS));
       return;
     }
     AuthorizeCallback authCallback = new AuthorizeCallback() {
@@ -63,8 +67,10 @@ public final class AuthorizeModule implements IReaderSdkModule {
         authorizeCallbackRef = null;
         if (result.isError()) {
           ResultError<AuthorizeErrorCode> error = result.getError();
-          String errorJsonMessage = ErrorHandlerUtils.serializeErrorToJson(error.getDebugCode(), error.getMessage(), error.getDebugMessage());
-          flutterResult.error(ErrorHandlerUtils.getErrorCode(error.getCode()), errorJsonMessage, null);
+          flutterResult.error(
+              ErrorHandlerUtils.getErrorCode(error.getCode()),
+              error.getMessage(),
+              ErrorHandlerUtils.getDebugErrorObject(error.getDebugCode(), error.getDebugMessage()));
           return;
         }
         Location location = result.getSuccessValue();
@@ -82,8 +88,10 @@ public final class AuthorizeModule implements IReaderSdkModule {
 
   public void deauthorize(final Result flutterResult) {
     if (deauthorizeCallbackRef != null) {
-      String errorJsonMessage = ErrorHandlerUtils.createNativeModuleError(FL_DEAUTHORIZE_ALREADY_IN_PROGRESS, FL_MESSAGE_DEAUTHORIZE_ALREADY_IN_PROGRESS);
-      flutterResult.error(ErrorHandlerUtils.USAGE_ERROR, errorJsonMessage, null);
+      flutterResult.error(
+          ErrorHandlerUtils.USAGE_ERROR,
+          ErrorHandlerUtils.getNativeModuleErrorMessage(FL_DEAUTHORIZE_ALREADY_IN_PROGRESS),
+          ErrorHandlerUtils.getDebugErrorObject(FL_DEAUTHORIZE_ALREADY_IN_PROGRESS, FL_MESSAGE_DEAUTHORIZE_ALREADY_IN_PROGRESS));
       return;
     }
     DeauthorizeCallback deauthCallback = new DeauthorizeCallback() {
@@ -93,8 +101,10 @@ public final class AuthorizeModule implements IReaderSdkModule {
         deauthorizeCallbackRef = null;
         if (result.isError()) {
           ResultError<DeauthorizeErrorCode> error = result.getError();
-          String errorJsonMessage = ErrorHandlerUtils.serializeErrorToJson(error.getDebugCode(), error.getMessage(), error.getDebugMessage());
-          flutterResult.error(ErrorHandlerUtils.getErrorCode(error.getCode()), errorJsonMessage, null);
+          flutterResult.error(
+              ErrorHandlerUtils.getErrorCode(error.getCode()),
+              error.getMessage(),
+              ErrorHandlerUtils.getDebugErrorObject(error.getDebugCode(), error.getDebugMessage()));
           return;
         }
       }

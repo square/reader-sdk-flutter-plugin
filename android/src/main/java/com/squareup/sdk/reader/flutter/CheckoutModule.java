@@ -45,14 +45,16 @@ public final class CheckoutModule implements IReaderSdkModule {
     StringBuilder paramError = new StringBuilder();
     if (!validateCheckoutParams(checkoutParameters, paramError)) {
       String paramErrorDebugMessage = String.format("%s %s", FL_MESSAGE_CHECKOUT_INVALID_PARAMETER, paramError.toString());
-      String errorJsonMessage = ErrorHandlerUtils.createNativeModuleError(FL_CHECKOUT_INVALID_PARAMETER, paramErrorDebugMessage);
-      flutterResult.error(ErrorHandlerUtils.USAGE_ERROR, errorJsonMessage, null);
+      String message = ErrorHandlerUtils.getNativeModuleErrorMessage(FL_CHECKOUT_INVALID_PARAMETER);
+      flutterResult.error(ErrorHandlerUtils.USAGE_ERROR, message, ErrorHandlerUtils.getDebugErrorObject(FL_CHECKOUT_INVALID_PARAMETER, paramErrorDebugMessage));
       return;
     }
 
     if (checkoutCallbackRef != null) {
-      String errorJsonMessage = ErrorHandlerUtils.createNativeModuleError(FL_CHECKOUT_ALREADY_IN_PROGRESS, FL_MESSAGE_CHECKOUT_ALREADY_IN_PROGRESS);
-      flutterResult.error(ErrorHandlerUtils.USAGE_ERROR, errorJsonMessage, null);
+      flutterResult.error(
+          ErrorHandlerUtils.USAGE_ERROR,
+          ErrorHandlerUtils.getNativeModuleErrorMessage(FL_CHECKOUT_ALREADY_IN_PROGRESS),
+          ErrorHandlerUtils.getDebugErrorObject(FL_CHECKOUT_ALREADY_IN_PROGRESS, FL_MESSAGE_CHECKOUT_ALREADY_IN_PROGRESS));
       return;
     }
 
@@ -63,8 +65,10 @@ public final class CheckoutModule implements IReaderSdkModule {
         checkoutCallbackRef = null;
         if (result.isError()) {
           ResultError<CheckoutErrorCode> error = result.getError();
-          String errorJsonMessage = ErrorHandlerUtils.serializeErrorToJson(error.getDebugCode(), error.getMessage(), error.getDebugMessage());
-          flutterResult.error(ErrorHandlerUtils.getErrorCode(error.getCode()), errorJsonMessage, null);
+          flutterResult.error(
+              ErrorHandlerUtils.getErrorCode(error.getCode()),
+              error.getMessage(),
+              ErrorHandlerUtils.getDebugErrorObject(error.getDebugCode(), error.getDebugMessage()));
           return;
         }
         CheckoutResult checkoutResult = result.getSuccessValue();

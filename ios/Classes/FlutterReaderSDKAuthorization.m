@@ -28,10 +28,10 @@
 static NSString *const FlutterReaderSDKAuthorizeNoNetwork = @"AUTHORIZE_NO_NETWORK";
 
 // React native module debug error codes
-static NSString *const FlutterReaderSDKRNAuthLocationNotAuthorized = @"rn_auth_location_not_authorized";
+static NSString *const FlutterReaderSDKAuthLocationNotAuthorized = @"fl_auth_location_not_authorized";
 
 // react native module debug messages
-static NSString *const FlutterReaderSDKRNMessageAuthLocationNotAuthorized = @"This device must be authorized with a Square location in order to get that location. Obtain an authorization code for a Square location from the mobile/authorization-code endpoint and then call authorizeAsync.";
+static NSString *const FlutterReaderSDKMessageAuthLocationNotAuthorized = @"This device must be authorized with a Square location in order to get that location. Obtain an authorization code for a Square location from the mobile/authorization-code endpoint and then call authorizeAsync.";
 
 @implementation FlutterReaderSDKAuthorization
 
@@ -44,8 +44,8 @@ static NSString *const FlutterReaderSDKRNMessageAuthLocationNotAuthorized = @"Th
         result([SQRDReaderSDK.sharedSDK.authorizedLocation jsonDictionary]);
     } else {
         result([FlutterError errorWithCode:FlutterReaderSDKUsageError
-                                   message:[FlutterReaderSDKErrorUtilities createNativeModuleError:FlutterReaderSDKRNAuthLocationNotAuthorized debugMessage:FlutterReaderSDKRNMessageAuthLocationNotAuthorized]
-                                   details:nil]);
+                                   message:[FlutterReaderSDKErrorUtilities getNativeModuleErrorMessage:FlutterReaderSDKAuthLocationNotAuthorized]
+                                   details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:FlutterReaderSDKAuthLocationNotAuthorized debugMessage:FlutterReaderSDKMessageAuthLocationNotAuthorized]]);
     }
 }
 
@@ -53,12 +53,11 @@ static NSString *const FlutterReaderSDKRNMessageAuthLocationNotAuthorized = @"Th
     [SQRDReaderSDK.sharedSDK authorizeWithCode:authCode
                              completionHandler:^(SQRDLocation *_Nullable location, NSError *_Nullable error) {
                                  if (error != nil) {
-                                     NSString *message = error.localizedDescription;
                                      NSString *debugCode = error.userInfo[SQRDErrorDebugCodeKey];
                                      NSString *debugMessage = error.userInfo[SQRDErrorDebugMessageKey];
                                      result([FlutterError errorWithCode:[self getAuthorizationErrorCode:error.code]
-                                                                message:[FlutterReaderSDKErrorUtilities serializeErrorToJson:debugCode message:message debugMessage:debugMessage]
-                                                                details:nil]);
+                                                                message:error.localizedDescription
+                                                                details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:debugCode debugMessage:debugMessage]]);
                                      return;
                                  }
                                  result([location jsonDictionary]);
@@ -72,12 +71,11 @@ static NSString *const FlutterReaderSDKRNMessageAuthLocationNotAuthorized = @"Th
 - (void) deauthorize:(FlutterResult)result {
     [SQRDReaderSDK.sharedSDK deauthorizeWithCompletionHandler:^(NSError *_Nullable error) {
         if (error != nil) {
-            NSString *message = error.localizedDescription;
             NSString *debugCode = error.userInfo[SQRDErrorDebugCodeKey];
             NSString *debugMessage = error.userInfo[SQRDErrorDebugMessageKey];
             result([FlutterError errorWithCode:FlutterReaderSDKUsageError
-                                       message:[FlutterReaderSDKErrorUtilities serializeErrorToJson:debugCode message:message debugMessage:debugMessage]
-                                       details:nil]);
+                                       message:error.localizedDescription
+                                       details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:debugCode debugMessage:debugMessage]]);
             return;
         }
         result(nil);

@@ -21,8 +21,8 @@ extern NSString *const FlutterReaderSDKUsageError;
 
 @interface FlutterReaderSDKErrorUtilities : NSObject
 
-+ (NSString *)createNativeModuleError:(NSString *)nativeModuleErrorCode debugMessage:(NSString *)debugMessage;
++ (NSString *)getNativeModuleErrorMessage:(NSString *)nativeModuleErrorCode;
 
-+ (NSString *)serializeErrorToJson:(NSString *)debugCode message:(NSString *)message debugMessage:(NSString *)debugMessage;
++ (NSDictionary *)getDebugErrorObject:(NSString *)debugCode debugMessage:(NSString *)debugMessage;
 
 @end

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:reader_sdk_flutter_plugin/reader_sdk_flutter_plugin.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -34,10 +33,10 @@ class _MyAppState extends State<MyApp> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
+    // Platform messages may fail, so we use a try/catch ReaderSdkException.
     try {
       platformVersion = await ReaderSdkFlutterPlugin.platformVersion;
-    } on PlatformException {
+    } on ReaderSdkException {
       platformVersion = 'Failed to get platform version.';
     }
 
@@ -55,8 +54,9 @@ class _MyAppState extends State<MyApp> {
     bool isAuthorized;
     try {
       isAuthorized = await ReaderSdkFlutterPlugin.isAuthorized;
-    } on PlatformException{
-      isAuthorized = true;
+    } on ReaderSdkException catch(e) {
+      print(e.toString());
+      isAuthorized = false;
     }
 
     if (!mounted) return;
@@ -102,7 +102,7 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         _isAuthorized = true;
       });
-    } on PlatformException catch (e) {
+    } on ReaderSdkException catch (e) {
       print(e.toString());
     }
   }
@@ -113,7 +113,7 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         _isAuthorized = false;
       });
-    } on PlatformException catch (e) {
+    } on ReaderSdkException catch (e) {
       print(e.toString());
     }
   }
@@ -138,7 +138,7 @@ class _MyAppState extends State<MyApp> {
     };
     try {
       await ReaderSdkFlutterPlugin.startCheckout(checkoutParams);
-    } on PlatformException catch (e) {
+    } on ReaderSdkException catch (e) {
       print(e.toString());
     }
   }
@@ -146,7 +146,7 @@ class _MyAppState extends State<MyApp> {
   onReaderSettings() async {
     try {
       await ReaderSdkFlutterPlugin.startReaderSettings();
-    } on PlatformException catch (e) {
+    } on ReaderSdkException catch (e) {
       print(e.toString());
     }
   }
