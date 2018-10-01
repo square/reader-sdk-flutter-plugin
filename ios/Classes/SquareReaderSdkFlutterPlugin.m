@@ -1,9 +1,9 @@
-#import "ReaderSdkFlutterPlugin.h"
+#import "SquareReaderSdkFlutterPlugin.h"
 #import "FlutterReaderSDKAuthorization.h"
 #import "FlutterReaderSDKCheckout.h"
 #import "FlutterReaderSDKReaderSettings.h"
 
-@interface ReaderSdkFlutterPlugin ()
+@interface SquareReaderSdkFlutterPlugin ()
 
 @property (strong, readwrite) FlutterReaderSDKAuthorization* authorization;
 @property (strong, readwrite) FlutterReaderSDKCheckout* checkout;
@@ -11,12 +11,12 @@
 
 @end
 
-@implementation ReaderSdkFlutterPlugin
+@implementation SquareReaderSdkFlutterPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel
       methodChannelWithName:@"square_reader_sdk_flutter_plugin"
             binaryMessenger:[registrar messenger]];
-  ReaderSdkFlutterPlugin* instance = [[ReaderSdkFlutterPlugin alloc] init];
+  SquareReaderSdkFlutterPlugin* instance = [[SquareReaderSdkFlutterPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
 }
 

@@ -17,8 +17,8 @@ dependencies:
 # The following section is specific to Flutter.
 flutter:
   plugin:
-    androidPackage: com.squareup.readersdkflutterplugin
-    pluginClass: ReaderSdkFlutterPlugin
+    androidPackage: com.squareup.sdk.reader.flutter
+    pluginClass: SquareReaderSdkFlutterPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

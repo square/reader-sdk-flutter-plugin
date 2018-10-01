@@ -6,13 +6,13 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - Flutter (from `.symlinks/flutter/ios-release`)
+  - Flutter (from `.symlinks/flutter/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - square_reader_sdk_flutter_plugin (from `.symlinks/plugins/square_reader_sdk_flutter_plugin/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
-    :path: ".symlinks/flutter/ios-release"
+    :path: ".symlinks/flutter/ios"
   permission_handler:
     :path: ".symlinks/plugins/permission_handler/ios"
   square_reader_sdk_flutter_plugin:

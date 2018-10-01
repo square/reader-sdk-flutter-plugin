@@ -1,9 +1,6 @@
-package com.squareup.readersdkflutterplugin;
+package com.squareup.sdk.reader.flutter;
 
 import android.app.Activity;
-import com.squareup.sdk.reader.flutter.AuthorizeModule;
-import com.squareup.sdk.reader.flutter.CheckoutModule;
-import com.squareup.sdk.reader.flutter.ReaderSettingsModule;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -11,19 +8,17 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 import java.util.HashMap;
 
-/** ReaderSdkFlutterPlugin */
-public class ReaderSdkFlutterPlugin implements MethodCallHandler {
-  /** Plugin registration. */
+public class SquareReaderSdkFlutterPlugin implements MethodCallHandler {
   public static void registerWith(Registrar registrar) {
     final MethodChannel channel = new MethodChannel(registrar.messenger(), "square_reader_sdk_flutter_plugin");
-    channel.setMethodCallHandler(new ReaderSdkFlutterPlugin(registrar.activity()));
+    channel.setMethodCallHandler(new SquareReaderSdkFlutterPlugin(registrar.activity()));
   }
 
   private final AuthorizeModule authorizeModule;
   private final CheckoutModule checkoutModule;
   private final ReaderSettingsModule readerSettingsModule;
 
-  private ReaderSdkFlutterPlugin(Activity activity) {
+  private SquareReaderSdkFlutterPlugin(Activity activity) {
     authorizeModule = new AuthorizeModule();
     checkoutModule = new CheckoutModule(activity);
     readerSettingsModule = new ReaderSettingsModule(activity);
