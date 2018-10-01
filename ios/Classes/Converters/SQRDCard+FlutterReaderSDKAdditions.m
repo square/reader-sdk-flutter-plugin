@@ -31,10 +31,10 @@ limitations under the License.
     return jsTransactionResult;
 }
 
-- (NSString *) getBrandString:(SQRDCardBrand)brand
+- (NSString *)getBrandString:(SQRDCardBrand)brand
 {
     NSString *result = nil;
-    switch(brand) {
+    switch (brand) {
         case SQRDCardBrandVisa:
             result = @"VISA";
             break;

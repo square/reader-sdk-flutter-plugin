@@ -46,7 +46,8 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
 
 @implementation FlutterReaderSDKCheckout
 
-- (void) startCheckout:(FlutterResult)result checkoutParametersDictionary:(NSDictionary*)checkoutParametersDictionary {
+- (void)startCheckout:(FlutterResult)result checkoutParametersDictionary:(NSDictionary *)checkoutParametersDictionary
+{
     if (self.checkoutResolver != nil) {
         self.checkoutResolver([FlutterError errorWithCode:FlutterReaderSDKUsageError
                                                   message:[FlutterReaderSDKErrorUtilities getNativeModuleErrorMessage:FlutterReaderSDKCheckoutAlreadyInProgress]
@@ -68,7 +69,7 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
     } else {
         amountMoney = [[SQRDMoney alloc] initWithAmount:[amountMoneyDictionary[@"amount"] longValue]];
     }
-    
+
     SQRDCheckoutParameters *checkoutParams = [[SQRDCheckoutParameters alloc] initWithAmountMoney:amountMoney];
     if (checkoutParametersDictionary[@"note"]) {
         checkoutParams.note = checkoutParametersDictionary[@"note"];
@@ -90,7 +91,7 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
         checkoutParams.additionalPaymentTypes = [self buildAdditionalPaymentTypes:checkoutParametersDictionary[@"additionalPaymentTypes"]];
     }
     SQRDCheckoutController *checkoutController = [[SQRDCheckoutController alloc] initWithParameters:checkoutParams delegate:self];
-    
+
     self.checkoutResolver = result;
     UIViewController *rootViewController = UIApplication.sharedApplication.delegate.window.rootViewController;
     [checkoutController presentFromViewController:rootViewController];

@@ -33,13 +33,16 @@ static NSString *const FlutterReaderSDKAuthLocationNotAuthorized = @"fl_auth_loc
 // react native module debug messages
 static NSString *const FlutterReaderSDKMessageAuthLocationNotAuthorized = @"This device must be authorized with a Square location in order to get that location. Obtain an authorization code for a Square location from the mobile/authorization-code endpoint and then call authorizeAsync.";
 
+
 @implementation FlutterReaderSDKAuthorization
 
-- (void) isAuthorized:(FlutterResult)result {
+- (void)isAuthorized:(FlutterResult)result
+{
     result(@(SQRDReaderSDK.sharedSDK.isAuthorized));
 }
 
-- (void) authorizedLocation:(FlutterResult)result {
+- (void)authorizedLocation:(FlutterResult)result
+{
     if (SQRDReaderSDK.sharedSDK.isAuthorized) {
         result([SQRDReaderSDK.sharedSDK.authorizedLocation jsonDictionary]);
     } else {
@@ -49,7 +52,8 @@ static NSString *const FlutterReaderSDKMessageAuthLocationNotAuthorized = @"This
     }
 }
 
-- (void) authorize:(FlutterResult)result authCode:(NSString*)authCode {
+- (void)authorize:(FlutterResult)result authCode:(NSString *)authCode
+{
     [SQRDReaderSDK.sharedSDK authorizeWithCode:authCode
                              completionHandler:^(SQRDLocation *_Nullable location, NSError *_Nullable error) {
                                  if (error != nil) {
@@ -64,11 +68,13 @@ static NSString *const FlutterReaderSDKMessageAuthLocationNotAuthorized = @"This
                              }];
 }
 
-- (void) canDeauthorize:(FlutterResult)result {
+- (void)canDeauthorize:(FlutterResult)result
+{
     result(@(SQRDReaderSDK.sharedSDK.canDeauthorize));
 }
 
-- (void) deauthorize:(FlutterResult)result {
+- (void)deauthorize:(FlutterResult)result
+{
     [SQRDReaderSDK.sharedSDK deauthorizeWithCompletionHandler:^(NSError *_Nullable error) {
         if (error != nil) {
             NSString *debugCode = error.userInfo[SQRDErrorDebugCodeKey];
@@ -82,7 +88,8 @@ static NSString *const FlutterReaderSDKMessageAuthLocationNotAuthorized = @"This
     }];
 }
 
-- (NSString *)getAuthorizationErrorCode:(NSInteger)nativeErrorCode {
+- (NSString *)getAuthorizationErrorCode:(NSInteger)nativeErrorCode
+{
     NSString *errorCode = @"UNKNOWN";
     if (nativeErrorCode == SQRDAuthorizationErrorUsageError) {
         errorCode = FlutterReaderSDKUsageError;

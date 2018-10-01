@@ -22,8 +22,6 @@ import com.squareup.sdk.reader.hardware.ReaderSettingsErrorCode;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class ErrorHandlerUtils {
     // Define all the error codes and messages below

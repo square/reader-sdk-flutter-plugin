@@ -1,5 +1,6 @@
 #import <Flutter/Flutter.h>
 @import SquareReaderSDK;
 
-@interface SquareReaderSdkFlutterPlugin : NSObject<FlutterPlugin>
+
+@interface SquareReaderSdkFlutterPlugin : NSObject <FlutterPlugin>
 @end

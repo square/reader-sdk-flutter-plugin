@@ -17,12 +17,13 @@ limitations under the License.
 #import <Flutter/Flutter.h>
 @import SquareReaderSDK;
 
+
 @interface FlutterReaderSDKAuthorization : NSObject
 
-- (void) isAuthorized:(FlutterResult)result;
-- (void) authorizedLocation:(FlutterResult)result;
-- (void) authorize:(FlutterResult)result authCode:(NSString*)authCode;
-- (void) canDeauthorize:(FlutterResult)result;
-- (void) deauthorize:(FlutterResult)result;
+- (void)isAuthorized:(FlutterResult)result;
+- (void)authorizedLocation:(FlutterResult)result;
+- (void)authorize:(FlutterResult)result authCode:(NSString *)authCode;
+- (void)canDeauthorize:(FlutterResult)result;
+- (void)deauthorize:(FlutterResult)result;
 
 @end

@@ -19,6 +19,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <AVFoundation/AVFoundation.h>
 
+
 @interface FlutterReaderSDKReaderSettings ()
 
 @property (strong, readwrite) FlutterResult readerSettingResolver;
@@ -38,9 +39,11 @@ static NSString *const FlutterReaderSDKReaderSettingsAlreadyInProgress = @"rn_re
 // react native module debug messages
 static NSString *const FlutterReaderSDKMessageReaderSettingsAlreadyInProgress = @"A reader settings operation is already in progress. Ensure that the in-progress reader settings is completed before calling startReaderSettingsAsync again.";
 
+
 @implementation FlutterReaderSDKReaderSettings
 
-- (void) startReaderSettings:(FlutterResult)result {
+- (void)startReaderSettings:(FlutterResult)result
+{
     if (self.readerSettingResolver != nil) {
         result([FlutterError errorWithCode:FlutterReaderSDKUsageError
                                    message:[FlutterReaderSDKErrorUtilities getNativeModuleErrorMessage:FlutterReaderSDKReaderSettingsAlreadyInProgress]

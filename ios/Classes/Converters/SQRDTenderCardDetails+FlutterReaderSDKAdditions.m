@@ -30,11 +30,10 @@ limitations under the License.
     return jsTransactionResult;
 }
 
-- (NSString*) getTenderCardDetailsEntryMethodString:(SQRDTenderCardDetailsEntryMethod)method
+- (NSString *)getTenderCardDetailsEntryMethodString:(SQRDTenderCardDetailsEntryMethod)method
 {
-    NSString* result = nil;
-    switch(method)
-    {
+    NSString *result = nil;
+    switch (method) {
         case SQRDTenderCardDetailsEntryMethodManuallyEntered:
             result = @"MANUALLY_ENTERED";
             break;

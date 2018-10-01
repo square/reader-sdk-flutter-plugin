@@ -47,7 +47,6 @@ android {
     }
 }
 
-def DEFAULT_PLAY_SERVICES_BASE_VERSION = '12.0.1'
 dependencies {
     def readerSdkMinVersion = '1.0.4'
     api "com.squareup.sdk.reader:reader-sdk-$SQUARE_READER_SDK_APPLICATION_ID:$readerSdkMinVersion"

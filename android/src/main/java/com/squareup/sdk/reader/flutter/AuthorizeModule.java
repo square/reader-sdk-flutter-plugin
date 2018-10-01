@@ -12,7 +12,7 @@ import com.squareup.sdk.reader.core.CallbackReference;
 import com.squareup.sdk.reader.core.ResultError;
 import io.flutter.plugin.common.MethodChannel.Result;
 
-public final class AuthorizeModule implements IReaderSdkModule {
+final class AuthorizeModule {
   // Define all the authorization error debug codes and messages below
   // These error codes and messages **MUST** align with iOS error codes and javascript error codes
   // Search KEEP_IN_SYNC_AUTHORIZE_ERROR to update all places
@@ -94,7 +94,7 @@ public final class AuthorizeModule implements IReaderSdkModule {
           ErrorHandlerUtils.getDebugErrorObject(FL_DEAUTHORIZE_ALREADY_IN_PROGRESS, FL_MESSAGE_DEAUTHORIZE_ALREADY_IN_PROGRESS));
       return;
     }
-    DeauthorizeCallback deauthCallback = new DeauthorizeCallback() {
+    DeauthorizeCallback deauthorizeCallback = new DeauthorizeCallback() {
       @Override
       public void onResult(com.squareup.sdk.reader.core.Result<Void, ResultError<DeauthorizeErrorCode>> result) {
         deauthorizeCallbackRef.clear();
@@ -105,11 +105,10 @@ public final class AuthorizeModule implements IReaderSdkModule {
               ErrorHandlerUtils.getErrorCode(error.getCode()),
               error.getMessage(),
               ErrorHandlerUtils.getDebugErrorObject(error.getDebugCode(), error.getDebugMessage()));
-          return;
         }
       }
     };
-    deauthorizeCallbackRef = ReaderSdk.authorizationManager().addDeauthorizeCallback(deauthCallback);
+    deauthorizeCallbackRef = ReaderSdk.authorizationManager().addDeauthorizeCallback(deauthorizeCallback);
     ReaderSdk.authorizationManager().deauthorize();
     flutterResult.success(null);
   }

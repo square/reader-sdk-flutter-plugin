@@ -17,8 +17,9 @@ limitations under the License.
 #import <Flutter/Flutter.h>
 @import SquareReaderSDK;
 
+
 @interface FlutterReaderSDKReaderSettings : NSObject <SQRDReaderSettingsControllerDelegate>
 
-- (void) startReaderSettings:(FlutterResult)result;
+- (void)startReaderSettings:(FlutterResult)result;
 
 @end

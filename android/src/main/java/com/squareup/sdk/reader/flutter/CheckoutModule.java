@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public final class CheckoutModule implements IReaderSdkModule {
+final class CheckoutModule {
   // Define all the checkout debug codes and messages below
   // These error codes and messages **MUST** align with iOS error codes and javascript error codes
   // Search KEEP_IN_SYNC_CHECKOUT_ERROR to update all places

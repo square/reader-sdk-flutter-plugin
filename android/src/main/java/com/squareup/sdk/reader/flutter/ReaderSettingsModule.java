@@ -9,7 +9,7 @@ import com.squareup.sdk.reader.hardware.ReaderSettingsActivityCallback;
 import com.squareup.sdk.reader.hardware.ReaderSettingsErrorCode;
 import io.flutter.plugin.common.MethodChannel.Result;
 
-public final class ReaderSettingsModule implements IReaderSdkModule {
+final class ReaderSettingsModule {
   // Define all the reader settings debug codes and messages below
   // These error codes and messages **MUST** align with iOS error codes and javascript error codes
   // Search KEEP_IN_SYNC_READER_SETTINGS_ERROR to update all places

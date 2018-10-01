@@ -17,8 +17,9 @@ limitations under the License.
 #import <Flutter/Flutter.h>
 @import SquareReaderSDK;
 
+
 @interface FlutterReaderSDKCheckout : NSObject <SQRDCheckoutControllerDelegate>
 
-- (void) startCheckout:(FlutterResult)result checkoutParametersDictionary:(NSDictionary*)checkoutParametersDictionary;
+- (void)startCheckout:(FlutterResult)result checkoutParametersDictionary:(NSDictionary *)checkoutParametersDictionary;
 
 @end
