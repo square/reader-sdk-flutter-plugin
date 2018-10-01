@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
-class ReaderSdkFlutterPlugin {
+class SquareReaderSdkPlugin {
   // error codes are defined below, both iOS and Android *MUST* return same error for these errors:
   // Usage error
   static const UsageError = 'USAGE_ERROR';
@@ -16,7 +16,7 @@ class ReaderSdkFlutterPlugin {
   static const ReaderSettingsErrorSdkNotAuthorized = 'READER_SETTINGS_SDK_NOT_AUTHORIZED';
 
   static const MethodChannel _channel =
-      const MethodChannel('reader_sdk_flutter_plugin');
+      const MethodChannel('square_reader_sdk_flutter_plugin');
 
   static Future<String> get platformVersion async {
     try {

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:reader_sdk_flutter_plugin/reader_sdk_flutter_plugin.dart';
+import 'package:square_reader_sdk_flutter_plugin/square_reader_sdk_flutter_plugin.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'widgets/permission_button.dart';
+import 'package:path/path.dart' as path;
 
 void main() => runApp(new MyApp());
 
@@ -35,7 +36,7 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch ReaderSdkException.
     try {
-      platformVersion = await ReaderSdkFlutterPlugin.platformVersion;
+      platformVersion = await SquareReaderSdkPlugin.platformVersion;
     } on ReaderSdkException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -53,7 +54,7 @@ class _MyAppState extends State<MyApp> {
   Future initAuthorizeState() async {
     bool isAuthorized;
     try {
-      isAuthorized = await ReaderSdkFlutterPlugin.isAuthorized;
+      isAuthorized = await SquareReaderSdkPlugin.isAuthorized;
     } on ReaderSdkException catch(e) {
       print(e.toString());
       isAuthorized = false;
@@ -97,7 +98,7 @@ class _MyAppState extends State<MyApp> {
   onAuthorize() async {
     try {
       String authCode = _authCodeInputController.text;
-      await ReaderSdkFlutterPlugin.authorize(authCode);
+      await SquareReaderSdkPlugin.authorize(authCode);
       _authCodeInputController.clear();
       setState(() {
         _isAuthorized = true;
@@ -109,7 +110,7 @@ class _MyAppState extends State<MyApp> {
   
   onDeauthorize() async {
     try {
-      await ReaderSdkFlutterPlugin.deauthorize();
+      await SquareReaderSdkPlugin.deauthorize();
       setState(() {
         _isAuthorized = false;
       });
@@ -137,7 +138,7 @@ class _MyAppState extends State<MyApp> {
       'additionalPaymentTypes': ['cash', 'manual_card_entry', 'other'],
     };
     try {
-      await ReaderSdkFlutterPlugin.startCheckout(checkoutParams);
+      await SquareReaderSdkPlugin.startCheckout(checkoutParams);
     } on ReaderSdkException catch (e) {
       print(e.toString());
     }
@@ -145,7 +146,7 @@ class _MyAppState extends State<MyApp> {
 
   onReaderSettings() async {
     try {
-      await ReaderSdkFlutterPlugin.startReaderSettings();
+      await SquareReaderSdkPlugin.startReaderSettings();
     } on ReaderSdkException catch (e) {
       print(e.toString());
     }
@@ -167,6 +168,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: <Widget>[
+            Text(path.join('directory', 'testpath')),
             Text('Running on: $_platformVersion'),
             PermissionButton(
               permissionName: 'microphone',

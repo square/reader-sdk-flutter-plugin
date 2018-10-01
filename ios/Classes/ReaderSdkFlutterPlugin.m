@@ -14,7 +14,7 @@
 @implementation ReaderSdkFlutterPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel
-      methodChannelWithName:@"reader_sdk_flutter_plugin"
+      methodChannelWithName:@"square_reader_sdk_flutter_plugin"
             binaryMessenger:[registrar messenger]];
   ReaderSdkFlutterPlugin* instance = [[ReaderSdkFlutterPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
