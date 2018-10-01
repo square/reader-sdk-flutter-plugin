@@ -1,7 +1,7 @@
 name: square_reader_sdk_flutter_plugin
-description: A new flutter plugin project.
+description: A new flutter plugin for Square Reader SDK.
 version: 0.0.1
-author:
+author: Square, Inc.
 homepage:
 
 environment:
