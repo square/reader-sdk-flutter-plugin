@@ -1,4 +1,4 @@
-# reader_sdk_flutter_plugin
+# square_reader_sdk_flutter_plugin
 
 A new flutter plugin project.
 

@@ -1,7 +1,7 @@
-name: reader_sdk_flutter_plugin
-description: A new flutter plugin project.
+name: square_reader_sdk_flutter_plugin
+description: A new flutter plugin for Square Reader SDK.
 version: 0.0.1
-author:
+author: Square, Inc.
 homepage:
 
 environment:
@@ -17,8 +17,8 @@ dependencies:
 # The following section is specific to Flutter.
 flutter:
   plugin:
-    androidPackage: com.square.readersdkflutterplugin
-    pluginClass: ReaderSdkFlutterPlugin
+    androidPackage: com.squareup.sdk.reader.flutter
+    pluginClass: SquareReaderSdkFlutterPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

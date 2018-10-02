@@ -2,7 +2,7 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 Pod::Spec.new do |s|
-  s.name             = 'reader_sdk_flutter_plugin'
+  s.name             = 'square_reader_sdk_flutter_plugin'
   s.version          = '0.0.1'
   s.summary          = 'A new flutter plugin project.'
   s.description      = <<-DESC
@@ -15,7 +15,9 @@ A new flutter plugin project.
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
+  s.frameworks       = 'SquareReaderSDK'
+  s.xcconfig         = { 'FRAMEWORK_SEARCH_PATHS' => '$(PROJECT_DIR)/../' }
   
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '11.1'
 end
 
