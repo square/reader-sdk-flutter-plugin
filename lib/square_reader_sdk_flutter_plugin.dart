@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'location.dart';
+import 'checkout_result.dart';
 
 class SquareReaderSdkPlugin {
   // error codes are defined below, both iOS and Android *MUST* return same error for these errors:
@@ -36,22 +38,22 @@ class SquareReaderSdkPlugin {
     }
   }
 
-  static Future<Map<String, dynamic>> get authorizedLocation async {
+  static Future<Location> get authorizedLocation async {
     try {
-      final Map<dynamic, dynamic> location = await _channel.invokeMethod('authorizedLocation');
-      return location.cast<String, dynamic>();
+      final Map<dynamic, dynamic> locationNativeObject = await _channel.invokeMethod('authorizedLocation');
+      return Location.castToLocation(locationNativeObject);
     } on PlatformException catch (ex) {
       throw ReaderSdkException(ex.code, ex.message, ex.details['debugCode'], ex.details['debugMessage']);
     }
   }
 
-  static Future<Map<String, dynamic>> authorize(String authCode) async {
+  static Future<Location> authorize(String authCode) async {
     try {
       final Map<String, dynamic> params = <String, dynamic> {
         'authCode': authCode,
       };
-      final Map<dynamic, dynamic> location = await _channel.invokeMethod('authorize', params);
-      return location.cast<String, dynamic>();
+      final Map<dynamic, dynamic> locationNativeObject = await _channel.invokeMethod('authorize', params);
+      return Location.castToLocation(locationNativeObject);
     } on PlatformException catch (ex) {
       throw ReaderSdkException(ex.code, ex.message, ex.details['debugCode'], ex.details['debugMessage']);
     }
@@ -74,13 +76,13 @@ class SquareReaderSdkPlugin {
     }
   }
 
-  static Future<Map<String, dynamic>> startCheckout(Map<String, dynamic> checkoutParams) async {
+  static Future<CheckoutResult> startCheckout(Map<String, dynamic> checkoutParams) async {
     try {
       final Map<String, dynamic> params = <String, dynamic> {
         'checkoutParams': checkoutParams,
       };
-      final Map<dynamic, dynamic> checkoutResult = await _channel.invokeMethod('startCheckout', params);
-      return checkoutResult.cast<String, dynamic>();
+      final Map<dynamic, dynamic> checkoutResultNativeObject = await _channel.invokeMethod('startCheckout', params);
+      return CheckoutResult.castToCheckoutResult(checkoutResultNativeObject);
     } on PlatformException catch (ex) {
       throw ReaderSdkException(ex.code, ex.message, ex.details['debugCode'], ex.details['debugMessage']);
     }
@@ -97,13 +99,6 @@ class SquareReaderSdkPlugin {
 
 class ReaderSdkException implements Exception {
 
-  ReaderSdkException(
-    this.code,
-    this.message,
-    this.debugCode,
-    this.debugMessage,
-  ) : assert(code != null), assert(debugCode != null);
-
   final String code;
 
   final String message;
@@ -111,6 +106,13 @@ class ReaderSdkException implements Exception {
   final String debugCode;
 
   final String debugMessage;
+
+  ReaderSdkException(
+    this.code,
+    this.message,
+    this.debugCode,
+    this.debugMessage,
+  ) : assert(code != null), assert(debugCode != null);
 
   @override
   String toString() => 'PlatformException($code, $message, $debugCode, $debugMessage)';
