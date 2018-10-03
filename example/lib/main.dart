@@ -4,6 +4,9 @@ import 'dart:async';
 import 'package:square_reader_sdk_flutter_plugin/square_reader_sdk_flutter_plugin.dart';
 import 'package:square_reader_sdk_flutter_plugin/location.dart';
 import 'package:square_reader_sdk_flutter_plugin/checkout_result.dart';
+import 'package:square_reader_sdk_flutter_plugin/money.dart';
+import 'package:square_reader_sdk_flutter_plugin/checkout_parameters.dart';
+import 'package:square_reader_sdk_flutter_plugin/tip_settings.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'widgets/permission_button.dart';
@@ -135,25 +138,24 @@ class _MyAppState extends State<MyApp> {
   }
 
   onCheckout() async {
-    var checkoutParams = {
-      'amountMoney': {
-        'amount': 100,
-        'currencyCode': 'USD', // optional, use authorized location's currency code by default
-      },
-      // Optional for all following configuration
-      'skipReceipt': false,
-      'alwaysRequireSignature': true,
-      'allowSplitTender': false,
-      'note': 'Hello 💳 💰 World!',
-      'tipSettings': {
-        'showCustomTipField': true,
-        'showSeparateTipScreen': false,
-        'tipPercentages': [15, 20, 30],
-      },
-      'additionalPaymentTypes': ['cash', 'manual_card_entry', 'other'],
-    };
+    CheckoutParameters checkoutParameters = CheckoutParameters(
+      Money(
+        100,
+        'USD', // optional, use authorized location's currency code by default
+        ));
+    // Optional for all following configuration
+    checkoutParameters.skipReceipt = false;
+    checkoutParameters.alwaysRequireSignature = true;
+    checkoutParameters.allowSplitTender = false;
+    checkoutParameters.note = 'Hello 💳 💰 World!';
+    checkoutParameters.additionalPaymentTypes = ['cash', 'manual_card_entry', 'other'];
+    checkoutParameters.tipSettings = TipSettings();
+    checkoutParameters.tipSettings.showCustomTipField = true;
+    checkoutParameters.tipSettings.showSeparateTipScreen = false;
+    checkoutParameters.tipSettings.tipPercentages = [15, 20, 30];
+
     try {
-      CheckoutResult checkoutResult = await SquareReaderSdkPlugin.startCheckout(checkoutParams);
+      CheckoutResult checkoutResult = await SquareReaderSdkPlugin.startCheckout(checkoutParameters);
       print('${checkoutResult.totalMoney.amount} Transaction finished successfully: ${checkoutResult.transactionClientId}');
     } on ReaderSdkException catch (e) {
       print(e.toString());

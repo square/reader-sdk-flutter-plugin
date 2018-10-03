@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'location.dart';
 import 'checkout_result.dart';
+import 'checkout_parameters.dart';
 
 class SquareReaderSdkPlugin {
   // error codes are defined below, both iOS and Android *MUST* return same error for these errors:
@@ -76,10 +77,10 @@ class SquareReaderSdkPlugin {
     }
   }
 
-  static Future<CheckoutResult> startCheckout(Map<String, dynamic> checkoutParams) async {
+  static Future<CheckoutResult> startCheckout(CheckoutParameters checkoutParams) async {
     try {
       final Map<String, dynamic> params = <String, dynamic> {
-        'checkoutParams': checkoutParams,
+        'checkoutParams': checkoutParams.toMap(),
       };
       final Map<dynamic, dynamic> checkoutResultNativeObject = await _channel.invokeMethod('startCheckout', params);
       return CheckoutResult.castToCheckoutResult(checkoutResultNativeObject);

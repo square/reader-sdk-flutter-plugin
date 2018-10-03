@@ -5,7 +5,7 @@ class Money {
 
   Money(
     this.amount,
-    this.currencyCode
+    [this.currencyCode,]
   );
 
   static Money castToMoney(Map<dynamic, dynamic> moneyNativeObject) {
@@ -13,5 +13,14 @@ class Money {
       moneyNativeObject['amount'],
       moneyNativeObject['currencyCode'],
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> moneyMap = Map();
+    moneyMap['amount'] = this.amount;
+    if(this.currencyCode != null) {
+      moneyMap['currencyCode'] = this.currencyCode;
+    }
+    return moneyMap;
   }
 }

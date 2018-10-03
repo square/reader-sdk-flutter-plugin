@@ -141,14 +141,16 @@ final class CheckoutModule {
       return false;
     }
     if (amountMoneyMap.containsKey("currencyCode") && !(amountMoneyMap.get("currencyCode") instanceof String)) {
-      paramError.append("'amount' is not an integer");
+      paramError.append("'currencyCode' is not an String");
       return false;
     }
-    try {
-      CurrencyCode.valueOf((String)amountMoneyMap.get("currencyCode"));
-    } catch (IllegalArgumentException ex) {
-      paramError.append("failed to parse 'currencyCode'");
-      return false;
+    if (amountMoneyMap.containsKey("currencyCode")) {
+      try {
+        CurrencyCode.valueOf((String) amountMoneyMap.get("currencyCode"));
+      } catch (IllegalArgumentException ex) {
+        paramError.append("failed to parse 'currencyCode'");
+        return false;
+      }
     }
 
     // check tipSettings
