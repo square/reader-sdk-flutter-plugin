@@ -141,7 +141,7 @@ final class CheckoutModule {
       return false;
     }
     if (amountMoneyMap.containsKey("currencyCode") && !(amountMoneyMap.get("currencyCode") instanceof String)) {
-      paramError.append("'currencyCode' is not an String");
+      paramError.append("'currencyCode' is not a String");
       return false;
     }
     if (amountMoneyMap.containsKey("currencyCode")) {
