@@ -5,10 +5,12 @@ class TipSettings {
   List<int> tipPercentages = [15, 20, 25];
 
   Map<String, dynamic> toMap() {
-    return {
-      'showCustomTipField': showCustomTipField,
-      'showSeparateTipScreen': this.showSeparateTipScreen,
-      'tipPercentages': tipPercentages,
-    };
+    Map<String, dynamic> tipSettingsMap = Map<String, dynamic>();
+    tipSettingsMap['showCustomTipField'] = this.showCustomTipField;
+    tipSettingsMap['showSeparateTipScreen'] = this.showSeparateTipScreen;
+    if (this.tipPercentages != null) {
+      tipSettingsMap['tipPercentages'] = this.tipPercentages;
+    }
+    return tipSettingsMap;
   }
 }

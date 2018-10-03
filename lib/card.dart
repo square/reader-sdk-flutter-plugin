@@ -6,7 +6,6 @@ class Card {
   Card(
     this.brand,
     this.lastFourDigits,
-
   );
 
   static Card castToCard(Map<dynamic, dynamic> cardNativeObject) {

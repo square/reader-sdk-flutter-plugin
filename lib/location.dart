@@ -17,7 +17,7 @@ class Location {
     this.locationId,
     this.isCardProcessingActivated,
     this.maximumCardPaymentAmountMoney,
-    this.minimumCardPaymentAmountMoney
+    this.minimumCardPaymentAmountMoney,
   );
 
   static Location castToLocation(Map<dynamic, dynamic> locationNativeObject) {

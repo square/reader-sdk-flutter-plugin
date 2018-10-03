@@ -3,24 +3,6 @@ import 'tip_settings.dart';
 
 class CheckoutParameters {
 
-    // var checkoutParams = {
-    //   'amountMoney': {
-    //     'amount': 100,
-    //     'currencyCode': 'USD', // optional, use authorized location's currency code by default
-    //   },
-    //   // Optional for all following configuration
-    //   'skipReceipt': false,
-    //   'alwaysRequireSignature': true,
-    //   'allowSplitTender': false,
-    //   'note': 'Hello 💳 💰 World!',
-    //   'tipSettings': {
-    //     'showCustomTipField': true,
-    //     'showSeparateTipScreen': false,
-    //     'tipPercentages': [15, 20, 30],
-    //   },
-    //   'additionalPaymentTypes': ['cash', 'manual_card_entry', 'other'],
-    // };
-
   final Money amountMoney;
   bool skipReceipt = false;
   bool alwaysRequireSignature = true;
