@@ -197,7 +197,7 @@ installing Reader SDK for iOS, see the [Reader SDK iOS Setup Guide] at
     @end
     ```
 
-You will also need to add code to your React Native project to request device and
+You will also need to add code to your Flutter project to request device location and
 microphone permissions. 
 
 ### Step 6: Using SDK from your app
