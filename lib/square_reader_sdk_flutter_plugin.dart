@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'models.dart';
+import 'serializers.dart';
+import 'package:built_value/standard_json_plugin.dart';
 
 class SquareReaderSdkPlugin {
   // error codes are defined below, both iOS and Android *MUST* return same error for these errors:
@@ -15,43 +18,36 @@ class SquareReaderSdkPlugin {
   // Search KEEP_IN_SYNC_READER_SETTINGS_ERROR to update all places
   static const ReaderSettingsErrorSdkNotAuthorized = 'READER_SETTINGS_SDK_NOT_AUTHORIZED';
 
+  static final _standardSerializers = (serializers.toBuilder()..addPlugin(new StandardJsonPlugin())).build();
+
   static const MethodChannel _channel =
       const MethodChannel('square_reader_sdk_flutter_plugin');
 
-  static Future<String> get platformVersion async {
-    try {
-      final String version = await _channel.invokeMethod('getPlatformVersion');
-      return version;
-    } on PlatformException catch (ex) {
-      throw ReaderSdkException(ex.code, ex.message, ex.details['debugCode'], ex.details['debugMessage']);
-    }
-  }
-
   static Future<bool> get isAuthorized async {
     try {
-      final bool isAuthorized = await _channel.invokeMethod('isAuthorized');
+      bool isAuthorized = await _channel.invokeMethod('isAuthorized');
       return isAuthorized;
     } on PlatformException catch (ex) {
       throw ReaderSdkException(ex.code, ex.message, ex.details['debugCode'], ex.details['debugMessage']);
     }
   }
 
-  static Future<Map<String, dynamic>> get authorizedLocation async {
+  static Future<Location> get authorizedLocation async {
     try {
-      final Map<dynamic, dynamic> location = await _channel.invokeMethod('authorizedLocation');
-      return location.cast<String, dynamic>();
+      Map locationNativeObject = await _channel.invokeMethod('authorizedLocation');
+      return _standardSerializers.deserializeWith(Location.serializer, locationNativeObject);
     } on PlatformException catch (ex) {
       throw ReaderSdkException(ex.code, ex.message, ex.details['debugCode'], ex.details['debugMessage']);
     }
   }
 
-  static Future<Map<String, dynamic>> authorize(String authCode) async {
+  static Future<Location> authorize(String authCode) async {
     try {
-      final Map<String, dynamic> params = <String, dynamic> {
+      Map<String, dynamic> params = <String, dynamic> {
         'authCode': authCode,
       };
-      final Map<dynamic, dynamic> location = await _channel.invokeMethod('authorize', params);
-      return location.cast<String, dynamic>();
+      Map locationNativeObject = await _channel.invokeMethod('authorize', params);
+      return _standardSerializers.deserializeWith(Location.serializer, locationNativeObject);
     } on PlatformException catch (ex) {
       throw ReaderSdkException(ex.code, ex.message, ex.details['debugCode'], ex.details['debugMessage']);
     }
@@ -59,7 +55,7 @@ class SquareReaderSdkPlugin {
 
   static Future<bool> get canDeauthorize async {
     try {
-      final bool canDeauthorize = await _channel.invokeMethod('canDeauthorize');
+      bool canDeauthorize = await _channel.invokeMethod('canDeauthorize');
       return canDeauthorize;
     } on PlatformException catch (ex) {
       throw ReaderSdkException(ex.code, ex.message, ex.details['debugCode'], ex.details['debugMessage']);
@@ -74,13 +70,13 @@ class SquareReaderSdkPlugin {
     }
   }
 
-  static Future<Map<String, dynamic>> startCheckout(Map<String, dynamic> checkoutParams) async {
+  static Future<CheckoutResult> startCheckout(CheckoutParameters checkoutParams) async {
     try {
-      final Map<String, dynamic> params = <String, dynamic> {
-        'checkoutParams': checkoutParams,
+      Map<String, dynamic> params = <String, dynamic> {
+        'checkoutParams': _standardSerializers.serializeWith(CheckoutParameters.serializer, checkoutParams),
       };
-      final Map<dynamic, dynamic> checkoutResult = await _channel.invokeMethod('startCheckout', params);
-      return checkoutResult.cast<String, dynamic>();
+      Map checkoutResultNativeObject = await _channel.invokeMethod('startCheckout', params);
+      return _standardSerializers.deserializeWith(CheckoutResult.serializer, checkoutResultNativeObject);
     } on PlatformException catch (ex) {
       throw ReaderSdkException(ex.code, ex.message, ex.details['debugCode'], ex.details['debugMessage']);
     }
@@ -97,13 +93,6 @@ class SquareReaderSdkPlugin {
 
 class ReaderSdkException implements Exception {
 
-  ReaderSdkException(
-    this.code,
-    this.message,
-    this.debugCode,
-    this.debugMessage,
-  ) : assert(code != null), assert(debugCode != null);
-
   final String code;
 
   final String message;
@@ -111,6 +100,13 @@ class ReaderSdkException implements Exception {
   final String debugCode;
 
   final String debugMessage;
+
+  ReaderSdkException(
+    this.code,
+    this.message,
+    this.debugCode,
+    this.debugMessage,
+  ) : assert(code != null), assert(debugCode != null);
 
   @override
   String toString() => 'PlatformException($code, $message, $debugCode, $debugMessage)';

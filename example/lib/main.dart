@@ -1,11 +1,12 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:square_reader_sdk_flutter_plugin/square_reader_sdk_flutter_plugin.dart';
+import 'package:square_reader_sdk_flutter_plugin/models.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'widgets/permission_button.dart';
-import 'package:path/path.dart' as path;
 
 void main() => runApp(new MyApp());
 
@@ -16,7 +17,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
-  bool _isAuthorized = true;
+  bool _isAuthorized = false;
+  Location _authorizedLocation;
   Map<PermissionGroup, PermissionStatus> _permissionStates = {
     PermissionGroup.microphone: PermissionStatus.unknown,
     PermissionGroup.location: PermissionStatus.unknown,
@@ -27,28 +29,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initPermissionState();
-    initPlatformState();
     initAuthorizeState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch ReaderSdkException.
-    try {
-      platformVersion = await SquareReaderSdkPlugin.platformVersion;
-    } on ReaderSdkException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
   }
 
   Future initAuthorizeState() async {
@@ -62,9 +43,21 @@ class _MyAppState extends State<MyApp> {
 
     if (!mounted) return;
 
+    if (isAuthorized) {
+      try {
+        Location authLocation = await SquareReaderSdkPlugin.authorizedLocation;
+          setState(() {
+            _authorizedLocation = authLocation;
+          });
+      } on ReaderSdkException catch(e) {
+        print(e.toString());
+      }
+    }
+
     setState(() {
       _isAuthorized = isAuthorized;
     });
+
   }
 
   initPermissionState() {
@@ -98,10 +91,11 @@ class _MyAppState extends State<MyApp> {
   onAuthorize() async {
     try {
       String authCode = _authCodeInputController.text;
-      await SquareReaderSdkPlugin.authorize(authCode);
+      Location authLocation = await SquareReaderSdkPlugin.authorize(authCode);
       _authCodeInputController.clear();
       setState(() {
         _isAuthorized = true;
+        _authorizedLocation = authLocation;
       });
     } on ReaderSdkException catch (e) {
       print(e.toString());
@@ -120,25 +114,26 @@ class _MyAppState extends State<MyApp> {
   }
 
   onCheckout() async {
-    var checkoutParams = {
-      'amountMoney': {
-        'amount': 100,
-        'currencyCode': 'USD', // optional, use authorized location's currency code by default
-      },
-      // Optional for all following configuration
-      'skipReceipt': false,
-      'alwaysRequireSignature': true,
-      'allowSplitTender': false,
-      'note': 'Hello 💳 💰 World!',
-      'tipSettings': {
-        'showCustomTipField': true,
-        'showSeparateTipScreen': false,
-        'tipPercentages': [15, 20, 30],
-      },
-      'additionalPaymentTypes': ['cash', 'manual_card_entry', 'other'],
-    };
+    var builder = CheckoutParametersBuilder();
+    builder.amountMoney = MoneyBuilder()
+      ..amount=100
+      ..currencyCode = 'USD'; // currencyCode is optional
+    // Optional for all following configuration
+    builder.skipReceipt = false;
+    builder.alwaysRequireSignature = true;
+    builder.allowSplitTender = false;
+    builder.note = 'Hello 💳 💰 World!';
+    builder.additionalPaymentTypes = ListBuilder(['cash', 'manual_card_entry', 'other']);
+    builder.tipSettings = TipSettingsBuilder()
+      ..showCustomTipField = true
+      ..showSeparateTipScreen = false
+      ..tipPercentages = ListBuilder([15, 20, 30]);
+
+    CheckoutParameters checkoutParameters = builder.build();
+
     try {
-      await SquareReaderSdkPlugin.startCheckout(checkoutParams);
+      CheckoutResult checkoutResult = await SquareReaderSdkPlugin.startCheckout(checkoutParameters);
+      print('${checkoutResult.totalMoney.amount} Transaction finished successfully: ${checkoutResult.transactionClientId}');
     } on ReaderSdkException catch (e) {
       print(e.toString());
     }
@@ -168,8 +163,6 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: <Widget>[
-            Text(path.join('directory', 'testpath')),
-            Text('Running on: $_platformVersion'),
             PermissionButton(
               permissionName: 'microphone',
               onPressed: this._permissionStates[PermissionGroup.microphone] == PermissionStatus.granted ? null : () { onRequestPermission(PermissionGroup.microphone ); },
@@ -188,7 +181,7 @@ class _MyAppState extends State<MyApp> {
               ),
               textAlign: TextAlign.center,
               decoration: InputDecoration(
-                hintText: !_isAuthorized ? 'Please enter your auth code' : 'You have authorized',
+                hintText: !_isAuthorized ? 'Please enter your auth code' : 'Location: ${_authorizedLocation.name}',
               ),
               controller: _authCodeInputController,
             ),
