@@ -100,18 +100,15 @@ installing Reader SDK for Android, see the [Reader SDK Android Setup Guide] at
     ```
     import com.squareup.sdk.reader.ReaderSdk;
 
-    public class ExampleApplication extends Application {
-
-      @Override public void onCreate() {
-        super.onCreate();
-        ReaderSdk.initialize(this);
-      }
-
-      @Override protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        // Required if minSdkVersion < 21
-        MultiDex.install(this);
-      }
+    public class MainActivity extends FlutterActivity {
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            GeneratedPluginRegistrant.registerWith(this);
+            ReaderSdk.initialize(this.getApplication());
+            // Required if minSdkVersion < 21
+            MultiDex.install(this.getApplicationContext());
+        }
     }
     ```
 
@@ -151,15 +148,13 @@ installing Reader SDK for iOS, see the [Reader SDK iOS Setup Guide] at
       FRAMEWORKS="${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}"
       "${FRAMEWORKS}/SquareReaderSDK.framework/setup"
       ```
-      **Note**: XCode 10+ uses a different build system that may cause compile
-      errors. See the [Troubleshooting guide](troubleshooting.md) if you run
-      into problems.
-1. Disable Bitcode:
-   1. Open the **Build Settings** tab for your application target.
-   1. In the top right search field, search for 'bitcode'.
-   1. Change the value of **Enable Bitcode** to **NO**.
+1. In Xcode, open the **General** tab for your app target and make sure the
+   **Deployment Target** is set to 11.0+.
 1. In Xcode, open the **General** tab for your app target and make sure the
    **Landscape Left** and **Landscape Right** device orientations are supported.
+1. In Xcode, open the **Build Settings** tab for your app target and add **$(PROJECT_DIR)**
+   to **Framework Search Paths**.
+1. If you are on Xcode 10+, set build system to `Legacy Build System`
 1. Update your Info.plist with the following key:value pairs in the **Info** tab
    for your application target to explain why your application requires these
    device permissions:
