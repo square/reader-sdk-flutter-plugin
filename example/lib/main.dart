@@ -1,12 +1,9 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:square_reader_sdk_flutter_plugin/square_reader_sdk_flutter_plugin.dart';
-import 'package:square_reader_sdk_flutter_plugin/location.dart';
-import 'package:square_reader_sdk_flutter_plugin/checkout_result.dart';
-import 'package:square_reader_sdk_flutter_plugin/money.dart';
-import 'package:square_reader_sdk_flutter_plugin/checkout_parameters.dart';
-import 'package:square_reader_sdk_flutter_plugin/tip_settings.dart';
+import 'package:square_reader_sdk_flutter_plugin/models.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'widgets/permission_button.dart';
@@ -32,28 +29,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initPermissionState();
-    initPlatformState();
     initAuthorizeState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch ReaderSdkException.
-    try {
-      platformVersion = await SquareReaderSdkPlugin.platformVersion;
-    } on ReaderSdkException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
   }
 
   Future initAuthorizeState() async {
@@ -138,21 +114,22 @@ class _MyAppState extends State<MyApp> {
   }
 
   onCheckout() async {
-    CheckoutParameters checkoutParameters = CheckoutParameters(
-      Money(
-        100,
-        'USD', // optional, use authorized location's currency code by default
-        ));
+    var builder = CheckoutParametersBuilder();
+    builder.amountMoney = MoneyBuilder()
+      ..amount=100
+      ..currencyCode = 'USD'; // currencyCode is optional
     // Optional for all following configuration
-    checkoutParameters.skipReceipt = false;
-    checkoutParameters.alwaysRequireSignature = true;
-    checkoutParameters.allowSplitTender = false;
-    checkoutParameters.note = 'Hello 💳 💰 World!';
-    checkoutParameters.additionalPaymentTypes = ['cash', 'manual_card_entry', 'other'];
-    checkoutParameters.tipSettings = TipSettings();
-    checkoutParameters.tipSettings.showCustomTipField = true;
-    checkoutParameters.tipSettings.showSeparateTipScreen = false;
-    checkoutParameters.tipSettings.tipPercentages = [15, 20, 30];
+    builder.skipReceipt = false;
+    builder.alwaysRequireSignature = true;
+    builder.allowSplitTender = false;
+    builder.note = 'Hello 💳 💰 World!';
+    builder.additionalPaymentTypes = ListBuilder(['cash', 'manual_card_entry', 'other']);
+    builder.tipSettings = TipSettingsBuilder()
+      ..showCustomTipField = true
+      ..showSeparateTipScreen = false
+      ..tipPercentages = ListBuilder([15, 20, 30]);
+
+    CheckoutParameters checkoutParameters = builder.build();
 
     try {
       CheckoutResult checkoutResult = await SquareReaderSdkPlugin.startCheckout(checkoutParameters);
@@ -186,7 +163,6 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: <Widget>[
-            Text('Running on: $_platformVersion'),
             PermissionButton(
               permissionName: 'microphone',
               onPressed: this._permissionStates[PermissionGroup.microphone] == PermissionStatus.granted ? null : () { onRequestPermission(PermissionGroup.microphone ); },
