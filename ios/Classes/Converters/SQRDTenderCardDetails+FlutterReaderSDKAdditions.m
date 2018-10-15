@@ -22,12 +22,12 @@ limitations under the License.
 
 - (NSMutableDictionary *)jsonDictionary
 {
-    NSMutableDictionary *jsTransactionResult = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *tenderCardDetailsResult = [[NSMutableDictionary alloc] init];
 
-    jsTransactionResult[@"entryMethod"] = [self getTenderCardDetailsEntryMethodString:self.entryMethod];
-    jsTransactionResult[@"card"] = [self.card jsonDictionary];
+    tenderCardDetailsResult[@"entryMethod"] = [self getTenderCardDetailsEntryMethodString:self.entryMethod];
+    tenderCardDetailsResult[@"card"] = [self.card jsonDictionary];
 
-    return jsTransactionResult;
+    return tenderCardDetailsResult;
 }
 
 - (NSString *)getTenderCardDetailsEntryMethodString:(SQRDTenderCardDetailsEntryMethod)method

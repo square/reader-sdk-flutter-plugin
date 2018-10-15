@@ -24,11 +24,11 @@ limitations under the License.
 
 - (NSMutableDictionary *)jsonDictionary
 {
-    NSMutableDictionary *jsTransactionResult = [[NSMutableDictionary alloc] init];
-    jsTransactionResult[@"brand"] = [self getBrandString:self.brand];
-    jsTransactionResult[@"lastFourDigits"] = self.lastFourDigits;
+    NSMutableDictionary *cardResult = [[NSMutableDictionary alloc] init];
+    cardResult[@"brand"] = [self getBrandString:self.brand];
+    cardResult[@"lastFourDigits"] = self.lastFourDigits;
 
-    return jsTransactionResult;
+    return cardResult;
 }
 
 - (NSString *)getBrandString:(SQRDCardBrand)brand
