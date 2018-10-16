@@ -27,16 +27,16 @@
 @end
 
 // Define all the error codes and messages below
-// These error codes and messages **MUST** align with iOS error codes and javascript error codes
+// These error codes and messages **MUST** align with android error codes and dart error codes
 // Search KEEP_IN_SYNC_READER_SETTINGS_ERROR to update all places
 
 // Expected errors:
 static NSString *const FlutterReaderSDKReaderSettingsSdkNotAuthorized = @"READER_SETTINGS_SDK_NOT_AUTHORIZED";
 
-// React native module debug error codes
-static NSString *const FlutterReaderSDKReaderSettingsAlreadyInProgress = @"rn_reader_settings_already_in_progress";
+// flutter plugin debug error codes
+static NSString *const FlutterReaderSDKReaderSettingsAlreadyInProgress = @"fl_reader_settings_already_in_progress";
 
-// react native module debug messages
+// flutter plugin debug messages
 static NSString *const FlutterReaderSDKMessageReaderSettingsAlreadyInProgress = @"A reader settings operation is already in progress. Ensure that the in-progress reader settings is completed before calling startReaderSettingsAsync again.";
 
 

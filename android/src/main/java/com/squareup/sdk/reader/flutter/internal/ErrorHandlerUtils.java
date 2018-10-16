@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class ErrorHandlerUtils {
     // Define all the error codes and messages below
-    // These error codes and messages **MUST** align with iOS error codes and javascript error codes
+    // These error codes and messages **MUST** align with iOS error codes and dart error codes
 
     // Usage error
     public static final String USAGE_ERROR = "USAGE_ERROR";

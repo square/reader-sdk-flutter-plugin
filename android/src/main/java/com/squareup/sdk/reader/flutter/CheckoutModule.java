@@ -37,14 +37,14 @@ import java.util.Set;
 
 final class CheckoutModule {
   // Define all the checkout debug codes and messages below
-  // These error codes and messages **MUST** align with iOS error codes and javascript error codes
+  // These error codes and messages **MUST** align with iOS error codes and dart error codes
   // Search KEEP_IN_SYNC_CHECKOUT_ERROR to update all places
 
-  // react native module debug error codes
+  // flutter plugin debug error codes
   private static final String FL_CHECKOUT_ALREADY_IN_PROGRESS = "fl_checkout_already_in_progress";
   private static final String FL_CHECKOUT_INVALID_PARAMETER = "fl_checkout_invalid_parameter";
 
-  // react native module debug messages
+  // flutter plugin debug messages
   private static final String FL_MESSAGE_CHECKOUT_ALREADY_IN_PROGRESS = "A checkout operation is already in progress. Ensure that the in-progress checkout is completed before calling startCheckoutAsync again.";
   private static final String FL_MESSAGE_CHECKOUT_INVALID_PARAMETER = "Invalid parameter found in checkout parameters.";
 

@@ -28,18 +28,18 @@
 @end
 
 // Define all the error codes and messages below
-// These error codes and messages **MUST** align with iOS error codes and javascript error codes
+// These error codes and messages **MUST** align with android error codes and dart error codes
 // Search KEEP_IN_SYNC_CHECKOUT_ERROR to update all places
 
 // Expected errors:
 static NSString *const FlutterReaderSDKCheckoutCancelled = @"CHECKOUT_CANCELED";
 static NSString *const FlutterReaderSDKCheckoutSdkNotAuthorized = @"CHECKOUT_SDK_NOT_AUTHORIZED";
 
-// React native module debug error codes
+// flutter plugin debug error codes
 static NSString *const FlutterReaderSDKCheckoutAlreadyInProgress = @"fl_checkout_already_in_progress";
 static NSString *const FlutterReaderSDKCheckoutInvalidParameter = @"fl_checkout_invalid_parameter";
 
-// react native module debug messages
+// flutter plugin debug messages
 static NSString *const FlutterReaderSDKMessageCheckoutAlreadyInProgress = @"A checkout operation is already in progress. Ensure that the in-progress checkout is completed before calling startCheckoutAsync again.";
 static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Invalid parameter found in checkout parameters.";
 

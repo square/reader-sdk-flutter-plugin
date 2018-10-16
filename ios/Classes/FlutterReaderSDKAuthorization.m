@@ -21,16 +21,16 @@
 #import <AVFoundation/AVFoundation.h>
 
 // Define all the error codes and messages below
-// These error codes and messages **MUST** align with iOS error codes and javascript error codes
+// These error codes and messages **MUST** align with android error codes and dart error codes
 // Search KEEP_IN_SYNC_AUTHORIZE_ERROR to update all places
 
 // Expected errors:
 static NSString *const FlutterReaderSDKAuthorizeNoNetwork = @"AUTHORIZE_NO_NETWORK";
 
-// React native module debug error codes
+// flutter plugin debug error codes
 static NSString *const FlutterReaderSDKAuthLocationNotAuthorized = @"fl_auth_location_not_authorized";
 
-// react native module debug messages
+// flutter plugin debug messages
 static NSString *const FlutterReaderSDKMessageAuthLocationNotAuthorized = @"This device must be authorized with a Square location in order to get that location. Obtain an authorization code for a Square location from the mobile/authorization-code endpoint and then call authorizeAsync.";
 
 

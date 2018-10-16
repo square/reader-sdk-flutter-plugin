@@ -29,16 +29,16 @@ import io.flutter.plugin.common.MethodChannel.Result;
 
 final class AuthorizeModule {
   // Define all the authorization error debug codes and messages below
-  // These error codes and messages **MUST** align with iOS error codes and javascript error codes
+  // These error codes and messages **MUST** align with iOS error codes and dart error codes
   // Search KEEP_IN_SYNC_AUTHORIZE_ERROR to update all places
 
-  // react native module debug error codes
+  // flutter plugin debug error codes
   private static final String FL_AUTH_LOCATION_NOT_AUTHORIZED = "fl_auth_location_not_authorized";
 
-  // react native module debug messages
+  // flutter plugin debug messages
   private static final String FL_MESSAGE_AUTH_LOCATION_NOT_AUTHORIZED = "This device must be authorized with a Square location in order to get that location. Obtain an authorization code for a Square location from the mobile/authorization-code endpoint and then call authorizeAsync.";
 
-  // Android only react native errors and messages
+  // Android only flutter plugin errors and messages
   private static final String FL_AUTHORIZE_ALREADY_IN_PROGRESS = "fl_authorize_already_in_progress";
   private static final String FL_DEAUTHORIZE_ALREADY_IN_PROGRESS = "fl_deauthorize_already_in_progress";
   private static final String FL_MESSAGE_AUTHORIZE_ALREADY_IN_PROGRESS = "Authorization is already in progress. Please wait for authorizeAsync to complete.";
@@ -129,7 +129,7 @@ final class AuthorizeModule {
   }
 
   public void onDestroy() {
-    // clear the callback to avoid memory leaks when react native module is destroyed
+    // clear the callback to avoid memory leaks when flutter plugin is destroyed
     if (authorizeCallbackRef != null) {
       authorizeCallbackRef.clear();
     }
