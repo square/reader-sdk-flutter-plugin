@@ -176,11 +176,8 @@ installing Reader SDK for iOS, see the [Reader SDK iOS Setup Guide] at
 1. Update the `application:didFinishLaunchingWithOptions:` method in your app
    delegate to initialize Reader SDK:
     ```
-    #import "AppDelegate.h"
-
-    #import <React/RCTBundleURLProvider.h>
-    #import <React/RCTRootView.h>
-
+    #include "AppDelegate.h"
+    #include "GeneratedPluginRegistrant.h"
     @import SquareReaderSDK;
 
     @implementation AppDelegate
@@ -258,7 +255,7 @@ Please check the **example** app come with the in the plugin project folder.
     * Android Gradle Plugin: 3.0.0 or greater
     * Google APIs Intel x86 Atom_64 System Image
 
-4. Launch Android emulator, run the React Native project from the `example` project folder:
+4. Launch Android emulator, run the flutter example project from the `example` project folder:
     ```bash
     cd /PATH/TO/LOCAL/example
     flutter run
