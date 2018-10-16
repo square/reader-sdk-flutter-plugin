@@ -21,10 +21,10 @@ limitations under the License.
 
 - (NSMutableDictionary *)jsonDictionary
 {
-    NSMutableDictionary *jsMoneyResult = [[NSMutableDictionary alloc] init];
-    jsMoneyResult[@"amount"] = @(self.amount);
-    jsMoneyResult[@"currencyCode"] = SQRDCurrencyCodeGetISOCurrencyCode(self.currencyCode);
-    return jsMoneyResult;
+    NSMutableDictionary *moneyResult = [[NSMutableDictionary alloc] init];
+    moneyResult[@"amount"] = @(self.amount);
+    moneyResult[@"currencyCode"] = SQRDCurrencyCodeGetISOCurrencyCode(self.currencyCode);
+    return moneyResult;
 }
 
 @end

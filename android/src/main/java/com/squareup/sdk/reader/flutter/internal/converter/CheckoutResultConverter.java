@@ -44,11 +44,11 @@ public class CheckoutResultConverter {
         Money totalTipMoney = result.getTotalTipMoney();
         mapToReturn.put("totalTipMoney", moneyConverter.toMapObject(totalTipMoney));
 
-        ArrayList<HashMap<String, Object>> jsTenders = new ArrayList<>();
+        ArrayList<HashMap<String, Object>> tenders = new ArrayList<>();
         for (Tender tender : result.getTenders()) {
-            jsTenders.add(tenderConverter.toMapObject(tender));
+            tenders.add(tenderConverter.toMapObject(tender));
         }
-        mapToReturn.put("tenders", jsTenders);
+        mapToReturn.put("tenders", tenders);
 
         return mapToReturn;
     }

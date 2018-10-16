@@ -25,28 +25,28 @@ limitations under the License.
 
 - (NSMutableDictionary *)jsonDictionary;
 {
-    NSMutableDictionary *jsTenderResult = [[NSMutableDictionary alloc] init];
-    jsTenderResult[@"createdAt"] = [FlutterReaderSDKDateFormatter iso8601StringFromDate:self.createdAt];
-    jsTenderResult[@"tipMoney"] = [self.tipMoney jsonDictionary];
-    jsTenderResult[@"totalMoney"] = [self.totalMoney jsonDictionary];
+    NSMutableDictionary *tenderResult = [[NSMutableDictionary alloc] init];
+    tenderResult[@"createdAt"] = [FlutterReaderSDKDateFormatter iso8601StringFromDate:self.createdAt];
+    tenderResult[@"tipMoney"] = [self.tipMoney jsonDictionary];
+    tenderResult[@"totalMoney"] = [self.totalMoney jsonDictionary];
 
-    NSString *jsTenderType = nil;
+    NSString *tenderType = nil;
     switch (self.type) {
         case SQRDTenderTypeCard:
-            jsTenderType = @"card";
-            jsTenderResult[@"tenderId"] = self.tenderID;
-            jsTenderResult[@"cardDetails"] = [self.cardDetails jsonDictionary];
+            tenderType = @"card";
+            tenderResult[@"tenderId"] = self.tenderID;
+            tenderResult[@"cardDetails"] = [self.cardDetails jsonDictionary];
             break;
         case SQRDTenderTypeCash:
-            jsTenderType = @"cash";
-            jsTenderResult[@"cashDetails"] = [self.cashDetails jsonDictionary];
+            tenderType = @"cash";
+            tenderResult[@"cashDetails"] = [self.cashDetails jsonDictionary];
             break;
         case SQRDTenderTypeOther:
-            jsTenderType = @"other";
+            tenderType = @"other";
             break;
     }
-    jsTenderResult[@"type"] = jsTenderType;
-    return jsTenderResult;
+    tenderResult[@"type"] = tenderType;
+    return tenderResult;
 }
 
 @end

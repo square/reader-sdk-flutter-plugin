@@ -22,15 +22,15 @@ limitations under the License.
 
 - (NSMutableDictionary *)jsonDictionary
 {
-    NSMutableDictionary *jsLocationResult = [[NSMutableDictionary alloc] init];
-    jsLocationResult[@"locationId"] = self.locationID;
-    jsLocationResult[@"name"] = self.name;
-    jsLocationResult[@"businessName"] = self.businessName;
-    jsLocationResult[@"isCardProcessingActivated"] = [NSNumber numberWithBool:self.isCardProcessingActivated == YES];
-    jsLocationResult[@"minimumCardPaymentAmountMoney"] = [self.minimumCardPaymentAmountMoney jsonDictionary];
-    jsLocationResult[@"maximumCardPaymentAmountMoney"] = [self.maximumCardPaymentAmountMoney jsonDictionary];
-    jsLocationResult[@"currencyCode"] = SQRDCurrencyCodeGetISOCurrencyCode(self.currencyCode);
-    return jsLocationResult;
+    NSMutableDictionary *locationResult = [[NSMutableDictionary alloc] init];
+    locationResult[@"locationId"] = self.locationID;
+    locationResult[@"name"] = self.name;
+    locationResult[@"businessName"] = self.businessName;
+    locationResult[@"isCardProcessingActivated"] = [NSNumber numberWithBool:self.isCardProcessingActivated == YES];
+    locationResult[@"minimumCardPaymentAmountMoney"] = [self.minimumCardPaymentAmountMoney jsonDictionary];
+    locationResult[@"maximumCardPaymentAmountMoney"] = [self.maximumCardPaymentAmountMoney jsonDictionary];
+    locationResult[@"currencyCode"] = SQRDCurrencyCodeGetISOCurrencyCode(self.currencyCode);
+    return locationResult;
 }
 
 @end
