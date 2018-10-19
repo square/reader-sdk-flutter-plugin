@@ -1,26 +1,32 @@
 PODS:
+  - fast_qr_reader_view (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
-  - permission_handler (2.0.0):
+  - simple_permissions (0.0.1):
     - Flutter
   - square_reader_sdk_flutter_plugin (0.0.1):
     - Flutter
 
 DEPENDENCIES:
-  - Flutter (from `.symlinks/flutter/ios`)
-  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - fast_qr_reader_view (from `.symlinks/plugins/fast_qr_reader_view/ios`)
+  - Flutter (from `.symlinks/flutter/ios-release`)
+  - simple_permissions (from `.symlinks/plugins/simple_permissions/ios`)
   - square_reader_sdk_flutter_plugin (from `.symlinks/plugins/square_reader_sdk_flutter_plugin/ios`)
 
 EXTERNAL SOURCES:
+  fast_qr_reader_view:
+    :path: ".symlinks/plugins/fast_qr_reader_view/ios"
   Flutter:
-    :path: ".symlinks/flutter/ios"
-  permission_handler:
-    :path: ".symlinks/plugins/permission_handler/ios"
+    :path: ".symlinks/flutter/ios-release"
+  simple_permissions:
+    :path: ".symlinks/plugins/simple_permissions/ios"
   square_reader_sdk_flutter_plugin:
     :path: ".symlinks/plugins/square_reader_sdk_flutter_plugin/ios"
 
 SPEC CHECKSUMS:
+  fast_qr_reader_view: 8e7946be31e3d99b3355924e1f0ec1eca6e01fc9
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
-  permission_handler: d18559f3fbbc767b9c3af4849bf7b95c92467b22
+  simple_permissions: a27ba0ac0d14c928a767b1056708633e792ef45d
   square_reader_sdk_flutter_plugin: c198cb16017600286fabcc78f9c436121c3b5acd
 
 PODFILE CHECKSUM: cb6b50d323655cc2ec3bd136559937da3b86ed80
