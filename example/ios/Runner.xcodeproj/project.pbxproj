@@ -290,14 +290,16 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh",
-				"${PODS_ROOT}/../.symlinks/flutter/ios/Flutter.framework",
-				"${BUILT_PRODUCTS_DIR}/permission_handler/permission_handler.framework",
+				"${PODS_ROOT}/../.symlinks/flutter/ios-release/Flutter.framework",
+				"${BUILT_PRODUCTS_DIR}/fast_qr_reader_view/fast_qr_reader_view.framework",
+				"${BUILT_PRODUCTS_DIR}/simple_permissions/simple_permissions.framework",
 				"${BUILT_PRODUCTS_DIR}/square_reader_sdk_flutter_plugin/square_reader_sdk_flutter_plugin.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flutter.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/permission_handler.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/fast_qr_reader_view.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/simple_permissions.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/square_reader_sdk_flutter_plugin.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
