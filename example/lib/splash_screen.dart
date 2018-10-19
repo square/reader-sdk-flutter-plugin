@@ -95,12 +95,12 @@ class _ButtonContainerState extends State<ButtonContainer> {
     checkPermissionsAndNavigate();
   }
 
-  onRequestLocationPermission() async {    
-    await requestPermission(Permission.WhenInUseLocation);
+  onRequestLocationPermission() {    
+    requestPermission(Permission.WhenInUseLocation);
   }
 
-  onRequestAudioPermission() async {
-    await requestPermission(Permission.RecordAudio);
+  onRequestAudioPermission() {
+    requestPermission(Permission.RecordAudio);
   }
 
   checkPermissionsAndNavigate() async {
