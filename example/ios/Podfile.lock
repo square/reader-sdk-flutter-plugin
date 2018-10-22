@@ -9,7 +9,7 @@ PODS:
 
 DEPENDENCIES:
   - fast_qr_reader_view (from `.symlinks/plugins/fast_qr_reader_view/ios`)
-  - Flutter (from `.symlinks/flutter/ios-release`)
+  - Flutter (from `.symlinks/flutter/ios`)
   - simple_permissions (from `.symlinks/plugins/simple_permissions/ios`)
   - square_reader_sdk_flutter_plugin (from `.symlinks/plugins/square_reader_sdk_flutter_plugin/ios`)
 
@@ -17,7 +17,7 @@ EXTERNAL SOURCES:
   fast_qr_reader_view:
     :path: ".symlinks/plugins/fast_qr_reader_view/ios"
   Flutter:
-    :path: ".symlinks/flutter/ios-release"
+    :path: ".symlinks/flutter/ios"
   simple_permissions:
     :path: ".symlinks/plugins/simple_permissions/ios"
   square_reader_sdk_flutter_plugin:

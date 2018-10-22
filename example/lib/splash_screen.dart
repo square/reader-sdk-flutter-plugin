@@ -71,7 +71,10 @@ class ButtonContainer extends StatefulWidget {
 
 class _ButtonContainerState extends State<ButtonContainer> {
   bool _hasLocationAccess = false;
+  String _locationButtonText = 'Enable Location Access';
+
   bool _hasMicrophoneAccess = false;
+  String _microphoneButtonText = 'Enable Microphone Access';
 
   // @override
   initState() {
@@ -86,10 +89,7 @@ class _ButtonContainerState extends State<ButtonContainer> {
         await SimplePermissions.openSettings();
         break;
       default:
-        PermissionStatus locationPermission = await SimplePermissions.requestPermission(permission);
-        setState(() {
-          _hasLocationAccess = locationPermission == PermissionStatus.authorized;
-        });
+        await SimplePermissions.requestPermission(permission);
     }
 
     checkPermissionsAndNavigate();
@@ -111,8 +111,8 @@ class _ButtonContainerState extends State<ButtonContainer> {
     if (!mounted) return;
 
     setState(() {
-      _hasLocationAccess = locationPermission == PermissionStatus.authorized;
-      _hasMicrophoneAccess = (microphonePermission == PermissionStatus.authorized || microphonePermission == PermissionStatus.notDetermined);
+      updateLocationStatus(locationPermission);
+      updateMicrophoneStatus(microphonePermission);
     });
 
     if (_hasLocationAccess && _hasMicrophoneAccess) {
@@ -120,17 +120,61 @@ class _ButtonContainerState extends State<ButtonContainer> {
     }
   }
 
+  updateLocationStatus(PermissionStatus status) {
+      setState(() {
+        _hasLocationAccess = status == PermissionStatus.authorized;
+
+        switch(status) {
+          case PermissionStatus.authorized:
+            _locationButtonText = 'Location Enabled';
+            break;
+          case PermissionStatus.denied:
+          case PermissionStatus.deniedNeverAsk:
+            _locationButtonText = 'Enable Location in Settings';
+            break;
+          case PermissionStatus.restricted:
+           _locationButtonText = 'Location permission is restricted';
+           break;
+          case PermissionStatus.notDetermined:
+            _locationButtonText = 'Location Enabled';
+            break;
+        }
+      });
+  }
+
+  updateMicrophoneStatus(PermissionStatus status) {
+      setState(() {
+        _hasMicrophoneAccess = status == PermissionStatus.authorized;
+
+        switch(status) {
+          case PermissionStatus.authorized:
+            _microphoneButtonText = 'Microphone Enabled';
+            break;
+          case PermissionStatus.denied:
+          case PermissionStatus.deniedNeverAsk:
+            _microphoneButtonText = 'Enable Microphone in Settings';
+            break;
+          case PermissionStatus.restricted:
+           _microphoneButtonText = 'Microphone permission is restricted';
+           break;
+          case PermissionStatus.notDetermined:
+            _microphoneButtonText = 'Enable Microphone Access';
+            break;
+        }
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     return new SQButtonContainer(
       buttons: [
         SQOutlineButton(
-          text: _hasMicrophoneAccess? 'Microphone Enabled' : 'Enable Microphone Access',
-          onPressed: onRequestAudioPermission,
+          text: _microphoneButtonText,
+          onPressed: _hasMicrophoneAccess? null : onRequestAudioPermission,
         ),
         SQOutlineButton(
-          text: _hasLocationAccess? 'Location Enabled' : 'Enable Location Access',
-          onPressed: onRequestLocationPermission
+          text: _locationButtonText,
+          onPressed: _hasLocationAccess? null : onRequestLocationPermission
         ),
       ]
     );
