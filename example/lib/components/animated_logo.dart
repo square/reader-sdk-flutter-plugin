@@ -22,7 +22,7 @@ class _LogoAnimated extends AnimatedWidget {
     begin: Alignment.center,
     end: Alignment.topCenter,
   );
-  static final _sizeTween = Tween<double>(begin: 300.0, end: 48.0);
+  static final _sizeTween = Tween<double>(begin: 80.0, end: 48.0);
 
   _LogoAnimated({Key key, Animation<double> animation})
       : super(key: key, listenable: animation);
