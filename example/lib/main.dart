@@ -42,12 +42,18 @@ class ExampleApp extends StatelessWidget {
 
 // override default theme
 ThemeData _buildTheme() {
-  final ThemeData base = ThemeData.dark();
+  final ThemeData base = ThemeData.light();
   return base.copyWith(
     backgroundColor: new Color.fromRGBO(64, 135, 225, 1.0),
     scaffoldBackgroundColor: new Color.fromRGBO(64, 135, 225, 1.0),
     buttonTheme: ButtonThemeData(
       height: 64.0,
+    ),
+    hintColor: Colors.transparent,
+    inputDecorationTheme: InputDecorationTheme(
+      labelStyle: TextStyle(
+        color: Colors.white,
+      ),
     ),
     textTheme: TextTheme(
       button: TextStyle(

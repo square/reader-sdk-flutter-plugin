@@ -53,7 +53,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       CheckoutResult checkoutResult = await SquareReaderSdkPlugin.startCheckout(checkoutParameters);
       print('${checkoutResult.totalMoney.amount} Transaction finished successfully: ${checkoutResult.transactionClientId}');
     } on ReaderSdkException catch (e) {
-      displayErrorModal(context, e);
+      switch (e.code) {
+        case SquareReaderSdkPlugin.CheckoutErrorCanceled:
+          // Handle canceled transaction here
+          print('transaction canceled.');
+          break;
+        case SquareReaderSdkPlugin.CheckoutErrorSdkNotAuthorized:
+          // Handle sdk not authorized
+          Navigator.pushNamed(context, '/');
+          break;
+        default:
+          displayErrorModal(context, e);
+      }
     }
   }
 

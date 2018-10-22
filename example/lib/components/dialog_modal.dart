@@ -21,7 +21,6 @@ import 'package:square_reader_sdk_flutter_plugin/square_reader_sdk_flutter_plugi
 displayErrorModal(BuildContext context, ReaderSdkException e) {
   return showDialog(
     context: context,
-    barrierDismissible: false, // user must tap button!
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(
@@ -34,7 +33,7 @@ displayErrorModal(BuildContext context, ReaderSdkException e) {
           child: ListBody(
             children: <Widget>[
               Text(
-                e.toString(),
+                e.message,
                 style: TextStyle(
                   color: Colors.black,
                 ),

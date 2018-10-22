@@ -65,6 +65,9 @@ class _ManualAuthorizeScreenState extends State<ManualAuthorizeScreen> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 hintText: 'Authorization Code',
+                hintStyle: TextStyle(
+                  color: Colors.white70,
+                ),
                 fillColor: Color.fromRGBO(83,166,255, 1.0),
                 filled: true,
               ),
