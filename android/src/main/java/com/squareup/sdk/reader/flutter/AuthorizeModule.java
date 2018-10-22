@@ -127,14 +127,4 @@ final class AuthorizeModule {
     ReaderSdk.authorizationManager().deauthorize();
     flutterResult.success(null);
   }
-
-  public void onDestroy() {
-    // clear the callback to avoid memory leaks when flutter plugin is destroyed
-    if (authorizeCallbackRef != null) {
-      authorizeCallbackRef.clear();
-    }
-    if (deauthorizeCallbackRef != null) {
-      deauthorizeCallbackRef.clear();
-    }
-  }
 }
