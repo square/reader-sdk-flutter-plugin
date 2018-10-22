@@ -136,7 +136,7 @@ class _ButtonContainerState extends State<ButtonContainer> {
            _locationButtonText = 'Location permission is restricted';
            break;
           case PermissionStatus.notDetermined:
-            _locationButtonText = 'Location Enabled';
+            _locationButtonText = 'Enable Location Access';
             break;
         }
       });
