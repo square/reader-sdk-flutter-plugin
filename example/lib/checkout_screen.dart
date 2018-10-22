@@ -21,6 +21,7 @@ import 'package:square_reader_sdk_flutter_plugin/square_reader_sdk_flutter_plugi
 import 'package:square_reader_sdk_flutter_plugin/models.dart';
 import 'components/static_logo.dart';
 import 'components/dialog_modal.dart';
+import 'package:intl/intl.dart';
 
 class CheckoutScreen extends StatefulWidget {
   @override
@@ -30,6 +31,45 @@ class CheckoutScreen extends StatefulWidget {
 class _CheckoutScreenState extends State<CheckoutScreen> {
   final textEditingController = TextEditingController();
 
+
+  _showTransactionDialog(CheckoutResult checkoutResult) {
+    // amount is in cents
+    String formattedAmount = NumberFormat.simpleCurrency(name: checkoutResult.totalMoney.currencyCode).format(checkoutResult.totalMoney.amount / 100);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            '${formattedAmount} Successfully Charged',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(
+                  'See the debugger console for transaction details. You can refund transactions from your Square Dashboard.',
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      }
+    );
+  }
 
   onCharge() async {
     var builder = CheckoutParametersBuilder();
@@ -52,6 +92,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     try {
       CheckoutResult checkoutResult = await SquareReaderSdkPlugin.startCheckout(checkoutParameters);
       print('${checkoutResult.totalMoney.amount} Transaction finished successfully: ${checkoutResult.transactionClientId}');
+      _showTransactionDialog(checkoutResult);
     } on ReaderSdkException catch (e) {
       switch (e.code) {
         case SquareReaderSdkPlugin.CheckoutErrorCanceled:
