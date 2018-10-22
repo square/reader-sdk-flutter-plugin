@@ -45,6 +45,7 @@ ThemeData _buildTheme() {
   final ThemeData base = ThemeData.light();
   return base.copyWith(
     backgroundColor: new Color.fromRGBO(64, 135, 225, 1.0),
+    canvasColor: Colors.transparent,
     scaffoldBackgroundColor: new Color.fromRGBO(64, 135, 225, 1.0),
     buttonTheme: ButtonThemeData(
       height: 64.0,

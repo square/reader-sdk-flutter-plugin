@@ -22,6 +22,8 @@ import 'package:square_reader_sdk_flutter_plugin/models.dart';
 import 'components/static_logo.dart';
 import 'components/dialog_modal.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/cupertino.dart';
+import 'components/loading.dart';
 
 class CheckoutScreen extends StatefulWidget {
   @override
@@ -30,7 +32,7 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   final textEditingController = TextEditingController();
-
+  bool _isLoading = false;
 
   _showTransactionDialog(CheckoutResult checkoutResult) {
     // amount is in cents
@@ -41,7 +43,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            '${formattedAmount} Successfully Charged',
+            formattedAmount + ' Successfully Charged',
             style: TextStyle(
               color: Colors.black,
             ),
@@ -109,7 +111,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     }
   }
 
-  onSettings() async {
+  onReaderSDKSettings() async {
     try {
       await SquareReaderSdkPlugin.startReaderSettings();
     } on ReaderSdkException catch (e) {
@@ -117,10 +119,60 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     }
   }
 
+  onDeauthorize() async {
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      await SquareReaderSdkPlugin.deauthorize();
+      Navigator.pushNamed(context, '/authorize');
+    } on ReaderSdkException catch (e) {
+      displayErrorModal(context, e);
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  onSettings() async {
+    Location location = await SquareReaderSdkPlugin.authorizedLocation;
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return new CupertinoActionSheet(
+          title: Text('Location: ${location.name}'),
+          actions: [
+            new FlatButton(
+              child: Text(
+                'Reader Settings',
+                style: TextStyle(color: Colors.blue),
+              ),
+              onPressed: onReaderSDKSettings,
+            ),
+            new FlatButton(
+              child: Text(
+                'Deauthorize',
+                style: TextStyle(color: Colors.red),
+              ),
+              onPressed: onDeauthorize,
+            ),
+          ],
+          cancelButton: new FlatButton(
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: Colors.blue),
+              ),
+            onPressed: () => Navigator.pop(context),
+          ),
+        );
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: new Column(
+      body: _isLoading? new LoadingWidget() : new Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
