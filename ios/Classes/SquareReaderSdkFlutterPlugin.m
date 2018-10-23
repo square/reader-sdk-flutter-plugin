@@ -33,7 +33,7 @@
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar
 {
     FlutterMethodChannel *channel = [FlutterMethodChannel
-        methodChannelWithName:@"square_reader_sdk_flutter_plugin"
+        methodChannelWithName:@"square_reader_sdk"
               binaryMessenger:[registrar messenger]];
     SquareReaderSdkFlutterPlugin *instance = [[SquareReaderSdkFlutterPlugin alloc] init];
     [registrar addMethodCallDelegate:instance channel:channel];

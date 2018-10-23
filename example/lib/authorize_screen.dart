@@ -17,7 +17,7 @@ limitations under the License.
 import 'package:flutter/material.dart';
 import 'components/buttons.dart';
 import 'components/static_logo.dart';
-import 'package:square_reader_sdk_flutter_plugin/square_reader_sdk_flutter_plugin.dart';
+import 'package:square_reader_sdk/square_reader_sdk.dart';
 import 'components/dialog_modal.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'components/loading.dart';
@@ -36,7 +36,7 @@ class _AuthorizeScreenState extends State<AuthorizeScreen> {
   }
 
   checkAuthAndNavigate() async {
-    bool isAuthorized = await SquareReaderSdkPlugin.isAuthorized;
+    bool isAuthorized = await SquareReaderSdk.isAuthorized;
     if (isAuthorized) {
       Navigator.popAndPushNamed(context, '/checkout');
     }
@@ -47,7 +47,7 @@ class _AuthorizeScreenState extends State<AuthorizeScreen> {
       setState(() {
         _isLoading = true;
       });
-      await SquareReaderSdkPlugin.authorize(authCode);
+      await SquareReaderSdk.authorize(authCode);
       Navigator.pushNamed(context, '/checkout');
     } on ReaderSdkException catch(e) {
       // custom dialog to continue scanning after failure
@@ -171,7 +171,7 @@ class _ButtonContainerState extends State<ButtonContainer> {
   }
 
   checkAuthAndNavigate() async {
-    bool isAuthorized = await SquareReaderSdkPlugin.isAuthorized;
+    bool isAuthorized = await SquareReaderSdk.isAuthorized;
     if (isAuthorized) {
       Navigator.popAndPushNamed(context, '/checkout');
     }
@@ -179,7 +179,7 @@ class _ButtonContainerState extends State<ButtonContainer> {
 
   authorizeQRCode(String authCode) async {
     try {
-      await SquareReaderSdkPlugin.authorize(authCode);
+      await SquareReaderSdk.authorize(authCode);
       Navigator.pushNamed(context, '/checkout');
     } on ReaderSdkException catch(e) {
       // custom dialog to continue scanning after failure

@@ -1,4 +1,4 @@
-# square_reader_sdk_flutter_plugin
+# square_reader_sdk
 
 A flutter plugin for Square Reader SDK.
 
@@ -24,12 +24,12 @@ flutter create square_reader_sdk_example
 
 ### Step 2: Install Reader SDK plugin
 
-Put the *square_reader_sdk_flutter_plugin* project folder in `flutter` folder. Edit the `pubspec.yaml` in *square_reader_sdk_example* to include :
+Put the *square_reader_sdk* project folder in `flutter` folder. Edit the `pubspec.yaml` in *square_reader_sdk_example* to include :
 ```yaml
 dependencies:
     ...
-    square_reader_sdk_flutter_plugin:
-        path: ../square_reader_sdk_flutter_plugin
+    square_reader_sdk:
+        path: ../square_reader_sdk
 ```
 
 ### Step 3: Request Reader SDK credentials

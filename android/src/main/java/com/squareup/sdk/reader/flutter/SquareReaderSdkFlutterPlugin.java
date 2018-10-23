@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 public class SquareReaderSdkFlutterPlugin implements MethodCallHandler {
   public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "square_reader_sdk_flutter_plugin");
+    final MethodChannel channel = new MethodChannel(registrar.messenger(), "square_reader_sdk");
     channel.setMethodCallHandler(new SquareReaderSdkFlutterPlugin(registrar.activity()));
   }
 

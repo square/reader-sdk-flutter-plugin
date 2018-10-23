@@ -1,8 +1,8 @@
-name: square_reader_sdk_flutter_plugin
+name: square_reader_sdk
 description: A flutter plugin for Square Reader SDK.
 version: 0.0.3
 author: Square, Inc.
-homepage: https://github.com/square/square_reader_sdk_flutter_plugin
+homepage: https://github.com/square/reader-sdk-flutter-plugin
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
