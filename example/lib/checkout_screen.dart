@@ -17,8 +17,8 @@ limitations under the License.
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'components/buttons.dart';
-import 'package:square_reader_sdk_flutter_plugin/square_reader_sdk_flutter_plugin.dart';
-import 'package:square_reader_sdk_flutter_plugin/models.dart';
+import 'package:square_reader_sdk/square_reader_sdk.dart';
+import 'package:square_reader_sdk/models.dart';
 import 'components/static_logo.dart';
 import 'components/dialog_modal.dart';
 import 'package:intl/intl.dart';
@@ -92,16 +92,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     CheckoutParameters checkoutParameters = builder.build();
 
     try {
-      CheckoutResult checkoutResult = await SquareReaderSdkPlugin.startCheckout(checkoutParameters);
+      CheckoutResult checkoutResult = await SquareReaderSdk.startCheckout(checkoutParameters);
       print('${checkoutResult.totalMoney.amount} Transaction finished successfully: ${checkoutResult.transactionClientId}');
       _showTransactionDialog(checkoutResult);
     } on ReaderSdkException catch (e) {
       switch (e.code) {
-        case SquareReaderSdkPlugin.CheckoutErrorCanceled:
+        case SquareReaderSdk.CheckoutErrorCanceled:
           // Handle canceled transaction here
           print('transaction canceled.');
           break;
-        case SquareReaderSdkPlugin.CheckoutErrorSdkNotAuthorized:
+        case SquareReaderSdk.CheckoutErrorSdkNotAuthorized:
           // Handle sdk not authorized
           Navigator.pushNamed(context, '/');
           break;
@@ -113,7 +113,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   onReaderSDKSettings() async {
     try {
-      await SquareReaderSdkPlugin.startReaderSettings();
+      await SquareReaderSdk.startReaderSettings();
     } on ReaderSdkException catch (e) {
       displayErrorModal(context, e.message);
     }
@@ -124,7 +124,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       setState(() {
         _isLoading = true;
       });
-      await SquareReaderSdkPlugin.deauthorize();
+      await SquareReaderSdk.deauthorize();
       Navigator.pushNamed(context, '/authorize');
     } on ReaderSdkException catch (e) {
       displayErrorModal(context, e.message);
@@ -136,7 +136,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   }
 
   onSettings() async {
-    Location location = await SquareReaderSdkPlugin.authorizedLocation;
+    Location location = await SquareReaderSdk.authorizedLocation;
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {

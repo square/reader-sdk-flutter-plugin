@@ -15,8 +15,6 @@ limitations under the License.
 */
 
 import 'package:flutter/material.dart';
-import 'package:square_reader_sdk_flutter_plugin/square_reader_sdk_flutter_plugin.dart';
-
 
 displayErrorModal(BuildContext context, String message) {
   return showDialog(

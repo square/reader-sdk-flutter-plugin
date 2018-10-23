@@ -20,7 +20,7 @@ import 'models.dart';
 import 'serializers.dart';
 import 'package:built_value/standard_json_plugin.dart';
 
-class SquareReaderSdkPlugin {
+class SquareReaderSdk {
   // error codes are defined below, both iOS and Android *MUST* return same error for these errors:
   // Usage error
   static const UsageError = 'USAGE_ERROR';
@@ -36,7 +36,7 @@ class SquareReaderSdkPlugin {
   static final _standardSerializers = (serializers.toBuilder()..addPlugin(new StandardJsonPlugin())).build();
 
   static const MethodChannel _channel =
-      const MethodChannel('square_reader_sdk_flutter_plugin');
+      const MethodChannel('square_reader_sdk');
 
   static Future<bool> get isAuthorized async {
     try {
