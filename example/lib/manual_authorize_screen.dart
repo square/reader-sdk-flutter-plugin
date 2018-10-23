@@ -39,9 +39,9 @@ class _ManualAuthorizeScreenState extends State<ManualAuthorizeScreen> {
         _isLoading = true;
       });
       await SquareReaderSdkPlugin.authorize(this.textEditingController.text);
-      Navigator.pushNamed(context, '/checkout');
+      Navigator.popAndPushNamed(context, '/checkout');
     } on ReaderSdkException catch(e) {
-      return displayErrorModal(context, e);
+      return displayErrorModal(context, e.message);
     } finally {
       setState(() {
         _isLoading = false;

@@ -116,7 +116,7 @@ class _ButtonContainerState extends State<ButtonContainer> {
     });
 
     if (_hasLocationAccess && _hasMicrophoneAccess) {
-      Navigator.pushNamed(context, '/authorize');
+      Navigator.popAndPushNamed(context, '/authorize');
     }
   }
 

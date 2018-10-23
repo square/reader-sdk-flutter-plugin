@@ -1,21 +1,27 @@
 PODS:
-  - fast_qr_reader_view (0.0.1):
+  - barcode_scan (0.0.1):
     - Flutter
+    - MTBBarcodeScanner
   - Flutter (1.0.0)
+  - MTBBarcodeScanner (5.0.6)
   - simple_permissions (0.0.1):
     - Flutter
   - square_reader_sdk_flutter_plugin (0.0.1):
     - Flutter
 
 DEPENDENCIES:
-  - fast_qr_reader_view (from `.symlinks/plugins/fast_qr_reader_view/ios`)
+  - barcode_scan (from `.symlinks/plugins/barcode_scan/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
   - simple_permissions (from `.symlinks/plugins/simple_permissions/ios`)
   - square_reader_sdk_flutter_plugin (from `.symlinks/plugins/square_reader_sdk_flutter_plugin/ios`)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - MTBBarcodeScanner
+
 EXTERNAL SOURCES:
-  fast_qr_reader_view:
-    :path: ".symlinks/plugins/fast_qr_reader_view/ios"
+  barcode_scan:
+    :path: ".symlinks/plugins/barcode_scan/ios"
   Flutter:
     :path: ".symlinks/flutter/ios"
   simple_permissions:
@@ -24,8 +30,9 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/square_reader_sdk_flutter_plugin/ios"
 
 SPEC CHECKSUMS:
-  fast_qr_reader_view: 8e7946be31e3d99b3355924e1f0ec1eca6e01fc9
+  barcode_scan: 8288e70cb430072003bce2c794a1431e7adbcb4d
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+  MTBBarcodeScanner: bb0bb62e18b57f8a571a482248adc20722b70a91
   simple_permissions: a27ba0ac0d14c928a767b1056708633e792ef45d
   square_reader_sdk_flutter_plugin: c198cb16017600286fabcc78f9c436121c3b5acd
 

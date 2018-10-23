@@ -18,7 +18,6 @@ import 'package:flutter/material.dart';
 import 'splash_screen.dart';
 import 'authorize_screen.dart';
 import 'manual_authorize_screen.dart';
-import 'qrcode_screen.dart';
 import 'checkout_screen.dart';
 
 void main() => runApp(new ExampleApp());
@@ -33,7 +32,6 @@ class ExampleApp extends StatelessWidget {
         '/': (context) => new SplashScreen(),
         '/authorize': (context) => AuthorizeScreen(),
         '/authorize/manual': (context) => ManualAuthorizeScreen(),
-        '/authorize/camera': (context) => QRCodeAuthorizeScreen(),
         '/checkout': (context) => CheckoutScreen(),
       },
     );

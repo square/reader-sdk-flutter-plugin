@@ -106,7 +106,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           Navigator.pushNamed(context, '/');
           break;
         default:
-          displayErrorModal(context, e);
+          displayErrorModal(context, e.message);
       }
     }
   }
@@ -115,7 +115,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     try {
       await SquareReaderSdkPlugin.startReaderSettings();
     } on ReaderSdkException catch (e) {
-      displayErrorModal(context, e);
+      displayErrorModal(context, e.message);
     }
   }
 
@@ -127,7 +127,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       await SquareReaderSdkPlugin.deauthorize();
       Navigator.pushNamed(context, '/authorize');
     } on ReaderSdkException catch (e) {
-      displayErrorModal(context, e);
+      displayErrorModal(context, e.message);
     } finally {
       setState(() {
         _isLoading = false;

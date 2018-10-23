@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:square_reader_sdk_flutter_plugin/square_reader_sdk_flutter_plugin.dart';
 
 
-displayErrorModal(BuildContext context, ReaderSdkException e) {
+displayErrorModal(BuildContext context, String message) {
   return showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -33,7 +33,7 @@ displayErrorModal(BuildContext context, ReaderSdkException e) {
           child: ListBody(
             children: <Widget>[
               Text(
-                e.message,
+                message,
                 style: TextStyle(
                   color: Colors.black,
                 ),
