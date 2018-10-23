@@ -29,7 +29,7 @@ Put the *square_reader_sdk* project folder in `flutter` folder. Edit the `pubspe
 dependencies:
     ...
     square_reader_sdk:
-        path: ../square_reader_sdk
+        path: ../reader-sdk-flutter-plugin
 ```
 
 ### Step 3: Request Reader SDK credentials
