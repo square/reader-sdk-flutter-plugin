@@ -26,7 +26,7 @@ limitations under the License.
     locationResult[@"locationId"] = self.locationID;
     locationResult[@"name"] = self.name;
     locationResult[@"businessName"] = self.businessName;
-    locationResult[@"isCardProcessingActivated"] = [NSNumber numberWithBool:self.isCardProcessingActivated == YES];
+    locationResult[@"isCardProcessingActivated"] = @(self.isCardProcessingActivated);
     locationResult[@"minimumCardPaymentAmountMoney"] = [self.minimumCardPaymentAmountMoney jsonDictionary];
     locationResult[@"maximumCardPaymentAmountMoney"] = [self.maximumCardPaymentAmountMoney jsonDictionary];
     locationResult[@"currencyCode"] = SQRDCurrencyCodeGetISOCurrencyCode(self.currencyCode);

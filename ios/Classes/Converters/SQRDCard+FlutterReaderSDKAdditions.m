@@ -25,13 +25,13 @@ limitations under the License.
 - (NSMutableDictionary *)jsonDictionary
 {
     NSMutableDictionary *cardResult = [[NSMutableDictionary alloc] init];
-    cardResult[@"brand"] = [self getBrandString:self.brand];
+    cardResult[@"brand"] = [self stringForBrand:self.brand];
     cardResult[@"lastFourDigits"] = self.lastFourDigits;
 
     return cardResult;
 }
 
-- (NSString *)getBrandString:(SQRDCardBrand)brand
+- (NSString *)stringForBrand:(SQRDCardBrand)brand
 {
     NSString *result = nil;
     switch (brand) {
