@@ -17,7 +17,7 @@ limitations under the License.
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'components/buttons.dart';
-import 'package:square_reader_sdk/square_reader_sdk.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 import 'package:square_reader_sdk/models.dart';
 import 'components/static_logo.dart';
 import 'components/dialog_modal.dart';
@@ -92,16 +92,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     CheckoutParameters checkoutParameters = builder.build();
 
     try {
-      CheckoutResult checkoutResult = await SquareReaderSdk.startCheckout(checkoutParameters);
+      CheckoutResult checkoutResult = await ReaderSdk.startCheckout(checkoutParameters);
       print('${checkoutResult.totalMoney.amount} Transaction finished successfully: ${checkoutResult.transactionClientId}');
       _showTransactionDialog(checkoutResult);
     } on ReaderSdkException catch (e) {
       switch (e.code) {
-        case SquareReaderSdk.CheckoutErrorCanceled:
+        case ReaderSdk.CheckoutErrorCanceled:
           // Handle canceled transaction here
           print('transaction canceled.');
           break;
-        case SquareReaderSdk.CheckoutErrorSdkNotAuthorized:
+        case ReaderSdk.CheckoutErrorSdkNotAuthorized:
           // Handle sdk not authorized
           Navigator.pushNamed(context, '/');
           break;
@@ -113,7 +113,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   onReaderSDKSettings() async {
     try {
-      await SquareReaderSdk.startReaderSettings();
+      await ReaderSdk.startReaderSettings();
     } on ReaderSdkException catch (e) {
       displayErrorModal(context, e.message);
     }
@@ -124,7 +124,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       setState(() {
         _isLoading = true;
       });
-      await SquareReaderSdk.deauthorize();
+      await ReaderSdk.deauthorize();
       Navigator.pushNamed(context, '/authorize');
     } on ReaderSdkException catch (e) {
       displayErrorModal(context, e.message);
@@ -136,7 +136,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   }
 
   onSettings() async {
-    Location location = await SquareReaderSdk.authorizedLocation;
+    Location location = await ReaderSdk.authorizedLocation;
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {

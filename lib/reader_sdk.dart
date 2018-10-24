@@ -20,7 +20,7 @@ import 'models.dart';
 import 'serializers.dart';
 import 'package:built_value/standard_json_plugin.dart';
 
-class SquareReaderSdk {
+class ReaderSdk {
   // error codes are defined below, both iOS and Android *MUST* return same error for these errors:
   // Usage error
   static const UsageError = 'USAGE_ERROR';

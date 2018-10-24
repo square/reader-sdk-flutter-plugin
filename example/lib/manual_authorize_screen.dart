@@ -16,7 +16,7 @@ limitations under the License.
 
 import 'package:flutter/material.dart';
 import 'components/buttons.dart';
-import 'package:square_reader_sdk/square_reader_sdk.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 import 'components/dialog_modal.dart';
 import 'components/loading.dart';
 
@@ -38,7 +38,7 @@ class _ManualAuthorizeScreenState extends State<ManualAuthorizeScreen> {
       setState(() {
         _isLoading = true;
       });
-      await SquareReaderSdk.authorize(this.textEditingController.text);
+      await ReaderSdk.authorize(this.textEditingController.text);
       Navigator.popAndPushNamed(context, '/checkout');
     } on ReaderSdkException catch(e) {
       return displayErrorModal(context, e.message);
