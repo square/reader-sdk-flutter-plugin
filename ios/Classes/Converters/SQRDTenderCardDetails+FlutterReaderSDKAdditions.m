@@ -24,13 +24,13 @@ limitations under the License.
 {
     NSMutableDictionary *tenderCardDetailsResult = [[NSMutableDictionary alloc] init];
 
-    tenderCardDetailsResult[@"entryMethod"] = [self getTenderCardDetailsEntryMethodString:self.entryMethod];
+    tenderCardDetailsResult[@"entryMethod"] = [self tenderCardDetailsEntryMethodString:self.entryMethod];
     tenderCardDetailsResult[@"card"] = [self.card jsonDictionary];
 
     return tenderCardDetailsResult;
 }
 
-- (NSString *)getTenderCardDetailsEntryMethodString:(SQRDTenderCardDetailsEntryMethod)method
+- (NSString *)tenderCardDetailsEntryMethodString:(SQRDTenderCardDetailsEntryMethod)method
 {
     NSString *result = nil;
     switch (method) {

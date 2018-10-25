@@ -50,16 +50,16 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
 {
     if (self.checkoutResolver != nil) {
         self.checkoutResolver([FlutterError errorWithCode:FlutterReaderSDKUsageError
-                                                  message:[FlutterReaderSDKErrorUtilities getNativeModuleErrorMessage:FlutterReaderSDKCheckoutAlreadyInProgress]
-                                                  details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:FlutterReaderSDKCheckoutAlreadyInProgress debugMessage:FlutterReaderSDKMessageCheckoutAlreadyInProgress]]);
+                                                  message:[FlutterReaderSDKErrorUtilities nativeModuleErrorMessage:FlutterReaderSDKCheckoutAlreadyInProgress]
+                                                  details:[FlutterReaderSDKErrorUtilities debugErrorObject:FlutterReaderSDKCheckoutAlreadyInProgress debugMessage:FlutterReaderSDKMessageCheckoutAlreadyInProgress]]);
         return;
     }
     NSString *paramError = nil;
     if ([self _validateCheckoutParameters:checkoutParametersDictionary errorMsg:&paramError] == NO) {
         NSString *paramErrorDebugMessage = [NSString stringWithFormat:@"%@ %@", FlutterReaderSDKMessageCheckoutInvalidParameter, paramError];
         result([FlutterError errorWithCode:FlutterReaderSDKUsageError
-                                                  message:[FlutterReaderSDKErrorUtilities getNativeModuleErrorMessage:FlutterReaderSDKCheckoutInvalidParameter]
-                                                  details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:FlutterReaderSDKCheckoutInvalidParameter debugMessage:paramErrorDebugMessage]]);
+                                                  message:[FlutterReaderSDKErrorUtilities nativeModuleErrorMessage:FlutterReaderSDKCheckoutInvalidParameter]
+                                                  details:[FlutterReaderSDKErrorUtilities debugErrorObject:FlutterReaderSDKCheckoutInvalidParameter debugMessage:paramErrorDebugMessage]]);
         return;
     }
     NSDictionary *amountMoneyDictionary = checkoutParametersDictionary[@"amountMoney"];
@@ -110,7 +110,7 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
     NSString *debugMessage = error.userInfo[SQRDErrorDebugMessageKey];
     self.checkoutResolver([FlutterError errorWithCode:[self _checkoutErrorCodeFromNativeErrorCode:error.code]
                                               message:error.localizedDescription
-                                              details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:debugCode debugMessage:debugMessage]]);
+                                              details:[FlutterReaderSDKErrorUtilities debugErrorObject:debugCode debugMessage:debugMessage]]);
     [self _clearCheckoutHooks];
 }
 
@@ -118,8 +118,8 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
 {
     // Return transaction cancel as an error in order to align with Android implementation
     self.checkoutResolver([FlutterError errorWithCode:FlutterReaderSDKCheckoutCancelled
-                                              message:[FlutterReaderSDKErrorUtilities getNativeModuleErrorMessage:FlutterReaderSDKCheckoutCancelled]
-                                              details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:FlutterReaderSDKCheckoutCancelled debugMessage:@"The user canceled the transaction."]]);
+                                              message:[FlutterReaderSDKErrorUtilities nativeModuleErrorMessage:FlutterReaderSDKCheckoutCancelled]
+                                              details:[FlutterReaderSDKErrorUtilities debugErrorObject:FlutterReaderSDKCheckoutCancelled debugMessage:@"The user canceled the transaction."]]);
     [self _clearCheckoutHooks];
 }
 

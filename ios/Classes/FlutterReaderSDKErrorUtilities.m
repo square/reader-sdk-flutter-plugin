@@ -23,12 +23,12 @@ NSString *const FlutterReaderSDKUsageError = @"USAGE_ERROR";
 
 @implementation FlutterReaderSDKErrorUtilities
 
-+ (NSString *)getNativeModuleErrorMessage:(NSString *)nativeModuleErrorCode
++ (NSString *)nativeModuleErrorMessage:(NSString *)nativeModuleErrorCode
 {
     return [NSString stringWithFormat:@"Something went wrong. Please contact the developer of this application and provide them with this error code: %@", nativeModuleErrorCode];
 }
 
-+ (NSDictionary *)getDebugErrorObject:(NSString *)debugCode debugMessage:(NSString *)debugMessage
++ (NSDictionary *)debugErrorObject:(NSString *)debugCode debugMessage:(NSString *)debugMessage
 {
     NSMutableDictionary *errorObject = [[NSMutableDictionary alloc] init];
     errorObject[@"debugCode"] = debugCode;

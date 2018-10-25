@@ -46,8 +46,8 @@ static NSString *const FlutterReaderSDKMessageReaderSettingsAlreadyInProgress = 
 {
     if (self.readerSettingResolver != nil) {
         result([FlutterError errorWithCode:FlutterReaderSDKUsageError
-                                   message:[FlutterReaderSDKErrorUtilities getNativeModuleErrorMessage:FlutterReaderSDKReaderSettingsAlreadyInProgress]
-                                   details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:FlutterReaderSDKReaderSettingsAlreadyInProgress debugMessage:FlutterReaderSDKMessageReaderSettingsAlreadyInProgress]]);
+                                   message:[FlutterReaderSDKErrorUtilities nativeModuleErrorMessage:FlutterReaderSDKReaderSettingsAlreadyInProgress]
+                                   details:[FlutterReaderSDKErrorUtilities debugErrorObject:FlutterReaderSDKReaderSettingsAlreadyInProgress debugMessage:FlutterReaderSDKMessageReaderSettingsAlreadyInProgress]]);
         return;
     }
     SQRDReaderSettingsController *readerSettingsController = [[SQRDReaderSettingsController alloc] initWithDelegate:self];
@@ -68,7 +68,7 @@ static NSString *const FlutterReaderSDKMessageReaderSettingsAlreadyInProgress = 
     NSString *debugMessage = error.userInfo[SQRDErrorDebugMessageKey];
     self.readerSettingResolver([FlutterError errorWithCode:[self _readerSettingsErrorCodeFromNativeErrorCode:error.code]
                                                    message:error.localizedDescription
-                                                   details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:debugCode debugMessage:debugMessage]]);
+                                                   details:[FlutterReaderSDKErrorUtilities debugErrorObject:debugCode debugMessage:debugMessage]]);
     [self _clearReaderSettingHooks];
 }
 
