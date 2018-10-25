@@ -41,6 +41,10 @@
 
 - (instancetype)init
 {
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
     self.authorization = [[FlutterReaderSDKAuthorization alloc] init];
     self.checkout = [[FlutterReaderSDKCheckout alloc] init];
     self.readerSettings = [[FlutterReaderSDKReaderSettings alloc] init];
