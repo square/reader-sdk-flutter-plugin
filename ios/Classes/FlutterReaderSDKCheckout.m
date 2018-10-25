@@ -75,13 +75,13 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
         checkoutParams.note = checkoutParametersDictionary[@"note"];
     }
     if (checkoutParametersDictionary[@"skipReceipt"]) {
-        checkoutParams.skipReceipt = ([checkoutParametersDictionary[@"skipReceipt"] boolValue] == YES);
+        checkoutParams.skipReceipt = [checkoutParametersDictionary[@"skipReceipt"] boolValue];
     }
     if (checkoutParametersDictionary[@"alwaysRequireSignature"]) {
-        checkoutParams.alwaysRequireSignature = ([checkoutParametersDictionary[@"alwaysRequireSignature"] boolValue] == YES);
+        checkoutParams.alwaysRequireSignature = [checkoutParametersDictionary[@"alwaysRequireSignature"] boolValue];
     }
     if (checkoutParametersDictionary[@"allowSplitTender"]) {
-        checkoutParams.allowSplitTender = ([checkoutParametersDictionary[@"allowSplitTender"] boolValue] == YES);
+        checkoutParams.allowSplitTender = [checkoutParametersDictionary[@"allowSplitTender"] boolValue];
     }
     if (checkoutParametersDictionary[@"tipSettings"]) {
         SQRDTipSettings *tipSettings = [self _buildTipSettings:checkoutParametersDictionary[@"tipSettings"]];
@@ -194,12 +194,12 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
 
 - (SQRDTipSettings *)_buildTipSettings:(NSDictionary *)tipSettingConfig
 {
-    SQRDTipSettings *tipSettings = [SQRDTipSettings alloc];
+    SQRDTipSettings *tipSettings = [[SQRDTipSettings alloc] init];
     if (tipSettingConfig[@"showCustomTipField"]) {
-        tipSettings.showCustomTipField = ([tipSettingConfig[@"showCustomTipField"] boolValue] == YES);
+        tipSettings.showCustomTipField = [tipSettingConfig[@"showCustomTipField"] boolValue];
     }
     if (tipSettingConfig[@"showSeparateTipScreen"]) {
-        tipSettings.showSeparateTipScreen = ([tipSettingConfig[@"showSeparateTipScreen"] boolValue] == YES);
+        tipSettings.showSeparateTipScreen = [tipSettingConfig[@"showSeparateTipScreen"] boolValue];
     }
     if (tipSettingConfig[@"tipPercentages"]) {
         NSMutableArray *tipPercentages = [[NSMutableArray alloc] init];
