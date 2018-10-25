@@ -59,7 +59,7 @@ static NSString *const FlutterReaderSDKMessageAuthLocationNotAuthorized = @"This
                                  if (error != nil) {
                                      NSString *debugCode = error.userInfo[SQRDErrorDebugCodeKey];
                                      NSString *debugMessage = error.userInfo[SQRDErrorDebugMessageKey];
-                                     result([FlutterError errorWithCode:[self getAuthorizationErrorCode:error.code]
+                                     result([FlutterError errorWithCode:[self _authorizationErrorCodeFromNativeErrorCode:error.code]
                                                                 message:error.localizedDescription
                                                                 details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:debugCode debugMessage:debugMessage]]);
                                      return;
@@ -88,7 +88,8 @@ static NSString *const FlutterReaderSDKMessageAuthLocationNotAuthorized = @"This
     }];
 }
 
-- (NSString *)getAuthorizationErrorCode:(NSInteger)nativeErrorCode
+#pragma mark - Private Methods
+- (NSString *)_authorizationErrorCodeFromNativeErrorCode:(NSInteger)nativeErrorCode
 {
     NSString *errorCode = @"UNKNOWN";
     if (nativeErrorCode == SQRDAuthorizationErrorUsageError) {

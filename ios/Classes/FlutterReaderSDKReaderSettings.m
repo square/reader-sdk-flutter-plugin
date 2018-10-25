@@ -59,25 +59,26 @@ static NSString *const FlutterReaderSDKMessageReaderSettingsAlreadyInProgress = 
 - (void)readerSettingsControllerDidPresent:(SQRDReaderSettingsController *)readerSettingsController
 {
     self.readerSettingResolver([NSNull null]);
-    [self clearReaderSettingHooks];
+    [self _clearReaderSettingHooks];
 }
 
 - (void)readerSettingsController:(SQRDReaderSettingsController *)readerSettingsController didFailToPresentWithError:(NSError *)error
 {
     NSString *debugCode = error.userInfo[SQRDErrorDebugCodeKey];
     NSString *debugMessage = error.userInfo[SQRDErrorDebugMessageKey];
-    self.readerSettingResolver([FlutterError errorWithCode:[self getReaderSettingsErrorCode:error.code]
+    self.readerSettingResolver([FlutterError errorWithCode:[self _readerSettingsErrorCodeFromNativeErrorCode:error.code]
                                                    message:error.localizedDescription
                                                    details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:debugCode debugMessage:debugMessage]]);
-    [self clearReaderSettingHooks];
+    [self _clearReaderSettingHooks];
 }
 
-- (void)clearReaderSettingHooks
+#pragma mark - Private Methods
+- (void)_clearReaderSettingHooks
 {
     self.readerSettingResolver = nil;
 }
 
-- (NSString *)getReaderSettingsErrorCode:(NSInteger)nativeErrorCode
+- (NSString *)_readerSettingsErrorCodeFromNativeErrorCode:(NSInteger)nativeErrorCode
 {
     NSString *errorCode = @"UNKNOWN";
     if (nativeErrorCode == SQRDReaderSettingsControllerErrorUsageError) {

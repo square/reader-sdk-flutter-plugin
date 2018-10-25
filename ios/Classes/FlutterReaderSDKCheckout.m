@@ -55,9 +55,9 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
         return;
     }
     NSString *paramError = nil;
-    if ([self validateCheckoutParameters:checkoutParametersDictionary errorMsg:&paramError] == NO) {
+    if ([self _validateCheckoutParameters:checkoutParametersDictionary errorMsg:&paramError] == NO) {
         NSString *paramErrorDebugMessage = [NSString stringWithFormat:@"%@ %@", FlutterReaderSDKMessageCheckoutInvalidParameter, paramError];
-        self.checkoutResolver([FlutterError errorWithCode:FlutterReaderSDKUsageError
+        result([FlutterError errorWithCode:FlutterReaderSDKUsageError
                                                   message:[FlutterReaderSDKErrorUtilities getNativeModuleErrorMessage:FlutterReaderSDKCheckoutInvalidParameter]
                                                   details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:FlutterReaderSDKCheckoutInvalidParameter debugMessage:paramErrorDebugMessage]]);
         return;
@@ -84,11 +84,11 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
         checkoutParams.allowSplitTender = ([checkoutParametersDictionary[@"allowSplitTender"] boolValue] == YES);
     }
     if (checkoutParametersDictionary[@"tipSettings"]) {
-        SQRDTipSettings *tipSettings = [self buildTipSettings:checkoutParametersDictionary[@"tipSettings"]];
+        SQRDTipSettings *tipSettings = [self _buildTipSettings:checkoutParametersDictionary[@"tipSettings"]];
         checkoutParams.tipSettings = tipSettings;
     }
     if (checkoutParametersDictionary[@"additionalPaymentTypes"]) {
-        checkoutParams.additionalPaymentTypes = [self buildAdditionalPaymentTypes:checkoutParametersDictionary[@"additionalPaymentTypes"]];
+        checkoutParams.additionalPaymentTypes = [self _buildAdditionalPaymentTypes:checkoutParametersDictionary[@"additionalPaymentTypes"]];
     }
     SQRDCheckoutController *checkoutController = [[SQRDCheckoutController alloc] initWithParameters:checkoutParams delegate:self];
 
@@ -97,20 +97,21 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
     [checkoutController presentFromViewController:rootViewController];
 }
 
+#pragma mark - SQRDCheckoutControllerDelegate
 - (void)checkoutController:(SQRDCheckoutController *)checkoutController didFinishCheckoutWithResult:(SQRDCheckoutResult *)result
 {
     self.checkoutResolver([result jsonDictionary]);
-    [self clearCheckoutHooks];
+    [self _clearCheckoutHooks];
 }
 
 - (void)checkoutController:(SQRDCheckoutController *)checkoutController didFailWithError:(NSError *)error
 {
     NSString *debugCode = error.userInfo[SQRDErrorDebugCodeKey];
     NSString *debugMessage = error.userInfo[SQRDErrorDebugMessageKey];
-    self.checkoutResolver([FlutterError errorWithCode:[self getCheckoutErrorCode:error.code]
+    self.checkoutResolver([FlutterError errorWithCode:[self _checkoutErrorCodeFromNativeErrorCode:error.code]
                                               message:error.localizedDescription
                                               details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:debugCode debugMessage:debugMessage]]);
-    [self clearCheckoutHooks];
+    [self _clearCheckoutHooks];
 }
 
 - (void)checkoutControllerDidCancel:(SQRDCheckoutController *)checkoutController
@@ -119,15 +120,16 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
     self.checkoutResolver([FlutterError errorWithCode:FlutterReaderSDKCheckoutCancelled
                                               message:[FlutterReaderSDKErrorUtilities getNativeModuleErrorMessage:FlutterReaderSDKCheckoutCancelled]
                                               details:[FlutterReaderSDKErrorUtilities getDebugErrorObject:FlutterReaderSDKCheckoutCancelled debugMessage:@"The user canceled the transaction."]]);
-    [self clearCheckoutHooks];
+    [self _clearCheckoutHooks];
 }
 
-- (void)clearCheckoutHooks
+#pragma mark - Private Methods
+- (void)_clearCheckoutHooks
 {
     self.checkoutResolver = nil;
 }
 
-- (BOOL)validateCheckoutParameters:(NSDictionary *)checkoutParametersDictionary errorMsg:(NSString **)errorMsg
+- (BOOL)_validateCheckoutParameters:(NSDictionary *)checkoutParametersDictionary errorMsg:(NSString **)errorMsg
 {
     // check types of all parameters
     if (!checkoutParametersDictionary[@"amountMoney"] || ![checkoutParametersDictionary[@"amountMoney"] isKindOfClass:[NSDictionary class]]) {
@@ -190,7 +192,7 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
     return YES;
 }
 
-- (SQRDTipSettings *)buildTipSettings:(NSDictionary *)tipSettingConfig
+- (SQRDTipSettings *)_buildTipSettings:(NSDictionary *)tipSettingConfig
 {
     SQRDTipSettings *tipSettings = [SQRDTipSettings alloc];
     if (tipSettingConfig[@"showCustomTipField"]) {
@@ -210,7 +212,7 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
     return tipSettings;
 }
 
-- (SQRDAdditionalPaymentTypes)buildAdditionalPaymentTypes:(NSArray *)additionalPaymentTypes
+- (SQRDAdditionalPaymentTypes)_buildAdditionalPaymentTypes:(NSArray *)additionalPaymentTypes
 {
     SQRDAdditionalPaymentTypes sqrdAdditionalPaymentTypes = 0;
     for (NSString *typeName in additionalPaymentTypes) {
@@ -226,7 +228,7 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
     return sqrdAdditionalPaymentTypes;
 }
 
-- (NSString *)getCheckoutErrorCode:(NSInteger)nativeErrorCode
+- (NSString *)_checkoutErrorCodeFromNativeErrorCode:(NSInteger)nativeErrorCode
 {
     NSString *errorCode = @"UNKNOWN";
     if (nativeErrorCode == SQRDCheckoutControllerErrorUsageError) {
