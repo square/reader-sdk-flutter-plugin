@@ -34,7 +34,7 @@ SPEC CHECKSUMS:
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
   MTBBarcodeScanner: bb0bb62e18b57f8a571a482248adc20722b70a91
   simple_permissions: a27ba0ac0d14c928a767b1056708633e792ef45d
-  square_reader_sdk: fb7e00925f4926923a1a5d3559bf25145d16aad3
+  square_reader_sdk: 991fff6e032ca3daec68e7904ba7beecd81b3c14
 
 PODFILE CHECKSUM: cb6b50d323655cc2ec3bd136559937da3b86ed80
 
