@@ -21,6 +21,8 @@ import 'package:square_reader_sdk/reader_sdk.dart';
 import 'components/dialog_modal.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'components/loading.dart';
+import 'package:flutter/services.dart';
+
 
 class AuthorizeScreen extends StatefulWidget {
   @override
@@ -96,6 +98,12 @@ class _AuthorizeScreenState extends State<AuthorizeScreen> {
     try {
       String barcode = await BarcodeScanner.scan();
       authorizeQRCode(barcode);
+    } on PlatformException catch (e) {
+      if (e.code == BarcodeScanner.CameraAccessDenied) {
+        displayErrorModal(context, 'Camera Access was not granted');
+      } else {
+        displayErrorModal(context, e.toString());
+      }
     } catch (e) {
       displayErrorModal(context, e.message);
     }
@@ -155,101 +163,6 @@ class _AuthorizeScreenState extends State<AuthorizeScreen> {
           )
         ]
       ),
-    );
-  }
-}
-
-class ButtonContainer extends StatefulWidget {
-  @override
-  _ButtonContainerState createState() => new _ButtonContainerState();
-}
-
-class _ButtonContainerState extends State<ButtonContainer> {
-  initState() {
-    super.initState();
-    checkAuthAndNavigate();
-  }
-
-  checkAuthAndNavigate() async {
-    bool isAuthorized = await ReaderSdk.isAuthorized;
-    if (isAuthorized) {
-      Navigator.popAndPushNamed(context, '/checkout');
-    }
-  }
-
-  authorizeQRCode(String authCode) async {
-    try {
-      await ReaderSdk.authorize(authCode);
-      Navigator.pushNamed(context, '/checkout');
-    } on ReaderSdkException catch(e) {
-      // custom dialog to continue scanning after failure
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(
-              'Error processing qr code',
-              style: TextStyle(
-                color: Colors.black,
-              ),
-            ),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text(
-                    e.message,
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  scan();
-                },
-              ),
-            ],
-          );
-        }
-      );
-    }
-  }
-
-  Future scan() async {
-    try {
-      String barcode = await BarcodeScanner.scan();
-      authorizeQRCode(barcode);
-    } catch (e) {
-      displayErrorModal(context, e.message);
-    }
-  }
-
-  scanQRCode() async {
-    scan();
-  }
-
-  manuallyEnterCode() async {
-    Navigator.pushNamed(context, '/authorize/manual');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new SQButtonContainer(
-      buttons: [
-        SQRaisedButton(
-          text: 'Scan QR Code',
-          onPressed: scanQRCode,
-        ),
-        SQOutlineButton(
-          text: 'Manually Enter Code',
-          onPressed: manuallyEnterCode
-        ),
-      ]
     );
   }
 }
