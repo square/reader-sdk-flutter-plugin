@@ -53,9 +53,7 @@
 
 - (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result
 {
-    if ([@"getPlatformVersion" isEqualToString:call.method]) {
-        result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
-    } else if ([@"isAuthorized" isEqualToString:call.method]) {
+    if ([@"isAuthorized" isEqualToString:call.method]) {
         [self.authorization isAuthorized:result];
     } else if ([@"authorizedLocation" isEqualToString:call.method]) {
         [self.authorization authorizedLocation:result];

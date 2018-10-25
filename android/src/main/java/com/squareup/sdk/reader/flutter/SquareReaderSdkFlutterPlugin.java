@@ -42,9 +42,7 @@ public class SquareReaderSdkFlutterPlugin implements MethodCallHandler {
   @Override
   public void onMethodCall(MethodCall call, Result result) {
     String methodName = call.method;
-    if (methodName.equals("getPlatformVersion")) {
-      result.success("Android " + android.os.Build.VERSION.RELEASE);
-    } else if (methodName.equals("isAuthorized")) {
+    if (methodName.equals("isAuthorized")) {
       authorizeModule.isAuthorized(result);
     } else if (methodName.equals("authorizedLocation")) {
       authorizeModule.authorizedLocation(result);
