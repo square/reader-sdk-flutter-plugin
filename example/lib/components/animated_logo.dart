@@ -32,9 +32,7 @@ class _LogoAnimated extends AnimatedWidget {
     return Container(
       alignment: _alignmentTween.evaluate(animation),
       margin: EdgeInsets.symmetric(vertical: 100.0),
-      constraints: BoxConstraints(
-        minHeight: 48.0
-      ),
+      constraints: BoxConstraints(minHeight: 48.0),
       child: Image.asset(
         'icons/ic_jewel.png',
         height: _sizeTween.evaluate(animation),
@@ -46,9 +44,11 @@ class _LogoAnimated extends AnimatedWidget {
 
 /// Displays the square logo with an opening animation
 class Logo extends StatefulWidget {
+  /// initialize with a callback
   Logo({
     this.onLogoAnimated,
   });
+  /// callback that fires after the logo animation is finished
   final VoidCallback onLogoAnimated;
 
   _LogoState createState() => _LogoState();
@@ -58,12 +58,12 @@ class _LogoState extends State<Logo> with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> animation;
 
-  initState() {
+  void initState() {
     super.initState();
     controller = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.linear);
-    animation.addStatusListener((AnimationStatus status) {
+    animation.addStatusListener((var status) {
       if (status == AnimationStatus.completed) {
         widget.onLogoAnimated();
       }
@@ -71,11 +71,9 @@ class _LogoState extends State<Logo> with SingleTickerProviderStateMixin {
     controller.forward();
   }
 
-  Widget build(BuildContext context) {
-    return _LogoAnimated(animation: animation);
-  }
+  Widget build(BuildContext context) => _LogoAnimated(animation: animation);
 
-  dispose() {
+  void dispose() {
     controller.dispose();
     super.dispose();
   }

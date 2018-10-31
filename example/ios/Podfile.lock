@@ -33,7 +33,7 @@ SPEC CHECKSUMS:
   barcode_scan: 8288e70cb430072003bce2c794a1431e7adbcb4d
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
   MTBBarcodeScanner: bb0bb62e18b57f8a571a482248adc20722b70a91
-  simple_permissions: a27ba0ac0d14c928a767b1056708633e792ef45d
+  simple_permissions: 8ea52208b437f8fae29d97a55fe00b705a53246b
   square_reader_sdk: 991fff6e032ca3daec68e7904ba7beecd81b3c14
 
 PODFILE CHECKSUM: cb6b50d323655cc2ec3bd136559937da3b86ed80

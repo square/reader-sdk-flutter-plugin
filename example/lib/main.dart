@@ -25,17 +25,16 @@ void main() => runApp(ExampleApp());
 /// The root of this example app
 class ExampleApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) =>
-    MaterialApp(
-      theme: _buildTheme(),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => SplashScreen(),
-        '/authorize': (context) => AuthorizeScreen(),
-        '/authorize/manual': (context) => ManualAuthorizeScreen(),
-        '/checkout': (context) => CheckoutScreen(),
-      },
-    );
+  Widget build(BuildContext context) => MaterialApp(
+        theme: _buildTheme(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => SplashScreen(),
+          '/authorize': (context) => AuthorizeScreen(),
+          '/authorize/manual': (context) => ManualAuthorizeScreen(),
+          '/checkout': (context) => CheckoutScreen(),
+        },
+      );
 }
 
 // override default theme
@@ -55,16 +54,15 @@ ThemeData _buildTheme() {
       ),
     ),
     textTheme: TextTheme(
-      button: TextStyle(
-        fontSize: 20.0,
-        fontWeight: FontWeight.w600,
-        color: Colors.white,
-      ),
-      body1: TextStyle(
-        fontSize: 24.0,
-        fontWeight: FontWeight.w600,
-        color: Colors.white,
-      )
-    ),
+        button: TextStyle(
+          fontSize: 20.0,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
+        body1: TextStyle(
+          fontSize: 24.0,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        )),
   );
 }

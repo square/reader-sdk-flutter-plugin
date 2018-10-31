@@ -11,13 +11,11 @@ linter:
   # ordering
     - directives_ordering
   # formating
-    - lines_longer_than_80_chars # avoid
     - curly_braces_in_flow_control_structures
   # --- DOCUMENTATION
   # comments
   # doc comments
     - slash_for_doc_comments
-    - package_api_docs # prefer
     - comment_references
   # markdown
   # writing

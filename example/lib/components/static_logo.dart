@@ -16,13 +16,13 @@ limitations under the License.
 
 import 'package:flutter/material.dart';
 
+/// A static square logo
 class SquareLogo extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Image.asset(
+  Widget build(BuildContext context) =>
+    Image.asset(
       'icons/ic_jewel.png',
       height: 48.0,
       width: 48.0,
     );
-  }   
 }
