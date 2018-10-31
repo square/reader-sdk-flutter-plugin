@@ -6,3 +6,9 @@
 pubspec.lock
 
 build/
+android/.project
+.vscode/settings.json
+android/.classpath
+android/.settings/org.eclipse.buildship.core.prefs
+.clang-format
+android/bin

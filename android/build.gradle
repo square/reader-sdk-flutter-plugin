@@ -1,4 +1,19 @@
-group 'com.square.readersdkflutterplugin'
+/*
+Copyright 2018 Square Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+group 'com.squareup.readersdkflutterplugin'
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -16,6 +31,13 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            url "https://sdk.squareup.com/android"
+            credentials {
+                username SQUARE_READER_SDK_APPLICATION_ID
+                password SQUARE_READER_SDK_REPOSITORY_PASSWORD
+            }
+        }
     }
 }
 
@@ -25,10 +47,24 @@ android {
     compileSdkVersion 27
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 19
+        targetSdkVersion 27
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     lintOptions {
         disable 'InvalidPackage'
     }
+    dexOptions {
+        preDexLibraries true
+        jumboMode true
+        keepRuntimeAnnotatedClasses false
+    }
+}
+
+dependencies {
+    def readerSdkMinVersion = '1.0.4'
+    api "com.squareup.sdk.reader:reader-sdk-$SQUARE_READER_SDK_APPLICATION_ID:$readerSdkMinVersion"
+    runtimeOnly "com.squareup.sdk.reader:reader-sdk-internals:$readerSdkMinVersion"
+    implementation 'com.android.support:multidex:1.0.3' // Add this dependency if your minSdkVersion < 21
 }

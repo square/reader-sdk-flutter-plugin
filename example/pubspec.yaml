@@ -1,13 +1,5 @@
-name: reader_sdk_flutter_plugin_example
-description: Demonstrates how to use the reader_sdk_flutter_plugin plugin.
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# Read more about versioning at semver.org.
-version: 1.0.0+1
+name: square_reader_sdk_example
+description: Demonstrates how to use the square_reader_sdk plugin.
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
@@ -16,15 +8,16 @@ dependencies:
   flutter:
     sdk: flutter
 
+  simple_permissions: ^0.1.8 
+  barcode_scan: ^0.0.7
+  intl: ^0.15.7
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
-  reader_sdk_flutter_plugin:
+  square_reader_sdk:
     path: ../
 
 # For information on the generic Dart part of this file, see the
@@ -32,7 +25,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
+  assets:
+   - icons/
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

@@ -1,56 +1,70 @@
+/*
+Copyright 2018 Square Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'authorize_screen.dart';
+import 'checkout_screen.dart';
+import 'manual_authorize_screen.dart';
+import 'splash_screen.dart';
 
-import 'package:flutter/services.dart';
-import 'package:reader_sdk_flutter_plugin/reader_sdk_flutter_plugin.dart';
+void main() => runApp(ExampleApp());
 
-void main() => runApp(new MyApp());
-
-class MyApp extends StatefulWidget {
+/// The root of this example app
+class ExampleApp extends StatelessWidget {
   @override
-  _MyAppState createState() => new _MyAppState();
+  Widget build(BuildContext context) =>
+    MaterialApp(
+      theme: _buildTheme(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => SplashScreen(),
+        '/authorize': (context) => AuthorizeScreen(),
+        '/authorize/manual': (context) => ManualAuthorizeScreen(),
+        '/checkout': (context) => CheckoutScreen(),
+      },
+    );
 }
 
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await ReaderSdkFlutterPlugin.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: new Center(
-          child: new Text('Running on: $_platformVersion\n'),
-        ),
+// override default theme
+ThemeData _buildTheme() {
+  var base = ThemeData.light();
+  return base.copyWith(
+    backgroundColor: Color.fromRGBO(64, 135, 225, 1.0),
+    canvasColor: Colors.transparent,
+    scaffoldBackgroundColor: Color.fromRGBO(64, 135, 225, 1.0),
+    buttonTheme: ButtonThemeData(
+      height: 64.0,
+    ),
+    hintColor: Colors.transparent,
+    inputDecorationTheme: InputDecorationTheme(
+      labelStyle: TextStyle(
+        color: Colors.white,
       ),
-    );
-  }
+    ),
+    textTheme: TextTheme(
+      button: TextStyle(
+        fontSize: 20.0,
+        fontWeight: FontWeight.w600,
+        color: Colors.white,
+      ),
+      body1: TextStyle(
+        fontSize: 24.0,
+        fontWeight: FontWeight.w600,
+        color: Colors.white,
+      )
+    ),
+  );
 }

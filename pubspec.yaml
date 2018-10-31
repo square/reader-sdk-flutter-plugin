@@ -1,8 +1,8 @@
-name: reader_sdk_flutter_plugin
-description: A new flutter plugin project.
-version: 0.0.1
-author:
-homepage:
+name: square_reader_sdk
+description: A flutter plugin for Square Reader SDK.
+version: 0.0.4
+author: Square, Inc.
+homepage: https://github.com/square/reader-sdk-flutter-plugin
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
@@ -10,15 +10,22 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  built_value: "^6.1.4"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
 
+dev_dependencies:
+  build:
+  build_runner:
+  source_gen:
+  built_value_generator:
+
 # The following section is specific to Flutter.
 flutter:
   plugin:
-    androidPackage: com.square.readersdkflutterplugin
-    pluginClass: ReaderSdkFlutterPlugin
+    androidPackage: com.squareup.sdk.reader.flutter
+    pluginClass: SquareReaderSdkFlutterPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
