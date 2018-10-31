@@ -26,7 +26,7 @@ import 'package:flutter/services.dart';
 
 class AuthorizeScreen extends StatefulWidget {
   @override
-  _AuthorizeScreenState createState() => new _AuthorizeScreenState();
+  _AuthorizeScreenState createState() => _AuthorizeScreenState();
 }
 
 class _AuthorizeScreenState extends State<AuthorizeScreen> {
@@ -119,14 +119,14 @@ class _AuthorizeScreenState extends State<AuthorizeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: _isLoading? new LoadingWidget() :new Column(
+    return Scaffold(
+      body: _isLoading? LoadingWidget() :Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             alignment: Alignment.center,
             margin: EdgeInsets.only(top: 100.0),
-            child: new SquareLogo(),
+            child: SquareLogo(),
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 64.0),

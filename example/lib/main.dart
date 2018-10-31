@@ -15,36 +15,36 @@ limitations under the License.
 */
 
 import 'package:flutter/material.dart';
-import 'splash_screen.dart';
 import 'authorize_screen.dart';
-import 'manual_authorize_screen.dart';
 import 'checkout_screen.dart';
+import 'manual_authorize_screen.dart';
+import 'splash_screen.dart';
 
-void main() => runApp(new ExampleApp());
+void main() => runApp(ExampleApp());
 
+/// The root of this example app
 class ExampleApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
+  Widget build(BuildContext context) =>
+    MaterialApp(
       theme: _buildTheme(),
       initialRoute: '/',
       routes: {
-        '/': (context) => new SplashScreen(),
+        '/': (context) => SplashScreen(),
         '/authorize': (context) => AuthorizeScreen(),
         '/authorize/manual': (context) => ManualAuthorizeScreen(),
         '/checkout': (context) => CheckoutScreen(),
       },
     );
-  }
 }
 
 // override default theme
 ThemeData _buildTheme() {
-  final ThemeData base = ThemeData.light();
+  var base = ThemeData.light();
   return base.copyWith(
-    backgroundColor: new Color.fromRGBO(64, 135, 225, 1.0),
+    backgroundColor: Color.fromRGBO(64, 135, 225, 1.0),
     canvasColor: Colors.transparent,
-    scaffoldBackgroundColor: new Color.fromRGBO(64, 135, 225, 1.0),
+    scaffoldBackgroundColor: Color.fromRGBO(64, 135, 225, 1.0),
     buttonTheme: ButtonThemeData(
       height: 64.0,
     ),

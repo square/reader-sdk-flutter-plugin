@@ -18,7 +18,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
 class _LogoAnimated extends AnimatedWidget {
-  static final _alignmentTween = new AlignmentTween(
+  static final _alignmentTween = AlignmentTween(
     begin: Alignment.center,
     end: Alignment.topCenter,
   );
@@ -35,7 +35,7 @@ class _LogoAnimated extends AnimatedWidget {
       constraints: BoxConstraints(
         minHeight: 48.0
       ),
-      child: new Image.asset(
+      child: Image.asset(
         'icons/ic_jewel.png',
         height: _sizeTween.evaluate(animation),
         width: _sizeTween.evaluate(animation),
@@ -44,7 +44,7 @@ class _LogoAnimated extends AnimatedWidget {
   }
 }
 
-// Displays the square logo with an opening animation
+/// Displays the square logo with an opening animation
 class Logo extends StatefulWidget {
   Logo({
     this.onLogoAnimated,

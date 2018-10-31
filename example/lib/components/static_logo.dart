@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 class SquareLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Image.asset(
+    return Image.asset(
       'icons/ic_jewel.png',
       height: 48.0,
       width: 48.0,

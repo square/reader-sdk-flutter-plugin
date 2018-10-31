@@ -33,7 +33,7 @@ class ReaderSdk {
   // Search KEEP_IN_SYNC_READER_SETTINGS_ERROR to update all places
   static const ReaderSettingsErrorSdkNotAuthorized = 'READER_SETTINGS_SDK_NOT_AUTHORIZED';
 
-  static final _standardSerializers = (serializers.toBuilder()..addPlugin(new StandardJsonPlugin())).build();
+  static final _standardSerializers = (serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();
 
   static const MethodChannel _channel =
       const MethodChannel('square_reader_sdk');

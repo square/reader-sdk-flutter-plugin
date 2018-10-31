@@ -22,7 +22,7 @@ import 'components/static_logo.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
-  _SplashScreenState createState() => new _SplashScreenState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
@@ -30,23 +30,23 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: !_hasAnimated ? new ConstrainedBox( 
-        constraints: new BoxConstraints.expand(),
-        child: new Logo(
+    return Scaffold(
+      body: !_hasAnimated ? ConstrainedBox( 
+        constraints: BoxConstraints.expand(),
+        child: Logo(
           onLogoAnimated: () {
             setState(() {
               _hasAnimated = true;
             });
           }
         )
-      ) : new Column(
+      ) : Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             alignment: Alignment.center,
             margin: EdgeInsets.only(top: 100.0),
-            child: new SquareLogo()
+            child: SquareLogo()
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 32.0),
@@ -66,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
 class ButtonContainer extends StatefulWidget {
   @override
-  _ButtonContainerState createState() => new _ButtonContainerState();
+  _ButtonContainerState createState() => _ButtonContainerState();
 }
 
 class _ButtonContainerState extends State<ButtonContainer> {
@@ -166,7 +166,7 @@ class _ButtonContainerState extends State<ButtonContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return new SQButtonContainer(
+    return SQButtonContainer(
       buttons: [
         SQOutlineButton(
           text: _microphoneButtonText,

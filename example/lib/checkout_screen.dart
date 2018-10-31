@@ -27,7 +27,7 @@ import 'components/loading.dart';
 
 class CheckoutScreen extends StatefulWidget {
   @override
-  _CheckoutScreenState createState() => new _CheckoutScreenState();
+  _CheckoutScreenState createState() => _CheckoutScreenState();
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
@@ -140,17 +140,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {
-        return new CupertinoActionSheet(
+        return CupertinoActionSheet(
           title: Text('Location: ${location.name}'),
           actions: [
-            new FlatButton(
+            FlatButton(
               child: Text(
                 'Reader Settings',
                 style: TextStyle(color: Colors.blue),
               ),
               onPressed: onReaderSDKSettings,
             ),
-            new FlatButton(
+            FlatButton(
               child: Text(
                 'Deauthorize',
                 style: TextStyle(color: Colors.red),
@@ -158,7 +158,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               onPressed: onDeauthorize,
             ),
           ],
-          cancelButton: new FlatButton(
+          cancelButton: FlatButton(
               child: Text(
                 'Cancel',
                 style: TextStyle(color: Colors.blue),
@@ -171,14 +171,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: _isLoading? new LoadingWidget() : new Column(
+    return Scaffold(
+      body: _isLoading? LoadingWidget() : Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             alignment: Alignment.center,
             margin: EdgeInsets.only(top: 100.0),
-            child: new SquareLogo(),
+            child: SquareLogo(),
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 32.0, vertical: 48.0),

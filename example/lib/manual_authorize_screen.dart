@@ -22,7 +22,7 @@ import 'components/loading.dart';
 
 class ManualAuthorizeScreen extends StatefulWidget {
   @override
-  _ManualAuthorizeScreenState createState() => new _ManualAuthorizeScreenState();
+  _ManualAuthorizeScreenState createState() => _ManualAuthorizeScreenState();
 }
 
 class _ManualAuthorizeScreenState extends State<ManualAuthorizeScreen> {
@@ -50,7 +50,7 @@ class _ManualAuthorizeScreenState extends State<ManualAuthorizeScreen> {
   }
 
   Widget _buildManualAuthorizeScreen(BuildContext context) {
-    return new Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
@@ -68,7 +68,7 @@ class _ManualAuthorizeScreenState extends State<ManualAuthorizeScreen> {
             ),
             controller: textEditingController,
             decoration: InputDecoration(
-              border: new OutlineInputBorder(
+              border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
               ),
               hintText: 'Authorization Code',
@@ -100,8 +100,8 @@ class _ManualAuthorizeScreenState extends State<ManualAuthorizeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: _isLoading? new LoadingWidget() : _buildManualAuthorizeScreen(context)
+    return Scaffold(
+      body: _isLoading? LoadingWidget() : _buildManualAuthorizeScreen(context)
     );
   }
 }
