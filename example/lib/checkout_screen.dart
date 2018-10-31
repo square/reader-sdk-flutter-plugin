@@ -15,75 +15,78 @@ limitations under the License.
 */
 
 import 'package:built_collection/built_collection.dart';
-import 'package:flutter/material.dart';
-import 'components/buttons.dart';
-import 'package:square_reader_sdk/reader_sdk.dart';
-import 'package:square_reader_sdk/models.dart';
-import 'components/static_logo.dart';
-import 'components/dialog_modal.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
-import 'components/loading.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:square_reader_sdk/models.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
+import 'components/buttons.dart';
+import 'components/dialog_modal.dart';
+import 'components/loading.dart';
+import 'components/static_logo.dart';
+
+/// CheckoutScreen shows the checkout button and reader settings
 class CheckoutScreen extends StatefulWidget {
   @override
   _CheckoutScreenState createState() => _CheckoutScreenState();
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
-  final textEditingController = TextEditingController();
+  final TextEditingController textEditingController = TextEditingController();
   bool _isLoading = false;
 
   _showTransactionDialog(CheckoutResult checkoutResult) {
     // amount is in cents
-    String formattedAmount = NumberFormat.simpleCurrency(name: checkoutResult.totalMoney.currencyCode).format(checkoutResult.totalMoney.amount / 100);
+    var formattedAmount = NumberFormat.simpleCurrency(
+            name: checkoutResult.totalMoney.currencyCode)
+        .format(checkoutResult.totalMoney.amount / 100);
 
     showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            formattedAmount + ' Successfully Charged',
-            style: TextStyle(
-              color: Colors.black,
-            ),
+      builder: (var context) => AlertDialog(
+        title: Text(
+          '$formattedAmount Successfully Charged',
+          style: TextStyle(
+            color: Colors.black,
           ),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(
-                  'See the debugger console for transaction details. You can refund transactions from your Square Dashboard.',
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
+        ),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text(
+                'See the debugger console for transaction details. You can refund transactions from your Square Dashboard.',
+                style: TextStyle(
+                  color: Colors.black,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      }
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      )
     );
   }
 
-  onCharge() async {
+  void onCharge() async {
     var builder = CheckoutParametersBuilder();
     builder.amountMoney = MoneyBuilder()
-      ..amount=100
+      ..amount = 100
       ..currencyCode = 'USD'; // currencyCode is optional
     // Optional for all following configuration
     builder.skipReceipt = false;
     builder.alwaysRequireSignature = true;
     builder.allowSplitTender = false;
     builder.note = 'Hello 💳 💰 World!';
-    builder.additionalPaymentTypes = ListBuilder(['cash', 'manual_card_entry', 'other']);
+    builder.additionalPaymentTypes =
+        ListBuilder(['cash', 'manual_card_entry', 'other']);
     builder.tipSettings = TipSettingsBuilder()
       ..showCustomTipField = true
       ..showSeparateTipScreen = false
@@ -92,16 +95,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     CheckoutParameters checkoutParameters = builder.build();
 
     try {
-      CheckoutResult checkoutResult = await ReaderSdk.startCheckout(checkoutParameters);
-      print('${checkoutResult.totalMoney.amount} Transaction finished successfully: ${checkoutResult.transactionClientId}');
+      var checkoutResult =
+          await ReaderSdk.startCheckout(checkoutParameters);
+      print(
+          '${checkoutResult.totalMoney.amount} Transaction finished successfully: ${checkoutResult.transactionClientId}');
       _showTransactionDialog(checkoutResult);
     } on ReaderSdkException catch (e) {
       switch (e.code) {
-        case ReaderSdk.CheckoutErrorCanceled:
+        case ReaderSdk.checkoutErrorCanceled:
           // Handle canceled transaction here
           print('transaction canceled.');
           break;
-        case ReaderSdk.CheckoutErrorSdkNotAuthorized:
+        case ReaderSdk.checkoutErrorSdkNotAuthorized:
           // Handle sdk not authorized
           Navigator.pushNamed(context, '/');
           break;
@@ -111,7 +116,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     }
   }
 
-  onReaderSDKSettings() async {
+  void onReaderSDKSettings() async {
     try {
       await ReaderSdk.startReaderSettings();
     } on ReaderSdkException catch (e) {
@@ -119,7 +124,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     }
   }
 
-  onDeauthorize() async {
+  void onDeauthorize() async {
     try {
       setState(() {
         _isLoading = true;
@@ -135,74 +140,68 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     }
   }
 
-  onSettings() async {
-    Location location = await ReaderSdk.authorizedLocation;
+  void onSettings() async {
+    var location = await ReaderSdk.authorizedLocation;
     showCupertinoModalPopup(
       context: context,
-      builder: (BuildContext context) {
-        return CupertinoActionSheet(
-          title: Text('Location: ${location.name}'),
-          actions: [
-            FlatButton(
-              child: Text(
-                'Reader Settings',
-                style: TextStyle(color: Colors.blue),
-              ),
-              onPressed: onReaderSDKSettings,
+      builder: (var context) => CupertinoActionSheet(
+        title: Text('Location: ${location.name}'),
+        actions: [
+          FlatButton(
+            child: Text(
+              'Reader Settings',
+              style: TextStyle(color: Colors.blue),
             ),
-            FlatButton(
-              child: Text(
-                'Deauthorize',
-                style: TextStyle(color: Colors.red),
-              ),
-              onPressed: onDeauthorize,
-            ),
-          ],
-          cancelButton: FlatButton(
-              child: Text(
-                'Cancel',
-                style: TextStyle(color: Colors.blue),
-              ),
-            onPressed: () => Navigator.pop(context),
+            onPressed: onReaderSDKSettings,
           ),
-        );
-      });
+          FlatButton(
+            child: Text(
+              'Deauthorize',
+              style: TextStyle(color: Colors.red),
+            ),
+            onPressed: onDeauthorize,
+          ),
+        ],
+        cancelButton: FlatButton(
+          child: Text(
+            'Cancel',
+            style: TextStyle(color: Colors.blue),
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+      )
+    );
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _isLoading? LoadingWidget() : Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.only(top: 100.0),
-            child: SquareLogo(),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 32.0, vertical: 48.0),
-            child: Text(
-              'Take a payment.',
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Container(
-            child: SQButtonContainer(
-              buttons: [
-                SQRaisedButton(
-                  text: 'Charge \$1.00',
-                  onPressed: onCharge,
+  Widget build(BuildContext context) => Scaffold(
+    body: _isLoading
+        ? LoadingWidget()
+        : Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(top: 100.0),
+                  child: SquareLogo(),
                 ),
-                SQOutlineButton(
-                  text: 'Settings',
-                  onPressed: onSettings
+                Container(
+                  margin:
+                      EdgeInsets.symmetric(horizontal: 32.0, vertical: 48.0),
+                  child: Text(
+                    'Take a payment.',
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ]
-            ),
-          ),
-        ]
-      ),
+                Container(
+                  child: SQButtonContainer(buttons: [
+                    SQRaisedButton(
+                      text: 'Charge \$1.00',
+                      onPressed: onCharge,
+                    ),
+                    SQOutlineButton(text: 'Settings', onPressed: onSettings),
+                  ]),
+                ),
+              ]),
     );
-  }
 }

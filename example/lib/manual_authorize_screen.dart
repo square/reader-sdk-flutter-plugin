@@ -15,11 +15,13 @@ limitations under the License.
 */
 
 import 'package:flutter/material.dart';
-import 'components/buttons.dart';
 import 'package:square_reader_sdk/reader_sdk.dart';
+
+import 'components/buttons.dart';
 import 'components/dialog_modal.dart';
 import 'components/loading.dart';
 
+/// A screen that requires an authorization code in a text field
 class ManualAuthorizeScreen extends StatefulWidget {
   @override
   _ManualAuthorizeScreenState createState() => _ManualAuthorizeScreenState();
@@ -27,20 +29,20 @@ class ManualAuthorizeScreen extends StatefulWidget {
 
 class _ManualAuthorizeScreenState extends State<ManualAuthorizeScreen> {
   bool _isLoading = false;
-  final textEditingController = TextEditingController();
+  final TextEditingController textEditingController = TextEditingController();
 
-  onCancel() async {
+  void onCancel() async {
     Navigator.pop(context);
   }
 
-  onAuthorize() async {
+  void onAuthorize() async {
     try {
       setState(() {
         _isLoading = true;
       });
-      await ReaderSdk.authorize(this.textEditingController.text);
+      await ReaderSdk.authorize(textEditingController.text);
       Navigator.popAndPushNamed(context, '/checkout');
-    } on ReaderSdkException catch(e) {
+    } on ReaderSdkException catch (e) {
       return displayErrorModal(context, e.message);
     } finally {
       setState(() {
@@ -49,59 +51,52 @@ class _ManualAuthorizeScreenState extends State<ManualAuthorizeScreen> {
     }
   }
 
-  Widget _buildManualAuthorizeScreen(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Container(
-          margin: EdgeInsets.fromLTRB(32.0, 84.0, 32.0, 32.0),
-          child: Text(
-            'Enter an authorization code.',
-            textAlign: TextAlign.center,
-          ),
+  Widget _buildManualAuthorizeScreen(BuildContext context) =>
+    Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+      Container(
+        margin: EdgeInsets.fromLTRB(32.0, 84.0, 32.0, 32.0),
+        child: Text(
+          'Enter an authorization code.',
+          textAlign: TextAlign.center,
         ),
-        Container( // Container for text field
-          margin: EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
-          child: TextField(
-            style: TextStyle(
-              fontSize: 18.0,
+      ),
+      Container(
+        // Container for text field
+        margin: EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
+        child: TextField(
+          style: TextStyle(
+            fontSize: 18.0,
+          ),
+          controller: textEditingController,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
             ),
-            controller: textEditingController,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              hintText: 'Authorization Code',
-              hintStyle: TextStyle(
-                color: Colors.white70,
-              ),
-              fillColor: Color.fromRGBO(83,166,255, 1.0),
-              filled: true,
+            hintText: 'Authorization Code',
+            hintStyle: TextStyle(
+              color: Colors.white70,
             ),
+            fillColor: Color.fromRGBO(83, 166, 255, 1.0),
+            filled: true,
           ),
         ),
-        Container( // Container for buttons
-          child: SQButtonContainer(
-            buttons: [
-              SQRaisedButton(
-                text: 'Authorize',
-                onPressed: onAuthorize,
-              ),
-              SQOutlineButton(
-                text: 'Cancel',
-                onPressed: onCancel
-              ),
-            ]
+      ),
+      Container(
+        // Container for buttons
+        child: SQButtonContainer(buttons: [
+          SQRaisedButton(
+            text: 'Authorize',
+            onPressed: onAuthorize,
           ),
-        ),
-      ]
-    );
-  }
+          SQOutlineButton(text: 'Cancel', onPressed: onCancel),
+        ]),
+      ),
+    ]);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _isLoading? LoadingWidget() : _buildManualAuthorizeScreen(context)
-    );
-  }
+  Widget build(BuildContext context) =>
+    Scaffold(
+        body: _isLoading
+            ? LoadingWidget()
+            : _buildManualAuthorizeScreen(context));
 }
