@@ -15,28 +15,28 @@ limitations under the License.
 */
 import 'dart:async';
 
+import 'package:built_value/standard_json_plugin.dart';
 import 'package:flutter/services.dart';
 import 'models.dart';
 import 'serializers.dart';
-import 'package:built_value/standard_json_plugin.dart';
 
+// ignore: avoid_classes_with_only_static_members
 class ReaderSdk {
   // error codes are defined below, both iOS and Android *MUST* return same error for these errors:
   // Usage error
-  static const UsageError = 'USAGE_ERROR';
+  static const String usageError = 'USAGE_ERROR';
   // Expected errors:
   // Search KEEP_IN_SYNC_AUTHORIZE_ERROR to update all places
-  static const AuthorizeErrorNoNetwork = 'AUTHORIZE_NO_NETWORK';
+  static const String authorizeErrorNoNetwork = 'AUTHORIZE_NO_NETWORK';
   // Search KEEP_IN_SYNC_CHECKOUT_ERROR to update all places
-  static const CheckoutErrorCanceled = 'CHECKOUT_CANCELED';
-  static const CheckoutErrorSdkNotAuthorized = 'CHECKOUT_SDK_NOT_AUTHORIZED';
+  static const String checkoutErrorCanceled = 'CHECKOUT_CANCELED';
+  static const String checkoutErrorSdkNotAuthorized = 'CHECKOUT_SDK_NOT_AUTHORIZED';
   // Search KEEP_IN_SYNC_READER_SETTINGS_ERROR to update all places
-  static const ReaderSettingsErrorSdkNotAuthorized = 'READER_SETTINGS_SDK_NOT_AUTHORIZED';
+  static const String readerSettingsErrorSdkNotAuthorized = 'READER_SETTINGS_SDK_NOT_AUTHORIZED';
 
   static final _standardSerializers = (serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();
 
-  static const MethodChannel _channel =
-      const MethodChannel('square_reader_sdk');
+  static const MethodChannel _channel = MethodChannel('square_reader_sdk');
 
   static Future<bool> get isAuthorized async {
     try {
@@ -58,7 +58,7 @@ class ReaderSdk {
 
   static Future<Location> authorize(String authCode) async {
     try {
-      Map<String, dynamic> params = <String, dynamic> {
+      var params = <String, dynamic> {
         'authCode': authCode,
       };
       Map locationNativeObject = await _channel.invokeMethod('authorize', params);
@@ -87,7 +87,7 @@ class ReaderSdk {
 
   static Future<CheckoutResult> startCheckout(CheckoutParameters checkoutParams) async {
     try {
-      Map<String, dynamic> params = <String, dynamic> {
+      var params = <String, dynamic> {
         'checkoutParams': _standardSerializers.serializeWith(CheckoutParameters.serializer, checkoutParams),
       };
       Map checkoutResultNativeObject = await _channel.invokeMethod('startCheckout', params);

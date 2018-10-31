@@ -102,11 +102,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       _showTransactionDialog(checkoutResult);
     } on ReaderSdkException catch (e) {
       switch (e.code) {
-        case ReaderSdk.CheckoutErrorCanceled:
+        case ReaderSdk.checkoutErrorCanceled:
           // Handle canceled transaction here
           print('transaction canceled.');
           break;
-        case ReaderSdk.CheckoutErrorSdkNotAuthorized:
+        case ReaderSdk.checkoutErrorSdkNotAuthorized:
           // Handle sdk not authorized
           Navigator.pushNamed(context, '/');
           break;
