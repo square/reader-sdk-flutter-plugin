@@ -16,10 +16,11 @@ limitations under the License.
 
 import 'package:flutter/material.dart';
 import 'package:simple_permissions/simple_permissions.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
-import 'components/animated_logo.dart';
-import 'components/buttons.dart';
-import 'components/static_logo.dart';
+import 'widgets/animated_square_logo.dart';
+import 'widgets/buttons.dart';
+import 'widgets/square_logo.dart';
 
 /// A screen that shows an animated square logo and asks for square permissions
 class SplashScreen extends StatefulWidget {
@@ -29,35 +30,58 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool _hasAnimated = false;
+  bool _isCheckingPermissions = true;
+
+  void initState() {
+    super.initState();
+  }
+
+  Future _checkStatusAndNavigate() async {
+    if (await ReaderSdk.isAuthorized) {
+      Navigator.popAndPushNamed(context, '/checkout');
+      return;
+    }
+    var permissionsStatus = await _permissionsStatus;
+    var hasPermissions = permissionsStatus[0] == PermissionStatus.authorized &&
+        permissionsStatus[1] == PermissionStatus.authorized;
+    if (hasPermissions) {
+      Navigator.popAndPushNamed(context, '/authorize');
+    } else {
+      setState(() {
+        _isCheckingPermissions = false;
+      });
+    }
+  }
 
   @override
+  Widget build(BuildContext context) => Scaffold(
+        body: !_hasAnimated || _isCheckingPermissions
+            ? ConstrainedBox(
+                constraints: BoxConstraints.expand(),
+                child: AnimatedSquareLogo(onLogoAnimated: () {
+                  _checkStatusAndNavigate();
+                  setState(() {
+                    _hasAnimated = true;
+                  });
+                }))
+            : _PermissionSettings(),
+      );
+}
+
+class _PermissionSettings extends StatelessWidget {
+  @override
   Widget build(BuildContext context) =>
-    Scaffold(
-      body: !_hasAnimated
-          ? ConstrainedBox(
-              constraints: BoxConstraints.expand(),
-              child: Logo(onLogoAnimated: () {
-                setState(() {
-                  _hasAnimated = true;
-                });
-              }))
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                  Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.only(top: 100.0),
-                      child: SquareLogo()),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 32.0),
-                    child: Text(
-                      'Grant Reader SDK the required permissions.',
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Container(child: _ButtonContainer())
-                ]),
-    );
+      Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        SquareLogo(),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 32.0),
+          child: Text(
+            'Grant Reader SDK the required permissions.',
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Container(child: _ButtonContainer())
+      ]);
 }
 
 class _ButtonContainer extends StatefulWidget {
@@ -101,19 +125,13 @@ class _ButtonContainerState extends State<_ButtonContainer> {
   }
 
   void checkPermissionsAndNavigate() async {
-    var locationPermission =
-        await SimplePermissions.getPermissionStatus(
-            Permission.WhenInUseLocation);
-    var microphonePermission =
-        await SimplePermissions.getPermissionStatus(Permission.RecordAudio);
+    var permissionsStatus = await _permissionsStatus;
 
     // discard if wiget has been removed while waiting
     if (!mounted) return;
 
-    setState(() {
-      updateLocationStatus(locationPermission);
-      updateMicrophoneStatus(microphonePermission);
-    });
+    updateLocationStatus(permissionsStatus[0]);
+    updateMicrophoneStatus(permissionsStatus[1]);
 
     if (_hasLocationAccess && _hasMicrophoneAccess) {
       Navigator.popAndPushNamed(context, '/authorize');
@@ -165,14 +183,22 @@ class _ButtonContainerState extends State<_ButtonContainer> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-    SQButtonContainer(buttons: [
-      SQOutlineButton(
-        text: _microphoneButtonText,
-        onPressed: _hasMicrophoneAccess ? null : onRequestAudioPermission,
-      ),
-      SQOutlineButton(
-          text: _locationButtonText,
-          onPressed: _hasLocationAccess ? null : onRequestLocationPermission),
-    ]);
+  Widget build(BuildContext context) => SQButtonContainer(buttons: [
+        SQOutlineButton(
+          text: _microphoneButtonText,
+          onPressed: _hasMicrophoneAccess ? null : onRequestAudioPermission,
+        ),
+        SQOutlineButton(
+            text: _locationButtonText,
+            onPressed: _hasLocationAccess ? null : onRequestLocationPermission),
+      ]);
+}
+
+Future<List<PermissionStatus>> get _permissionsStatus async {
+  var locationPermission =
+      await SimplePermissions.getPermissionStatus(Permission.WhenInUseLocation);
+  var microphonePermission =
+      await SimplePermissions.getPermissionStatus(Permission.RecordAudio);
+
+  return [locationPermission, microphonePermission];
 }

@@ -43,9 +43,9 @@ class _LogoAnimated extends AnimatedWidget {
 }
 
 /// Displays the square logo with an opening animation
-class Logo extends StatefulWidget {
+class AnimatedSquareLogo extends StatefulWidget {
   /// initialize with a callback
-  Logo({
+  AnimatedSquareLogo({
     this.onLogoAnimated,
   });
   /// callback that fires after the logo animation is finished
@@ -54,7 +54,7 @@ class Logo extends StatefulWidget {
   _LogoState createState() => _LogoState();
 }
 
-class _LogoState extends State<Logo> with SingleTickerProviderStateMixin {
+class _LogoState extends State<AnimatedSquareLogo> with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> animation;
 

@@ -17,9 +17,9 @@ limitations under the License.
 import 'package:flutter/material.dart';
 import 'package:square_reader_sdk/reader_sdk.dart';
 
-import 'components/buttons.dart';
-import 'components/dialog_modal.dart';
-import 'components/loading.dart';
+import 'widgets/buttons.dart';
+import 'widgets/dialog_modal.dart';
+import 'widgets/loading.dart';
 
 /// A screen that requires an authorization code in a text field
 class ManualAuthorizeScreen extends StatefulWidget {
