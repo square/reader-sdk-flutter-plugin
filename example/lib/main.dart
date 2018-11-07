@@ -15,10 +15,10 @@ limitations under the License.
 */
 
 import 'package:flutter/material.dart';
-import 'authorize_screen.dart';
-import 'checkout_screen.dart';
-import 'manual_authorize_screen.dart';
-import 'splash_screen.dart';
+import 'screens/authorize_screen.dart';
+import 'screens/checkout_screen.dart';
+import 'screens/manual_authorize_screen.dart';
+import 'screens/splash_screen.dart';
 
 void main() => runApp(ExampleApp());
 

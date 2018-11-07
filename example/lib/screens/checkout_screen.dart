@@ -21,10 +21,10 @@ import 'package:intl/intl.dart';
 import 'package:square_reader_sdk/models.dart';
 import 'package:square_reader_sdk/reader_sdk.dart';
 
-import 'components/buttons.dart';
-import 'components/dialog_modal.dart';
-import 'components/loading.dart';
-import 'components/static_logo.dart';
+import 'widgets/buttons.dart';
+import 'widgets/dialog_modal.dart';
+import 'widgets/loading.dart';
+import 'widgets/square_logo.dart';
 
 /// CheckoutScreen shows the checkout button and reader settings
 class CheckoutScreen extends StatefulWidget {
@@ -43,36 +43,35 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         .format(checkoutResult.totalMoney.amount / 100);
 
     showDialog(
-      context: context,
-      builder: (var context) => AlertDialog(
-        title: Text(
-          '$formattedAmount Successfully Charged',
-          style: TextStyle(
-            color: Colors.black,
-          ),
-        ),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              Text(
-                'See the debugger console for transaction details. You can refund transactions from your Square Dashboard.',
+        context: context,
+        builder: (var context) => AlertDialog(
+              title: Text(
+                '$formattedAmount Successfully Charged',
                 style: TextStyle(
                   color: Colors.black,
                 ),
               ),
-            ],
-          ),
-        ),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('OK'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      )
-    );
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Text(
+                      'See the debugger console for transaction details. You can refund transactions from your Square Dashboard.',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ));
   }
 
   void onCharge() async {
@@ -95,10 +94,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     CheckoutParameters checkoutParameters = builder.build();
 
     try {
-      var checkoutResult =
-          await ReaderSdk.startCheckout(checkoutParameters);
-      print(
-          '${checkoutResult.totalMoney.amount} Transaction finished successfully: ${checkoutResult.transactionClientId}');
+      var checkoutResult = await ReaderSdk.startCheckout(checkoutParameters);
+      print(checkoutResult);
       _showTransactionDialog(checkoutResult);
     } on ReaderSdkException catch (e) {
       switch (e.code) {
@@ -144,8 +141,77 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     var location = await ReaderSdk.authorizedLocation;
     showCupertinoModalPopup(
       context: context,
-      builder: (var context) => CupertinoActionSheet(
-        title: Text('Location: ${location.name}'),
+      builder: (var context) => _SettingsModalPopup(
+            locationName: location.name,
+            onReaderSDKSettings: onReaderSDKSettings,
+            onDeauthorize: onDeauthorize,
+          ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        body: _isLoading
+            ? LoadingWidget()
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                    SquareLogo(),
+                    _Description(),
+                    _Buttons(
+                      onCharge: onCharge,
+                      onSettings: onSettings,
+                    ),
+                  ]),
+      );
+}
+
+class _Description extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Container(
+        margin: EdgeInsets.symmetric(horizontal: 32.0, vertical: 48.0),
+        child: Text(
+          'Take a payment.',
+          textAlign: TextAlign.center,
+        ),
+      );
+}
+
+class _Buttons extends StatelessWidget {
+  final Function onCharge;
+  final Function onSettings;
+
+  _Buttons({
+    this.onCharge,
+    this.onSettings,
+  });
+
+  @override
+  Widget build(BuildContext context) => Container(
+        child: SQButtonContainer(buttons: [
+          SQRaisedButton(
+            text: 'Charge \$1.00',
+            onPressed: onCharge,
+          ),
+          SQOutlineButton(text: 'Settings', onPressed: onSettings),
+        ]),
+      );
+}
+
+class _SettingsModalPopup extends StatelessWidget {
+  final String locationName;
+  final Function onReaderSDKSettings;
+  final Function onDeauthorize;
+
+  _SettingsModalPopup({
+    @required this.locationName,
+    this.onReaderSDKSettings,
+    this.onDeauthorize,
+  });
+
+  @override
+  Widget build(BuildContext context) => CupertinoActionSheet(
+        title: Text('Location: $locationName'),
         actions: [
           FlatButton(
             child: Text(
@@ -169,39 +235,5 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           ),
           onPressed: () => Navigator.pop(context),
         ),
-      )
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
-    body: _isLoading
-        ? LoadingWidget()
-        : Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-                Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.only(top: 100.0),
-                  child: SquareLogo(),
-                ),
-                Container(
-                  margin:
-                      EdgeInsets.symmetric(horizontal: 32.0, vertical: 48.0),
-                  child: Text(
-                    'Take a payment.',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Container(
-                  child: SQButtonContainer(buttons: [
-                    SQRaisedButton(
-                      text: 'Charge \$1.00',
-                      onPressed: onCharge,
-                    ),
-                    SQOutlineButton(text: 'Settings', onPressed: onSettings),
-                  ]),
-                ),
-              ]),
-    );
+      );
 }
