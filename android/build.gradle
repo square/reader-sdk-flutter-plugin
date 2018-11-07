@@ -43,6 +43,8 @@ rootProject.allprojects {
 
 apply plugin: 'com.android.library'
 
+def DEFAULT_PLAY_SERVICES_BASE_VERSION = '12.0.1'
+
 android {
     compileSdkVersion 27
 
@@ -64,7 +66,8 @@ android {
 
 dependencies {
     def readerSdkMinVersion = '1.0.4'
+    def playServicesBaseVersion = rootProject.hasProperty('googlePlayServiceVersion') ? rootProject.googlePlayServiceVersion : DEFAULT_PLAY_SERVICES_BASE_VERSION
+    implementation "com.google.android.gms:play-services-base:$playServicesBaseVersion"
     api "com.squareup.sdk.reader:reader-sdk-$SQUARE_READER_SDK_APPLICATION_ID:$readerSdkMinVersion"
     runtimeOnly "com.squareup.sdk.reader:reader-sdk-internals:$readerSdkMinVersion"
-    implementation 'com.android.support:multidex:1.0.3' // Add this dependency if your minSdkVersion < 21
 }
