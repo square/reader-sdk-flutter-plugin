@@ -17,8 +17,8 @@ for more detailed information about the methods available.
 
 ## Process overview
 
-* [Step 1: Create a Flutter project](#step-1-create-a-react-native-project)
-* [Step 2: Install Reader SDK for Flutter](#step-2-install-reader-sdk-for-react-native)
+* [Step 1: Create a Flutter project](#step-1-create-a-flutter-project)
+* [Step 2: Configure the Flutter plugin for Reader SDK](#step-2-configure-the-flutter-plugin-for-reader-sdk)
 * [Step 3: Request Reader SDK credentials](#step-3-Request-reader-sdk-credentials)
 * [Step 4: Install Reader SDK for Android](#step-4-install-reader-sdk-for-android)
 * [Step 5: Install Reader SDK for iOS](#step-5-install-reader-sdk-for-ios)
@@ -32,18 +32,18 @@ Optional steps:
 * [Support Reader SDK deauthorization](#support-reader-sdk-deauthorization)
 
 
-## Step 1: Create a Flutter project for Reader SDK
+## Step 1: Create a Flutter project
 
 The basic command is:
 
 ```bash
-flutter create square_reader_sdk_example
+flutter create square_reader_sdk
 ```
 
 See [Developing plugin packages] guide for more detailed instructions.
 
 
-## Step 2: Install Flutter plugin for Reader SDK and link the plugin
+## Step 2: Configure the Flutter plugin for Reader SDK
 
 1. Clone or download the `reader-sdk-flutter-plugin` repo to a folder in your
    `flutter` directory.
