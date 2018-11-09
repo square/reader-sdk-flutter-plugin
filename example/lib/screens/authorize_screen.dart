@@ -24,6 +24,8 @@ import 'widgets/dialog_modal.dart';
 import 'widgets/loading.dart';
 import 'widgets/square_logo.dart';
 
+const _debug = !bool.fromEnvironment("dart.vm.product");
+
 /// AuthorizeScreen authorizes the reader sdk using a mobile auth
 class AuthorizeScreen extends StatefulWidget {
   @override
@@ -53,7 +55,19 @@ class _AuthorizeScreenState extends State<AuthorizeScreen> {
       await ReaderSdk.authorize(authCode);
       Navigator.pushNamed(context, '/checkout');
     } on ReaderSdkException catch (e) {
-      displayErrorModal(context, e.toString());
+      switch(e.code) {
+        case ReaderSdk.authorizeErrorNoNetwork:
+          displayErrorModal(context, 'Please connect your device to network.');
+          break;
+        case ReaderSdk.usageError:
+          var errorMessage = e.message;
+          if (_debug) {
+            errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+            print('${e.code}:${e.debugCode}:${e.debugMessage}');
+          }
+          displayErrorModal(context, errorMessage);
+          break;
+      }
     } finally {
       setState(() {
         _isLoading = false;

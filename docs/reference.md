@@ -23,7 +23,7 @@ Method                                          | Return Object                 
 [authorize](#authorize)                         | [Location](#location)             | Authorizes Reader SDK to collect payments.
 [canDeauthorize](#candeauthorize)               | bool                              | Verifies Reader SDK can be deauthorized.
 [deauthorize](#deauthorize)                     | void                              | Deauthorizes Reader SDK.
-[getAuthorizedLocation](#getauthorizedlocation) | [Location](#location)             | Returns the currently authorized location
+[authorizedLocation](#authorizedlocation)       | [Location](#location)             | Returns the currently authorized location
 [isAuthorized](#isauthorized)                   | bool                              | Verifies Reader SDK is currently authorized for payment collection.
 [startCheckout](#startcheckout)                 | [CheckoutResult](#checkoutresult) | Begins the checkout workflow.
 [startReaderSettings](#startreadersettings)     | void                              | Starts the Reader settings flow for connecting Square Reader
@@ -47,13 +47,27 @@ authCode  | String | Authorization code from the [Mobile Authorization API]
 
 #### Example usage
 
-```java
+```dart
+import 'package:reader_sdk.dart';
+
 try {
-  const Location authorizedLocation = await authorize(authCode);
+  // authCode is a mobile authorization code from the Mobile Authorization API
+  var location = await ReaderSdk.authorize(authCode);
   // Authorized and authorizedLocation is available
-} catch(ex) {
-  // Handle the error
-  print('Error: ${ex.message}');
+} on ReaderSdkException catch (e) {
+  switch(e.code) {
+    case ReaderSdk.authorizeErrorNoNetwork:
+      // Remind connecting to network
+    break;
+    case ReaderSdk.usageError:
+      var errorMessage = e.message;
+      if (_debug) {
+        errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+        print('${e.code}:${e.debugCode}:${e.debugMessage}');
+      }
+      displayErrorModal(context, errorMessage);
+    break;
+  }
 }
 ```
 
@@ -70,9 +84,10 @@ Used to determine if it is safe to deauthorize Reader SDK.
 
 #### Example usage
 
-```java
+```dart
+import 'package:reader_sdk.dart';
 
-if (await canDeauthorize()) {
+if (await ReaderSdk.canDeauthorize) {
 
   // Handle deauthorization
 
@@ -94,19 +109,26 @@ are transactions that have not been synced to Square.
 
 #### Example usage
 
-```java
+```dart
+import 'package:reader_sdk.dart';
+
 try {
-  await deauthorize();
+  await ReaderSdk.deauthorize();
   // Deauthorize finished successfully
-} catch(ex) {
-  print('Error: ${ex.message}');
+} on ReaderSdkException catch (e) {
+  var errorMessage = e.message;
+  if (_debug) {
+    errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+    print('${e.code}:${e.debugCode}:${e.debugMessage}');
+  }
+  displayErrorModal(context, errorMessage);
 }
 ```
 
 
 ---
 
-### getAuthorizedLocation
+### authorizedLocation
 
 Used to fetch information about the location currently authorized for Reader
 SDK.
@@ -117,12 +139,19 @@ SDK.
 
 #### Example usage
 
-```java
+```dart
+import 'package:reader_sdk.dart';
+
 try {
-  const authorizedLocation = await getAuthorizedLocation();
+  var location = await ReaderSdk.authorizedLocation;
   // Start using the location object
-} catch (ex) {
-  print('Error: ${ex.message}');
+} on ReaderSdkException catch (e) {
+  var errorMessage = e.message;
+  if (_debug) {
+    errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+    print('${e.code}:${e.debugCode}:${e.debugMessage}');
+  }
+  displayErrorModal(context, errorMessage);
 }
 ```
 
@@ -140,9 +169,10 @@ Used to determine if Reader SDK is currently authorized to accept payments.
 
 #### Example usage
 
-```java
+```dart
+import 'package:reader_sdk.dart';
 
-if (await isAuthorized()) {
+if (await ReaderSdk.isAuthorized) {
 
   // Ready to take payments
 
@@ -171,24 +201,27 @@ checkoutParams | [CheckoutParameter](#checkoutparameter) | Configures the checko
 
 #### Example usage
 
-```java
+```dart
+import 'package:reader_sdk.dart';
+
 try {
-  const checkoutResult = await startCheckout(checkoutParams);
+  var checkoutResult = await ReaderSdk.startCheckout(checkoutParameters);
   // checkout finished successfully and checkoutResult is available
-} catch(ex) {
-  switch(ex.code) {
-    case CheckoutErrorCanceled: {
+} on ReaderSdkException catch (e) {
+  switch (e.code) {
+    case ReaderSdk.checkoutErrorCanceled:
       // Handle canceled transaction here
-    }
-    break;
-    case CheckoutErrorSdkNotAuthorized: {
+      break;
+    case ReaderSdk.checkoutErrorSdkNotAuthorized:
       // Handle sdk not authorized
-    }
-    break;
-    default: {
-        print('Error: ${ex.message}');
-    }
-    break;
+      break;
+    default:
+      var errorMessage = e.message;
+      if (_debug) {
+        errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+        print('${e.code}:${e.debugCode}:${e.debugMessage}');
+      }
+      displayErrorModal(context, errorMessage);
   }
 }
 ```
@@ -207,19 +240,23 @@ currently authorized.
 
 #### Example usage
 
-```java
+```dart
+import 'package:reader_sdk.dart';
+
 try {
-  await startReaderSettings();
-} catch (ex) {
-  switch(ex.code) {
-    case ReaderSettingsErrorSdkNotAuthorized: {
+  await ReaderSdk.startReaderSettings();
+} on ReaderSdkException catch (e) {
+  switch(e.code) {
+    case ReaderSdk.readerSettingsErrorSdkNotAuthorized:
       // Handle reader settings not authorized
-    }
-    break;
-    case UsageError: {
-      print('Error: ${ex.message}');
-    }
-    break;
+      break;
+    default:
+      var errorMessage = e.message;
+      if (_debug) {
+        errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+        print('${e.code}:${e.debugCode}:${e.debugMessage}');
+      }
+      displayErrorModal(context, errorMessage);
   }
 }
 ```
@@ -239,11 +276,14 @@ lastFourDigits | String                  | Indicates how the card information wa
 
 #### Example JSON
 
-```json
+```dart
+card.toString();
+/* output example
 {
   "brand": "VISA",
   "lastFourDigits": "1111"
 }
+*/
 ```
 
 

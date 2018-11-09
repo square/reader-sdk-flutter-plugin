@@ -130,7 +130,7 @@ installing Reader SDK for Android, see the [Reader SDK Android Setup Guide] at
     ```
 1. Extend the Android Application class (`android.app.Application`) and add code
    to Import and initialize Reader SDK:
-    ```
+    ```java
     import com.squareup.sdk.reader.ReaderSdk;
 
     public class MainActivity extends FlutterActivity {
@@ -211,7 +211,7 @@ installing Reader SDK for iOS, see the [Reader SDK iOS Setup Guide] at
       with the photos stored on your mobile device.
 1. Update the `application:didFinishLaunchingWithOptions:` method in your app
    delegate to initialize Reader SDK:
-    ```
+    ```objective-c
     #include "AppDelegate.h"
     #include "GeneratedPluginRegistrant.h"
     @import SquareReaderSDK;
@@ -238,26 +238,26 @@ microphone permissions.
 
 Add code to your Flutter project that authorizes Reader SDK:
 
-```java
+```dart
 import 'package:reader_sdk.dart';
 
+const _debug = !bool.fromEnvironment("dart.vm.product");
 try {
   // authCode is a mobile authorization code from the Mobile Authorization API
-  const Location authorizedLocation = await authorize(authCode);
-} catch(ex) {
-  switch(ex.code) {
-    case AuthorizeErrorNoNetwork: {
-      // Remind the user to connect to the network
-    }
+  var location = await ReaderSdk.authorize(authCode);
+  // Authorized and authorizedLocation is available
+} on ReaderSdkException catch (e) {
+  switch(e.code) {
+    case ReaderSdk.authorizeErrorNoNetwork:
+      // Remind connecting to network
     break;
-    case UsageError: {
-      String errorMessage = ex.message;
-      if (__DEV__) {
-        errorMessage = errorMessage + '\n\nDebug Message: ${ex.debugMessage}';
-        _logger.severe('${ex.code}:${ex.debugCode} ${ex.debugMessage}')
+    case ReaderSdk.usageError:
+      var errorMessage = e.message;
+      if (_debug) {
+        errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+        print('${e.code}:${e.debugCode}:${e.debugMessage}');
       }
-      print('Error: ${errorMessage}');
-    }
+      displayErrorModal(context, errorMessage);
     break;
   }
 }
@@ -273,33 +273,49 @@ and connecting a Reader is only required for card payments.
 **Note**: You cannot start the checkout flow from a modal screen. To start
 checkout, you must close the modal before calling `startCheckout`.
 
-```java
+```dart
 import 'package:reader_sdk.dart';
 
+const _debug = !bool.fromEnvironment("dart.vm.product");
+
 // A checkout parameter is required for this checkout method
-const CheckoutParameters checkoutParams = {
-  amountMoney: {
-    amount: 100,
-    currencyCode: 'USD', // optional, use authorized location's currency code by default
-  },
-  // Optional for all following configuration
-  skipReceipt: false,
-  alwaysRequireSignature: true,
-  allowSplitTender: false,
-  note: 'ReaderSDKSample Transaction',
-  tipSettings: {
-    showCustomTipField: true,
-    showSeparateTipScreen: false,
-    tipPercentages: [15, 20, 30],
-  },
-  additionalPaymentTypes: ['cash', 'manual_card_entry', 'other'],
-};
+var builder = CheckoutParametersBuilder();
+builder.amountMoney = MoneyBuilder()
+  ..amount = 100
+  ..currencyCode = 'USD'; // currencyCode is optional
+// Optional for all following configuration
+builder.skipReceipt = false;
+builder.alwaysRequireSignature = true;
+builder.allowSplitTender = false;
+builder.note = 'Hello 💳 💰 World!';
+builder.additionalPaymentTypes =
+    ListBuilder(['cash', 'manual_card_entry', 'other']);
+builder.tipSettings = TipSettingsBuilder()
+  ..showCustomTipField = true
+  ..showSeparateTipScreen = false
+  ..tipPercentages = ListBuilder([15, 20, 30]);
+
+CheckoutParameters checkoutParameters = builder.build();
 
 try {
-  const CheckoutResult = await startCheckout(checkoutParams);
+  var checkoutResult = await ReaderSdk.startCheckout(checkoutParameters);
   // checkout finished successfully and checkoutResult is available
-} catch(ex) {
-  switch(ex.code) { ... }
+} on ReaderSdkException catch (e) {
+  switch (e.code) {
+    case ReaderSdk.checkoutErrorCanceled:
+      // Handle canceled transaction here
+      break;
+    case ReaderSdk.checkoutErrorSdkNotAuthorized:
+      // Handle sdk not authorized
+      break;
+    default:
+      var errorMessage = e.message;
+      if (_debug) {
+        errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+        print('${e.code}:${e.debugCode}:${e.debugMessage}');
+      }
+      displayErrorModal(context, errorMessage);
+  }
 }
 ```
 
@@ -325,11 +341,25 @@ You do not need to write explicit code to take payment with a Magstripe Reader.
 To take payments with a Contactless + Chip Reader, you must add code to your
 Flutter project that starts the Reader SDK settings flow to pair the Reader.
 
-```java
+```dart
+import 'package:reader_sdk.dart';
+
+const _debug = !bool.fromEnvironment("dart.vm.product");
 try {
-  await startReaderSettings();
-} catch (ex) {
-  switch(ex.code) { ... }
+  await ReaderSdk.startReaderSettings();
+} on ReaderSdkException catch (e) {
+  switch(e.code) {
+    case ReaderSdk.readerSettingsErrorSdkNotAuthorized:
+      // Handle sdk not authorized
+      break;
+    default:
+      var errorMessage = e.message;
+      if (_debug) {
+        errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+        print('${e.code}:${e.debugCode}:${e.debugMessage}');
+      }
+      displayErrorModal(context, errorMessage);
+  }
 }
 ```
 
@@ -338,13 +368,21 @@ try {
 To switch Square locations or to deauthorize the current location, you must add
 code to your Flutter project that deauthorizes Reader SDK.
 
-```java
-if (await canDeauthorize()) {
+```dart
+import 'package:reader_sdk.dart';
+
+const _debug = !bool.fromEnvironment("dart.vm.product");
+if (await canDeauthorize) {
   try {
-    await deauthorize();
+    await ReaderSdk.deauthorize();
     // Deauthorize finished successfully
   } catch(ex) {
-    switch(ex.code) { ... }
+    var errorMessage = e.message;
+    if (_debug) {
+      errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+      print('${e.code}:${e.debugCode}:${e.debugMessage}');
+    }
+    displayErrorModal(context, errorMessage);
   }
 } else {
   print('Unable to deauthorize.');
