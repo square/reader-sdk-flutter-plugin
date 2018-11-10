@@ -42,7 +42,7 @@ matrix:
       cache:
         directories:
           - $HOME/.pub-cache
-      install:
+      before_script:
         - cd example
         - git clone https://github.com/flutter/flutter.git -b beta --depth 1
         - ./flutter/bin/flutter doctor
