@@ -51,7 +51,7 @@ See [Developing plugin packages] guide for more detailed instructions.
     ```yaml
     dependencies:
         ...
-        square_reader_sdk:
+        square_reader_sdk: ^1.0.0
             path: path/to/reader/sdk/flutter/plugin
     ```
 
