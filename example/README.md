@@ -70,10 +70,6 @@ You can view the [transaction details in Square Dashboard].
 
 ## Step 3: Run the Flutter sample app for iOS
 
-**NOTE**: XCode 10+ uses a different build system that may cause compile errors.
-See the [Troubleshooting guide](../docs/troubleshooting.md) if you run into
-problems building the sample app.
-
 1. Change to the `ios` folder under `reader-sdk-react-native-quickstart`.
 2. Install ReaderSDK, replacing `YOUR_SQUARE_READER_APP_ID` and
    `YOUR_SQUARE_READER_REPOSITORY_PASSWORD` with your Reader SDK credentials

@@ -40,7 +40,8 @@ The basic command is:
 flutter create square_reader_sdk
 ```
 
-See [Developing plugin packages] guide for more detailed instructions.
+See the **Create the app** step of the [Test Drive] section in Flutters getting
+started guide for more detailed instructions.
 
 
 ## Step 2: Configure the Flutter plugin for Reader SDK
@@ -404,4 +405,4 @@ if (await canDeauthorize) {
 [Reader SDK iOS Setup Guide]: https://docs.connect.squareup.com/payments/readersdk/setup-ios
 [root README]: ../README.md
 [Flutter Getting Started]: https://flutter.io/docs/get-started/install
-[Developing plugin packages]: https://flutter.io/docs/development/packages-and-plugins/developing-packages#edit-plugin-package
+[Test Drive]: https://flutter.io/docs/get-started/test-drive
