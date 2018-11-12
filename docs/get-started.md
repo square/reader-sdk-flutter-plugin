@@ -101,17 +101,17 @@ For more information on installing Reader SDK for Android, see the
     ```
 1. If your `minSdkVersion` is **less than 21**, you also need to include the
    `multidex` dependency:
- ```
- dependencies {
-   // Add this dependency if your minSdkVersion < 21
-   implementation 'com.android.support:multidex:1.0.3'
-   // ...
- }
- ```
+    ```
+    dependencies {
+      // Add this dependency if your minSdkVersion < 21
+      implementation 'com.android.support:multidex:1.0.3'
+      ...
+    }
+    ```
 1. Configure the Multidex options:
     ```
     android {
-      // ...
+      ...
       dexOptions {
         // Ensures incremental builds remain fast
         preDexLibraries true
@@ -120,7 +120,7 @@ For more information on installing Reader SDK for Android, see the
         // Required to build with Reader SDK
         keepRuntimeAnnotatedClasses false
       }
-      // ...
+      ...
     }
     ```
 1. Extend the Android Application class (`android.app.Application`) and add code
@@ -216,7 +216,7 @@ information on installing Reader SDK for iOS, see the
     (BOOL)application:(UIApplication * )application didFinishLaunchingWithOptions:(NSDictionary * )launchOptions
     {
 
-    // ...
+    ...
 
     [SQRDReaderSDK initializeWithApplicationLaunchOptions:launchOptions];
     return YES;
