@@ -18,12 +18,13 @@ for more detailed information about the methods available.
 ## Process overview
 
 * [Step 1: Create a Flutter project](#step-1-create-a-flutter-project)
-* [Step 2: Request Reader SDK credentials](#step-2-Request-reader-sdk-credentials)
-* [Step 3: Configure Gradle for Reader SDK (Android)](#step-3-configure-gradle-for-reader-sdk-android)
-* [Step 4: Configure Xcode for Reader SDK (iOS)](#step-4-configure-Xcode-for-reader-sdk-ios)
-* [Step 5: Implement Reader SDK authorization](#step-5-implement-reader-sdk-authorization)
-* [Step 6: Implement the Checkout flow](#step-6-implement-the-checkout-flow)
-* [Step 7: Implement Mobile Authorization](#step-7-implement-mobile-authorization)
+* [Step 2: Configure the Reader SDK dependency](#step-2-configure-the-reader-sdk-dependency)
+* [Step 3: Request Reader SDK credentials](#step-3-request-reader-sdk-credentials)
+* [Step 4: Configure Gradle for Reader SDK (Android)](#step-4-configure-gradle-for-reader-sdk-android)
+* [Step 5: Configure Xcode for Reader SDK (iOS)](#step-5-configure-Xcode-for-reader-sdk-ios)
+* [Step 6: Implement Reader SDK authorization](#step-6-implement-reader-sdk-authorization)
+* [Step 7: Implement the Checkout flow](#step-7-implement-the-checkout-flow)
+* [Step 8: Implement Mobile Authorization](#step-8-implement-mobile-authorization)
 
 Optional steps:
 
@@ -43,7 +44,20 @@ See the **Create the app** step of the [Test Drive] section in Flutters getting
 started guide for more detailed instructions.
 
 
-## Step 2: Request Reader SDK credentials
+## Step 2: Configure the Reader SDK dependency
+
+Edit the `pubspec.yaml` file in your `flutter` directory to define the Reader
+SDK dependency:
+```yaml
+dependencies:
+
+  ...
+
+  square_reader_sdk: ^1.0.0
+```
+
+
+## Step 3: Request Reader SDK credentials
 
 1. Open the [Square Application Dashboard].
 1. Create a new Square application.
@@ -55,7 +69,7 @@ started guide for more detailed instructions.
    **Reader SDK** settings page to configure Reader SDK in the next steps.
 
 
-## Step 3: Configure Gradle for Reader SDK (Android)
+## Step 4: Configure Gradle for Reader SDK (Android)
 
 To use the Flutter plugin on Android devices, you need to configure Gradle so it
 can download the Reader SDK package properly and make it available to the
@@ -127,7 +141,7 @@ For more information on installing Reader SDK for Android, see the
     ```
 
 
-## Step 4: Configure Xcode for Reader SDK (iOS)
+## Step 5: Configure Xcode for Reader SDK (iOS)
 
 To use the Flutter plugin on iOS devices, you need to configure Xcode so it can
 download the Reader SDK package properly and make it available to the Flutter
@@ -211,11 +225,8 @@ information on installing Reader SDK for iOS, see the
     @end
     ```
 
-You will also need to add code to your Flutter project to request device and
-microphone permissions.
 
-
-## Step 5: Implement Reader SDK authorization
+## Step 6: Implement Reader SDK authorization
 
 Add code to your Flutter project that authorizes Reader SDK:
 
@@ -244,8 +255,10 @@ try {
 }
 ```
 
+> For iOS, you will also need to add code to your Flutter project to request
+> device and microphone permissions.
 
-## Step 6: Implement the Checkout flow
+## Step 7: Implement the Checkout flow
 
 Add code to your Flutter project that starts the checkout flow and handles
 the response. Reader SDK must be authorized before starting the checkout flow
@@ -300,7 +313,7 @@ try {
 }
 ```
 
-## Step 7: Implement Mobile Authorization
+## Step 8: Implement Mobile Authorization
 
 In the context of Reader SDK, authorization refers to using the SDK with a
 mobile authorization code from the [Mobile Authorization API]. Mobile

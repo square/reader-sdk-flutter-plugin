@@ -195,8 +195,8 @@ checkoutParams | [CheckoutParameter](#checkoutparameter) | Configures the checko
 
 * **On success**: returns information about the checkout result as a
   [CheckoutResult](#checkoutresult) object.
-* **On failure**: throws [`usageError`](#e1), [`CHECKOUT_CANCELED`](#e3), or
-  [`CHECKOUT_SDK_NOT_AUTHORIZED`](#e4)
+* **On failure**: throws [`usageError`](#e1), [`checkoutErrorCanceled`](#e3), or
+  [`checkoutErrorSdkNotAuthorized`](#e4)
 
 
 #### Example usage
@@ -236,7 +236,7 @@ currently authorized.
 
 * **On success**: returns nothing.
 * **On failure**: throws [`usageError`](#e1) or
-  [`READER_SETTINGS_SDK_NOT_AUTHORIZED`](#e5)
+  [`readerSettingsErrorSdkNotAuthorized`](#e5)
 
 #### Example usage
 
@@ -272,12 +272,12 @@ and serializable.
 
 Represents the non-confidential details of a payment card.
 
-Field          | Type                    | Description
--------------- | ----------------------- | -----------------
-brand          | [CardBrand](#cardbrand) | Indicates the entity responsible for issuing the card.
-lastFourDigits | String                  | Indicates how the card information was captured.
+Field          | Type   | Description
+-------------- | ------ | -----------------
+brand          | String | [CardBrand](#cardbrand) constant that indicates the entity responsible for issuing the card.
+lastFourDigits | String | Indicates how the card information was captured.
 
-#### Example JSON
+#### Example output
 
 ```dart
 card.toString();
@@ -296,14 +296,16 @@ card.toString();
 
 Contains details related to a `card` tender used in a successful checkout flow.
 
-Field       | Type                        | Description
------------ | --------------------------- | -----------------
-entryMethod | [EntryMethod](#entrymethod) | Indicate how the card information was captured.
-card        | [Card](#card)               | Provides information about the card used for payment.
+Field       | Type          | Description
+----------- | ------------- | -----------------
+entryMethod | String        | [EntryMethod](#entrymethod) constant that indicates how the card information was captured.
+card        | [Card](#card) | Provides information about the card used for payment.
 
-#### Example JSON
+#### Example output
 
-```json
+```dart
+cardDetails.toString();
+/* output example
 {
   "entryMethod": "MANUALLY_ENTERED",
   "card": {
@@ -311,6 +313,7 @@ card        | [Card](#card)               | Provides information about the card 
     "lastFourDigits": "1111"
   }
 }
+*/
 ```
 
 
@@ -325,9 +328,11 @@ Field            | Type            | Description
 buyerTenderMoney | [Money](#money) | The total payment amount provided as `cash` during checkout.
 changBackMoney   | [Money](#money) | The total change provided as `cash` during checkout.
 
-#### Example JSON
+#### Example output
 
-```json
+```dart
+cashDetails.toString();
+/* output example
 {
   "buyerTenderMoney": {
     "currencyCode": "USD",
@@ -338,6 +343,7 @@ changBackMoney   | [Money](#money) | The total change provided as `cash` during 
     "amount": 10
   }
 }
+*/
 ```
 
 
@@ -347,35 +353,35 @@ changBackMoney   | [Money](#money) | The total change provided as `cash` during 
 
 Configures the UI experience for the checkout flow.
 
-Field                  | Type                                              | Description
----------------------- | ------------------------------------------------- | -----------------
-amountMoney            | [Money](#money)                                   | **REQUIRED**. The total payment amount.
-skipReceipt            | bool                                              | Indicates that the digital receipt options screen should not be displayed during checkout. Default: `false`
-alwaysRequireSignature | bool                                              | Indicates that signature collection is required during checkout for all card transactions. Default: `true`
-allowSplitTender       | bool                                              | Indicates that multiple payment methods are allowed. Default: `false`
-note                   | String                                            | A note to display on digital receipts and in the [Square Dashboard]. Default: `null`
-tipSettings            | [TipSettings](#tipsettings)                       | Settings that configure the tipping behavior of the checkout flow. Default: `null`
-additionalPaymentTypes | [AdditionalPaymentType](#additionalpaymenttype)[] | Valid payment methods for checkout (in addition to payments via Square Readers). Default: empty set.
+Field                  | Type                        | Description
+---------------------- | --------------------------- | -----------------
+amountMoney            | [Money](#money)             | **REQUIRED**. The total payment amount.
+skipReceipt            | bool                        | Indicates that the digital receipt options screen should not be displayed during checkout. Default: `false`
+alwaysRequireSignature | bool                        | Indicates that signature collection is required during checkout for all card transactions. Default: `true`
+allowSplitTender       | bool                        | Indicates that multiple payment methods are allowed. Default: `false`
+note                   | String                      | A note to display on digital receipts and in the [Square Dashboard]. Default: `null`
+tipSettings            | [TipSettings](#tipsettings) | Settings that configure the tipping behavior of the checkout flow. Default: `null`
+additionalPaymentTypes | String[]                    | [AdditionalPaymentType](#additionalpaymenttype) constant denoting valid payment methods for checkout (in addition to payments via Square Readers). Default: empty set.
 
-#### Example JSON
+#### Example construction
 
-```json
-{
-  "amountMoney": {
-    "amount": 1000,
-    "currencyCode": "USD"
-  },
-  "skipReceipt": false,
-  "alwaysRequireSignature": true,
-  "allowSplitTender": false,
-  "note": "Payment for dogsitting",
-  "tipSettings": {
-    "showCustomTipField": "false",
-    "showSeparateTipScreen": "true",
-    "tipPercentages": [10, 15, 20]
-  },
-  "additionalPaymentTypes": ["cash", "manual_card_entry", "other"]
-}
+```dart
+var builder = CheckoutParametersBuilder();
+builder.amountMoney = MoneyBuilder()
+  ..amount = 1000
+  ..currencyCode = 'USD';
+builder.skipReceipt = false;
+builder.alwaysRequireSignature = true;
+builder.allowSplitTender = false;
+builder.note = 'Payment for dogsitting';
+builder.additionalPaymentTypes =
+    ListBuilder(['cash', 'manual_card_entry', 'other']);
+builder.tipSettings = TipSettingsBuilder()
+  ..showCustomTipField = false
+  ..showSeparateTipScreen = true
+  ..tipPercentages = ListBuilder([10, 15, 20]);
+
+CheckoutParameters checkoutParameters = builder.build();
 ```
 
 
@@ -404,9 +410,11 @@ To reconcile transactions that do not have card tenders, use
 field in transactions returned by the ListTransactions endpoint of the
 [Transactions API].
 
-#### Example JSON
+#### Example output
 
-```json
+```dart
+checkoutResult.toString();
+/* output example
 {
 "totalMoney": {
   "currencyCode": "USD",
@@ -432,6 +440,7 @@ field in transactions returned by the ListTransactions endpoint of the
   "transactionClientId": "0X0000X0-0000-000X-XX0X-X00XX00X00X0",
   "createdAt": "2018-08-22T18:05:21Z"
 }
+*/
 ```
 
 
@@ -451,9 +460,11 @@ minimumCardPaymentAmountMoney | [Money](#money) | The minimum card payment amoun
 name                          | String          | The nickname of the location as set in the [Square Dashboard].
 locationId                    | String          | A unique ID for the location assigned by Square
 
-#### Example JSON
+#### Example output
 
-```json
+```dart
+location.toString();
+/* output example
 {
   "currencyCode": "USD",
   "businessName": "Raphael's Puppy Care Emporium",
@@ -467,6 +478,7 @@ locationId                    | String          | A unique ID for the location a
   "name": "Chicago Treat-mobile",
   "locationId": "XXXXXXXXXXXXX"
 }
+*/
 ```
 
 
@@ -488,13 +500,16 @@ All `Money` objects require an `amount` and `currencyCode` but `currenyCode` is
 optional for the Reader SDK Flutter plugin because `Money` objects will use
 the currency code of the currently authorized location by default.
 
-#### Example JSON
+#### Example output
 
-```json
+```dart
+money.toString();
+/* output example
 {
   "amount": 100,
   "currencyCode": "USD"
 }
+*/
 ```
 
 
@@ -512,12 +527,14 @@ createdAt   | String                      | The date and time when the tender wa
 tenderId    | String                      | A unique ID issued by Square. Only set for `card` tenders.
 tipMoney    | [Money](#money)             | The monetary amount added to this tender as a tip.
 totalMoney  | [Money](#money)             | The total monetary amount of this tender, including tips.
-type        | [TenderType](#tendertype)   | The method used to make payment.
+type        | String                      | [TenderType](#tendertype) constant denoting the method used to make payment.
 
 
-#### Example JSON
+#### Example output
 
-```json
+```dart
+tender.toString();
+/* output example
 {
   "type": "cash",
   "tenderId": "XXXXXXXXXXXXXXXXXXXXXXXX",
@@ -541,6 +558,7 @@ type        | [TenderType](#tendertype)   | The method used to make payment.
     }
   }      
 }
+*/
 ```
 
 
@@ -556,19 +574,26 @@ showCustomTipField    | bool      | Indicates whether custom tip amounts are all
 showSeparateTipScreen | bool      | Indicates that tip options should be presented on their own screen. Default: `false`.
 tipPercentages        | Integer[] | A list of up to 3 non-negative integers from 0 to 100 (inclusive) to indicate tip percentages that will be presented during the checkout flow. Default: `[15, 20, 25]`
 
-#### Example JSON
+#### Example output
 
-```json
+```dart
+tipSettings.toString();
+/* output example
 {
   "showCustomTipField": "false",
   "showSeparateTipScreen": "true",
   "tipPercentages": [10, 15, 20]
 }
+*/
 ```
 
 
 
 ## Constants
+
+Constants in Reader SDK are implemented as strings rather than explicit types,
+but the plugin will return, and look for, explicit string values for the
+constants.
 
 ### AdditionalPaymentType
 
@@ -626,13 +651,13 @@ Methods used to provide payment during a successful checkout flow:
 
 ## Errors
 
-Error                                               | Cause                                                               | Returned by
---------------------------------------------------- | ------------------------------------------------------------------- | ---
-<a id="e1">`usageError`</a>                         | Reader SDK was used in an unexpected or unsupported way.            | all methods
-<a id="e2">`authorizeErrorNoNetwork`</a>            | Reader SDK could not connect to the network.                        | [authorize](#authorize)
-<a id="e3">`CHECKOUT_CANCELED`</a>                  | The user canceled the checkout flow.                                | [startCheckout](#startcheckout)
-<a id="e4">`CHECKOUT_SDK_NOT_AUTHORIZED`</a>        | The checkout flow started but Reader SDK was not authorized.        | [startCheckout](#startcheckout)
-<a id="e5">`READER_SETTINGS_SDK_NOT_AUTHORIZED`</a> | The Reader settings flow started but Reader SDK was not authorized. | [startReaderSettings](#startreadersettings)
+Error                                                | Cause                                                               | Returned by
+---------------------------------------------------- | ------------------------------------------------------------------- | ---
+<a id="e1">`usageError`</a>                          | Reader SDK was used in an unexpected or unsupported way.            | all methods
+<a id="e2">`authorizeErrorNoNetwork`</a>             | Reader SDK could not connect to the network.                        | [authorize](#authorize)
+<a id="e3">`checkoutErrorCanceled`</a>               | The user canceled the checkout flow.                                | [startCheckout](#startcheckout)
+<a id="e4">`checkoutErrorSdkNotAuthorized`</a>       | The checkout flow started but Reader SDK was not authorized.        | [startCheckout](#startcheckout)
+<a id="e5">`readerSettingsErrorSdkNotAuthorized`</a> | The Reader settings flow started but Reader SDK was not authorized. | [startReaderSettings](#startreadersettings)
 
 
 [//]: # "Link anchor definitions"

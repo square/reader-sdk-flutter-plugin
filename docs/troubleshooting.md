@@ -8,8 +8,7 @@ Likely causes and solutions for common problems.
 
 You are building your Flutter project with Xcode instead of the Flutter
 command line interface (CLI) and using Xcode 10. Xcode 10 builds projects
-differently than earlier versions and is not compatible with the React Native
-build system.
+differently than earlier versions.
 
 ### Likely cause
 
@@ -26,5 +25,4 @@ There are 2 ways to address the issue:
 2. Configure Xcode to use the legacy build system:
     1. Open `File > Project Settings... > Per-User Project Settings`
     2. Choose `Legacy Build System`
-    3. Remove `node_modules/react-native/third-party` and
-       `node_modules/react-native/third-party-podspecs`
+    3. Run `flutter clean` from the command line.
