@@ -4,7 +4,7 @@ This repo contains a Flutter plugin for Square [Reader SDK]. Reader SDK for
 Flutter supports the following native Reader SDK versions:
 
   * iOS: version 1.0.1
-  * Android: 1.0.3
+  * Android: 1.0.4
 
 ## In this repo
 
