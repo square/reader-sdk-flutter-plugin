@@ -265,7 +265,7 @@ try {
 
 ## Objects
 
-The Reader SDK plugin objects are extended from [`built_value`] which is immutable
+Reader SDK plugin objects are extended from [`built_value`], which is immutable
 and serializable.
 
 ### Card
