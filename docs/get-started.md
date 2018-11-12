@@ -20,7 +20,7 @@ for more detailed information about the methods available.
 * [Step 1: Create a Flutter project](#step-1-create-a-flutter-project)
 * [Step 2: Request Reader SDK credentials](#step-2-Request-reader-sdk-credentials)
 * [Step 3: Configure Gradle for Reader SDK (Android)](#step-3-configure-gradle-for-reader-sdk-android)
-* [Step 4: Configure Xcode for Reader SDK (iOS)](#step-4-configure-xcode-for-reader-sdk-ios)
+* [Step 4: Configure Xcode for Reader SDK (iOS)](#step-4-configure-Xcode-for-reader-sdk-ios)
 * [Step 5: Implement Reader SDK authorization](#step-5-implement-reader-sdk-authorization)
 * [Step 6: Implement the Checkout flow](#step-6-implement-the-checkout-flow)
 * [Step 7: Implement Mobile Authorization](#step-7-implement-mobile-authorization)
@@ -36,7 +36,7 @@ Optional steps:
 The basic command is:
 
 ```bash
-flutter create square_reader_sdk
+flutter create reader_sdk_flutter_app
 ```
 
 See the **Create the app** step of the [Test Drive] section in Flutters getting
@@ -127,9 +127,9 @@ For more information on installing Reader SDK for Android, see the
     ```
 
 
-## Step 4: Configure XCode for Reader SDK (iOS)
+## Step 4: Configure Xcode for Reader SDK (iOS)
 
-To use the Flutter plugin on iOS devices, you need to configure XCode so it can
+To use the Flutter plugin on iOS devices, you need to configure Xcode so it can
 download the Reader SDK package properly and make it available to the Flutter
 library as a resource. The key installation steps are outlined below. For more
 information on installing Reader SDK for iOS, see the

@@ -265,6 +265,9 @@ try {
 
 ## Objects
 
+The Reader SDK plugin objects are extended from [`built_value`] which is immutable
+and serializable.
+
 ### Card
 
 Represents the non-confidential details of a payment card.
@@ -625,8 +628,8 @@ Methods used to provide payment during a successful checkout flow:
 
 Error                                               | Cause                                                               | Returned by
 --------------------------------------------------- | ------------------------------------------------------------------- | ---
-<a id="e1">`usageError`</a>                        | Reader SDK was used in an unexpected or unsupported way.            | all methods
-<a id="e2">`authorizeErrorNoNetwork`</a>               | Reader SDK could not connect to the network.                        | [authorize](#authorize)
+<a id="e1">`usageError`</a>                         | Reader SDK was used in an unexpected or unsupported way.            | all methods
+<a id="e2">`authorizeErrorNoNetwork`</a>            | Reader SDK could not connect to the network.                        | [authorize](#authorize)
 <a id="e3">`CHECKOUT_CANCELED`</a>                  | The user canceled the checkout flow.                                | [startCheckout](#startcheckout)
 <a id="e4">`CHECKOUT_SDK_NOT_AUTHORIZED`</a>        | The checkout flow started but Reader SDK was not authorized.        | [startCheckout](#startcheckout)
 <a id="e5">`READER_SETTINGS_SDK_NOT_AUTHORIZED`</a> | The Reader settings flow started but Reader SDK was not authorized. | [startReaderSettings](#startreadersettings)
@@ -640,3 +643,4 @@ Error                                               | Cause                     
 [Square Dashboard]: https://squareup.com/dashboard/
 [Transactions API]: https://docs.connect.squareup.com/payments/transactions/overview
 [Square-issued gift card]: https://squareup.com/us/en/software/gift-cards
+[`built_value`]: https://github.com/google/built_value.dart
