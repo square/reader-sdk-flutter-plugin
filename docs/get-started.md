@@ -23,7 +23,7 @@ for more detailed information about the methods available.
 * [Step 4: Configure Xcode for Reader SDK (iOS)](#step-4-configure-xcode-for-reader-sdk-ios)
 * [Step 5: Implement Reader SDK authorization](#step-5-implement-reader-sdk-authorization)
 * [Step 6: Implement the Checkout flow](#step-6-implement-the-checkout-flow)
-* [Step 7. Implement Mobile Authorization](#step-7-implement-mobile-authorization)
+* [Step 7: Implement Mobile Authorization](#step-7-implement-mobile-authorization)
 
 Optional steps:
 
@@ -300,7 +300,7 @@ try {
 }
 ```
 
-## Step 7. Implement Mobile Authorization
+## Step 7: Implement Mobile Authorization
 
 In the context of Reader SDK, authorization refers to using the SDK with a
 mobile authorization code from the [Mobile Authorization API]. Mobile
