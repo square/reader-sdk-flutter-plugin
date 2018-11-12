@@ -89,12 +89,12 @@ You can view the [transaction details in Square Dashboard].
     cd /PATH/TO/LOCAL/example
     flutter run
     ```
-4. Go to the **Reader SDK** settings page in your [Square Application Dashboard]
+5. Go to the **Reader SDK** settings page in your [Square Application Dashboard]
    and generate a new mobile authorization code by clicking
    "Generate Mobile Auth Code".
-5. Copy the mobile authorization code string from the Square application
+6. Copy the mobile authorization code string from the Square application
    settings page.
-6. Tap "Enter Code Manually" in the sample app and paste the mobile
+7. Tap "Enter Code Manually" in the sample app and paste the mobile
    authorization code into the field provided.
 
 You can view the [transaction details in Square Dashboard].
