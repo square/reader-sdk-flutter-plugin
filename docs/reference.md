@@ -281,7 +281,7 @@ lastFourDigits | String | Indicates how the card information was captured.
 
 ```dart
 card.toString();
-/* output example
+/* toString() output:
 {
   "brand": "VISA",
   "lastFourDigits": "1111"
@@ -305,7 +305,7 @@ card        | [Card](#card) | Provides information about the card used for payme
 
 ```dart
 cardDetails.toString();
-/* output example
+/* toString() output:
 {
   "entryMethod": "MANUALLY_ENTERED",
   "card": {
@@ -332,7 +332,7 @@ changBackMoney   | [Money](#money) | The total change provided as `cash` during 
 
 ```dart
 cashDetails.toString();
-/* output example
+/* toString() output:
 {
   "buyerTenderMoney": {
     "currencyCode": "USD",
@@ -414,7 +414,7 @@ field in transactions returned by the ListTransactions endpoint of the
 
 ```dart
 checkoutResult.toString();
-/* output example
+/* toString() output:
 {
 "totalMoney": {
   "currencyCode": "USD",
@@ -464,7 +464,7 @@ locationId                    | String          | A unique ID for the location a
 
 ```dart
 location.toString();
-/* output example
+/* toString() output:
 {
   "currencyCode": "USD",
   "businessName": "Raphael's Puppy Care Emporium",
@@ -504,7 +504,7 @@ the currency code of the currently authorized location by default.
 
 ```dart
 money.toString();
-/* output example
+/* toString() output:
 {
   "amount": 100,
   "currencyCode": "USD"
@@ -534,7 +534,7 @@ type        | String                      | [TenderType](#tendertype) constant d
 
 ```dart
 tender.toString();
-/* output example
+/* toString() output:
 {
   "type": "cash",
   "tenderId": "XXXXXXXXXXXXXXXXXXXXXXXX",
@@ -578,7 +578,7 @@ tipPercentages        | Integer[] | A list of up to 3 non-negative integers from
 
 ```dart
 tipSettings.toString();
-/* output example
+/* toString() output:
 {
   "showCustomTipField": "false",
   "showSeparateTipScreen": "true",

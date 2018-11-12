@@ -255,8 +255,12 @@ try {
 }
 ```
 
+---
+
 > For iOS, you will also need to add code to your Flutter project to request
 > device and microphone permissions.
+
+---
 
 ## Step 7: Implement the Checkout flow
 
