@@ -1,7 +1,7 @@
 # Reader SDK Flutter Plugin Technical Reference
 
 This technical reference documents methods available in the Flutter
-wrapper for Reader SDK. For detailed documentation on Reader SDK, please see
+plugin for Reader SDK. For detailed documentation on Reader SDK, please see
 [docs.connect.squareup.com].
 
 ---
@@ -43,7 +43,7 @@ authCode  | String | Authorization code from the [Mobile Authorization API]
 
 * **On success**: returns information about the currently authorized location as a
   [Location](#location) object.
-* **On failure**: throws [`USAGE_ERROR`](#e1) or [`AUTHORIZE_NO_NETWORK`](#e2).
+* **On failure**: throws [`usageError`](#e1) or [`authorizeErrorNoNetwork`](#e2).
 
 #### Example usage
 
@@ -80,7 +80,7 @@ Used to determine if it is safe to deauthorize Reader SDK.
 
 * **On success**: returns `true` if all transactions have successfully synced to
   Square, `false` otherwise.
-* **On failure**: throws [`USAGE_ERROR`](#e1).
+* **On failure**: throws [`usageError`](#e1).
 
 #### Example usage
 
@@ -105,7 +105,7 @@ Used to deauthorize [Reader SDK]. Reader SDK cannot be deauthorized if there
 are transactions that have not been synced to Square.
 
 * **On success**: returns nothing.
-* **On failure**: throws [`USAGE_ERROR`](#e1) or [`AUTHORIZE_NO_NETWORK`](#e2).
+* **On failure**: throws [`usageError`](#e1) or [`authorizeErrorNoNetwork`](#e2).
 
 #### Example usage
 
@@ -135,7 +135,7 @@ SDK.
 
 * **On success**: returns information about the currently authorized location as a
   [Location](#location) object.
-* **On failure**: throws [`USAGE_ERROR`](#e1).
+* **On failure**: throws [`usageError`](#e1).
 
 #### Example usage
 
@@ -164,7 +164,7 @@ Used to determine if Reader SDK is currently authorized to accept payments.
 
 * **On success**: returns `true` if the authorization flow was completed with a
   valid [Mobile Authorization API] token, `false` otherwise.
-* **On failure**: throws [`USAGE_ERROR`](#e1).
+* **On failure**: throws [`usageError`](#e1).
 
 
 #### Example usage
@@ -195,7 +195,7 @@ checkoutParams | [CheckoutParameter](#checkoutparameter) | Configures the checko
 
 * **On success**: returns information about the checkout result as a
   [CheckoutResult](#checkoutresult) object.
-* **On failure**: throws [`USAGE_ERROR`](#e1), [`CHECKOUT_CANCELED`](#e3), or
+* **On failure**: throws [`usageError`](#e1), [`CHECKOUT_CANCELED`](#e3), or
   [`CHECKOUT_SDK_NOT_AUTHORIZED`](#e4)
 
 
@@ -235,7 +235,7 @@ Used to start the Reader settings flow. Returns an error if Reader SDK is not
 currently authorized.
 
 * **On success**: returns nothing.
-* **On failure**: throws [`USAGE_ERROR`](#e1) or
+* **On failure**: throws [`usageError`](#e1) or
   [`READER_SETTINGS_SDK_NOT_AUTHORIZED`](#e5)
 
 #### Example usage
@@ -625,8 +625,8 @@ Methods used to provide payment during a successful checkout flow:
 
 Error                                               | Cause                                                               | Returned by
 --------------------------------------------------- | ------------------------------------------------------------------- | ---
-<a id="e1">`USAGE_ERROR`</a>                        | Reader SDK was used in an unexpected or unsupported way.            | all methods
-<a id="e2">`AUTHORIZE_NO_NETWORK`</a>               | Reader SDK could not connect to the network.                        | [authorize](#authorize)
+<a id="e1">`usageError`</a>                        | Reader SDK was used in an unexpected or unsupported way.            | all methods
+<a id="e2">`authorizeErrorNoNetwork`</a>               | Reader SDK could not connect to the network.                        | [authorize](#authorize)
 <a id="e3">`CHECKOUT_CANCELED`</a>                  | The user canceled the checkout flow.                                | [startCheckout](#startcheckout)
 <a id="e4">`CHECKOUT_SDK_NOT_AUTHORIZED`</a>        | The checkout flow started but Reader SDK was not authorized.        | [startCheckout](#startcheckout)
 <a id="e5">`READER_SETTINGS_SDK_NOT_AUTHORIZED`</a> | The Reader settings flow started but Reader SDK was not authorized. | [startReaderSettings](#startreadersettings)

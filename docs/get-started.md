@@ -69,13 +69,13 @@ started guide for more detailed instructions.
    **Reader SDK** settings page to configure Reader SDK in the next steps.
 
 
-## Step 4: Install Reader SDK for Android
+## Step 4: Configure Gradle for Reader SDK (Android)
 
-To use the Flutter plugin on Android devices, you need to install Reader
-SDK for Android so it is available to the Flutter library as a resource.
-The key installation steps are outlined below. For more information on
-installing Reader SDK for Android, see the [Reader SDK Android Setup Guide] at
-[docs.connect.squareup.com].
+To use the Flutter plugin on Android devices, you need to configure Gradle so it
+can download the Reader SDK package properly and make it available to the
+Flutter library as a resource. The key installation steps are outlined below.
+For more information on installing Reader SDK for Android, see the
+[Reader SDK Android Setup Guide] at [docs.connect.squareup.com].
 
 1. Change to the Android folder (`android`) at the root of your flutter
    project.
@@ -97,12 +97,6 @@ installing Reader SDK for Android, see the [Reader SDK Android Setup Guide] at
         targetSdkVersion 27
         multiDexEnabled true
       }
-    }
-
-    dependencies {
-      // Add this dependency if your minSdkVersion < 21
-      implementation 'com.android.support:multidex:1.0.3'
-      // ...
     }
     ```
 1. If your `minSdkVersion` is **less than 21**, you also need to include the
@@ -147,13 +141,13 @@ installing Reader SDK for Android, see the [Reader SDK Android Setup Guide] at
     ```
 
 
-## Step 5: Install Reader SDK for iOS
+## Step 5: Configure XCode for Reader SDK (iOS)
 
-To use the Flutter plugin on iOS devices, you need to install Reader
-SDK for iOS so it is available to the Flutter library as a resource.
-The key installation steps are outlined below. For more information on
-installing Reader SDK for iOS, see the [Reader SDK iOS Setup Guide] at
-[docs.connect.squareup.com].
+To use the Flutter plugin on iOS devices, you need to configure XCode so it can
+download the Reader SDK package properly and make it available to the Flutter
+library as a resource. The key installation steps are outlined below. For more
+information on installing Reader SDK for iOS, see the
+[Reader SDK iOS Setup Guide] at [docs.connect.squareup.com].
 
 **TIP**: You can find the minimum supported Reader SDK version for iOS in the
 [root README] for this repo.
@@ -176,7 +170,7 @@ installing Reader SDK for iOS, see the [Reader SDK iOS Setup Guide] at
    * Drag the newly downloaded `SquareReaderSDK.framework` into the
      **Embedded Binaries** section and click "Finish" in the modal that appears.
 1. Add a Reader SDK build phase:
-   1. Open the Xcode workspace or project for your application.
+   1. Open `Runner.xcworkspace` in Xcode.
    1. In the **Build Phases** tab for your application target, click the **+**
       button (at the top of the pane).
    1. Select **New Run Script Phase**.
@@ -219,7 +213,7 @@ installing Reader SDK for iOS, see the [Reader SDK iOS Setup Guide] at
 
     @implementation AppDelegate
 
-    (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+    (BOOL)application:(UIApplication &42;)application didFinishLaunchingWithOptions:(NSDictionary &42;)launchOptions 
     {
 
     // ...
