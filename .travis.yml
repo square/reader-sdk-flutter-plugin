@@ -1,0 +1,53 @@
+matrix:
+  include:
+    - language: android
+      sudo: false
+      jdk: oraclejdk8
+      os:
+        - linux
+      licenses:
+        - 'android-sdk-preview-license-.+'
+        - 'android-sdk-license-.+'
+        - 'google-gdk-license-.+'
+      android:
+        components:
+          - tools
+          - platform-tools
+          - tools
+          - build-tools-27.0.3
+          - android-27
+          - extra-google-google_play_services
+      addons:
+        apt:
+          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+          sources:
+            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+          packages:
+            - libstdc++6
+            - fonts-droid
+      before_install:
+        - cd example
+        - yes | sdkmanager "platforms;android-28"
+      install:
+        - git clone https://github.com/flutter/flutter.git -b beta --depth 1
+        - ./flutter/bin/flutter doctor
+      before_script:
+        - openssl aes-256-cbc -K $encrypted_cd445d9edb5b_key -iv $encrypted_cd445d9edb5b_iv -in android/gradle.properties.enc -out android/gradle.properties -d
+      script:
+        - ./flutter/bin/flutter -v build apk
+
+    - language: objective-c
+      os: osx
+      osx_image: xcode10.1
+      cache:
+        directories:
+          - $HOME/.pub-cache
+      before_script:
+        - cd example
+        - git clone https://github.com/flutter/flutter.git -b beta --depth 1
+        - ./flutter/bin/flutter doctor
+        - cd ios
+        - ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id $SQUARE_READER_SDK_APPLICATION_ID --repo-password $SQUARE_READER_SDK_REPOSITORY_PASSWORD --version 1.0.1
+      script:
+        - cd ..
+        - ./flutter/bin/flutter -v build ios --no-codesign
