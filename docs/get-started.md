@@ -88,8 +88,7 @@ For more information on installing Reader SDK for Android, see the
     org.gradle.jvmargs=-Xmx4g
    ```
 1. Reader SDK and its dependencies contain more than 65k methods, so your build
-   script must enable Multidex. If your `minSdkVersion` is less than **21**, you
-   also need to include the `multidex` dependency:
+   script must enable Multidex:
     ```
     android {
       defaultConfig {
@@ -166,15 +165,15 @@ information on installing Reader SDK for iOS, see the
     --repo-password YOUR_SQUARE_READER_REPOSITORY_PASSWORD
     ```
 1. Add Reader SDK to your Xcode project:
+   * Open `Runner.xcworkspace` in Xcode.
    * Open the **General** tab for your app target in Xcode.
    * Drag the newly downloaded `SquareReaderSDK.framework` into the
      **Embedded Binaries** section and click "Finish" in the modal that appears.
 1. Add a Reader SDK build phase:
-   1. Open `Runner.xcworkspace` in Xcode.
-   1. In the **Build Phases** tab for your application target, click the **+**
+   * In the **Build Phases** tab for your application target, click the **+**
       button (at the top of the pane).
-   1. Select **New Run Script Phase**.
-   1. Paste the following into the editor panel of the new run script:
+   * Select **New Run Script Phase**.
+   * Paste the following into the editor panel of the new run script:
       ```
       FRAMEWORKS="${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}"
       "${FRAMEWORKS}/SquareReaderSDK.framework/setup"
@@ -258,7 +257,7 @@ try {
 ---
 
 > For iOS, you will also need to add code to your Flutter project to request
-> device and microphone permissions.
+> location and microphone permissions.
 
 ---
 
