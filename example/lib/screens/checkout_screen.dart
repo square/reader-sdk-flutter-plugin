@@ -26,6 +26,8 @@ import 'widgets/dialog_modal.dart';
 import 'widgets/loading.dart';
 import 'widgets/square_logo.dart';
 
+const _debug = !bool.fromEnvironment("dart.vm.product");
+
 /// CheckoutScreen shows the checkout button and reader settings
 class CheckoutScreen extends StatefulWidget {
   @override
@@ -105,10 +107,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           break;
         case ReaderSdk.checkoutErrorSdkNotAuthorized:
           // Handle sdk not authorized
-          Navigator.pushNamed(context, '/');
+          Navigator.pushReplacementNamed(context, '/');
           break;
         default:
-          displayErrorModal(context, e.message);
+          var errorMessage = e.message;
+          if (_debug) {
+            errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+            print('${e.code}:${e.debugCode}:${e.debugMessage}');
+          }
+          displayErrorModal(context, errorMessage);
       }
     }
   }
@@ -117,7 +124,19 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     try {
       await ReaderSdk.startReaderSettings();
     } on ReaderSdkException catch (e) {
-      displayErrorModal(context, e.message);
+      switch(e.code) {
+        case ReaderSdk.readerSettingsErrorSdkNotAuthorized:
+          // Handle sdk not authorized
+          Navigator.pushReplacementNamed(context, '/');
+          break;
+        default:
+          var errorMessage = e.message;
+          if (_debug) {
+            errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+            print('${e.code}:${e.debugCode}:${e.debugMessage}');
+          }
+          displayErrorModal(context, errorMessage);
+      }
     }
   }
 
@@ -126,10 +145,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       setState(() {
         _isLoading = true;
       });
-      await ReaderSdk.deauthorize();
-      Navigator.pushNamed(context, '/authorize');
+      if (await ReaderSdk.canDeauthorize) {
+        await ReaderSdk.deauthorize();
+        Navigator.pushNamed(context, '/authorize');
+      }
     } on ReaderSdkException catch (e) {
-      displayErrorModal(context, e.message);
+      var errorMessage = e.message;
+      if (_debug) {
+        errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+        print('${e.code}:${e.debugCode}:${e.debugMessage}');
+      }
+      displayErrorModal(context, errorMessage);
     } finally {
       setState(() {
         _isLoading = false;

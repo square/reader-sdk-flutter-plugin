@@ -21,6 +21,8 @@ import 'widgets/buttons.dart';
 import 'widgets/dialog_modal.dart';
 import 'widgets/loading.dart';
 
+const _debug = !bool.fromEnvironment("dart.vm.product");
+
 /// A screen that requires an authorization code in a text field
 class ManualAuthorizeScreen extends StatefulWidget {
   @override
@@ -43,7 +45,19 @@ class _ManualAuthorizeScreenState extends State<ManualAuthorizeScreen> {
       await ReaderSdk.authorize(textEditingController.text);
       Navigator.popAndPushNamed(context, '/checkout');
     } on ReaderSdkException catch (e) {
-      return displayErrorModal(context, e.message);
+      switch(e.code) {
+        case ReaderSdk.authorizeErrorNoNetwork:
+          displayErrorModal(context, 'Please connect your device to network.');
+          break;
+        case ReaderSdk.usageError:
+          var errorMessage = e.message;
+          if (_debug) {
+            errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+            print('${e.code}:${e.debugCode}:${e.debugMessage}');
+          }
+          displayErrorModal(context, errorMessage);
+          break;
+      }
     } finally {
       setState(() {
         _isLoading = false;
