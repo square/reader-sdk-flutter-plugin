@@ -169,16 +169,18 @@ final class CheckoutModule {
     }
 
     // check tipSettings
-    HashMap<String, Object> tipSettingsMap = (HashMap<String, Object>)checkoutParamsMap.get("tipSettings");
-    if (tipSettingsMap.containsKey("showCustomTipField") && !(tipSettingsMap.get("showCustomTipField") instanceof Boolean)) {
-      paramError.append("'showCustomTipField' is not a boolean");
-      return false;
-    } else if (tipSettingsMap.containsKey("showSeparateTipScreen") && !(tipSettingsMap.get("showSeparateTipScreen") instanceof Boolean)) {
-      paramError.append("'showSeparateTipScreen' is not a boolean");
-      return false;
-    } else if (tipSettingsMap.containsKey("tipPercentages") && !(tipSettingsMap.get("tipPercentages") instanceof ArrayList)) {
-      paramError.append("'tipPercentages' is not an array");
-      return false;
+    if (checkoutParamsMap.containsKey("tipSettings")) {
+      HashMap<String, Object> tipSettingsMap = (HashMap<String, Object>)checkoutParamsMap.get("tipSettings");
+      if (tipSettingsMap.containsKey("showCustomTipField") && !(tipSettingsMap.get("showCustomTipField") instanceof Boolean)) {
+        paramError.append("'showCustomTipField' is not a boolean");
+        return false;
+      } else if (tipSettingsMap.containsKey("showSeparateTipScreen") && !(tipSettingsMap.get("showSeparateTipScreen") instanceof Boolean)) {
+        paramError.append("'showSeparateTipScreen' is not a boolean");
+        return false;
+      } else if (tipSettingsMap.containsKey("tipPercentages") && !(tipSettingsMap.get("tipPercentages") instanceof ArrayList)) {
+        paramError.append("'tipPercentages' is not an array");
+        return false;
+      }
     }
 
     return true;
