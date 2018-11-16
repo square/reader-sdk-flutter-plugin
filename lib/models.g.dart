@@ -19,6 +19,42 @@ part of 'models.dart';
 // ignore_for_file: unnecessary_new
 // ignore_for_file: test_types_in_equals
 
+const ErrorCode _$usageError = const ErrorCode._('usageError');
+const ErrorCode _$authorizeErrorNoNetwork =
+    const ErrorCode._('authorizeErrorNoNetwork');
+const ErrorCode _$checkoutErrorCanceled =
+    const ErrorCode._('checkoutErrorCanceled');
+const ErrorCode _$checkoutErrorSdkNotAuthorized =
+    const ErrorCode._('checkoutErrorSdkNotAuthorized');
+const ErrorCode _$readerSettingsErrorSdkNotAuthorized =
+    const ErrorCode._('readerSettingsErrorSdkNotAuthorized');
+
+ErrorCode _$errorCodeValueOf(String name) {
+  switch (name) {
+    case 'usageError':
+      return _$usageError;
+    case 'authorizeErrorNoNetwork':
+      return _$authorizeErrorNoNetwork;
+    case 'checkoutErrorCanceled':
+      return _$checkoutErrorCanceled;
+    case 'checkoutErrorSdkNotAuthorized':
+      return _$checkoutErrorSdkNotAuthorized;
+    case 'readerSettingsErrorSdkNotAuthorized':
+      return _$readerSettingsErrorSdkNotAuthorized;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<ErrorCode> _$errorCodeValues =
+    new BuiltSet<ErrorCode>(const <ErrorCode>[
+  _$usageError,
+  _$authorizeErrorNoNetwork,
+  _$checkoutErrorCanceled,
+  _$checkoutErrorSdkNotAuthorized,
+  _$readerSettingsErrorSdkNotAuthorized,
+]);
+
 Serializer<Money> _$moneySerializer = new _$MoneySerializer();
 Serializer<Location> _$locationSerializer = new _$LocationSerializer();
 Serializer<CheckoutResult> _$checkoutResultSerializer =
@@ -30,6 +66,7 @@ Serializer<Card> _$cardSerializer = new _$CardSerializer();
 Serializer<CheckoutParameters> _$checkoutParametersSerializer =
     new _$CheckoutParametersSerializer();
 Serializer<TipSettings> _$tipSettingsSerializer = new _$TipSettingsSerializer();
+Serializer<ErrorCode> _$errorCodeSerializer = new _$ErrorCodeSerializer();
 
 class _$MoneySerializer implements StructuredSerializer<Money> {
   @override
@@ -649,6 +686,38 @@ class _$TipSettingsSerializer implements StructuredSerializer<TipSettings> {
 
     return result.build();
   }
+}
+
+class _$ErrorCodeSerializer implements PrimitiveSerializer<ErrorCode> {
+  static const Map<String, String> _toWire = const <String, String>{
+    'usageError': 'USAGE_ERROR',
+    'authorizeErrorNoNetwork': 'AUTHORIZE_NO_NETWORK',
+    'checkoutErrorCanceled': 'CHECKOUT_CANCELED',
+    'checkoutErrorSdkNotAuthorized': 'CHECKOUT_SDK_NOT_AUTHORIZED',
+    'readerSettingsErrorSdkNotAuthorized': 'READER_SETTINGS_SDK_NOT_AUTHORIZED',
+  };
+  static const Map<String, String> _fromWire = const <String, String>{
+    'USAGE_ERROR': 'usageError',
+    'AUTHORIZE_NO_NETWORK': 'authorizeErrorNoNetwork',
+    'CHECKOUT_CANCELED': 'checkoutErrorCanceled',
+    'CHECKOUT_SDK_NOT_AUTHORIZED': 'checkoutErrorSdkNotAuthorized',
+    'READER_SETTINGS_SDK_NOT_AUTHORIZED': 'readerSettingsErrorSdkNotAuthorized',
+  };
+
+  @override
+  final Iterable<Type> types = const <Type>[ErrorCode];
+  @override
+  final String wireName = 'ErrorCode';
+
+  @override
+  Object serialize(Serializers serializers, ErrorCode object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
+
+  @override
+  ErrorCode deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      ErrorCode.valueOf(_fromWire[serialized] ?? serialized as String);
 }
 
 class _$Money extends Money {

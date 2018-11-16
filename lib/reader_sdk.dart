@@ -22,18 +22,6 @@ import 'serializers.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class ReaderSdk {
-  // error codes are defined below, both iOS and Android *MUST* return same error for these errors:
-  // Usage error
-  static const String usageError = 'USAGE_ERROR';
-  // Expected errors:
-  // Search KEEP_IN_SYNC_AUTHORIZE_ERROR to update all places
-  static const String authorizeErrorNoNetwork = 'AUTHORIZE_NO_NETWORK';
-  // Search KEEP_IN_SYNC_CHECKOUT_ERROR to update all places
-  static const String checkoutErrorCanceled = 'CHECKOUT_CANCELED';
-  static const String checkoutErrorSdkNotAuthorized = 'CHECKOUT_SDK_NOT_AUTHORIZED';
-  // Search KEEP_IN_SYNC_READER_SETTINGS_ERROR to update all places
-  static const String readerSettingsErrorSdkNotAuthorized = 'READER_SETTINGS_SDK_NOT_AUTHORIZED';
-
   static final _standardSerializers = (serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();
 
   static const MethodChannel _channel = MethodChannel('square_reader_sdk');
@@ -108,7 +96,9 @@ class ReaderSdk {
 
 class ReaderSdkException implements Exception {
 
-  final String code;
+  static final _standardSerializers = (serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();
+
+  final String _code;
 
   final String message;
 
@@ -116,12 +106,14 @@ class ReaderSdkException implements Exception {
 
   final String debugMessage;
 
+  ErrorCode get code => _standardSerializers.deserializeWith(ErrorCode.serializer, _code);
+
   ReaderSdkException(
-    this.code,
+    this._code,
     this.message,
     this.debugCode,
     this.debugMessage,
-  ) : assert(code != null), assert(debugCode != null);
+  ) : assert(_code != null), assert(debugCode != null);
 
   @override
   String toString() => 'PlatformException($code, $message, $debugCode, $debugMessage)';

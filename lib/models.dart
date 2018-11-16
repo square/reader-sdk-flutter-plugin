@@ -153,3 +153,24 @@ abstract class TipSettings implements Built<TipSettings, TipSettingsBuilder> {
   factory TipSettings([updates(TipSettingsBuilder b)]) = _$TipSettings;
   static Serializer<TipSettings> get serializer => _$tipSettingsSerializer;
 }
+
+class ErrorCode extends EnumClass {
+  static Serializer<ErrorCode> get serializer => _$errorCodeSerializer;
+
+  // error codes are defined below, both iOS and Android *MUST* return same error for these errors:
+  @BuiltValueEnumConst(wireName: 'USAGE_ERROR')
+  static const ErrorCode usageError = _$usageError;
+  @BuiltValueEnumConst(wireName: 'AUTHORIZE_NO_NETWORK')
+  static const ErrorCode authorizeErrorNoNetwork = _$authorizeErrorNoNetwork;
+  @BuiltValueEnumConst(wireName: 'CHECKOUT_CANCELED')
+  static const ErrorCode checkoutErrorCanceled = _$checkoutErrorCanceled;
+  @BuiltValueEnumConst(wireName: 'CHECKOUT_SDK_NOT_AUTHORIZED')
+  static const ErrorCode checkoutErrorSdkNotAuthorized = _$checkoutErrorSdkNotAuthorized;
+  @BuiltValueEnumConst(wireName: 'READER_SETTINGS_SDK_NOT_AUTHORIZED')
+  static const ErrorCode readerSettingsErrorSdkNotAuthorized = _$readerSettingsErrorSdkNotAuthorized;
+
+  const ErrorCode._(String name) : super(name);
+
+  static BuiltSet<ErrorCode> get values => _$errorCodeValues;
+  static ErrorCode valueOf(String name) => _$errorCodeValueOf(name);
+}
