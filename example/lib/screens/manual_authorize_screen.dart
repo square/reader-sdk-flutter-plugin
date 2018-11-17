@@ -16,6 +16,7 @@ limitations under the License.
 
 import 'package:flutter/material.dart';
 import 'package:square_reader_sdk/reader_sdk.dart';
+import 'package:square_reader_sdk/models.dart';
 
 import 'widgets/buttons.dart';
 import 'widgets/dialog_modal.dart';
@@ -46,10 +47,10 @@ class _ManualAuthorizeScreenState extends State<ManualAuthorizeScreen> {
       Navigator.popAndPushNamed(context, '/checkout');
     } on ReaderSdkException catch (e) {
       switch(e.code) {
-        case ReaderSdk.authorizeErrorNoNetwork:
+        case ErrorCode.authorizeErrorNoNetwork:
           displayErrorModal(context, 'Please connect your device to network.');
           break;
-        case ReaderSdk.usageError:
+        case ErrorCode.usageError:
           var errorMessage = e.message;
           if (_debug) {
             errorMessage += '\n\nDebug Message: ${e.debugMessage}';

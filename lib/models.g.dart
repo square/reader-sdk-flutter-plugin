@@ -19,17 +19,193 @@ part of 'models.dart';
 // ignore_for_file: unnecessary_new
 // ignore_for_file: test_types_in_equals
 
+const TenderType _$cardTenderType = const TenderType._('card');
+const TenderType _$cashTenderType = const TenderType._('cash');
+const TenderType _$otherTenderType = const TenderType._('other');
+
+TenderType _$tenderTypeValueOf(String name) {
+  switch (name) {
+    case 'card':
+      return _$cardTenderType;
+    case 'cash':
+      return _$cashTenderType;
+    case 'other':
+      return _$otherTenderType;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<TenderType> _$tenderTypeValues =
+    new BuiltSet<TenderType>(const <TenderType>[
+  _$cardTenderType,
+  _$cashTenderType,
+  _$otherTenderType,
+]);
+
+const EntryMethod _$chip = const EntryMethod._('chip');
+const EntryMethod _$contactless = const EntryMethod._('contactless');
+const EntryMethod _$manuallyEntered = const EntryMethod._('manuallyEntered');
+const EntryMethod _$swipe = const EntryMethod._('swipe');
+const EntryMethod _$unknown = const EntryMethod._('unknown');
+
+EntryMethod _$entryMethodValueOf(String name) {
+  switch (name) {
+    case 'chip':
+      return _$chip;
+    case 'contactless':
+      return _$contactless;
+    case 'manuallyEntered':
+      return _$manuallyEntered;
+    case 'swipe':
+      return _$swipe;
+    case 'unknown':
+      return _$unknown;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<EntryMethod> _$entryMethodValues =
+    new BuiltSet<EntryMethod>(const <EntryMethod>[
+  _$chip,
+  _$contactless,
+  _$manuallyEntered,
+  _$swipe,
+  _$unknown,
+]);
+
+const Brand _$otherBrand = const Brand._('otherBrand');
+const Brand _$visa = const Brand._('visa');
+const Brand _$mastercard = const Brand._('mastercard');
+const Brand _$americanExpress = const Brand._('americanExpress');
+const Brand _$discover = const Brand._('discover');
+const Brand _$discoverDiners = const Brand._('discoverDiners');
+const Brand _$interac = const Brand._('interac');
+const Brand _$jCB = const Brand._('jCB');
+const Brand _$chinaUnionPay = const Brand._('chinaUnionPay');
+const Brand _$squareGiftCard = const Brand._('squareGiftCard');
+
+Brand _$brandValueOf(String name) {
+  switch (name) {
+    case 'otherBrand':
+      return _$otherBrand;
+    case 'visa':
+      return _$visa;
+    case 'mastercard':
+      return _$mastercard;
+    case 'americanExpress':
+      return _$americanExpress;
+    case 'discover':
+      return _$discover;
+    case 'discoverDiners':
+      return _$discoverDiners;
+    case 'interac':
+      return _$interac;
+    case 'jCB':
+      return _$jCB;
+    case 'chinaUnionPay':
+      return _$chinaUnionPay;
+    case 'squareGiftCard':
+      return _$squareGiftCard;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<Brand> _$brandValues = new BuiltSet<Brand>(const <Brand>[
+  _$otherBrand,
+  _$visa,
+  _$mastercard,
+  _$americanExpress,
+  _$discover,
+  _$discoverDiners,
+  _$interac,
+  _$jCB,
+  _$chinaUnionPay,
+  _$squareGiftCard,
+]);
+
+const AdditionalPaymentType _$manualCardEntryAdditionalPaymentType =
+    const AdditionalPaymentType._('manualCardEntry');
+const AdditionalPaymentType _$cashAdditionalPaymentType =
+    const AdditionalPaymentType._('cash');
+const AdditionalPaymentType _$otherAdditionalPaymentType =
+    const AdditionalPaymentType._('other');
+
+AdditionalPaymentType _$additionalPaymentTypeValueOf(String name) {
+  switch (name) {
+    case 'manualCardEntry':
+      return _$manualCardEntryAdditionalPaymentType;
+    case 'cash':
+      return _$cashAdditionalPaymentType;
+    case 'other':
+      return _$otherAdditionalPaymentType;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<AdditionalPaymentType> _$additionalPaymentTypeValues =
+    new BuiltSet<AdditionalPaymentType>(const <AdditionalPaymentType>[
+  _$manualCardEntryAdditionalPaymentType,
+  _$cashAdditionalPaymentType,
+  _$otherAdditionalPaymentType,
+]);
+
+const ErrorCode _$usageError = const ErrorCode._('usageError');
+const ErrorCode _$authorizeErrorNoNetwork =
+    const ErrorCode._('authorizeErrorNoNetwork');
+const ErrorCode _$checkoutErrorCanceled =
+    const ErrorCode._('checkoutErrorCanceled');
+const ErrorCode _$checkoutErrorSdkNotAuthorized =
+    const ErrorCode._('checkoutErrorSdkNotAuthorized');
+const ErrorCode _$readerSettingsErrorSdkNotAuthorized =
+    const ErrorCode._('readerSettingsErrorSdkNotAuthorized');
+
+ErrorCode _$errorCodeValueOf(String name) {
+  switch (name) {
+    case 'usageError':
+      return _$usageError;
+    case 'authorizeErrorNoNetwork':
+      return _$authorizeErrorNoNetwork;
+    case 'checkoutErrorCanceled':
+      return _$checkoutErrorCanceled;
+    case 'checkoutErrorSdkNotAuthorized':
+      return _$checkoutErrorSdkNotAuthorized;
+    case 'readerSettingsErrorSdkNotAuthorized':
+      return _$readerSettingsErrorSdkNotAuthorized;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<ErrorCode> _$errorCodeValues =
+    new BuiltSet<ErrorCode>(const <ErrorCode>[
+  _$usageError,
+  _$authorizeErrorNoNetwork,
+  _$checkoutErrorCanceled,
+  _$checkoutErrorSdkNotAuthorized,
+  _$readerSettingsErrorSdkNotAuthorized,
+]);
+
 Serializer<Money> _$moneySerializer = new _$MoneySerializer();
 Serializer<Location> _$locationSerializer = new _$LocationSerializer();
 Serializer<CheckoutResult> _$checkoutResultSerializer =
     new _$CheckoutResultSerializer();
+Serializer<TenderType> _$tenderTypeSerializer = new _$TenderTypeSerializer();
 Serializer<Tender> _$tenderSerializer = new _$TenderSerializer();
 Serializer<CashDetails> _$cashDetailsSerializer = new _$CashDetailsSerializer();
+Serializer<EntryMethod> _$entryMethodSerializer = new _$EntryMethodSerializer();
 Serializer<CardDetails> _$cardDetailsSerializer = new _$CardDetailsSerializer();
+Serializer<Brand> _$brandSerializer = new _$BrandSerializer();
 Serializer<Card> _$cardSerializer = new _$CardSerializer();
+Serializer<AdditionalPaymentType> _$additionalPaymentTypeSerializer =
+    new _$AdditionalPaymentTypeSerializer();
 Serializer<CheckoutParameters> _$checkoutParametersSerializer =
     new _$CheckoutParametersSerializer();
 Serializer<TipSettings> _$tipSettingsSerializer = new _$TipSettingsSerializer();
+Serializer<ErrorCode> _$errorCodeSerializer = new _$ErrorCodeSerializer();
 
 class _$MoneySerializer implements StructuredSerializer<Money> {
   @override
@@ -252,6 +428,23 @@ class _$CheckoutResultSerializer
   }
 }
 
+class _$TenderTypeSerializer implements PrimitiveSerializer<TenderType> {
+  @override
+  final Iterable<Type> types = const <Type>[TenderType];
+  @override
+  final String wireName = 'TenderType';
+
+  @override
+  Object serialize(Serializers serializers, TenderType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  TenderType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      TenderType.valueOf(serialized as String);
+}
+
 class _$TenderSerializer implements StructuredSerializer<Tender> {
   @override
   final Iterable<Type> types = const [Tender, _$Tender];
@@ -269,7 +462,8 @@ class _$TenderSerializer implements StructuredSerializer<Tender> {
       serializers.serialize(object.tipMoney,
           specifiedType: const FullType(Money)),
       'type',
-      serializers.serialize(object.type, specifiedType: const FullType(String)),
+      serializers.serialize(object.type,
+          specifiedType: const FullType(TenderType)),
       'createdAt',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(String)),
@@ -317,7 +511,7 @@ class _$TenderSerializer implements StructuredSerializer<Tender> {
           break;
         case 'type':
           result.type = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(TenderType)) as TenderType;
           break;
         case 'tenderId':
           result.tenderId = serializers.deserialize(value,
@@ -389,6 +583,38 @@ class _$CashDetailsSerializer implements StructuredSerializer<CashDetails> {
   }
 }
 
+class _$EntryMethodSerializer implements PrimitiveSerializer<EntryMethod> {
+  static const Map<String, String> _toWire = const <String, String>{
+    'chip': 'CHIP',
+    'contactless': 'CONTACTLESS',
+    'manuallyEntered': 'MANUALLY_ENTERED',
+    'swipe': 'SWIPE',
+    'unknown': 'UNKNOWN',
+  };
+  static const Map<String, String> _fromWire = const <String, String>{
+    'CHIP': 'chip',
+    'CONTACTLESS': 'contactless',
+    'MANUALLY_ENTERED': 'manuallyEntered',
+    'SWIPE': 'swipe',
+    'UNKNOWN': 'unknown',
+  };
+
+  @override
+  final Iterable<Type> types = const <Type>[EntryMethod];
+  @override
+  final String wireName = 'EntryMethod';
+
+  @override
+  Object serialize(Serializers serializers, EntryMethod object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
+
+  @override
+  EntryMethod deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      EntryMethod.valueOf(_fromWire[serialized] ?? serialized as String);
+}
+
 class _$CardDetailsSerializer implements StructuredSerializer<CardDetails> {
   @override
   final Iterable<Type> types = const [CardDetails, _$CardDetails];
@@ -401,7 +627,7 @@ class _$CardDetailsSerializer implements StructuredSerializer<CardDetails> {
     final result = <Object>[
       'entryMethod',
       serializers.serialize(object.entryMethod,
-          specifiedType: const FullType(String)),
+          specifiedType: const FullType(EntryMethod)),
       'card',
       serializers.serialize(object.card, specifiedType: const FullType(Card)),
     ];
@@ -422,7 +648,7 @@ class _$CardDetailsSerializer implements StructuredSerializer<CardDetails> {
       switch (key) {
         case 'entryMethod':
           result.entryMethod = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(EntryMethod)) as EntryMethod;
           break;
         case 'card':
           result.card.replace(serializers.deserialize(value,
@@ -433,6 +659,48 @@ class _$CardDetailsSerializer implements StructuredSerializer<CardDetails> {
 
     return result.build();
   }
+}
+
+class _$BrandSerializer implements PrimitiveSerializer<Brand> {
+  static const Map<String, String> _toWire = const <String, String>{
+    'otherBrand': 'OTHER_BRAND',
+    'visa': 'VISA',
+    'mastercard': 'MASTERCARD',
+    'americanExpress': 'AMERICAN_EXPRESS',
+    'discover': 'DISCOVER',
+    'discoverDiners': 'DISCOVER_DINERS',
+    'interac': 'INTERAC',
+    'jCB': 'JCB',
+    'chinaUnionPay': 'CHINA_UNION_PAY',
+    'squareGiftCard': 'SQUARE_GIFT_CARD',
+  };
+  static const Map<String, String> _fromWire = const <String, String>{
+    'OTHER_BRAND': 'otherBrand',
+    'VISA': 'visa',
+    'MASTERCARD': 'mastercard',
+    'AMERICAN_EXPRESS': 'americanExpress',
+    'DISCOVER': 'discover',
+    'DISCOVER_DINERS': 'discoverDiners',
+    'INTERAC': 'interac',
+    'JCB': 'jCB',
+    'CHINA_UNION_PAY': 'chinaUnionPay',
+    'SQUARE_GIFT_CARD': 'squareGiftCard',
+  };
+
+  @override
+  final Iterable<Type> types = const <Type>[Brand];
+  @override
+  final String wireName = 'Brand';
+
+  @override
+  Object serialize(Serializers serializers, Brand object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
+
+  @override
+  Brand deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      Brand.valueOf(_fromWire[serialized] ?? serialized as String);
 }
 
 class _$CardSerializer implements StructuredSerializer<Card> {
@@ -446,8 +714,7 @@ class _$CardSerializer implements StructuredSerializer<Card> {
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'brand',
-      serializers.serialize(object.brand,
-          specifiedType: const FullType(String)),
+      serializers.serialize(object.brand, specifiedType: const FullType(Brand)),
       'lastFourDigits',
       serializers.serialize(object.lastFourDigits,
           specifiedType: const FullType(String)),
@@ -469,7 +736,7 @@ class _$CardSerializer implements StructuredSerializer<Card> {
       switch (key) {
         case 'brand':
           result.brand = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(Brand)) as Brand;
           break;
         case 'lastFourDigits':
           result.lastFourDigits = serializers.deserialize(value,
@@ -480,6 +747,36 @@ class _$CardSerializer implements StructuredSerializer<Card> {
 
     return result.build();
   }
+}
+
+class _$AdditionalPaymentTypeSerializer
+    implements PrimitiveSerializer<AdditionalPaymentType> {
+  static const Map<String, String> _toWire = const <String, String>{
+    'manualCardEntry': 'manual_card_entry',
+    'cash': 'cash',
+    'other': 'other',
+  };
+  static const Map<String, String> _fromWire = const <String, String>{
+    'manual_card_entry': 'manualCardEntry',
+    'cash': 'cash',
+    'other': 'other',
+  };
+
+  @override
+  final Iterable<Type> types = const <Type>[AdditionalPaymentType];
+  @override
+  final String wireName = 'AdditionalPaymentType';
+
+  @override
+  Object serialize(Serializers serializers, AdditionalPaymentType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
+
+  @override
+  AdditionalPaymentType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      AdditionalPaymentType.valueOf(
+          _fromWire[serialized] ?? serialized as String);
 }
 
 class _$CheckoutParametersSerializer
@@ -525,8 +822,8 @@ class _$CheckoutParametersSerializer
       result
         ..add('additionalPaymentTypes')
         ..add(serializers.serialize(object.additionalPaymentTypes,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(AdditionalPaymentType)])));
     }
     if (object.tipSettings != null) {
       result
@@ -571,8 +868,8 @@ class _$CheckoutParametersSerializer
           break;
         case 'additionalPaymentTypes':
           result.additionalPaymentTypes.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(AdditionalPaymentType)]))
               as BuiltList);
           break;
         case 'tipSettings':
@@ -649,6 +946,38 @@ class _$TipSettingsSerializer implements StructuredSerializer<TipSettings> {
 
     return result.build();
   }
+}
+
+class _$ErrorCodeSerializer implements PrimitiveSerializer<ErrorCode> {
+  static const Map<String, String> _toWire = const <String, String>{
+    'usageError': 'USAGE_ERROR',
+    'authorizeErrorNoNetwork': 'AUTHORIZE_NO_NETWORK',
+    'checkoutErrorCanceled': 'CHECKOUT_CANCELED',
+    'checkoutErrorSdkNotAuthorized': 'CHECKOUT_SDK_NOT_AUTHORIZED',
+    'readerSettingsErrorSdkNotAuthorized': 'READER_SETTINGS_SDK_NOT_AUTHORIZED',
+  };
+  static const Map<String, String> _fromWire = const <String, String>{
+    'USAGE_ERROR': 'usageError',
+    'AUTHORIZE_NO_NETWORK': 'authorizeErrorNoNetwork',
+    'CHECKOUT_CANCELED': 'checkoutErrorCanceled',
+    'CHECKOUT_SDK_NOT_AUTHORIZED': 'checkoutErrorSdkNotAuthorized',
+    'READER_SETTINGS_SDK_NOT_AUTHORIZED': 'readerSettingsErrorSdkNotAuthorized',
+  };
+
+  @override
+  final Iterable<Type> types = const <Type>[ErrorCode];
+  @override
+  final String wireName = 'ErrorCode';
+
+  @override
+  Object serialize(Serializers serializers, ErrorCode object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
+
+  @override
+  ErrorCode deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      ErrorCode.valueOf(_fromWire[serialized] ?? serialized as String);
 }
 
 class _$Money extends Money {
@@ -1150,7 +1479,7 @@ class _$Tender extends Tender {
   @override
   final Money tipMoney;
   @override
-  final String type;
+  final TenderType type;
   @override
   final String tenderId;
   @override
@@ -1245,9 +1574,9 @@ class TenderBuilder implements Builder<Tender, TenderBuilder> {
   MoneyBuilder get tipMoney => _$this._tipMoney ??= new MoneyBuilder();
   set tipMoney(MoneyBuilder tipMoney) => _$this._tipMoney = tipMoney;
 
-  String _type;
-  String get type => _$this._type;
-  set type(String type) => _$this._type = type;
+  TenderType _type;
+  TenderType get type => _$this._type;
+  set type(TenderType type) => _$this._type = type;
 
   String _tenderId;
   String get tenderId => _$this._tenderId;
@@ -1449,7 +1778,7 @@ class CashDetailsBuilder implements Builder<CashDetails, CashDetailsBuilder> {
 
 class _$CardDetails extends CardDetails {
   @override
-  final String entryMethod;
+  final EntryMethod entryMethod;
   @override
   final Card card;
 
@@ -1497,9 +1826,9 @@ class _$CardDetails extends CardDetails {
 class CardDetailsBuilder implements Builder<CardDetails, CardDetailsBuilder> {
   _$CardDetails _$v;
 
-  String _entryMethod;
-  String get entryMethod => _$this._entryMethod;
-  set entryMethod(String entryMethod) => _$this._entryMethod = entryMethod;
+  EntryMethod _entryMethod;
+  EntryMethod get entryMethod => _$this._entryMethod;
+  set entryMethod(EntryMethod entryMethod) => _$this._entryMethod = entryMethod;
 
   CardBuilder _card;
   CardBuilder get card => _$this._card ??= new CardBuilder();
@@ -1553,7 +1882,7 @@ class CardDetailsBuilder implements Builder<CardDetails, CardDetailsBuilder> {
 
 class _$Card extends Card {
   @override
-  final String brand;
+  final Brand brand;
   @override
   final String lastFourDigits;
 
@@ -1601,9 +1930,9 @@ class _$Card extends Card {
 class CardBuilder implements Builder<Card, CardBuilder> {
   _$Card _$v;
 
-  String _brand;
-  String get brand => _$this._brand;
-  set brand(String brand) => _$this._brand = brand;
+  Brand _brand;
+  Brand get brand => _$this._brand;
+  set brand(Brand brand) => _$this._brand = brand;
 
   String _lastFourDigits;
   String get lastFourDigits => _$this._lastFourDigits;
@@ -1655,7 +1984,7 @@ class _$CheckoutParameters extends CheckoutParameters {
   @override
   final String note;
   @override
-  final BuiltList<String> additionalPaymentTypes;
+  final BuiltList<AdditionalPaymentType> additionalPaymentTypes;
   @override
   final TipSettings tipSettings;
 
@@ -1752,10 +2081,12 @@ class CheckoutParametersBuilder
   String get note => _$this._note;
   set note(String note) => _$this._note = note;
 
-  ListBuilder<String> _additionalPaymentTypes;
-  ListBuilder<String> get additionalPaymentTypes =>
-      _$this._additionalPaymentTypes ??= new ListBuilder<String>();
-  set additionalPaymentTypes(ListBuilder<String> additionalPaymentTypes) =>
+  ListBuilder<AdditionalPaymentType> _additionalPaymentTypes;
+  ListBuilder<AdditionalPaymentType> get additionalPaymentTypes =>
+      _$this._additionalPaymentTypes ??=
+          new ListBuilder<AdditionalPaymentType>();
+  set additionalPaymentTypes(
+          ListBuilder<AdditionalPaymentType> additionalPaymentTypes) =>
       _$this._additionalPaymentTypes = additionalPaymentTypes;
 
   TipSettingsBuilder _tipSettings;

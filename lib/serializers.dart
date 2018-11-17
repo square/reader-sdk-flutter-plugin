@@ -23,12 +23,17 @@ part 'serializers.g.dart';
   Money,
   Location,
   CheckoutResult,
+  TenderType,
   Tender,
+  EntryMethod,
   CardDetails,
   CashDetails,
+  Brand,
   Card,
+  AdditionalPaymentType,
   CheckoutParameters,
   TipSettings,
+  ErrorCode,
 ])
 
 final Serializers serializers = _$serializers;

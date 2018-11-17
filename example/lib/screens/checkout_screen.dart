@@ -87,7 +87,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     builder.allowSplitTender = false;
     builder.note = 'Hello 💳 💰 World!';
     builder.additionalPaymentTypes =
-        ListBuilder(['cash', 'manual_card_entry', 'other']);
+        ListBuilder([AdditionalPaymentType.cash, AdditionalPaymentType.manualCardEntry, AdditionalPaymentType.other]);
     builder.tipSettings = TipSettingsBuilder()
       ..showCustomTipField = true
       ..showSeparateTipScreen = false
@@ -101,11 +101,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       _showTransactionDialog(checkoutResult);
     } on ReaderSdkException catch (e) {
       switch (e.code) {
-        case ReaderSdk.checkoutErrorCanceled:
+        case ErrorCode.checkoutErrorCanceled:
           // Handle canceled transaction here
           print('transaction canceled.');
           break;
-        case ReaderSdk.checkoutErrorSdkNotAuthorized:
+        case ErrorCode.checkoutErrorSdkNotAuthorized:
           // Handle sdk not authorized
           Navigator.pushReplacementNamed(context, '/');
           break;
@@ -125,7 +125,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       await ReaderSdk.startReaderSettings();
     } on ReaderSdkException catch (e) {
       switch(e.code) {
-        case ReaderSdk.readerSettingsErrorSdkNotAuthorized:
+        case ErrorCode.readerSettingsErrorSdkNotAuthorized:
           // Handle sdk not authorized
           Navigator.pushReplacementNamed(context, '/');
           break;

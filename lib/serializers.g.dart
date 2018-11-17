@@ -20,18 +20,24 @@ part of 'serializers.dart';
 // ignore_for_file: test_types_in_equals
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(AdditionalPaymentType.serializer)
+      ..add(Brand.serializer)
       ..add(Card.serializer)
       ..add(CardDetails.serializer)
       ..add(CashDetails.serializer)
       ..add(CheckoutParameters.serializer)
       ..add(CheckoutResult.serializer)
+      ..add(EntryMethod.serializer)
+      ..add(ErrorCode.serializer)
       ..add(Location.serializer)
       ..add(Money.serializer)
       ..add(Tender.serializer)
+      ..add(TenderType.serializer)
       ..add(TipSettings.serializer)
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
+          const FullType(
+              BuiltList, const [const FullType(AdditionalPaymentType)]),
+          () => new ListBuilder<AdditionalPaymentType>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Tender)]),
           () => new ListBuilder<Tender>())
