@@ -35,6 +35,9 @@ limitations under the License.
 {
     NSString *result = nil;
     switch (brand) {
+        case SQRDCardBrandOtherBrand:
+            result = @"OTHER_BRAND";
+            break;
         case SQRDCardBrandVisa:
             result = @"VISA";
             break;
@@ -61,9 +64,6 @@ limitations under the License.
             break;
         case SQRDCardBrandSquareGiftCard:
             result = @"SQUARE_GIFT_CARD";
-            break;
-        case SQRDCardBrandOtherBrand:
-            result = @"OTHER_BRAND";
             break;
     }
     return result;

@@ -87,7 +87,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     builder.allowSplitTender = false;
     builder.note = 'Hello 💳 💰 World!';
     builder.additionalPaymentTypes =
-        ListBuilder(['cash', 'manual_card_entry', 'other']);
+        ListBuilder([AdditionalPaymentType.cash, AdditionalPaymentType.manualCardEntry, AdditionalPaymentType.other]);
     builder.tipSettings = TipSettingsBuilder()
       ..showCustomTipField = true
       ..showSeparateTipScreen = false
