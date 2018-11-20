@@ -9,7 +9,7 @@ plugin for Reader SDK. For detailed documentation on Reader SDK, please see
 * [Methods at a glance](#methods-at-a-glance)
 * [Method details](#method-details)
 * [Objects](#objects)
-* [Constants](#constants)
+* [Enums](#enums)
 * [Errors](#errors)
 
 ---
@@ -283,7 +283,7 @@ lastFourDigits | String | Indicates how the card information was captured.
 card.toString();
 /* toString() output:
 {
-  "brand": "VISA",
+  "brand": "visa",
   "lastFourDigits": "1111"
 }
 */
@@ -309,7 +309,7 @@ cardDetails.toString();
 {
   "entryMethod": "MANUALLY_ENTERED",
   "card": {
-    "brand": "VISA",
+    "brand": "visa",
     "lastFourDigits": "1111"
   }
 }
@@ -593,7 +593,7 @@ tipSettings.toString();
 
 
 
-## Constants
+## Enums
 
 Constants in Reader SDK are implemented as strings rather than explicit types,
 but the plugin will return, and look for, explicit string values for the
@@ -604,9 +604,9 @@ constants.
 Payment types accepted during the Reader SDK checkout flow in addition to
 payment via Square Readers:
 
-* `manual_card_entry` - Manually typed-in card payments.
-* `cash`              - Cash payments. Useful for testing.
-* `other`             - Check, third-party gift cards, and other payment types.
+* `manualCardEntry` - Manually typed-in card payments.
+* `cash`            - Cash payments. Useful for testing.
+* `other`           - Check, third-party gift cards, and other payment types.
 
 
 ---
@@ -616,16 +616,16 @@ payment via Square Readers:
 Supported brands for `card` payments accepted during the Reader SDK checkout
 flow.
 
-* `VISA` - Visa Inc. credit or debit card.
-* `MASTERCARD` - Mastercard Incorporated credit or debit card.
-* `AMERICAN_EXPRESS` - merican Express Company credit card.
-* `DISCOVER` - Discover Financial Services credit card.
-* `DISCOVER_DINERS` - Diners Club International credit card.
-* `INTERAC` - Canadian Interbank Network debit card.
-* `JCB` - Japan Credit Bureau credit card.
-* `CHINA_UNIONPAY` - China UnionPay credit card.
-* `SQUARE_GIFT_CARD` - [Square-issued gift card].
-* `OTHER_BRAND` - An unexpected card type.
+* `visa` - Visa Inc. credit or debit card.
+* `mastercard` - Mastercard Incorporated credit or debit card.
+* `americanExpress` - merican Express Company credit card.
+* `discover` - Discover Financial Services credit card.
+* `discoverDiners` - Diners Club International credit card.
+* `interac` - Canadian Interbank Network debit card.
+* `jCB` - Japan Credit Bureau credit card.
+* `chinaUnionPay` - China UnionPay credit card.
+* `squareGiftCard` - [Square-issued gift card].
+* `otherBrand` - An unexpected card type.
 
 
 ---
@@ -634,11 +634,11 @@ flow.
 
 Entry methods for `card` payments accepted during the Reader SDK checkout flow.
 
-* `CHIP` - Card information collected with Square Reader via chip ("dip").
-* `CONTACTLESS` - Card information collected with Square Reader via NFC ("tap").
-* `MANUALLY_ENTERED` - Card information collected by typing it in ("keyed-in").
-* `SWIPE` - Card information collected with Square Reader via magstripe ("swipe").
-* `UNKNOWN` - **iOS only**. Card information collected in some other way (e.g., Apple Pay digital wallet).
+* `chip` - Card information collected with Square Reader via chip ("dip").
+* `contactless` - Card information collected with Square Reader via NFC ("tap").
+* `manuallyEntered` - Card information collected by typing it in ("keyed-in").
+* `swipe` - Card information collected with Square Reader via magstripe ("swipe").
+* `unknown` - **iOS only**. Card information collected in some other way (e.g., Apple Pay digital wallet).
 
 ---
 
