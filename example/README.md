@@ -35,7 +35,7 @@ This quick start guide makes the following assumptions:
    **Reader SDK** settings page to configure Reader SDK in the next steps.
 
 
-## Step 2: Run the Flutter sample app for Android
+## Step 2: Run the Flutter example app for Android
 
 1. Open `<ProjectDir>/example/android/gradle.properties`.
 2. Set the Reader SDK variables with your Reader SDK credentials:
@@ -68,7 +68,7 @@ This quick start guide makes the following assumptions:
 You can view the [transaction details in Square Dashboard].
 
 
-## Step 3: Run the Flutter sample app for iOS
+## Step 3: Run the Flutter example app for iOS
 
 1. Change to the `ios` folder under `reader-sdk-react-native-quickstart`.
 2. Install ReaderSDK, replacing `YOUR_SQUARE_READER_APP_ID` and
