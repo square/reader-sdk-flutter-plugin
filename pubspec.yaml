@@ -5,7 +5,6 @@ authors:
 - Xiao Hu <xiao@squareup.com>
 - Sarah Chavis <goblin@squareup.com>
 - Mike Konopelski <mikek@squareup.com>
-author: Square, Inc.
 homepage: https://github.com/square/reader-sdk-flutter-plugin
 
 environment:
