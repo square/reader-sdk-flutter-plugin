@@ -3,10 +3,10 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'square_reader_sdk'
-  s.version          = '0.0.1'
+  s.version          = '1.0.0'
   s.summary          = 'iOS part of a flutter plugin for Square Reader SDK.'
   s.description      = <<-DESC
-AiOS part of a flutter plugin for Square Reader SDK.
+iOS part of a flutter plugin for Square Reader SDK.
                        DESC
   s.homepage         = 'https://github.com/square/reader-sdk-flutter-plugin'
   s.license          = { :file => '../LICENSE' }

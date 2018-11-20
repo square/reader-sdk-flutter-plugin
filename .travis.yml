@@ -42,12 +42,12 @@ matrix:
       cache:
         directories:
           - $HOME/.pub-cache
-      before_script:
+      before_install:
         - cd example
         - git clone https://github.com/flutter/flutter.git -b beta --depth 1
         - ./flutter/bin/flutter doctor
-        - cd ios
-        - ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id $SQUARE_READER_SDK_APPLICATION_ID --repo-password $SQUARE_READER_SDK_REPOSITORY_PASSWORD --version 1.0.1
+      before_script:
+        - cd ios && ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id $SQUARE_READER_SDK_APPLICATION_ID --repo-password $SQUARE_READER_SDK_REPOSITORY_PASSWORD --version 1.0.1
       script:
         - cd ..
         - ./flutter/bin/flutter -v build ios --no-codesign
