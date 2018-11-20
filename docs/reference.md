@@ -283,7 +283,7 @@ lastFourDigits | String | Indicates how the card information was captured.
 card.toString();
 /* toString() output:
 {
-  "brand": "visa",
+  "brand": "VISA",
   "lastFourDigits": "1111"
 }
 */
@@ -309,7 +309,7 @@ cardDetails.toString();
 {
   "entryMethod": "MANUALLY_ENTERED",
   "card": {
-    "brand": "visa",
+    "brand": "VISA",
     "lastFourDigits": "1111"
   }
 }
