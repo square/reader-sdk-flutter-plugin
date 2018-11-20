@@ -4,8 +4,8 @@ Square [Reader SDK] lets developers embed the [Square] checkout flow and accept
 in-person payments in custom apps using Square Readers. The SDK supports
 authorization, transaction processing, and Reader management.
 
-Use Square's official Flutter plugin for Reader SDK to build payment solutions
-on Android and iOS.
+Use Square's official Flutter plugin for Reader SDK to build in-person payment
+solutions on Android and iOS.
 
 
 ## How to use
@@ -97,13 +97,13 @@ limitations under the License.
 [Reader SDK]: https://docs.connect.squareup.com/payments/readersdk/overview
 [Square Dashboard]: https://squareup.com/dashboard/
 [Square]: https://squareup.com
-[update policy for Reader SDK]: https://docs.connect.squareup.com/payments/readersdk/overview#readersdkupdatepolicy
+[update policy for Reader SDK]: https://docs.connect.squareup.com/payments/readersdk/updatepolicy
 [Testing Mobile Apps]: https://docs.connect.squareup.com/testing/mobile
 [`docs`]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/docs
 [`example`]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/example
 [Getting Started]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/docs/get-started.md
 [Technical Reference]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/docs/reference.md
-[Troubleshooting Guide]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/docs/troubleshooting.md
+[Troubleshooting]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/docs/troubleshooting.md
 [sample app]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/example/README.md
 [getting started guide]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/docs/get-started.md
 [flutter plugin GitHub repo]: https://github.com/square/reader-sdk-flutter-plugin/tree/master

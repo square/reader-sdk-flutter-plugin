@@ -618,7 +618,7 @@ flow.
 
 * `visa` - Visa Inc. credit or debit card.
 * `mastercard` - Mastercard Incorporated credit or debit card.
-* `americanExpress` - merican Express Company credit card.
+* `americanExpress` - American Express Company credit card.
 * `discover` - Discover Financial Services credit card.
 * `discoverDiners` - Diners Club International credit card.
 * `interac` - Canadian Interbank Network debit card.
