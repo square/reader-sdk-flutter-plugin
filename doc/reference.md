@@ -9,7 +9,7 @@ plugin for Reader SDK. For detailed documentation on Reader SDK, please see
 * [Methods at a glance](#methods-at-a-glance)
 * [Method details](#method-details)
 * [Objects](#objects)
-* [Constants](#constants)
+* [Enums](#enums)
 * [Errors](#errors)
 
 ---
@@ -56,10 +56,10 @@ try {
   // Authorized and authorizedLocation is available
 } on ReaderSdkException catch (e) {
   switch(e.code) {
-    case ReaderSdk.authorizeErrorNoNetwork:
+    case ErrorCode.authorizeErrorNoNetwork:
       // Remind connecting to network
     break;
-    case ReaderSdk.usageError:
+    case ErrorCode.usageError:
       var errorMessage = e.message;
       if (_debug) {
         errorMessage += '\n\nDebug Message: ${e.debugMessage}';
@@ -209,10 +209,10 @@ try {
   // checkout finished successfully and checkoutResult is available
 } on ReaderSdkException catch (e) {
   switch (e.code) {
-    case ReaderSdk.checkoutErrorCanceled:
+    case ErrorCode.checkoutErrorCanceled:
       // Handle canceled transaction here
       break;
-    case ReaderSdk.checkoutErrorSdkNotAuthorized:
+    case ErrorCode.checkoutErrorSdkNotAuthorized:
       // Handle sdk not authorized
       break;
     default:
@@ -247,7 +247,7 @@ try {
   await ReaderSdk.startReaderSettings();
 } on ReaderSdkException catch (e) {
   switch(e.code) {
-    case ReaderSdk.readerSettingsErrorSdkNotAuthorized:
+    case ErrorCode.readerSettingsErrorSdkNotAuthorized:
       // Handle reader settings not authorized
       break;
     default:
@@ -375,7 +375,11 @@ builder.alwaysRequireSignature = true;
 builder.allowSplitTender = false;
 builder.note = 'Payment for dogsitting';
 builder.additionalPaymentTypes =
-    ListBuilder(['cash', 'manual_card_entry', 'other']);
+    ListBuilder([
+      AdditionalPaymentType.cash,
+      AdditionalPaymentType.manualCardEntry,
+      AdditionalPaymentType.other
+    ]);
 builder.tipSettings = TipSettingsBuilder()
   ..showCustomTipField = false
   ..showSeparateTipScreen = true
@@ -589,7 +593,7 @@ tipSettings.toString();
 
 
 
-## Constants
+## Enums
 
 Constants in Reader SDK are implemented as strings rather than explicit types,
 but the plugin will return, and look for, explicit string values for the
@@ -598,11 +602,11 @@ constants.
 ### AdditionalPaymentType
 
 Payment types accepted during the Reader SDK checkout flow in addition to
-payments via Square Readers:
+payment via Square Readers:
 
-* `card`  - Manually typed-in card payments.
-* `cash`  - Cash payments. Useful for testing.
-* `other` - Check, third-party gift cards, and other payment types.
+* `manualCardEntry` - Manually typed-in card payments.
+* `cash`            - Cash payments. Useful for testing.
+* `other`           - Check, third-party gift cards, and other payment types.
 
 
 ---
@@ -612,16 +616,16 @@ payments via Square Readers:
 Supported brands for `card` payments accepted during the Reader SDK checkout
 flow.
 
-* `VISA` - Visa Inc. credit or debit card.
-* `MASTERCARD` - Mastercard Incorporated credit or debit card.
-* `AMERICAN_EXPRESS` - merican Express Company credit card.
-* `DISCOVER` - Discover Financial Services credit card.
-* `DISCOVER_DINERS` - Diners Club International credit card.
-* `INTERAC` - Canadian Interbank Network debit card.
-* `JCB` - Japan Credit Bureau credit card.
-* `CHINA_UNIONPAY` - China UnionPay credit card.
-* `SQUARE_GIFT_CARD` - [Square-issued gift card].
-* `OTHER_BRAND` - An unexpected card type.
+* `visa` - Visa Inc. credit or debit card.
+* `mastercard` - Mastercard Incorporated credit or debit card.
+* `americanExpress` - American Express Company credit card.
+* `discover` - Discover Financial Services credit card.
+* `discoverDiners` - Diners Club International credit card.
+* `interac` - Canadian Interbank Network debit card.
+* `jCB` - Japan Credit Bureau credit card.
+* `chinaUnionPay` - China UnionPay credit card.
+* `squareGiftCard` - [Square-issued gift card].
+* `otherBrand` - An unexpected card type.
 
 
 ---
@@ -630,12 +634,11 @@ flow.
 
 Entry methods for `card` payments accepted during the Reader SDK checkout flow.
 
-* `CHIP` - Card information collected with Square Reader via chip ("dip").
-* `CONTACTLESS` - Card information collected with Square Reader via NFC ("tap").
-* `MANUALLY_ENTERED` - Card information collected by typing it in ("keyed-in").
-* `SWIPE` - Card information collected with Square Reader via magstripe ("swipe").
-* `UNKNOWN` - **iOS only**. Card information collected in some other way (e.g., Apple Pay digital wallet).
-
+* `chip` - Card information collected with Square Reader via chip ("dip").
+* `contactless` - Card information collected with Square Reader via NFC ("tap").
+* `manuallyEntered` - Card information collected by typing it in ("keyed-in").
+* `swipe` - Card information collected with Square Reader via magstripe ("swipe").
+* `unknown` - **iOS only**. Card information collected in some other way (e.g., Apple Pay digital wallet).
 
 ---
 

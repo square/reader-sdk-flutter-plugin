@@ -96,6 +96,7 @@ For more information on installing Reader SDK for Android, see the
         targetSdkVersion 27
         multiDexEnabled true
       }
+      ...
     }
     ```
 1. If your `minSdkVersion` is **less than 21**, you also need to include the
@@ -170,6 +171,7 @@ information on installing Reader SDK for iOS, see the
    * Drag the newly downloaded `SquareReaderSDK.framework` into the
      **Embedded Binaries** section and click "Finish" in the modal that appears.
 1. Add a Reader SDK build phase:
+   * Open `Runner.xcworkspace` in Xcode.
    * In the **Build Phases** tab for your application target, click the **+**
       button (at the top of the pane).
    * Select **New Run Script Phase**.

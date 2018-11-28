@@ -1,18 +1,35 @@
 # Flutter plugin for Reader SDK
 
-This repo contains a Flutter plugin for Square [Reader SDK]. Reader SDK for
-Flutter supports the following native Reader SDK versions:
+Square [Reader SDK] lets developers embed the [Square] checkout flow and accept
+in-person payments in custom apps using Square Readers. The SDK supports
+authorization, transaction processing, and Reader management.
+
+Use Square's official Flutter plugin for Reader SDK to build in-person payment
+solutions on Android and iOS.
+
+
+## How to use
+
+The Flutter plugin for Reader SDK acts as a wrapper on the native SDKs and is
+currently compatible with the following native Reader SDK versions:
 
   * iOS: version 1.0.1
   * Android: 1.0.4
 
-## In this repo
+Try the [sample app] to see the plugin in action or follow the instructions in
+the [getting started guide] to build a custom solution from scratch.
 
-In addition to the standard Flutter directories, this repo includes:
 
-* [`doc`] - Documentation for the Flutter plugin, including a
-  [getting started guide], [technical reference], and [troubleshooting guide].
-* [`example`] - A Flutter sample app with walkthrough.
+### Additional documentation
+
+In addition to this README, the following is available in the
+[flutter plugin GitHub repo]:
+
+* [Getting Started]
+* [Technical Reference]
+* [Troubleshooting]
+* [`doc`] - Root directory for all documentation
+* [`example`] - Root directory of the Flutter sample app (with walkthrough).
 
 
 ## Build requirements
@@ -79,10 +96,14 @@ limitations under the License.
 [Mobile Authorization API]: https://docs.connect.squareup.com/payments/readersdk/mobile-authz-guide
 [Reader SDK]: https://docs.connect.squareup.com/payments/readersdk/overview
 [Square Dashboard]: https://squareup.com/dashboard/
-[update policy for Reader SDK]: https://docs.connect.squareup.com/payments/readersdk/overview#readersdkupdatepolicy
+[Square]: https://squareup.com
+[update policy for Reader SDK]: https://docs.connect.squareup.com/payments/readersdk/updatepolicy
 [Testing Mobile Apps]: https://docs.connect.squareup.com/testing/mobile
 [`doc`]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/doc
 [`example`]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/example
+[Getting Started]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/doc/get-started.md
+[Technical Reference]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/doc/reference.md
+[Troubleshooting]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/doc/troubleshooting.md
+[sample app]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/example/README.md
 [getting started guide]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/doc/get-started.md
-[technical reference]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/doc/reference.md
-[troubleshooting guide]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/doc/troubleshooting.md
+[flutter plugin GitHub repo]: https://github.com/square/reader-sdk-flutter-plugin/tree/master
