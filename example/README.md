@@ -87,7 +87,7 @@ You can view the [transaction details in Square Dashboard].
 4. Run the sample app from the `example` folder:
     ```bash
     cd /PATH/TO/LOCAL/example
-    flutter run
+    flutter run lib/reader_sdk_example.dart
     ```
 5. Go to the **Reader SDK** settings page in your [Square Application Dashboard]
    and generate a new mobile authorization code by clicking

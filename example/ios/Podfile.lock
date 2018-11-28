@@ -6,7 +6,7 @@ PODS:
   - MTBBarcodeScanner (5.0.6)
   - simple_permissions (0.0.1):
     - Flutter
-  - square_reader_sdk (0.0.1):
+  - square_reader_sdk (1.0.0):
     - Flutter
 
 DEPENDENCIES:
@@ -34,7 +34,7 @@ SPEC CHECKSUMS:
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
   MTBBarcodeScanner: bb0bb62e18b57f8a571a482248adc20722b70a91
   simple_permissions: 8ea52208b437f8fae29d97a55fe00b705a53246b
-  square_reader_sdk: 991fff6e032ca3daec68e7904ba7beecd81b3c14
+  square_reader_sdk: 8ee675ba5b1f307662cba1ad55247415dd0f0db3
 
 PODFILE CHECKSUM: cb6b50d323655cc2ec3bd136559937da3b86ed80
 
