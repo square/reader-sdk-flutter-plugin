@@ -16,7 +16,7 @@ To contribute:
 1. Follow existing coding conventions and styles to keep the code as readable
    as possible.
 1. Comment your code so others can understand it easily.
-1. Update the associated doc (README, reference, etc.) to reflect your changes
+1. Update the associated docs (README, reference, etc.) to reflect your changes
    as needed. If appropriate, you can add a new markdown page to the `doc`
    folder to document your changes.
 1. Submit a pull request with your changes.
