@@ -18,7 +18,7 @@ import 'dart:async';
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:flutter/services.dart';
 import 'models.dart';
-import 'serializers.dart';
+import 'src/serializers.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class ReaderSdk {

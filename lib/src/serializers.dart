@@ -15,9 +15,9 @@ limitations under the License.
 */
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
-import 'models.dart';
+import '../models.dart';
 
-part 'src/serializers.g.dart';
+part 'serializers.g.dart';
 
 @SerializersFor([
   Money,
