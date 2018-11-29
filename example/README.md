@@ -44,25 +44,23 @@ This quick start guide makes the following assumptions:
     SQUARE_READER_SDK_APPLICATION_ID=YOUR_SQUARE_READER_APP_ID
     SQUARE_READER_SDK_REPOSITORY_PASSWORD=YOUR_SQUARE_READER_REPOSITORY_PASSWORD
     ```
-3. Open the Android project,
-   `<ProjectDir>/reader-sdk-react-native-quickstart/android/` in Android Studio.
-4. Confirm you have installed the required Android SDK elements. If you are
+3. Confirm you have installed the required Android SDK elements. If you are
    unsure, the Reader SDK build requirements are listed in the [root README] for
    this repo.
-5. Configure an Android emulator that runs Android API 27 (Oreo, 8.1),
+4. Configure an Android emulator that runs Android API 27 (Oreo, 8.1),
    and launch the emulator **or** connect your dev machine to an Android device
    running Android API 27 with development mode enabled.
-6. Run the sample app from the `example` folder:
+5. Run the sample app from the `example` folder:
     ```bash
     cd /PATH/TO/LOCAL/example
     flutter run
     ```
-7. Go to the **Reader SDK** settings page in your [Square Application Dashboard]
+6. Go to the **Reader SDK** settings page in your [Square Application Dashboard]
    and generate a new mobile authorization code by clicking
    "Generate Mobile Auth Code".
-8. Copy the mobile authorization code string from the Square application
+7. Copy the mobile authorization code string from the Square application
    settings page.
-9. Tap "Enter Code Manually" in the sample app and paste the mobile
+8. Tap "Enter Code Manually" in the sample app and paste the mobile
    authorization code into the field provided.
 
 You can view the [transaction details in Square Dashboard].
@@ -87,7 +85,7 @@ You can view the [transaction details in Square Dashboard].
 4. Run the sample app from the `example` folder:
     ```bash
     cd /PATH/TO/LOCAL/example
-    flutter run lib/reader_sdk_example.dart
+    flutter run
     ```
 5. Go to the **Reader SDK** settings page in your [Square Application Dashboard]
    and generate a new mobile authorization code by clicking
