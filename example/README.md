@@ -68,7 +68,7 @@ You can view the [transaction details in Square Dashboard].
 
 ## Step 3: Run the Flutter example app for iOS
 
-1. Change to the `ios` folder under `reader-sdk-react-native-quickstart`.
+1. Change to the `ios` folder under `example`.
 2. Install ReaderSDK, replacing `YOUR_SQUARE_READER_APP_ID` and
    `YOUR_SQUARE_READER_REPOSITORY_PASSWORD` with your Reader SDK credentials
    and `READER_SDK_VERSION` with the Reader SDK version you are using. You can
