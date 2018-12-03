@@ -53,7 +53,8 @@ dependencies:
 
   ...
 
-  square_reader_sdk: ^1.0.0
+  square_reader_sdk:
+    git: https://github.com/square/reader-sdk-flutter-plugin.git
 ```
 
 
