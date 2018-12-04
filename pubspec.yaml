@@ -1,10 +1,7 @@
 name: square_reader_sdk
-description: A flutter plugin for Square Reader SDK.
-version: 1.0.0
-authors:
-- Xiao Hu <xiao@squareup.com>
-- Sarah Chavis <goblin@squareup.com>
-- Mike Konopelski <mikek@squareup.com>
+description: An open source Flutter plugin for calling Square’s native Reader SDK implementations to take in-person payments on iOS and Android.
+version: 1.0.2
+author: Square Flutter Team <flutter-team@squareup.com>
 homepage: https://github.com/square/reader-sdk-flutter-plugin
 
 environment:
