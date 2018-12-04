@@ -46,8 +46,8 @@ started guide for more detailed instructions.
 
 ## Step 2: Configure the Reader SDK dependency
 
-Edit the `pubspec.yaml` file in your `flutter` directory to define the Reader
-SDK dependency:
+Edit the `pubspec.yaml` file in your `reader_sdk_flutter_app` directory to
+define the Reader SDK dependency:
 ```yaml
 dependencies:
 
