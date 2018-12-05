@@ -37,7 +37,7 @@ This quick start guide makes the following assumptions:
 
 ## Step 2: Run the Flutter example app for Android
 
-1. Open `<ProjectDir>/example/android/gradle.properties`.
+1. Open `<YOUR_PROJECT_DIRECTORY>/example/android/gradle.properties`.
 2. Set the Reader SDK variables with your Reader SDK credentials:
     ```yaml
     # Set the variables below with your Reader SDK credentials
@@ -52,7 +52,7 @@ This quick start guide makes the following assumptions:
    running Android API 27 with development mode enabled.
 5. Run the sample app from the `example` folder:
     ```bash
-    cd /PATH/TO/LOCAL/example
+    cd <YOUR_PROJECT_DIRECTORY>/example
     flutter run
     ```
 6. Go to the **Reader SDK** settings page in your [Square Application Dashboard]
@@ -84,7 +84,7 @@ You can view the [transaction details in Square Dashboard].
    enabled.
 4. Run the sample app from the `example` folder:
     ```bash
-    cd /PATH/TO/LOCAL/example
+    cd <YOUR_PROJECT_DIRECTORY>/example
     flutter run
     ```
 5. Go to the **Reader SDK** settings page in your [Square Application Dashboard]
