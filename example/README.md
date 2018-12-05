@@ -1,6 +1,6 @@
 # Flutter Plugin for Reader SDK Quick Start
 
-<img src="https://github.com/square/reader-sdk-flutter-plugin/blob/master/example/sampleapp-example.png">
+<img src="https://docs.connect.squareup.com/images/github/reader-sdk-sampleapp-example.png">
 
 ## Assumptions and prerequisites
 
