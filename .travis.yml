@@ -47,7 +47,7 @@ matrix:
         - git clone https://github.com/flutter/flutter.git -b beta --depth 1
         - ./flutter/bin/flutter doctor
       before_script:
-        - cd ios && ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id $SQUARE_READER_SDK_APPLICATION_ID --repo-password $SQUARE_READER_SDK_REPOSITORY_PASSWORD --version 1.0.1
+        - cd ios && ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id $SQUARE_READER_SDK_APPLICATION_ID --repo-password $SQUARE_READER_SDK_REPOSITORY_PASSWORD --version 1.0.1 > /dev/null
       script:
         - cd ..
         - ./flutter/bin/flutter -v build ios --no-codesign
