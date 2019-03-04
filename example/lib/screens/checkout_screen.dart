@@ -83,7 +83,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ..currencyCode = 'USD'; // currencyCode is optional
     // Optional for all following configuration
     builder.skipReceipt = false;
-    builder.alwaysRequireSignature = true;
+    builder.collectSignature = true;
     builder.allowSplitTender = false;
     builder.note = 'Hello 💳 💰 World!';
     builder.additionalPaymentTypes =

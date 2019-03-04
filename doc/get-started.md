@@ -92,19 +92,10 @@ For more information on installing Reader SDK for Android, see the
     ```
     android {
       defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 27
         multiDexEnabled true
       }
-      ...
-    }
-    ```
-1. If your `minSdkVersion` is **less than 21**, you also need to include the
-   `multidex` dependency:
-    ```
-    dependencies {
-      // Add this dependency if your minSdkVersion < 21
-      implementation 'com.android.support:multidex:1.0.3'
       ...
     }
     ```
@@ -134,8 +125,6 @@ For more information on installing Reader SDK for Android, see the
             super.onCreate(savedInstanceState);
             GeneratedPluginRegistrant.registerWith(this);
             ReaderSdk.initialize(this.getApplication());
-            // Required if minSdkVersion < 21
-            MultiDex.install(this.getApplicationContext());
         }
     }
     ```
@@ -284,7 +273,7 @@ builder.amountMoney = MoneyBuilder()
   ..currencyCode = 'USD'; // currencyCode is optional
 // Optional for all following configuration
 builder.skipReceipt = false;
-builder.alwaysRequireSignature = true;
+builder.collectSignature = true;
 builder.allowSplitTender = false;
 builder.note = 'Hello 💳 💰 World!';
 builder.additionalPaymentTypes =

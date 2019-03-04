@@ -77,8 +77,8 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
     if (checkoutParametersDictionary[@"skipReceipt"]) {
         checkoutParams.skipReceipt = [checkoutParametersDictionary[@"skipReceipt"] boolValue];
     }
-    if (checkoutParametersDictionary[@"alwaysRequireSignature"]) {
-        checkoutParams.alwaysRequireSignature = [checkoutParametersDictionary[@"alwaysRequireSignature"] boolValue];
+    if (checkoutParametersDictionary[@"collectSignature"]) {
+        checkoutParams.collectSignature = [checkoutParametersDictionary[@"collectSignature"] boolValue];
     }
     if (checkoutParametersDictionary[@"allowSplitTender"]) {
         checkoutParams.allowSplitTender = [checkoutParametersDictionary[@"allowSplitTender"] boolValue];
@@ -140,8 +140,8 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
         *errorMsg = @"'skipReceipt' is not a boolean";
         return NO;
     }
-    if (checkoutParametersDictionary[@"alwaysRequireSignature"] && ![checkoutParametersDictionary[@"alwaysRequireSignature"] isKindOfClass:[NSNumber class]]) {
-        *errorMsg = @"'alwaysRequireSignature' is not a boolean";
+    if (checkoutParametersDictionary[@"collectSignature"] && ![checkoutParametersDictionary[@"collectSignature"] isKindOfClass:[NSNumber class]]) {
+        *errorMsg = @"'collectSignature' is not a boolean";
         return NO;
     }
     if (checkoutParametersDictionary[@"allowSplitTender"] && ![checkoutParametersDictionary[@"allowSplitTender"] isKindOfClass:[NSNumber class]]) {

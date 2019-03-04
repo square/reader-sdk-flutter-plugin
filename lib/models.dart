@@ -153,11 +153,13 @@ class Brand extends EnumClass {
   @BuiltValueEnumConst(wireName: 'INTERAC')
   static const Brand interac = _$interac;
   @BuiltValueEnumConst(wireName: 'JCB')
-  static const Brand jCB = _$jCB;
+  static const Brand jcb = _$jCB;
   @BuiltValueEnumConst(wireName: 'CHINA_UNION_PAY')
   static const Brand chinaUnionPay = _$chinaUnionPay;
   @BuiltValueEnumConst(wireName: 'SQUARE_GIFT_CARD')
   static const Brand squareGiftCard = _$squareGiftCard;
+  @BuiltValueEnumConst(wireName: 'EFTPOS')
+  static const Brand eftpos = _$eftpos;
 
   const Brand._(String name) : super(name);
 
@@ -198,7 +200,7 @@ abstract class CheckoutParameters implements Built<CheckoutParameters, CheckoutP
   bool get skipReceipt;
 
   @nullable
-  bool get alwaysRequireSignature;
+  bool get collectSignature;
 
   @nullable
   bool get allowSplitTender;

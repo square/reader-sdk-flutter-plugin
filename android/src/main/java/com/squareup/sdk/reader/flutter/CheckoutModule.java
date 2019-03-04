@@ -105,8 +105,8 @@ final class CheckoutModule {
     if (checkoutParameters.containsKey("skipReceipt")) {
       checkoutParamsBuilder.skipReceipt((Boolean)checkoutParameters.get("skipReceipt"));
     }
-    if (checkoutParameters.containsKey("alwaysRequireSignature")) {
-      checkoutParamsBuilder.alwaysRequireSignature((Boolean)checkoutParameters.get("alwaysRequireSignature"));
+    if (checkoutParameters.containsKey("collectSignature")) {
+      checkoutParamsBuilder.collectSignature((Boolean)checkoutParameters.get("collectSignature"));
     }
     if (checkoutParameters.containsKey("allowSplitTender")) {
       checkoutParamsBuilder.allowSplitTender((Boolean)checkoutParameters.get("allowSplitTender"));
@@ -132,8 +132,8 @@ final class CheckoutModule {
     } else if (checkoutParamsMap.containsKey("skipReceipt") && !(checkoutParamsMap.get("skipReceipt") instanceof Boolean)) {
       paramError.append("'skipReceipt' is not a boolean");
       return false;
-    } else if (checkoutParamsMap.containsKey("alwaysRequireSignature") && !(checkoutParamsMap.get("alwaysRequireSignature") instanceof Boolean)) {
-      paramError.append("'alwaysRequireSignature' is not a boolean");
+    } else if (checkoutParamsMap.containsKey("collectSignature") && !(checkoutParamsMap.get("collectSignature") instanceof Boolean)) {
+      paramError.append("'collectSignature' is not a boolean");
       return false;
     } else if (checkoutParamsMap.containsKey("allowSplitTender") && !(checkoutParamsMap.get("allowSplitTender") instanceof Boolean)) {
       paramError.append("'allowSplitTender' is not a boolean");
