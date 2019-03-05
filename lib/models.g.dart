@@ -6,19 +6,6 @@ part of 'models.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-// ignore_for_file: always_put_control_body_on_new_line
-// ignore_for_file: annotate_overrides
-// ignore_for_file: avoid_annotating_with_dynamic
-// ignore_for_file: avoid_catches_without_on_clauses
-// ignore_for_file: avoid_returning_this
-// ignore_for_file: lines_longer_than_80_chars
-// ignore_for_file: omit_local_variable_types
-// ignore_for_file: prefer_expression_function_bodies
-// ignore_for_file: sort_constructors_first
-// ignore_for_file: unnecessary_const
-// ignore_for_file: unnecessary_new
-// ignore_for_file: test_types_in_equals
-
 const TenderType _$cardTenderType = const TenderType._('card');
 const TenderType _$cashTenderType = const TenderType._('cash');
 const TenderType _$otherTenderType = const TenderType._('other');
@@ -82,9 +69,10 @@ const Brand _$americanExpress = const Brand._('americanExpress');
 const Brand _$discover = const Brand._('discover');
 const Brand _$discoverDiners = const Brand._('discoverDiners');
 const Brand _$interac = const Brand._('interac');
-const Brand _$jCB = const Brand._('jCB');
+const Brand _$jCB = const Brand._('jcb');
 const Brand _$chinaUnionPay = const Brand._('chinaUnionPay');
 const Brand _$squareGiftCard = const Brand._('squareGiftCard');
+const Brand _$eftpos = const Brand._('eftpos');
 
 Brand _$brandValueOf(String name) {
   switch (name) {
@@ -102,12 +90,14 @@ Brand _$brandValueOf(String name) {
       return _$discoverDiners;
     case 'interac':
       return _$interac;
-    case 'jCB':
+    case 'jcb':
       return _$jCB;
     case 'chinaUnionPay':
       return _$chinaUnionPay;
     case 'squareGiftCard':
       return _$squareGiftCard;
+    case 'eftpos':
+      return _$eftpos;
     default:
       throw new ArgumentError(name);
   }
@@ -124,6 +114,7 @@ final BuiltSet<Brand> _$brandValues = new BuiltSet<Brand>(const <Brand>[
   _$jCB,
   _$chinaUnionPay,
   _$squareGiftCard,
+  _$eftpos,
 ]);
 
 const AdditionalPaymentType _$manualCardEntryAdditionalPaymentType =
@@ -670,9 +661,10 @@ class _$BrandSerializer implements PrimitiveSerializer<Brand> {
     'discover': 'DISCOVER',
     'discoverDiners': 'DISCOVER_DINERS',
     'interac': 'INTERAC',
-    'jCB': 'JCB',
+    'jcb': 'JCB',
     'chinaUnionPay': 'CHINA_UNION_PAY',
     'squareGiftCard': 'SQUARE_GIFT_CARD',
+    'eftpos': 'EFTPOS',
   };
   static const Map<String, String> _fromWire = const <String, String>{
     'OTHER_BRAND': 'otherBrand',
@@ -682,9 +674,10 @@ class _$BrandSerializer implements PrimitiveSerializer<Brand> {
     'DISCOVER': 'discover',
     'DISCOVER_DINERS': 'discoverDiners',
     'INTERAC': 'interac',
-    'JCB': 'jCB',
+    'JCB': 'jcb',
     'CHINA_UNION_PAY': 'chinaUnionPay',
     'SQUARE_GIFT_CARD': 'squareGiftCard',
+    'EFTPOS': 'eftpos',
   };
 
   @override
@@ -800,10 +793,10 @@ class _$CheckoutParametersSerializer
         ..add(serializers.serialize(object.skipReceipt,
             specifiedType: const FullType(bool)));
     }
-    if (object.alwaysRequireSignature != null) {
+    if (object.collectSignature != null) {
       result
-        ..add('alwaysRequireSignature')
-        ..add(serializers.serialize(object.alwaysRequireSignature,
+        ..add('collectSignature')
+        ..add(serializers.serialize(object.collectSignature,
             specifiedType: const FullType(bool)));
     }
     if (object.allowSplitTender != null) {
@@ -854,8 +847,8 @@ class _$CheckoutParametersSerializer
           result.skipReceipt = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool;
           break;
-        case 'alwaysRequireSignature':
-          result.alwaysRequireSignature = serializers.deserialize(value,
+        case 'collectSignature':
+          result.collectSignature = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool;
           break;
         case 'allowSplitTender':
@@ -1978,7 +1971,7 @@ class _$CheckoutParameters extends CheckoutParameters {
   @override
   final bool skipReceipt;
   @override
-  final bool alwaysRequireSignature;
+  final bool collectSignature;
   @override
   final bool allowSplitTender;
   @override
@@ -1994,7 +1987,7 @@ class _$CheckoutParameters extends CheckoutParameters {
   _$CheckoutParameters._(
       {this.amountMoney,
       this.skipReceipt,
-      this.alwaysRequireSignature,
+      this.collectSignature,
       this.allowSplitTender,
       this.note,
       this.additionalPaymentTypes,
@@ -2019,7 +2012,7 @@ class _$CheckoutParameters extends CheckoutParameters {
     return other is CheckoutParameters &&
         amountMoney == other.amountMoney &&
         skipReceipt == other.skipReceipt &&
-        alwaysRequireSignature == other.alwaysRequireSignature &&
+        collectSignature == other.collectSignature &&
         allowSplitTender == other.allowSplitTender &&
         note == other.note &&
         additionalPaymentTypes == other.additionalPaymentTypes &&
@@ -2033,7 +2026,7 @@ class _$CheckoutParameters extends CheckoutParameters {
             $jc(
                 $jc(
                     $jc($jc($jc(0, amountMoney.hashCode), skipReceipt.hashCode),
-                        alwaysRequireSignature.hashCode),
+                        collectSignature.hashCode),
                     allowSplitTender.hashCode),
                 note.hashCode),
             additionalPaymentTypes.hashCode),
@@ -2045,7 +2038,7 @@ class _$CheckoutParameters extends CheckoutParameters {
     return (newBuiltValueToStringHelper('CheckoutParameters')
           ..add('amountMoney', amountMoney)
           ..add('skipReceipt', skipReceipt)
-          ..add('alwaysRequireSignature', alwaysRequireSignature)
+          ..add('collectSignature', collectSignature)
           ..add('allowSplitTender', allowSplitTender)
           ..add('note', note)
           ..add('additionalPaymentTypes', additionalPaymentTypes)
@@ -2067,10 +2060,10 @@ class CheckoutParametersBuilder
   bool get skipReceipt => _$this._skipReceipt;
   set skipReceipt(bool skipReceipt) => _$this._skipReceipt = skipReceipt;
 
-  bool _alwaysRequireSignature;
-  bool get alwaysRequireSignature => _$this._alwaysRequireSignature;
-  set alwaysRequireSignature(bool alwaysRequireSignature) =>
-      _$this._alwaysRequireSignature = alwaysRequireSignature;
+  bool _collectSignature;
+  bool get collectSignature => _$this._collectSignature;
+  set collectSignature(bool collectSignature) =>
+      _$this._collectSignature = collectSignature;
 
   bool _allowSplitTender;
   bool get allowSplitTender => _$this._allowSplitTender;
@@ -2101,7 +2094,7 @@ class CheckoutParametersBuilder
     if (_$v != null) {
       _amountMoney = _$v.amountMoney?.toBuilder();
       _skipReceipt = _$v.skipReceipt;
-      _alwaysRequireSignature = _$v.alwaysRequireSignature;
+      _collectSignature = _$v.collectSignature;
       _allowSplitTender = _$v.allowSplitTender;
       _note = _$v.note;
       _additionalPaymentTypes = _$v.additionalPaymentTypes?.toBuilder();
@@ -2132,7 +2125,7 @@ class CheckoutParametersBuilder
           new _$CheckoutParameters._(
               amountMoney: amountMoney.build(),
               skipReceipt: skipReceipt,
-              alwaysRequireSignature: alwaysRequireSignature,
+              collectSignature: collectSignature,
               allowSplitTender: allowSplitTender,
               note: note,
               additionalPaymentTypes: _additionalPaymentTypes?.build(),
@@ -2277,3 +2270,5 @@ class TipSettingsBuilder implements Builder<TipSettings, TipSettingsBuilder> {
     return _$result;
   }
 }
+
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

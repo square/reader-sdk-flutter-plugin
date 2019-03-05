@@ -56,6 +56,9 @@ class CardConverter {
                 case SQUARE_GIFT_CARD:
                     brandStringMap.put(brand, "SQUARE_GIFT_CARD");
                     break;
+                case EFTPOS:
+                    brandStringMap.put(brand, "EFTPOS");
+                    break;
                 default:
                     throw new RuntimeException("Unexpected brand value: " + brand.name());
             }

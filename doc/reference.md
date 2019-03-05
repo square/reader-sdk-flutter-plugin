@@ -357,7 +357,7 @@ Field                  | Type                        | Description
 ---------------------- | --------------------------- | -----------------
 amountMoney            | [Money](#money)             | **REQUIRED**. The total payment amount.
 skipReceipt            | bool                        | Indicates that the digital receipt options screen should not be displayed during checkout. Default: `false`
-alwaysRequireSignature | bool                        | Indicates that signature collection is required during checkout for all card transactions. Default: `true`
+collectSignature       | boolean                     | Indicates that signature collection is required during checkout. When false, the signature screen will never be displayed; when true, it will always be used. Default: `false`
 allowSplitTender       | bool                        | Indicates that multiple payment methods are allowed. Default: `false`
 note                   | String                      | A note to display on digital receipts and in the [Square Dashboard]. Default: `null`
 tipSettings            | [TipSettings](#tipsettings) | Settings that configure the tipping behavior of the checkout flow. Default: `null`
@@ -371,7 +371,7 @@ builder.amountMoney = MoneyBuilder()
   ..amount = 1000
   ..currencyCode = 'USD';
 builder.skipReceipt = false;
-builder.alwaysRequireSignature = true;
+builder.collectSignature = true;
 builder.allowSplitTender = false;
 builder.note = 'Payment for dogsitting';
 builder.additionalPaymentTypes =
@@ -622,9 +622,10 @@ flow.
 * `discover` - Discover Financial Services credit card.
 * `discoverDiners` - Diners Club International credit card.
 * `interac` - Canadian Interbank Network debit card.
-* `jCB` - Japan Credit Bureau credit card.
+* `jcb` - Japan Credit Bureau credit card.
 * `chinaUnionPay` - China UnionPay credit card.
 * `squareGiftCard` - [Square-issued gift card].
+* `eftpos` -  EFTPos.
 * `otherBrand` - An unexpected card type.
 
 
