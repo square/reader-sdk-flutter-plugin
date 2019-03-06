@@ -221,7 +221,8 @@ information on installing Reader SDK for iOS, see the
 Add code to your Flutter project that authorizes Reader SDK:
 
 ```dart
-import 'package:reader_sdk.dart';
+import 'package:square_reader_sdk/models.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
 const _debug = !bool.fromEnvironment("dart.vm.product");
 try {
@@ -262,7 +263,8 @@ and connecting a Reader is only required for card payments.
 checkout, you must close the modal before calling `startCheckout`.
 
 ```dart
-import 'package:reader_sdk.dart';
+import 'package:square_reader_sdk/models.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
 const _debug = !bool.fromEnvironment("dart.vm.product");
 
@@ -330,7 +332,8 @@ To take payments with a Contactless + Chip Reader, you must add code to your
 Flutter project that starts the Reader SDK settings flow to pair the Reader.
 
 ```dart
-import 'package:reader_sdk.dart';
+import 'package:square_reader_sdk/models.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
 const _debug = !bool.fromEnvironment("dart.vm.product");
 try {
@@ -357,7 +360,7 @@ To switch Square locations or to deauthorize the current location, you must add
 code to your Flutter project that deauthorizes Reader SDK.
 
 ```dart
-import 'package:reader_sdk.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
 const _debug = !bool.fromEnvironment("dart.vm.product");
 if (await canDeauthorize) {

@@ -48,7 +48,8 @@ authCode  | String | Authorization code from the [Mobile Authorization API]
 #### Example usage
 
 ```dart
-import 'package:reader_sdk.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
+import 'package:square_reader_sdk/models.dart';
 
 try {
   // authCode is a mobile authorization code from the Mobile Authorization API
@@ -85,7 +86,7 @@ Used to determine if it is safe to deauthorize Reader SDK.
 #### Example usage
 
 ```dart
-import 'package:reader_sdk.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
 if (await ReaderSdk.canDeauthorize) {
 
@@ -110,7 +111,7 @@ are transactions that have not been synced to Square.
 #### Example usage
 
 ```dart
-import 'package:reader_sdk.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
 try {
   await ReaderSdk.deauthorize();
@@ -140,7 +141,7 @@ SDK.
 #### Example usage
 
 ```dart
-import 'package:reader_sdk.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
 try {
   var location = await ReaderSdk.authorizedLocation;
@@ -170,7 +171,7 @@ Used to determine if Reader SDK is currently authorized to accept payments.
 #### Example usage
 
 ```dart
-import 'package:reader_sdk.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
 if (await ReaderSdk.isAuthorized) {
 
@@ -202,7 +203,8 @@ checkoutParams | [CheckoutParameter](#checkoutparameter) | Configures the checko
 #### Example usage
 
 ```dart
-import 'package:reader_sdk.dart';
+import 'package:square_reader_sdk/models.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
 try {
   var checkoutResult = await ReaderSdk.startCheckout(checkoutParameters);
@@ -241,7 +243,8 @@ currently authorized.
 #### Example usage
 
 ```dart
-import 'package:reader_sdk.dart';
+import 'package:square_reader_sdk/models.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
 try {
   await ReaderSdk.startReaderSettings();
@@ -262,6 +265,57 @@ try {
 ```
 
 
+---
+
+### startStoreCard
+
+Used to start the store a card for a customer flow.
+
+The card information is stored on Square servers, not on the specific device running Reader SDK. This means cards cannot be saved on file when offline, and that saved cards for a customer are available from any device, keyed by customer ID.
+
+* **On success**: returns information about the stored card as a
+  [Card](#card) object.
+* **On failure**: throws [`usageError`](#e1),
+[`storeCustomerErrorCanceled`](#e6),
+[`storeCustomerErrorInvalidCustomerId`](#e7),
+[`storeCustomerErrorSdkNotAuthorized`](#e8) or
+[`storeCustomerErrorNoNetwork`](#e9)
+
+#### Example usage
+
+```dart
+import 'package:square_reader_sdk/models.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
+
+const customerId = 'DRYKVK5Y6H5R4JH9ZPQB3XPZQC';
+try {
+  await ReaderSdk.startStoreCard(customerId);
+  // Customer's card is stored successfully and card infomation is available
+} on ReaderSdkException catch (e) {
+  switch(e.code) {
+    case ErrorCode.storeCustomerErrorCanceled:
+      // Handle canceled
+      break;
+    case ErrorCode.storeCustomerErrorInvalidCustomerId:
+      // Handle invalid customer id error
+      break;
+    case ErrorCode.storeCustomerErrorSdkNotAuthorized:
+      // Handle no network error
+      break;
+    case ErrorCode.storeCustomerErrorNoNetwork:
+      // Handle sdk not authorized
+      break;
+    default:
+      var errorMessage = e.message;
+      if (_debug) {
+        errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+        print('${e.code}:${e.debugCode}:${e.debugMessage}');
+      }
+      displayErrorModal(context, errorMessage);
+  }
+}
+```
+
 
 ## Objects
 
@@ -272,10 +326,14 @@ and serializable.
 
 Represents the non-confidential details of a payment card.
 
-Field          | Type   | Description
--------------- | ------ | -----------------
-brand          | String | [CardBrand](#cardbrand) constant that indicates the entity responsible for issuing the card.
-lastFourDigits | String | Indicates how the card information was captured.
+Field             | Type            | Description
+----------------- | --------------- | -----------------
+brand             | String          | [CardBrand](#cardbrand) constant that indicates the entity responsible for issuing the card.
+lastFourDigits    | String          | Indicates how the card information was captured.
+expirationMonth   | integer         | The month of the card’s expiration date, if available. This value is always between 1 and 12, inclusive.
+expirationYear    | integer         | The four-digit year of the card’s expiration date, if available.
+id                | String          | The card’s unique ID, if any. This value is present only if this object represents a customer’s card on file.
+cardholderName    | String          | The cardholder name. This value is present only if this object represents a customer’s card on file.
 
 #### Example output
 
@@ -284,7 +342,11 @@ card.toString();
 /* toString() output:
 {
   "brand": "VISA",
-  "lastFourDigits": "1111"
+  "lastFourDigits": "1111",
+  "expirationMonth": 10,
+  "expirationYear": 2019,
+  "id": "ccof:GrUQnrDgWnQIK6tp3GB",
+  "cardHolderName": "Tod Hu"
 }
 */
 ```
@@ -625,7 +687,7 @@ flow.
 * `jcb` - Japan Credit Bureau credit card.
 * `chinaUnionPay` - China UnionPay credit card.
 * `squareGiftCard` - [Square-issued gift card].
-* `eftpos` -  EFTPos.
+* `eftpos` - EFTPos.
 * `otherBrand` - An unexpected card type.
 
 
@@ -655,13 +717,17 @@ Methods used to provide payment during a successful checkout flow:
 
 ## Errors
 
-Error                                                | Cause                                                               | Returned by
----------------------------------------------------- | ------------------------------------------------------------------- | ---
-<a id="e1">`usageError`</a>                          | Reader SDK was used in an unexpected or unsupported way.            | all methods
-<a id="e2">`authorizeErrorNoNetwork`</a>             | Reader SDK could not connect to the network.                        | [authorize](#authorize)
-<a id="e3">`checkoutErrorCanceled`</a>               | The user canceled the checkout flow.                                | [startCheckout](#startcheckout)
-<a id="e4">`checkoutErrorSdkNotAuthorized`</a>       | The checkout flow started but Reader SDK was not authorized.        | [startCheckout](#startcheckout)
-<a id="e5">`readerSettingsErrorSdkNotAuthorized`</a> | The Reader settings flow started but Reader SDK was not authorized. | [startReaderSettings](#startreadersettings)
+Error                                                    | Cause                                                               | Returned by
+-------------------------------------------------------- | ------------------------------------------------------------------- | ---
+<a id="e1">`usageError`</a>                              | Reader SDK was used in an unexpected or unsupported way.            | all methods
+<a id="e2">`authorizeErrorNoNetwork`</a>                 | Reader SDK could not connect to the network.                        | [authorize](#authorize)
+<a id="e3">`checkoutErrorCanceled`</a>                   | The user canceled the checkout flow.                                | [startCheckout](#startcheckout)
+<a id="e4">`checkoutErrorSdkNotAuthorized`</a>           | The checkout flow started but Reader SDK was not authorized.        | [startCheckout](#startcheckout)
+<a id="e5">`readerSettingsErrorSdkNotAuthorized`</a>     | The Reader settings flow started but Reader SDK was not authorized. | [startReaderSettings](#startreadersettings)
+<a id="e6">`storeCustomerErrorCanceled`</a>              | The user canceled the store card flow.                              | [startStoreCard](#startstorecard)
+<a id="e7">`storeCustomerErrorInvalidCustomerId`</a>     | The customer ID passed into the controller was invalid.             | [startStoreCard](#startstorecard)
+<a id="e8">`storeCustomerErrorSdkNotAuthorized`</a>      | Reader SDK was not authorized.                                      | [startStoreCard](#startstorecard)
+<a id="e9">`storeCustomerErrorNoNetwork`</a>             | Reader SDK could not connect to the network.                        | [startStoreCard](#startstorecard)
 
 
 [//]: # "Link anchor definitions"
