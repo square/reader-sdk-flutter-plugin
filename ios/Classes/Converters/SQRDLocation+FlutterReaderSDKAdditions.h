@@ -19,6 +19,6 @@ limitations under the License.
 
 @interface SQRDLocation (FlutterReaderSDKAdditions)
 
-- (NSMutableDictionary *)jsonDictionary;
+- (NSDictionary *)jsonDictionary;
 
 @end

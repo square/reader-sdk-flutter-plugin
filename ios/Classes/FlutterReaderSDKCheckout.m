@@ -17,8 +17,6 @@
 #import "FlutterReaderSDKCheckout.h"
 #import "FlutterReaderSDKErrorUtilities.h"
 #import "Converters/SQRDCheckoutResult+FlutterReaderSDKAdditions.h"
-#import <CoreLocation/CoreLocation.h>
-#import <AVFoundation/AVFoundation.h>
 
 
 @interface FlutterReaderSDKCheckout ()

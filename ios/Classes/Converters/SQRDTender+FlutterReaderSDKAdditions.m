@@ -23,7 +23,7 @@ limitations under the License.
 
 @implementation SQRDTender (FlutterReaderSDKAdditions)
 
-- (NSMutableDictionary *)jsonDictionary;
+- (NSDictionary *)jsonDictionary;
 {
     NSMutableDictionary *tenderResult = [[NSMutableDictionary alloc] init];
     tenderResult[@"createdAt"] = [FlutterReaderSDKDateFormatter iso8601StringFromDate:self.createdAt];

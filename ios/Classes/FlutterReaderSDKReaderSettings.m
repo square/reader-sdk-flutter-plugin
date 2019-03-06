@@ -16,9 +16,6 @@
 
 #import "FlutterReaderSDKReaderSettings.h"
 #import "FlutterReaderSDKErrorUtilities.h"
-#import <CoreLocation/CoreLocation.h>
-#import <AVFoundation/AVFoundation.h>
-
 
 @interface FlutterReaderSDKReaderSettings ()
 

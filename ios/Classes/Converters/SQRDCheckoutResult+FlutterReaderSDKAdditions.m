@@ -22,24 +22,22 @@ limitations under the License.
 
 @implementation SQRDCheckoutResult (FlutterReaderSDKAdditions)
 
-- (NSMutableDictionary *)jsonDictionary
+- (NSDictionary *)jsonDictionary
 {
-    NSMutableDictionary *checkoutResult = [[NSMutableDictionary alloc] init];
-
-    checkoutResult[@"transactionId"] = self.transactionID;
-    checkoutResult[@"transactionClientId"] = self.transactionClientID;
-    checkoutResult[@"locationId"] = self.locationID;
-    checkoutResult[@"createdAt"] = [FlutterReaderSDKDateFormatter iso8601StringFromDate:self.createdAt];
-    checkoutResult[@"totalMoney"] = [self.totalMoney jsonDictionary];
-    checkoutResult[@"totalTipMoney"] = [self.totalTipMoney jsonDictionary];
-
     NSMutableArray *jsTenders = [[NSMutableArray alloc] init];
     for (SQRDTender *tender in self.tenders) {
         [jsTenders addObject:[tender jsonDictionary]];
     }
-    checkoutResult[@"tenders"] = jsTenders;
 
-    return checkoutResult;
+    return @{
+        @"transactionId" : self.transactionID ?: [NSNull null],
+        @"transactionClientId" : self.transactionClientID,
+        @"locationId" : self.locationID,
+        @"createdAt" : [FlutterReaderSDKDateFormatter iso8601StringFromDate:self.createdAt],
+        @"totalMoney" : [self.totalMoney jsonDictionary],
+        @"totalTipMoney" : [self.totalTipMoney jsonDictionary],
+        @"tenders" : jsTenders,
+    };
 }
 
 @end
