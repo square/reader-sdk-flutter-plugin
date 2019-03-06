@@ -36,7 +36,7 @@ static NSString *const FlutterReaderSDKStoreCustomerCardSdkNotAuthorized = @"STO
 static NSString *const FlutterReaderSDKStoreCustomerCardNoNetwork = @"STORE_CUSTOMER_CARD_NO_NETWORK";
 
 // flutter plugin debug error codes
-static NSString *const FlutterReaderSDKStoreCustomerCardAlreadyInProgress = @"rn_add_customer_already_in_progress";
+static NSString *const FlutterReaderSDKStoreCustomerCardAlreadyInProgress = @"fl_add_customer_already_in_progress";
 
 // flutter plugin debug messages
 static NSString *const FlutterReaderSDKMessageStoreCustomerCardAlreadyInProgress = @"A store customer card operation is already in progress. Ensure that the in-progress store customer card is completed before calling startStoreCardAsync again.";
@@ -49,15 +49,15 @@ static NSString *const FlutterReaderSDKMessageStoreCustomerCardAlreadyInProgress
     if (self.storeCardResolver != nil) {
         self.storeCardResolver([FlutterError errorWithCode:FlutterReaderSDKUsageError
                                                    message:[FlutterReaderSDKErrorUtilities
-                                                       nativeModuleErrorMessage:FlutterReaderSDKStoreCustomerCardAlreadyInProgress]
+                                                               nativeModuleErrorMessage:FlutterReaderSDKStoreCustomerCardAlreadyInProgress]
                                                    details:[FlutterReaderSDKErrorUtilities
-                                                       debugErrorObject:FlutterReaderSDKStoreCustomerCardAlreadyInProgress
-                                                       debugMessage:FlutterReaderSDKMessageStoreCustomerCardAlreadyInProgress]]);
+                                                               debugErrorObject:FlutterReaderSDKStoreCustomerCardAlreadyInProgress
+                                                                   debugMessage:FlutterReaderSDKMessageStoreCustomerCardAlreadyInProgress]]);
         return;
     }
-    
-    SQRDStoreCustomerCardController *storeCustomerCardContorller =  [[SQRDStoreCustomerCardController alloc] initWithCustomerID:customerID delegate:self];
-    
+
+    SQRDStoreCustomerCardController *storeCustomerCardContorller = [[SQRDStoreCustomerCardController alloc] initWithCustomerID:customerID delegate:self];
+
     self.storeCardResolver = result;
     UIViewController *rootViewController = UIApplication.sharedApplication.delegate.window.rootViewController;
     [storeCustomerCardContorller presentFromViewController:rootViewController];

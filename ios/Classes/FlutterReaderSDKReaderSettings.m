@@ -17,6 +17,7 @@
 #import "FlutterReaderSDKReaderSettings.h"
 #import "FlutterReaderSDKErrorUtilities.h"
 
+
 @interface FlutterReaderSDKReaderSettings ()
 
 @property (strong, readwrite) FlutterResult readerSettingResolver;
