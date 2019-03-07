@@ -24,9 +24,9 @@ limitations under the License.
 
 - (NSDictionary *)jsonDictionary
 {
-    NSMutableArray *jsTenders = [[NSMutableArray alloc] init];
+    NSMutableArray *tenders = [[NSMutableArray alloc] init];
     for (SQRDTender *tender in self.tenders) {
-        [jsTenders addObject:[tender jsonDictionary]];
+        [tenders addObject:[tender jsonDictionary]];
     }
 
     return @{
@@ -36,7 +36,7 @@ limitations under the License.
         @"createdAt" : [FlutterReaderSDKDateFormatter iso8601StringFromDate:self.createdAt],
         @"totalMoney" : [self.totalMoney jsonDictionary],
         @"totalTipMoney" : [self.totalTipMoney jsonDictionary],
-        @"tenders" : jsTenders,
+        @"tenders" : tenders,
     };
 }
 

@@ -25,7 +25,7 @@ limitations under the License.
 - (NSDictionary *)jsonDictionary
 {
     return @{
-        @"brand" : [self _stringForBrand:self.brand],
+        @"brand" : [self _stringFromBrand:self.brand],
         @"lastFourDigits" : self.lastFourDigits,
         @"expirationMonth" : self.expirationMonth ?: [NSNull null],
         @"expirationYear" : self.expirationYear ?: [NSNull null],
@@ -34,7 +34,7 @@ limitations under the License.
     };
 }
 
-- (NSString *)_stringForBrand:(SQRDCardBrand)brand
+- (NSString *)_stringFromBrand:(SQRDCardBrand)brand
 {
     NSString *result = nil;
     switch (brand) {

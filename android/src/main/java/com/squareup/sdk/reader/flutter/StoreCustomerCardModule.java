@@ -38,11 +38,13 @@ final class StoreCustomerCardModule {
   private static final String FL_MESSAGE_STORE_CUSTOMER_CARD_ALREADY_IN_PROGRESS = "A store customer card operation is already in progress. Ensure that the in-progress store customer card is completed before calling startStoreCardAsync again.";
 
   private final Activity currentActivity;
+  private final CardConverter cardConverter;
   private volatile CallbackReference storeCustomerCardCallbackRef;
 
 
   public StoreCustomerCardModule(Activity activity) {
     currentActivity = activity;
+    cardConverter = new CardConverter();
   }
 
   public void startStoreCard(String customerId, final Result flutterResult) {
@@ -69,7 +71,6 @@ final class StoreCustomerCardModule {
         }
 
         Card card = result.getSuccessValue();
-        CardConverter cardConverter = new CardConverter();
         flutterResult.success(cardConverter.toMapObject(card));
       }
     };

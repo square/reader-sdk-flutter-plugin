@@ -89,7 +89,6 @@ final class AuthorizeModule {
           return;
         }
         Location location = result.getSuccessValue();
-        LocationConverter locationConverter = new LocationConverter();
         flutterResult.success(locationConverter.toMapObject(location));
       }
     };
