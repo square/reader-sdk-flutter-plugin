@@ -1,5 +1,9 @@
 ## Changelog
 
+### v1.1.1 Mar 13, 2019
+
+* add **store customer card** suport.
+
 ### v1.1.0 Mar 5, 2019
 
 * remove `alwaysRequireSignature` and add `collectSignature` to checkout configuration.

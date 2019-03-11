@@ -46,7 +46,7 @@ limitations under the License.
             break;
     }
     tenderResult[@"type"] = tenderType;
-    return tenderResult;
+    return [tenderResult copy];
 }
 
 @end
