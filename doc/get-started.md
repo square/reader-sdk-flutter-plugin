@@ -347,7 +347,37 @@ clearing it when you receive the result (success or failure) so users know that
 work is being done in the background.
 
 ```dart
-EXAMPLE CODE HERE
+import 'package:square_reader_sdk/models.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
+...
+// Get customer Id from Connect Customers API
+const customerId = 'DRYKVK5Y6H5R4JH9ZPQB3XPZQC';
+try {
+  await ReaderSdk.startStoreCard(customerId);
+  // Customer's card is stored successfully and card infomation is available
+} on ReaderSdkException catch (e) {
+  switch(e.code) {
+    case ErrorCode.storeCustomerErrorCanceled:
+      // Handle canceled
+      break;
+    case ErrorCode.storeCustomerErrorInvalidCustomerId:
+      // Handle invalid customer id error
+      break;
+    case ErrorCode.storeCustomerErrorSdkNotAuthorized:
+      // Handle no network error
+      break;
+    case ErrorCode.storeCustomerErrorNoNetwork:
+      // Handle sdk not authorized
+      break;
+    default:
+      var errorMessage = e.message;
+      if (_debug) {
+        errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+        print('${e.code}:${e.debugCode}:${e.debugMessage}');
+      }
+      displayErrorModal(context, errorMessage);
+  }
+}
 ```
 
 
