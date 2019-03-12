@@ -271,7 +271,7 @@ try {
 
 Used to start the store a card for a customer flow.
 
-The card information is stored on Square servers, not on the specific device running Reader SDK. This means cards cannot be saved on file when offline, and that saved cards for a customer are available from any device, keyed by customer ID.
+Card information is only stored on Square servers, not on the mobile device running Reader SDK, which means cards cannot be saved while the device is offline. Saved card information can be requested using Square APIs and the associated customer ID.
 
 * **On success**: returns information about the stored card as a
   [Card](#card) object.
@@ -330,9 +330,9 @@ Field             | Type            | Description
 ----------------- | --------------- | -----------------
 brand             | String          | [CardBrand](#cardbrand) constant that indicates the entity responsible for issuing the card.
 lastFourDigits    | String          | Indicates how the card information was captured.
-expirationMonth   | integer         | The month of the card’s expiration date, if available. This value is always between 1 and 12, inclusive.
-expirationYear    | integer         | The four-digit year of the card’s expiration date, if available.
-id                | String          | The card’s unique ID, if any. This value is present only if this object represents a customer’s card on file.
+expirationMonth   | integer         | The month when the associated card expires, if available. Expiration month is always an integer between 1 and 12, inclusive.
+expirationYear    | integer         | The 4-digit year when the associated card expires, if available.
+id                | String          | The unique, Square-issued identifier for the card. Only set when the object represents a saved card on file.
 cardholderName    | String          | The cardholder name. This value is present only if this object represents a customer’s card on file.
 
 #### Example output
@@ -726,7 +726,7 @@ Error                                                    | Cause                
 <a id="e5">`readerSettingsErrorSdkNotAuthorized`</a>     | The Reader settings flow started but Reader SDK was not authorized. | [startReaderSettings](#startreadersettings)
 <a id="e6">`storeCustomerErrorCanceled`</a>              | The user canceled the store card flow.                              | [startStoreCard](#startstorecard)
 <a id="e7">`storeCustomerErrorInvalidCustomerId`</a>     | The customer ID passed into the controller was invalid.             | [startStoreCard](#startstorecard)
-<a id="e8">`storeCustomerErrorSdkNotAuthorized`</a>      | Reader SDK was not authorized.                                      | [startStoreCard](#startstorecard)
+<a id="e8">`storeCustomerErrorSdkNotAuthorized`</a>      | The flow to store a customer card started but Reader SDK was not authorized. | [startStoreCard](#startstorecard)
 <a id="e9">`storeCustomerErrorNoNetwork`</a>             | Reader SDK could not connect to the network.                        | [startStoreCard](#startstorecard)
 
 
