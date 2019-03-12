@@ -687,7 +687,7 @@ flow.
 * `jcb` - Japan Credit Bureau credit card.
 * `chinaUnionPay` - China UnionPay credit card.
 * `squareGiftCard` - [Square-issued gift card].
-* `eftpos` - EFTPos.
+* `eftpos` - A debit or cash-back transaction (Electronic Funds Transfer at Point Of Sale).
 * `otherBrand` - An unexpected card type.
 
 

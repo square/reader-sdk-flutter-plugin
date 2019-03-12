@@ -28,6 +28,7 @@ for more detailed information about the methods available.
 
 Optional steps:
 
+* [Save a card on file](#save-a-card-on-file)
 * [Support Contactless Readers](#support-contactless-readers)
 * [Support Reader SDK deauthorization](#support-reader-sdk-deauthorization)
 
@@ -324,6 +325,32 @@ generate mobile authorization tokens for production use.
 
 ## Optional steps
 
+### Save a card on file
+
+You can save cards on file with the Reader SDK Flutter plugin to create a
+seamless purchase experience for returning customers and enable recurring
+payments with Square APIs. It is important to note that while Reader SDK can
+save card information, you must work with the Connect Transactions API to
+[charge a card on file].
+
+The Reader SDK card on file workflow creates a customer card for an **existing**
+[Customer profile]. **ALWAYS** ask customers for permission before saving their
+card information. For example, include a checkbox in your purchase flow that the
+customer can check to specify that they wish to save their card information for
+future purchases. Linking cards on file without obtaining customer permission
+may result in your application being disabled without notice.
+
+The card on file workflow begins with an asynchronous call to Square servers,
+which could be slow depending on network conditions. We recommend displaying a
+spinner or loading indicator before starting the card on file workflow and
+clearing it when you receive the result (success or failure) so users know that
+work is being done in the background.
+
+```dart
+EXAMPLE CODE HERE
+```
+
+
 ### Support Contactless Readers
 
 You do not need to write explicit code to take payment with a Magstripe Reader.
@@ -396,3 +423,5 @@ if (await canDeauthorize) {
 [root README]: ../README.md
 [Flutter Getting Started]: https://flutter.io/docs/get-started/install
 [Test Drive]: https://flutter.io/docs/get-started/test-drive
+[Customer profile]: https://docs.connect.squareup.com/more-apis/customers/setup
+[charge a card on file]: https://docs.connect.squareup.com/payments/transactions/cookbook/charge-cards-on-file
