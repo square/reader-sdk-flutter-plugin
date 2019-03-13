@@ -17,8 +17,6 @@
 #import "FlutterReaderSDKCheckout.h"
 #import "FlutterReaderSDKErrorUtilities.h"
 #import "Converters/SQRDCheckoutResult+FlutterReaderSDKAdditions.h"
-#import <CoreLocation/CoreLocation.h>
-#import <AVFoundation/AVFoundation.h>
 
 
 @interface FlutterReaderSDKCheckout ()
@@ -58,8 +56,8 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
     if ([self _validateCheckoutParameters:checkoutParametersDictionary errorMsg:&paramError] == NO) {
         NSString *paramErrorDebugMessage = [NSString stringWithFormat:@"%@ %@", FlutterReaderSDKMessageCheckoutInvalidParameter, paramError];
         result([FlutterError errorWithCode:FlutterReaderSDKUsageError
-                                                  message:[FlutterReaderSDKErrorUtilities nativeModuleErrorMessage:FlutterReaderSDKCheckoutInvalidParameter]
-                                                  details:[FlutterReaderSDKErrorUtilities debugErrorObject:FlutterReaderSDKCheckoutInvalidParameter debugMessage:paramErrorDebugMessage]]);
+                                   message:[FlutterReaderSDKErrorUtilities nativeModuleErrorMessage:FlutterReaderSDKCheckoutInvalidParameter]
+                                   details:[FlutterReaderSDKErrorUtilities debugErrorObject:FlutterReaderSDKCheckoutInvalidParameter debugMessage:paramErrorDebugMessage]]);
         return;
     }
     NSDictionary *amountMoneyDictionary = checkoutParametersDictionary[@"amountMoney"];

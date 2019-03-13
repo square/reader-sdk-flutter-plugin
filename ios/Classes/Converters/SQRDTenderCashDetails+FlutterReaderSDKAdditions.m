@@ -20,14 +20,12 @@ limitations under the License.
 
 @implementation SQRDTenderCashDetails (FlutterReaderSDKAdditions)
 
-- (NSMutableDictionary *)jsonDictionary
+- (NSDictionary *)jsonDictionary
 {
-    NSMutableDictionary *tenderCashDetailsResult = [[NSMutableDictionary alloc] init];
-
-    tenderCashDetailsResult[@"buyerTenderedMoney"] = [self.buyerTenderedMoney jsonDictionary];
-    tenderCashDetailsResult[@"changeBackMoney"] = [self.changeBackMoney jsonDictionary];
-
-    return tenderCashDetailsResult;
+    return @{
+        @"buyerTenderedMoney" : [self.buyerTenderedMoney jsonDictionary],
+        @"changeBackMoney" : [self.changeBackMoney jsonDictionary],
+    };
 }
 
 @end

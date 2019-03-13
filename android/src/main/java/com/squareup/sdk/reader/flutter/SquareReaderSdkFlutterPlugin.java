@@ -16,6 +16,7 @@ limitations under the License.
 package com.squareup.sdk.reader.flutter;
 
 import android.app.Activity;
+import com.squareup.sdk.reader.crm.StoreCustomerCardErrorCode;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -32,11 +33,13 @@ public class SquareReaderSdkFlutterPlugin implements MethodCallHandler {
   private final AuthorizeModule authorizeModule;
   private final CheckoutModule checkoutModule;
   private final ReaderSettingsModule readerSettingsModule;
+  private final StoreCustomerCardModule storeCustomerCardModule;
 
   private SquareReaderSdkFlutterPlugin(Activity activity) {
     authorizeModule = new AuthorizeModule();
     checkoutModule = new CheckoutModule(activity);
     readerSettingsModule = new ReaderSettingsModule(activity);
+    storeCustomerCardModule = new StoreCustomerCardModule(activity);
   }
 
   @Override
@@ -58,6 +61,9 @@ public class SquareReaderSdkFlutterPlugin implements MethodCallHandler {
       checkoutModule.startCheckout(checkoutParams, result);
     } else if (methodName.equals("startReaderSettings")) {
       readerSettingsModule.startReaderSettings(result);
+    } else if (methodName.equals("startStoreCard")) {
+      String customerId = call.argument("customerId");
+      storeCustomerCardModule.startStoreCard(customerId, result);
     } else {
       result.notImplemented();
     }

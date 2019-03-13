@@ -49,11 +49,13 @@ final class CheckoutModule {
   private static final String FL_MESSAGE_CHECKOUT_INVALID_PARAMETER = "Invalid parameter found in checkout parameters.";
 
   private final Activity currentActivity;
+  private final CheckoutResultConverter checkoutResultConverter;
   private volatile CallbackReference checkoutCallbackRef;
 
 
   public CheckoutModule(Activity activity) {
     currentActivity = activity;
+    checkoutResultConverter = new CheckoutResultConverter();
   }
 
   public void startCheckout(HashMap<String, Object> checkoutParameters, final Result flutterResult) {
@@ -87,7 +89,6 @@ final class CheckoutModule {
           return;
         }
         CheckoutResult checkoutResult = result.getSuccessValue();
-        CheckoutResultConverter checkoutResultConverter = new CheckoutResultConverter();
         flutterResult.success(checkoutResultConverter.toMapObject(checkoutResult));
       }
     };

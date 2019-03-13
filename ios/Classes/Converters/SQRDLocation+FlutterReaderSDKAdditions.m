@@ -20,17 +20,17 @@ limitations under the License.
 
 @implementation SQRDLocation (FlutterReaderSDKAdditions)
 
-- (NSMutableDictionary *)jsonDictionary
+- (NSDictionary *)jsonDictionary
 {
-    NSMutableDictionary *locationResult = [[NSMutableDictionary alloc] init];
-    locationResult[@"locationId"] = self.locationID;
-    locationResult[@"name"] = self.name;
-    locationResult[@"businessName"] = self.businessName;
-    locationResult[@"isCardProcessingActivated"] = @(self.isCardProcessingActivated);
-    locationResult[@"minimumCardPaymentAmountMoney"] = [self.minimumCardPaymentAmountMoney jsonDictionary];
-    locationResult[@"maximumCardPaymentAmountMoney"] = [self.maximumCardPaymentAmountMoney jsonDictionary];
-    locationResult[@"currencyCode"] = SQRDCurrencyCodeGetISOCurrencyCode(self.currencyCode);
-    return locationResult;
+    return @{
+        @"locationId" : self.locationID,
+        @"name" : self.name,
+        @"businessName" : self.businessName,
+        @"isCardProcessingActivated" : @(self.isCardProcessingActivated),
+        @"minimumCardPaymentAmountMoney" : [self.minimumCardPaymentAmountMoney jsonDictionary],
+        @"maximumCardPaymentAmountMoney" : [self.maximumCardPaymentAmountMoney jsonDictionary],
+        @"currencyCode" : SQRDCurrencyCodeGetISOCurrencyCode(self.currencyCode),
+    };
 }
 
 @end

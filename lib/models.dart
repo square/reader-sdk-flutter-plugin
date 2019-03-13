@@ -30,7 +30,6 @@ abstract class Money implements Built<Money, MoneyBuilder> {
   static Serializer<Money> get serializer => _$moneySerializer;
 }
 
-
 abstract class Location implements Built<Location, LocationBuilder> {
   String get currencyCode;
   String get businessName;
@@ -45,7 +44,8 @@ abstract class Location implements Built<Location, LocationBuilder> {
   static Serializer<Location> get serializer => _$locationSerializer;
 }
 
-abstract class CheckoutResult implements Built<CheckoutResult, CheckoutResultBuilder> {
+abstract class CheckoutResult
+    implements Built<CheckoutResult, CheckoutResultBuilder> {
   @nullable
   String get transactionId;
   String get transactionClientId;
@@ -57,7 +57,8 @@ abstract class CheckoutResult implements Built<CheckoutResult, CheckoutResultBui
 
   CheckoutResult._();
   factory CheckoutResult([updates(CheckoutResultBuilder b)]) = _$CheckoutResult;
-  static Serializer<CheckoutResult> get serializer => _$checkoutResultSerializer;
+  static Serializer<CheckoutResult> get serializer =>
+      _$checkoutResultSerializer;
 }
 
 class TenderType extends EnumClass {
@@ -171,16 +172,30 @@ abstract class Card implements Built<Card, CardBuilder> {
   Brand get brand;
   String get lastFourDigits;
 
+  @nullable
+  int get expirationMonth;
+
+  @nullable
+  int get expirationYear;
+
+  @nullable
+  String get id;
+
+  @nullable
+  String get cardholderName;
+
   Card._();
   factory Card([updates(CardBuilder b)]) = _$Card;
   static Serializer<Card> get serializer => _$cardSerializer;
 }
 
 class AdditionalPaymentType extends EnumClass {
-  static Serializer<AdditionalPaymentType> get serializer => _$additionalPaymentTypeSerializer;
+  static Serializer<AdditionalPaymentType> get serializer =>
+      _$additionalPaymentTypeSerializer;
 
   @BuiltValueEnumConst(wireName: 'manual_card_entry')
-  static const AdditionalPaymentType manualCardEntry = _$manualCardEntryAdditionalPaymentType;
+  static const AdditionalPaymentType manualCardEntry =
+      _$manualCardEntryAdditionalPaymentType;
   @BuiltValueEnumConst(wireName: 'cash')
   static const AdditionalPaymentType cash = _$cashAdditionalPaymentType;
   @BuiltValueEnumConst(wireName: 'other')
@@ -188,12 +203,14 @@ class AdditionalPaymentType extends EnumClass {
 
   const AdditionalPaymentType._(String name) : super(name);
 
-  static BuiltSet<AdditionalPaymentType> get values => _$additionalPaymentTypeValues;
-  static AdditionalPaymentType valueOf(String name) => _$additionalPaymentTypeValueOf(name);
+  static BuiltSet<AdditionalPaymentType> get values =>
+      _$additionalPaymentTypeValues;
+  static AdditionalPaymentType valueOf(String name) =>
+      _$additionalPaymentTypeValueOf(name);
 }
 
-abstract class CheckoutParameters implements Built<CheckoutParameters, CheckoutParametersBuilder> {
-
+abstract class CheckoutParameters
+    implements Built<CheckoutParameters, CheckoutParametersBuilder> {
   Money get amountMoney;
 
   @nullable
@@ -215,8 +232,10 @@ abstract class CheckoutParameters implements Built<CheckoutParameters, CheckoutP
   TipSettings get tipSettings;
 
   CheckoutParameters._();
-  factory CheckoutParameters([updates(CheckoutParametersBuilder b)]) = _$CheckoutParameters;
-  static Serializer<CheckoutParameters> get serializer => _$checkoutParametersSerializer;
+  factory CheckoutParameters([updates(CheckoutParametersBuilder b)]) =
+      _$CheckoutParameters;
+  static Serializer<CheckoutParameters> get serializer =>
+      _$checkoutParametersSerializer;
 }
 
 abstract class TipSettings implements Built<TipSettings, TipSettingsBuilder> {
@@ -242,9 +261,23 @@ class ErrorCode extends EnumClass {
   @BuiltValueEnumConst(wireName: 'CHECKOUT_CANCELED')
   static const ErrorCode checkoutErrorCanceled = _$checkoutErrorCanceled;
   @BuiltValueEnumConst(wireName: 'CHECKOUT_SDK_NOT_AUTHORIZED')
-  static const ErrorCode checkoutErrorSdkNotAuthorized = _$checkoutErrorSdkNotAuthorized;
+  static const ErrorCode checkoutErrorSdkNotAuthorized =
+      _$checkoutErrorSdkNotAuthorized;
   @BuiltValueEnumConst(wireName: 'READER_SETTINGS_SDK_NOT_AUTHORIZED')
-  static const ErrorCode readerSettingsErrorSdkNotAuthorized = _$readerSettingsErrorSdkNotAuthorized;
+  static const ErrorCode readerSettingsErrorSdkNotAuthorized =
+      _$readerSettingsErrorSdkNotAuthorized;
+  @BuiltValueEnumConst(wireName: 'STORE_CUSTOMER_CARD_CANCELED')
+  static const ErrorCode storeCustomerErrorCanceled =
+      _$storeCustomerErrorCanceled;
+  @BuiltValueEnumConst(wireName: 'STORE_CUSTOMER_CARD_INVALID_CUSTOMER_ID')
+  static const ErrorCode storeCustomerErrorInvalidCustomerId =
+      _$storeCustomerErrorInvalidCustomerId;
+  @BuiltValueEnumConst(wireName: 'STORE_CUSTOMER_CARD_SDK_NOT_AUTHORIZED')
+  static const ErrorCode storeCustomerErrorSdkNotAuthorized =
+      _$storeCustomerErrorSdkNotAuthorized;
+  @BuiltValueEnumConst(wireName: 'STORE_CUSTOMER_CARD_NO_NETWORK')
+  static const ErrorCode storeCustomerErrorNoNetwork =
+      _$storeCustomerErrorNoNetwork;
 
   const ErrorCode._(String name) : super(name);
 

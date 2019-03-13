@@ -14,11 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+#import <Flutter/Flutter.h>
 @import SquareReaderSDK;
 
 
-@interface SQRDCheckoutResult (FlutterReaderSDKAdditions)
+@interface FlutterReaderSDKStoreCustomerCard : NSObject <SQRDStoreCustomerCardControllerDelegate>
 
-- (NSDictionary *)jsonDictionary;
+- (void)startStoreCard:(FlutterResult)result customerID:(NSString *)customerID;
 
 @end

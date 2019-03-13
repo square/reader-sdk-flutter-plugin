@@ -22,16 +22,19 @@ limitations under the License.
 
 @implementation SQRDCard (FlutterReaderSDKAdditions)
 
-- (NSMutableDictionary *)jsonDictionary
+- (NSDictionary *)jsonDictionary
 {
-    NSMutableDictionary *cardResult = [[NSMutableDictionary alloc] init];
-    cardResult[@"brand"] = [self stringForBrand:self.brand];
-    cardResult[@"lastFourDigits"] = self.lastFourDigits;
-
-    return cardResult;
+    return @{
+        @"brand" : [self _stringFromBrand:self.brand],
+        @"lastFourDigits" : self.lastFourDigits,
+        @"expirationMonth" : self.expirationMonth ?: [NSNull null],
+        @"expirationYear" : self.expirationYear ?: [NSNull null],
+        @"id" : self.cardID ?: [NSNull null],
+        @"cardholderName" : self.cardholderName ?: [NSNull null],
+    };
 }
 
-- (NSString *)stringForBrand:(SQRDCardBrand)brand
+- (NSString *)_stringFromBrand:(SQRDCardBrand)brand
 {
     NSString *result = nil;
     switch (brand) {

@@ -19,12 +19,12 @@ limitations under the License.
 
 @implementation SQRDMoney (FlutterReaderSDKAdditions)
 
-- (NSMutableDictionary *)jsonDictionary
+- (NSDictionary *)jsonDictionary
 {
-    NSMutableDictionary *moneyResult = [[NSMutableDictionary alloc] init];
-    moneyResult[@"amount"] = @(self.amount);
-    moneyResult[@"currencyCode"] = SQRDCurrencyCodeGetISOCurrencyCode(self.currencyCode);
-    return moneyResult;
+    return @{
+        @"amount" : @(self.amount),
+        @"currencyCode" : SQRDCurrencyCodeGetISOCurrencyCode(self.currencyCode),
+    };
 }
 
 @end
