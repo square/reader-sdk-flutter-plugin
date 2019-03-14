@@ -15,10 +15,11 @@ limitations under the License.
 */
 package com.squareup.sdk.reader.flutter.internal;
 
-import android.support.annotation.NonNull;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import androidx.annotation.NonNull;
 
 public class DateFormatUtils {
 

@@ -23,7 +23,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.android.tools.build:gradle:3.3.2'
     }
 }
 
@@ -47,11 +47,11 @@ def DEFAULT_PLAY_SERVICES_BASE_VERSION = '12.0.1'
 def MIN_READER_SDK_VERSION = '1.1.3'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 28
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -69,6 +69,7 @@ dependencies {
     def readerSdkVersion = rootProject.hasProperty('readerSdkVersion') ? rootProject.readerSdkVersion : MIN_READER_SDK_VERSION
     def playServicesBaseVersion = rootProject.hasProperty('googlePlayServiceVersion') ? rootProject.googlePlayServiceVersion : DEFAULT_PLAY_SERVICES_BASE_VERSION
     implementation "com.google.android.gms:play-services-base:$playServicesBaseVersion"
+    implementation 'androidx.annotation:annotation:1.0.2'
     api "com.squareup.sdk.reader:reader-sdk-$SQUARE_READER_SDK_APPLICATION_ID:$readerSdkVersion"
     runtimeOnly "com.squareup.sdk.reader:reader-sdk-internals:$readerSdkVersion"
 }
