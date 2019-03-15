@@ -38,11 +38,10 @@ In addition to this README, the following is available in the
 
 * minSdkVersion is API 21 (Lollipop 5.0) or higher.
 * Android SDK platform: API 28 (Oreo, 8.1).
-* Android SDK build tools: 26.0.3
+* Android SDK build tools: 26.0.3 or greater.
 * Android Gradle Plugin: 3.0.0 or greater.
-* Support library: 26.0.2
-* Google Play Services: 12.0.1
-* Google APIs Intel x86 Atom_64 System Image
+* Google Play Services: 16.1.0.
+* Google APIs Intel x86 Atom_64 System Image.
 
 ### iOS
 
