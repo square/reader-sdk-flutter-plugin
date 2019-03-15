@@ -153,6 +153,14 @@ const ErrorCode _$checkoutErrorSdkNotAuthorized =
     const ErrorCode._('checkoutErrorSdkNotAuthorized');
 const ErrorCode _$readerSettingsErrorSdkNotAuthorized =
     const ErrorCode._('readerSettingsErrorSdkNotAuthorized');
+const ErrorCode _$storeCustomerErrorCanceled =
+    const ErrorCode._('storeCustomerErrorCanceled');
+const ErrorCode _$storeCustomerErrorInvalidCustomerId =
+    const ErrorCode._('storeCustomerErrorInvalidCustomerId');
+const ErrorCode _$storeCustomerErrorSdkNotAuthorized =
+    const ErrorCode._('storeCustomerErrorSdkNotAuthorized');
+const ErrorCode _$storeCustomerErrorNoNetwork =
+    const ErrorCode._('storeCustomerErrorNoNetwork');
 
 ErrorCode _$errorCodeValueOf(String name) {
   switch (name) {
@@ -166,6 +174,14 @@ ErrorCode _$errorCodeValueOf(String name) {
       return _$checkoutErrorSdkNotAuthorized;
     case 'readerSettingsErrorSdkNotAuthorized':
       return _$readerSettingsErrorSdkNotAuthorized;
+    case 'storeCustomerErrorCanceled':
+      return _$storeCustomerErrorCanceled;
+    case 'storeCustomerErrorInvalidCustomerId':
+      return _$storeCustomerErrorInvalidCustomerId;
+    case 'storeCustomerErrorSdkNotAuthorized':
+      return _$storeCustomerErrorSdkNotAuthorized;
+    case 'storeCustomerErrorNoNetwork':
+      return _$storeCustomerErrorNoNetwork;
     default:
       throw new ArgumentError(name);
   }
@@ -178,6 +194,10 @@ final BuiltSet<ErrorCode> _$errorCodeValues =
   _$checkoutErrorCanceled,
   _$checkoutErrorSdkNotAuthorized,
   _$readerSettingsErrorSdkNotAuthorized,
+  _$storeCustomerErrorCanceled,
+  _$storeCustomerErrorInvalidCustomerId,
+  _$storeCustomerErrorSdkNotAuthorized,
+  _$storeCustomerErrorNoNetwork,
 ]);
 
 Serializer<Money> _$moneySerializer = new _$MoneySerializer();
@@ -712,6 +732,30 @@ class _$CardSerializer implements StructuredSerializer<Card> {
       serializers.serialize(object.lastFourDigits,
           specifiedType: const FullType(String)),
     ];
+    if (object.expirationMonth != null) {
+      result
+        ..add('expirationMonth')
+        ..add(serializers.serialize(object.expirationMonth,
+            specifiedType: const FullType(int)));
+    }
+    if (object.expirationYear != null) {
+      result
+        ..add('expirationYear')
+        ..add(serializers.serialize(object.expirationYear,
+            specifiedType: const FullType(int)));
+    }
+    if (object.id != null) {
+      result
+        ..add('id')
+        ..add(serializers.serialize(object.id,
+            specifiedType: const FullType(String)));
+    }
+    if (object.cardholderName != null) {
+      result
+        ..add('cardholderName')
+        ..add(serializers.serialize(object.cardholderName,
+            specifiedType: const FullType(String)));
+    }
 
     return result;
   }
@@ -733,6 +777,22 @@ class _$CardSerializer implements StructuredSerializer<Card> {
           break;
         case 'lastFourDigits':
           result.lastFourDigits = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'expirationMonth':
+          result.expirationMonth = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'expirationYear':
+          result.expirationYear = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'cardholderName':
+          result.cardholderName = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
       }
@@ -948,6 +1008,12 @@ class _$ErrorCodeSerializer implements PrimitiveSerializer<ErrorCode> {
     'checkoutErrorCanceled': 'CHECKOUT_CANCELED',
     'checkoutErrorSdkNotAuthorized': 'CHECKOUT_SDK_NOT_AUTHORIZED',
     'readerSettingsErrorSdkNotAuthorized': 'READER_SETTINGS_SDK_NOT_AUTHORIZED',
+    'storeCustomerErrorCanceled': 'STORE_CUSTOMER_CARD_CANCELED',
+    'storeCustomerErrorInvalidCustomerId':
+        'STORE_CUSTOMER_CARD_INVALID_CUSTOMER_ID',
+    'storeCustomerErrorSdkNotAuthorized':
+        'STORE_CUSTOMER_CARD_SDK_NOT_AUTHORIZED',
+    'storeCustomerErrorNoNetwork': 'STORE_CUSTOMER_CARD_NO_NETWORK',
   };
   static const Map<String, String> _fromWire = const <String, String>{
     'USAGE_ERROR': 'usageError',
@@ -955,6 +1021,12 @@ class _$ErrorCodeSerializer implements PrimitiveSerializer<ErrorCode> {
     'CHECKOUT_CANCELED': 'checkoutErrorCanceled',
     'CHECKOUT_SDK_NOT_AUTHORIZED': 'checkoutErrorSdkNotAuthorized',
     'READER_SETTINGS_SDK_NOT_AUTHORIZED': 'readerSettingsErrorSdkNotAuthorized',
+    'STORE_CUSTOMER_CARD_CANCELED': 'storeCustomerErrorCanceled',
+    'STORE_CUSTOMER_CARD_INVALID_CUSTOMER_ID':
+        'storeCustomerErrorInvalidCustomerId',
+    'STORE_CUSTOMER_CARD_SDK_NOT_AUTHORIZED':
+        'storeCustomerErrorSdkNotAuthorized',
+    'STORE_CUSTOMER_CARD_NO_NETWORK': 'storeCustomerErrorNoNetwork',
   };
 
   @override
@@ -1878,11 +1950,26 @@ class _$Card extends Card {
   final Brand brand;
   @override
   final String lastFourDigits;
+  @override
+  final int expirationMonth;
+  @override
+  final int expirationYear;
+  @override
+  final String id;
+  @override
+  final String cardholderName;
 
   factory _$Card([void updates(CardBuilder b)]) =>
       (new CardBuilder()..update(updates)).build();
 
-  _$Card._({this.brand, this.lastFourDigits}) : super._() {
+  _$Card._(
+      {this.brand,
+      this.lastFourDigits,
+      this.expirationMonth,
+      this.expirationYear,
+      this.id,
+      this.cardholderName})
+      : super._() {
     if (brand == null) {
       throw new BuiltValueNullFieldError('Card', 'brand');
     }
@@ -1903,19 +1990,34 @@ class _$Card extends Card {
     if (identical(other, this)) return true;
     return other is Card &&
         brand == other.brand &&
-        lastFourDigits == other.lastFourDigits;
+        lastFourDigits == other.lastFourDigits &&
+        expirationMonth == other.expirationMonth &&
+        expirationYear == other.expirationYear &&
+        id == other.id &&
+        cardholderName == other.cardholderName;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, brand.hashCode), lastFourDigits.hashCode));
+    return $jf($jc(
+        $jc(
+            $jc(
+                $jc($jc($jc(0, brand.hashCode), lastFourDigits.hashCode),
+                    expirationMonth.hashCode),
+                expirationYear.hashCode),
+            id.hashCode),
+        cardholderName.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('Card')
           ..add('brand', brand)
-          ..add('lastFourDigits', lastFourDigits))
+          ..add('lastFourDigits', lastFourDigits)
+          ..add('expirationMonth', expirationMonth)
+          ..add('expirationYear', expirationYear)
+          ..add('id', id)
+          ..add('cardholderName', cardholderName))
         .toString();
   }
 }
@@ -1932,12 +2034,35 @@ class CardBuilder implements Builder<Card, CardBuilder> {
   set lastFourDigits(String lastFourDigits) =>
       _$this._lastFourDigits = lastFourDigits;
 
+  int _expirationMonth;
+  int get expirationMonth => _$this._expirationMonth;
+  set expirationMonth(int expirationMonth) =>
+      _$this._expirationMonth = expirationMonth;
+
+  int _expirationYear;
+  int get expirationYear => _$this._expirationYear;
+  set expirationYear(int expirationYear) =>
+      _$this._expirationYear = expirationYear;
+
+  String _id;
+  String get id => _$this._id;
+  set id(String id) => _$this._id = id;
+
+  String _cardholderName;
+  String get cardholderName => _$this._cardholderName;
+  set cardholderName(String cardholderName) =>
+      _$this._cardholderName = cardholderName;
+
   CardBuilder();
 
   CardBuilder get _$this {
     if (_$v != null) {
       _brand = _$v.brand;
       _lastFourDigits = _$v.lastFourDigits;
+      _expirationMonth = _$v.expirationMonth;
+      _expirationYear = _$v.expirationYear;
+      _id = _$v.id;
+      _cardholderName = _$v.cardholderName;
       _$v = null;
     }
     return this;
@@ -1958,8 +2083,14 @@ class CardBuilder implements Builder<Card, CardBuilder> {
 
   @override
   _$Card build() {
-    final _$result =
-        _$v ?? new _$Card._(brand: brand, lastFourDigits: lastFourDigits);
+    final _$result = _$v ??
+        new _$Card._(
+            brand: brand,
+            lastFourDigits: lastFourDigits,
+            expirationMonth: expirationMonth,
+            expirationYear: expirationYear,
+            id: id,
+            cardholderName: cardholderName);
     replace(_$result);
     return _$result;
   }

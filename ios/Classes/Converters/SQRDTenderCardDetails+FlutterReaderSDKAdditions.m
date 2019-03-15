@@ -20,17 +20,15 @@ limitations under the License.
 
 @implementation SQRDTenderCardDetails (FlutterReaderSDKAdditions)
 
-- (NSMutableDictionary *)jsonDictionary
+- (NSDictionary *)jsonDictionary
 {
-    NSMutableDictionary *tenderCardDetailsResult = [[NSMutableDictionary alloc] init];
-
-    tenderCardDetailsResult[@"entryMethod"] = [self tenderCardDetailsEntryMethodString:self.entryMethod];
-    tenderCardDetailsResult[@"card"] = [self.card jsonDictionary];
-
-    return tenderCardDetailsResult;
+    return @{
+        @"entryMethod" : [self _stringFromTenderCardDetailsEntryMethod:self.entryMethod],
+        @"card" : [self.card jsonDictionary],
+    };
 }
 
-- (NSString *)tenderCardDetailsEntryMethodString:(SQRDTenderCardDetailsEntryMethod)method
+- (NSString *)_stringFromTenderCardDetailsEntryMethod:(SQRDTenderCardDetailsEntryMethod)method
 {
     NSString *result = nil;
     switch (method) {

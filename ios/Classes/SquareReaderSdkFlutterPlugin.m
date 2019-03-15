@@ -18,6 +18,7 @@
 #import "FlutterReaderSDKAuthorization.h"
 #import "FlutterReaderSDKCheckout.h"
 #import "FlutterReaderSDKReaderSettings.h"
+#import "FlutterReaderSDKStoreCustomerCard.h"
 
 
 @interface SquareReaderSdkFlutterPlugin ()
@@ -25,6 +26,7 @@
 @property (strong, readwrite) FlutterReaderSDKAuthorization *authorization;
 @property (strong, readwrite) FlutterReaderSDKCheckout *checkout;
 @property (strong, readwrite) FlutterReaderSDKReaderSettings *readerSettings;
+@property (strong, readwrite) FlutterReaderSDKStoreCustomerCard *storeCustomerCard;
 
 @end
 
@@ -48,6 +50,7 @@
     self.authorization = [[FlutterReaderSDKAuthorization alloc] init];
     self.checkout = [[FlutterReaderSDKCheckout alloc] init];
     self.readerSettings = [[FlutterReaderSDKReaderSettings alloc] init];
+    self.storeCustomerCard = [[FlutterReaderSDKStoreCustomerCard alloc] init];
     return self;
 }
 
@@ -68,6 +71,9 @@
         [self.checkout startCheckout:result checkoutParametersDictionary:call.arguments[@"checkoutParams"]];
     } else if ([@"startReaderSettings" isEqualToString:call.method]) {
         [self.readerSettings startReaderSettings:result];
+    } else if ([@"startStoreCard" isEqualToString:call.method]) {
+        NSString *customerID = call.arguments[@"customerId"];
+        [self.storeCustomerCard startStoreCard:result customerID:customerID];
     } else {
         result(FlutterMethodNotImplemented);
     }

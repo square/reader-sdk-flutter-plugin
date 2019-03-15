@@ -28,6 +28,7 @@ for more detailed information about the methods available.
 
 Optional steps:
 
+* [Save a card on file](#save-a-card-on-file)
 * [Support Contactless Readers](#support-contactless-readers)
 * [Support Reader SDK deauthorization](#support-reader-sdk-deauthorization)
 
@@ -221,7 +222,8 @@ information on installing Reader SDK for iOS, see the
 Add code to your Flutter project that authorizes Reader SDK:
 
 ```dart
-import 'package:reader_sdk.dart';
+import 'package:square_reader_sdk/models.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
 const _debug = !bool.fromEnvironment("dart.vm.product");
 try {
@@ -262,7 +264,8 @@ and connecting a Reader is only required for card payments.
 checkout, you must close the modal before calling `startCheckout`.
 
 ```dart
-import 'package:reader_sdk.dart';
+import 'package:square_reader_sdk/models.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
 const _debug = !bool.fromEnvironment("dart.vm.product");
 
@@ -322,6 +325,62 @@ generate mobile authorization tokens for production use.
 
 ## Optional steps
 
+### Save a card on file
+
+You can save cards on file with the Reader SDK Flutter plugin to create a
+seamless purchase experience for returning customers and enable recurring
+payments with Square APIs. It is important to note that while Reader SDK can
+save card information, you must work with the Connect Transactions API to
+[charge a card on file].
+
+The Reader SDK card on file workflow creates a customer card for an **existing**
+[Customer profile]. **ALWAYS** ask customers for permission before saving their
+card information. For example, include a checkbox in your purchase flow that the
+customer can check to specify that they wish to save their card information for
+future purchases. Linking cards on file without obtaining customer permission
+may result in your application being disabled without notice.
+
+The card on file workflow begins with an asynchronous call to Square servers,
+which could be slow depending on network conditions. We recommend displaying a
+spinner or loading indicator before starting the card on file workflow and
+clearing it when you receive the result (success or failure) so users know that
+work is being done in the background.
+
+```dart
+import 'package:square_reader_sdk/models.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
+...
+// Get customer Id from Connect Customers API
+const customerId = 'DRYKVK5Y6H5R4JH9ZPQB3XPZQC';
+try {
+  await ReaderSdk.startStoreCard(customerId);
+  // Customer's card is stored successfully and card infomation is available
+} on ReaderSdkException catch (e) {
+  switch(e.code) {
+    case ErrorCode.storeCustomerErrorCanceled:
+      // Handle canceled
+      break;
+    case ErrorCode.storeCustomerErrorInvalidCustomerId:
+      // Handle invalid customer id error
+      break;
+    case ErrorCode.storeCustomerErrorSdkNotAuthorized:
+      // Handle no network error
+      break;
+    case ErrorCode.storeCustomerErrorNoNetwork:
+      // Handle sdk not authorized
+      break;
+    default:
+      var errorMessage = e.message;
+      if (_debug) {
+        errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+        print('${e.code}:${e.debugCode}:${e.debugMessage}');
+      }
+      displayErrorModal(context, errorMessage);
+  }
+}
+```
+
+
 ### Support Contactless Readers
 
 You do not need to write explicit code to take payment with a Magstripe Reader.
@@ -330,7 +389,8 @@ To take payments with a Contactless + Chip Reader, you must add code to your
 Flutter project that starts the Reader SDK settings flow to pair the Reader.
 
 ```dart
-import 'package:reader_sdk.dart';
+import 'package:square_reader_sdk/models.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
 const _debug = !bool.fromEnvironment("dart.vm.product");
 try {
@@ -357,7 +417,7 @@ To switch Square locations or to deauthorize the current location, you must add
 code to your Flutter project that deauthorizes Reader SDK.
 
 ```dart
-import 'package:reader_sdk.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
 const _debug = !bool.fromEnvironment("dart.vm.product");
 if (await canDeauthorize) {
@@ -393,3 +453,5 @@ if (await canDeauthorize) {
 [root README]: ../README.md
 [Flutter Getting Started]: https://flutter.io/docs/get-started/install
 [Test Drive]: https://flutter.io/docs/get-started/test-drive
+[Customer profile]: https://docs.connect.squareup.com/more-apis/customers/setup
+[charge a card on file]: https://docs.connect.squareup.com/payments/transactions/cookbook/charge-cards-on-file

@@ -17,8 +17,6 @@
 #import "FlutterReaderSDKAuthorization.h"
 #import "FlutterReaderSDKErrorUtilities.h"
 #import "Converters/SQRDLocation+FlutterReaderSDKAdditions.h"
-#import <CoreLocation/CoreLocation.h>
-#import <AVFoundation/AVFoundation.h>
 
 // Define all the error codes and messages below
 // These error codes and messages **MUST** align with android error codes and dart error codes

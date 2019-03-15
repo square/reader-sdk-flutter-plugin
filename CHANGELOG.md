@@ -1,8 +1,12 @@
 ## Changelog
 
-### v1.1.1 Mar 15, 2019
+### v1.1.2 Mar 15, 2019
 
 * adopt AndroidX instead of the Google Support libraries
+
+### v1.1.1 Mar 13, 2019
+
+* add **store customer card** suport.
 
 ### v1.1.0 Mar 5, 2019
 

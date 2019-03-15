@@ -35,5 +35,4 @@ part 'serializers.g.dart';
   TipSettings,
   ErrorCode,
 ])
-
 final Serializers serializers = _$serializers;

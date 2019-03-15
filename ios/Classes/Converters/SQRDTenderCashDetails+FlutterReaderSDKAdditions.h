@@ -19,6 +19,6 @@ limitations under the License.
 
 @interface SQRDTenderCashDetails (FlutterReaderSDKAdditions)
 
-- (NSMutableDictionary *)jsonDictionary;
+- (NSDictionary *)jsonDictionary;
 
 @end
