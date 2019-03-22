@@ -115,10 +115,10 @@ For more information on installing Reader SDK for Android, see the
       ...
     }
     ```
-1. Open or create `MainApplication` class in your project, make sure extend the Flutter Application class (`FlutterApplication`) and add code
-   to import and initialize Reader SDK:
-
-    >`MainApplication` is not created by default through `flutter create <Project>`
+1. Open the `MainApplication` class for your project. **Note that `MainApplication`
+is not created by default through `flutter create <Project>`, so you may need to
+create it**. Add code to extend the Flutter Application class
+(`FlutterApplication`) that imports and initializes Reader SDK:
 
     ```java
     package com.example.flutter.squareup.sdk.reader;
