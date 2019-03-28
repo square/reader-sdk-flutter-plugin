@@ -59,8 +59,12 @@ public class CardConverter {
                 case EFTPOS:
                     brandStringMap.put(brand, "EFTPOS");
                     break;
+                case FELICA:
+                    brandStringMap.put(brand, "FELICA");
                 default:
-                    throw new RuntimeException("Unexpected brand value: " + brand.name());
+                    // UNKNOWN should never happen if the right Reader SDK version is loaded with plugin
+                    // But we choose not break plugin if the type isn't important
+                    brandStringMap.put(brand, "UNKNOWN");
             }
         }
     }
