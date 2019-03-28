@@ -1,5 +1,10 @@
 ## Changelog
 
+### v2.0.0 Mar 29, 2019
+
+* Support AnroidX.
+* Upgrade to Square Reader SDK 1.2.1 (Android Only)
+
 ### v1.1.1 Mar 13, 2019
 
 * add **store customer card** suport.

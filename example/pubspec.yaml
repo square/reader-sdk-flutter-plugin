@@ -7,7 +7,7 @@ description: Demonstrates how to use the square_reader_sdk plugin.
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 1.0.0+1
+version: 1.1.0+1
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
@@ -16,7 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  simple_permissions: ^0.1.8 
+  permission_handler: ^3.0.0
   barcode_scan: ^1.0.0
   intl: ^0.15.7
 

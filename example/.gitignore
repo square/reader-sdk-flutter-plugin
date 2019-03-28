@@ -13,6 +13,7 @@ android/.settings/org.eclipse.buildship.core.prefs
 android/app/.classpath
 android/app/.project
 android/app/.settings/org.eclipse.buildship.core.prefs
+android/app/bin/
 ios/SquareReaderSDK.framework
 ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
 .vscode

@@ -14,8 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:simple_permissions/simple_permissions.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:square_reader_sdk/reader_sdk.dart';
 
 import 'widgets/animated_square_logo.dart';
@@ -42,8 +44,8 @@ class _SplashScreenState extends State<SplashScreen> {
       return;
     }
     var permissionsStatus = await _permissionsStatus;
-    var hasPermissions = permissionsStatus[0] == PermissionStatus.authorized &&
-        permissionsStatus[1] == PermissionStatus.authorized;
+    var hasPermissions = permissionsStatus[0] == PermissionStatus.granted &&
+        permissionsStatus[1] == PermissionStatus.granted;
     if (hasPermissions) {
       Navigator.popAndPushNamed(context, '/authorize');
     } else {
@@ -96,32 +98,34 @@ class _ButtonContainerState extends State<_ButtonContainer> {
   bool _hasMicrophoneAccess = false;
   String _microphoneButtonText = 'Enable Microphone Access';
 
+  final PermissionHandler _permissionHandler = PermissionHandler();
+
   // @override
   void initState() {
     super.initState();
     checkPermissionsAndNavigate();
   }
 
-  void requestPermission(Permission permission) async {
-    var permissionStatus =
-        await SimplePermissions.getPermissionStatus(permission);
-    switch (permissionStatus) {
+  void requestPermission(PermissionGroup permission) async {
+    var permissionMap =
+        await _permissionHandler.requestPermissions([permission]);
+    switch (permissionMap[permission]) {
       case PermissionStatus.denied:
-        await SimplePermissions.openSettings();
+        await _permissionHandler.openAppSettings();
         break;
       default:
-        await SimplePermissions.requestPermission(permission);
+        await _permissionHandler.requestPermissions([permission]);
     }
 
     checkPermissionsAndNavigate();
   }
 
   void onRequestLocationPermission() {
-    requestPermission(Permission.WhenInUseLocation);
+    requestPermission(PermissionGroup.locationWhenInUse);
   }
 
   void onRequestAudioPermission() {
-    requestPermission(Permission.RecordAudio);
+    requestPermission(PermissionGroup.microphone);
   }
 
   void checkPermissionsAndNavigate() async {
@@ -140,20 +144,20 @@ class _ButtonContainerState extends State<_ButtonContainer> {
 
   void updateLocationStatus(PermissionStatus status) {
     setState(() {
-      _hasLocationAccess = status == PermissionStatus.authorized;
+      _hasLocationAccess = status == PermissionStatus.granted;
 
       switch (status) {
-        case PermissionStatus.authorized:
+        case PermissionStatus.granted:
           _locationButtonText = 'Location Enabled';
           break;
         case PermissionStatus.denied:
-        case PermissionStatus.deniedNeverAsk:
+        case PermissionStatus.disabled:
           _locationButtonText = 'Enable Location in Settings';
           break;
         case PermissionStatus.restricted:
           _locationButtonText = 'Location permission is restricted';
           break;
-        case PermissionStatus.notDetermined:
+        case PermissionStatus.unknown:
           _locationButtonText = 'Enable Location Access';
           break;
       }
@@ -162,20 +166,20 @@ class _ButtonContainerState extends State<_ButtonContainer> {
 
   void updateMicrophoneStatus(PermissionStatus status) {
     setState(() {
-      _hasMicrophoneAccess = status == PermissionStatus.authorized;
+      _hasMicrophoneAccess = status == PermissionStatus.granted;
 
       switch (status) {
-        case PermissionStatus.authorized:
+        case PermissionStatus.granted:
           _microphoneButtonText = 'Microphone Enabled';
           break;
         case PermissionStatus.denied:
-        case PermissionStatus.deniedNeverAsk:
+        case PermissionStatus.disabled:
           _microphoneButtonText = 'Enable Microphone in Settings';
           break;
         case PermissionStatus.restricted:
           _microphoneButtonText = 'Microphone permission is restricted';
           break;
-        case PermissionStatus.notDetermined:
+        case PermissionStatus.unknown:
           _microphoneButtonText = 'Enable Microphone Access';
           break;
       }
@@ -195,10 +199,8 @@ class _ButtonContainerState extends State<_ButtonContainer> {
 }
 
 Future<List<PermissionStatus>> get _permissionsStatus async {
-  var locationPermission =
-      await SimplePermissions.getPermissionStatus(Permission.WhenInUseLocation);
-  var microphonePermission =
-      await SimplePermissions.getPermissionStatus(Permission.RecordAudio);
-
+  var permissionHandler = PermissionHandler();
+  var locationPermission = await permissionHandler.checkPermissionStatus(PermissionGroup.locationWhenInUse);
+  var microphonePermission = await permissionHandler.checkPermissionStatus(PermissionGroup.microphone);
   return [locationPermission, microphonePermission];
 }
