@@ -47,7 +47,7 @@ matrix:
         - ./flutter/bin/flutter doctor -v
       before_script:
         - cd ios && ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id $SQUARE_READER_SDK_APPLICATION_ID --repo-password $SQUARE_READER_SDK_REPOSITORY_PASSWORD > /dev/null
-        - pod update MTBBarcodeScanner # a workaround for flutter issue
+        - pod update # a workaround for flutter issue
       script:
         - cd ..
         - ./flutter/bin/flutter -v build ios --no-codesign
