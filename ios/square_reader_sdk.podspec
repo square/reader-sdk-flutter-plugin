@@ -16,7 +16,7 @@ iOS part of a flutter plugin for Square Reader SDK.
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.frameworks       = 'SquareReaderSDK'
-  s.xcconfig         = { 'FRAMEWORK_SEARCH_PATHS' => '$(PROJECT_DIR)/../' }
+  s.xcconfig         = { 'FRAMEWORK_SEARCH_PATHS' => '$(PROJECT_DIR)/../ $(PROJECT_DIR)/../Frameworks' }
   
   s.ios.deployment_target = '11.1'
 end
