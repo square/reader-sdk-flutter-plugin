@@ -19,15 +19,12 @@ allprojects {
 ext {
     // Override the reader sdk version with the this parameter
     // make sure the version is above min version 1.2.1
-    readerSdkVersion = "1.1.3"
+    readerSdkVersion = "[1.2.1, 2.0)"
 }
 
 rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-}
-subprojects {
-    project.evaluationDependsOn(':app')
 }
 
 task clean(type: Delete) {
