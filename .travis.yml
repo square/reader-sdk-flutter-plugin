@@ -1,39 +1,39 @@
 matrix:
   include:
-    - language: android
-      sudo: false
-      jdk: oraclejdk8
-      cache:
-        directories:
-          - $HOME/.pub-cache
-      os:
-        - linux
-      addons:
-        apt:
-          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
-          sources:
-            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
-          packages:
-            - libstdc++6
-            - fonts-droid
-      before_install:
-        - cd example
-        - echo yes | sdkmanager "tools" >/dev/null
-        - echo yes | sdkmanager "platform-tools" >/dev/null
-        - echo yes | sdkmanager "build-tools;28.0.3" >/dev/null
-        - echo yes | sdkmanager "platforms;android-26" >/dev/null
-        - echo yes | sdkmanager "platforms;android-28" >/dev/null
-        - echo y | sdkmanager "extras;android;m2repository" >/dev/null
-        - echo y | sdkmanager "extras;google;m2repository" >/dev/null
-        - sdkmanager --list
-      install:
-        - git clone https://github.com/flutter/flutter.git -b stable --depth 1
-        - ./flutter/bin/flutter doctor -v
-      before_script:
-        # the file is encrypted by following https://docs.travis-ci.com/user/encrypting-files/
-        - openssl aes-256-cbc -K $encrypted_cd445d9edb5b_key -iv $encrypted_cd445d9edb5b_iv -in android/gradle.properties.enc -out android/gradle.properties -d
-      script:
-        - ./flutter/bin/flutter -v build apk
+    # - language: android
+    #   sudo: false
+    #   jdk: oraclejdk8
+    #   cache:
+    #     directories:
+    #       - $HOME/.pub-cache
+    #   os:
+    #     - linux
+    #   addons:
+    #     apt:
+    #       # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+    #       sources:
+    #         - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+    #       packages:
+    #         - libstdc++6
+    #         - fonts-droid
+    #   before_install:
+    #     - cd example
+    #     - echo yes | sdkmanager "tools" >/dev/null
+    #     - echo yes | sdkmanager "platform-tools" >/dev/null
+    #     - echo yes | sdkmanager "build-tools;28.0.3" >/dev/null
+    #     - echo yes | sdkmanager "platforms;android-26" >/dev/null
+    #     - echo yes | sdkmanager "platforms;android-28" >/dev/null
+    #     - echo y | sdkmanager "extras;android;m2repository" >/dev/null
+    #     - echo y | sdkmanager "extras;google;m2repository" >/dev/null
+    #     - sdkmanager --list
+    #   install:
+    #     - git clone https://github.com/flutter/flutter.git -b stable --depth 1
+    #     - ./flutter/bin/flutter doctor -v
+    #   before_script:
+    #     # the file is encrypted by following https://docs.travis-ci.com/user/encrypting-files/
+    #     - openssl aes-256-cbc -K $encrypted_cd445d9edb5b_key -iv $encrypted_cd445d9edb5b_iv -in android/gradle.properties.enc -out android/gradle.properties -d
+    #   script:
+    #     - ./flutter/bin/flutter -v build apk
 
     - language: objective-c
       os: osx
@@ -50,4 +50,6 @@ matrix:
         - pod update # a workaround for flutter issue
       script:
         - cd ..
+        - ls -la
+        - rm .packages
         - ./flutter/bin/flutter -v build ios --no-codesign
