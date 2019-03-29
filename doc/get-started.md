@@ -164,12 +164,16 @@ information on installing Reader SDK for iOS, see the
 [root README] for this repo.
 
 1. Change to the iOS folder (`ios`) at the root of your Flutter project.
+1. Modify your `Podfile` and uncomment the platform configuration line (`platform :ios, '<version>'`) if it is commented out.   
+   **NOTE**: you must target iOS `11.1` or higher (i.e.: `platform :ios, '11.1'`).
 1. Download and configure the latest version of `SquareReaderSDK.framework` in
    your project root by replacing `YOUR_SQUARE_READER_APP_ID` and
    `YOUR_SQUARE_READER_REPOSITORY_PASSWORD` with your Reader SDK credentials and
    `READER_SDK_VERSION` with the Reader SDK version you are using in the code
-   below. **The framework will install in the current directory**. (The
-   current `READER_SDK_VERSION` is `1.0.1`.)
+   below. 
+   
+   The command below will download the framework into the current directory. **The framework must be in either the `iOS` directory or the `iOS/Frameworks` directory of your Flutter project.** (The
+   current `READER_SDK_VERSION` is `1.1.1`.)
     ```bash
     ruby <(curl https://connect.squareup.com/readersdk-installer) install \
     --version READER_SDK_VERSION                                          \
