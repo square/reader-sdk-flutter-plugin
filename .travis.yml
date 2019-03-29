@@ -33,10 +33,8 @@ matrix:
         - yes | sdkmanager "platforms;android-28"
         - sdkmanager --list
       install:
-        - git clone https://github.com/flutter/flutter.git -b beta --depth 1
+        - git clone https://github.com/flutter/flutter.git -b stable --depth 1
         - ./flutter/bin/flutter doctor
-        - ./flutter/bin/flutter channel stable
-        - ./flutter/bin/flutter upgrade
       before_script:
         # the file is encrypted by following https://docs.travis-ci.com/user/encrypting-files/
         - openssl aes-256-cbc -K $encrypted_cd445d9edb5b_key -iv $encrypted_cd445d9edb5b_iv -in android/gradle.properties.enc -out android/gradle.properties -d
@@ -51,7 +49,7 @@ matrix:
           - $HOME/.pub-cache
       before_install:
         - cd example
-        - git clone https://github.com/flutter/flutter.git -b beta --depth 1
+        - git clone https://github.com/flutter/flutter.git -b stable --depth 1
         - ./flutter/bin/flutter doctor
       before_script:
         - cd ios && ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id $SQUARE_READER_SDK_APPLICATION_ID --repo-password $SQUARE_READER_SDK_REPOSITORY_PASSWORD > /dev/null
