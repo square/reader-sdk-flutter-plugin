@@ -51,5 +51,6 @@ matrix:
       script:
         - cd ..
         - ls -la
-        - flutter packages get
+        - ./flutter/bin/flutter packages get
+        - ls -la
         - ./flutter/bin/flutter -v build ios --no-codesign
