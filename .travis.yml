@@ -14,11 +14,11 @@ matrix:
         - 'google-gdk-license-.+'
       android:
         components:
-          - tools
-          - platform-tools
-          - tools
-          - build-tools-28.0.3
-          - extra-google-google_play_services
+          # - tools
+          # - platform-tools
+          # - tools
+          # - build-tools-28.0.3
+          # - extra-google-google_play_services
       addons:
         apt:
           # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
@@ -29,8 +29,13 @@ matrix:
             - fonts-droid
       before_install:
         - cd example
+        - yes | sdkmanager "tools"
+        - yes | sdkmanager "platform-tools"
+        - yes | sdkmanager "build-tools-28.0.3"
         - yes | sdkmanager "platforms;android-26"
         - yes | sdkmanager "platforms;android-28"
+        - y | sdkmanager "extras;android;m2repository"
+        - y | sdkmanager "extras;google;m2repository"
         - sdkmanager --list
       install:
         - git clone https://github.com/flutter/flutter.git -b stable --depth 1
@@ -39,7 +44,7 @@ matrix:
         # the file is encrypted by following https://docs.travis-ci.com/user/encrypting-files/
         - openssl aes-256-cbc -K $encrypted_cd445d9edb5b_key -iv $encrypted_cd445d9edb5b_iv -in android/gradle.properties.enc -out android/gradle.properties -d
       script:
-        - /home/travis/build/square/reader-sdk-flutter-plugin/example/android/gradlew -Ptarget=lib/main.dart -Ptrack-widget-creation=false -Pcompilation-trace-file=compilation.txt -Ptarget-platform=android-arm assembleRelease --debug --scan
+        #- /home/travis/build/square/reader-sdk-flutter-plugin/example/android/gradlew -Ptarget=lib/main.dart -Ptrack-widget-creation=false -Pcompilation-trace-file=compilation.txt -Ptarget-platform=android-arm assembleRelease --debug --scan
         - ./flutter/bin/flutter -v build apk
 
     # - language: objective-c
