@@ -16,7 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  simple_permissions: ^0.1.8 
+  permission_handler: ^3.0.0
   barcode_scan: ^1.0.0
   intl: ^0.15.7
 
