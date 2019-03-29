@@ -35,6 +35,8 @@ matrix:
       install:
         - git clone https://github.com/flutter/flutter.git -b beta --depth 1
         - ./flutter/bin/flutter doctor
+        - ./flutter/bin/flutter channel stable
+        - ./flutter/bin/flutter upgrade
       before_script:
         # the file is encrypted by following https://docs.travis-ci.com/user/encrypting-files/
         - openssl aes-256-cbc -K $encrypted_cd445d9edb5b_key -iv $encrypted_cd445d9edb5b_iv -in android/gradle.properties.enc -out android/gradle.properties -d
