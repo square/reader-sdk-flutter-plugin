@@ -79,6 +79,14 @@ configurations.all {
                 // Square has tested ReaderSDK with 26.0.2
                 details.useVersion '26.0.2'
             }
+            if (details.requested.group == 'androidx.core' &&
+                !details.requested.name.contains('androidx')) {
+                details.useVersion "1.0.1"
+            }
+            if (details.requested.group == 'androidx.appcompat' &&
+                !details.requested.name.contains('androidx')) {
+                details.useVersion "1.0.2"
+            }
         }
     }
 }
