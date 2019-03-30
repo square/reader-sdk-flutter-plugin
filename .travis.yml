@@ -46,12 +46,11 @@ matrix:
         - git clone https://github.com/flutter/flutter.git -b stable --depth 1
         - ./flutter/bin/flutter doctor -v
       before_script:
-        - cd ios && ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id $SQUARE_READER_SDK_APPLICATION_ID --repo-password $SQUARE_READER_SDK_REPOSITORY_PASSWORD > /dev/null
-        - pod update # a workaround for flutter issue
-      script:
-        - cd ..
-        - ls -la
         - ./flutter/bin/flutter packages pub upgrade
         - ./flutter/bin/flutter packages get
+        - cd ios && ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id $SQUARE_READER_SDK_APPLICATION_ID --repo-password $SQUARE_READER_SDK_REPOSITORY_PASSWORD > /dev/null
+        # - pod update # a workaround for flutter issue
+      script:
+        - cd ..
         - ls -la
         - ./flutter/bin/flutter -v build ios --no-codesign
