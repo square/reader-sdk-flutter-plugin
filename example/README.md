@@ -70,13 +70,11 @@ You can view the [transaction details in Square Dashboard].
 
 1. Change to the `ios` folder under `example`.
 2. Install ReaderSDK, replacing `YOUR_SQUARE_READER_APP_ID` and
-   `YOUR_SQUARE_READER_REPOSITORY_PASSWORD` with your Reader SDK credentials
-   and `READER_SDK_VERSION` with the Reader SDK version you are using. You can
-   find the minimum supported Reader SDK version for iOS in the [root README]
-   for this repo:
+   `YOUR_SQUARE_READER_REPOSITORY_PASSWORD` with your Reader SDK credentials.
+
+    The command below will download the framework into the current directory. **The framework must be in either the `ios` directory or the `ios/Frameworks` directory of your Flutter project.**
     ```bash
     ruby <(curl https://connect.squareup.com/readersdk-installer) install \
-    --version READER_SDK_VERSION                                          \
     --app-id YOUR_SQUARE_READER_APP_ID                                    \
     --repo-password YOUR_SQUARE_READER_REPOSITORY_PASSWORD
     ```

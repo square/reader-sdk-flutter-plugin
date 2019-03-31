@@ -3,16 +3,16 @@ PODS:
     - Flutter
     - MTBBarcodeScanner
   - Flutter (1.0.0)
-  - MTBBarcodeScanner (5.0.6)
-  - simple_permissions (0.0.1):
+  - MTBBarcodeScanner (5.0.8)
+  - permission_handler (3.0.0):
     - Flutter
-  - square_reader_sdk (1.1.0):
+  - square_reader_sdk (2.0.0):
     - Flutter
 
 DEPENDENCIES:
   - barcode_scan (from `.symlinks/plugins/barcode_scan/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
-  - simple_permissions (from `.symlinks/plugins/simple_permissions/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - square_reader_sdk (from `.symlinks/plugins/square_reader_sdk/ios`)
 
 SPEC REPOS:
@@ -24,17 +24,17 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/barcode_scan/ios"
   Flutter:
     :path: ".symlinks/flutter/ios"
-  simple_permissions:
-    :path: ".symlinks/plugins/simple_permissions/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
   square_reader_sdk:
     :path: ".symlinks/plugins/square_reader_sdk/ios"
 
 SPEC CHECKSUMS:
   barcode_scan: 8288e70cb430072003bce2c794a1431e7adbcb4d
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
-  MTBBarcodeScanner: bb0bb62e18b57f8a571a482248adc20722b70a91
-  simple_permissions: 8ea52208b437f8fae29d97a55fe00b705a53246b
-  square_reader_sdk: 5bf5f55d7b689f475d80d8b9fd51be395bff383a
+  MTBBarcodeScanner: 5b97f10a037e2560ff104da413343c5ce9413911
+  permission_handler: 03dcf3ade9d5f398b8854b366cb9de718d3daa76
+  square_reader_sdk: b211b55be3ba400ce2de50aa693b48152062447f
 
 PODFILE CHECKSUM: cb6b50d323655cc2ec3bd136559937da3b86ed80
 
