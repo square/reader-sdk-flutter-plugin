@@ -54,7 +54,7 @@ dependencies:
 
   ...
 
-  square_reader_sdk: ^1.0.0
+  square_reader_sdk: ^2.0.0
 ```
 
 
@@ -75,8 +75,6 @@ dependencies:
 To use the Flutter plugin on Android devices, you need to configure Gradle so it
 can download the Reader SDK package properly and make it available to the
 Flutter library as a resource. The key installation steps are outlined below.
-For more information on installing Reader SDK for Android, see the
-[Reader SDK Android Setup Guide] at [docs.connect.squareup.com].
 
 1. Change to the Android folder (`android`) at the root of your flutter
    project.
@@ -94,7 +92,7 @@ For more information on installing Reader SDK for Android, see the
     android {
       defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 28
         multiDexEnabled true
       }
       ...
