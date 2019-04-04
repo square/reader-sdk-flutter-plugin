@@ -1,21 +1,16 @@
 ---
-name: 📃 Documentation Bug
-about: You want to report something that is wrong or missing from the documentation.
+name: 📃 Documentation Feedback
+about: You want to suggest improvements or report something that is wrong or missing from the documentation.
 ---
 
-### Describe the issue
-<!--
-  A clear and concise description of what the issue is.
+### Describe the change you would like to see
+<!-- A clear and concise description of the bug or documentation you feel is missing.
+For example: The Technical Reference does not include information about the startStoreCard method. -->
 
-  For example - The get start documentation has no description of initialize the Reader SDK.
--->
+### How would the suggested change make the documentation more useful?
+<!-- Provide context for how the requested change would make the docs easier to use and improve your ability to develop successful applications with this plugin.
+For example: It's hard to know a method exists or understand its use when you have to search through the code base to learn about it. Properly documenting it in the Technical Reference makes it easier for me to know what the SDK is (and is not capable of).  -->
 
-### Suggested improvement
-<!--
-  A clear and concise description of what the issue is.
-
-  For example - Add the description about how to initialize the Reader SDK for both Android and iOS.
--->
-
-### Additional context**
-<!-- Add any other context about the issue here. -->
+### Additional context
+<!-- Add any other context about your feedback here. 
+For example: I am reading the docs directly from GitHub, so it's harder for me to find information on a particular method if it's not included in the documentation. -->

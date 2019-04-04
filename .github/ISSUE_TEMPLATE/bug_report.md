@@ -7,7 +7,11 @@ about: I hit an error when I tried to use this plugin.
 <!--
   A clear and concise description of what the issue is.
 
-  For example - When I try to authorize the reader with the correct location and oauth param it returns an exception with message "authorization failed unexpectly.". Here is the full error information:
+  For example - When I try to authorize my Reader with a valid location and
+  OAuth access token, the plugin returns an exception with message
+  "authorization failed unexpectedly."
+
+  Error log details:
   ```
   // paste your error log here
   ```
@@ -19,7 +23,7 @@ about: I hit an error when I tried to use this plugin.
 
   For example - 
   1. Initialize the SDK
-  1. Get a valid auth code
+  1. Get a valid authz code
   1. Call `await ReaderSdk.authorize(authCode);` and failed
 
   Here is the piece of code that reproduce the issue.
@@ -47,7 +51,7 @@ about: I hit an error when I tried to use this plugin.
 <!--
   A clear and concise description of what you expected to happen.
 
-  For example - The authorization should complete successfully with my valid auth token.
+  For example - The authorization should complete successfully with my valid authz token.
 -->
 
 
@@ -55,6 +59,7 @@ about: I hit an error when I tried to use this plugin.
 <!--
   - platform: [e.g. iOS or Android]
   - OS and version: [e.g. iOS8.1]
+  - dev environment: [e.g. MacOS or Windows]
   - Reader SDK version: [e.g. 1.1.1]
 
   In addition: Run `flutter doctor -v` in your terminal and copy the results here.
