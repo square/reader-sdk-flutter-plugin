@@ -7,6 +7,8 @@
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA" />
+    <!-- The FOREGROUND_SERVICE permission is required for API level 28 and greater. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
