@@ -21,13 +21,13 @@ plugin for Reader SDK. For detailed documentation on Reader SDK, please see
 Method                                          | Return Object                     | Description
 ----------------------------------------------- | --------------------------------- | ---
 [authorize](#authorize)                         | [Location](#location)             | Authorizes Reader SDK to collect payments.
+[authorizedLocation](#authorizedlocation)       | [Location](#location)             | Returns the currently authorized location
 [canDeauthorize](#candeauthorize)               | bool                              | Verifies Reader SDK can be deauthorized.
 [deauthorize](#deauthorize)                     | void                              | Deauthorizes Reader SDK.
-[authorizedLocation](#authorizedlocation)       | [Location](#location)             | Returns the currently authorized location
 [isAuthorized](#isauthorized)                   | bool                              | Verifies Reader SDK is currently authorized for payment collection.
 [startCheckout](#startcheckout)                 | [CheckoutResult](#checkoutresult) | Begins the checkout workflow.
 [startReaderSettings](#startreadersettings)     | void                              | Starts the Reader settings flow for connecting Square Reader
-
+[startStoreCard](#startstorecard)               | [Card](#card)                     | Starts the checkout flow for saving a card on file
 
 
 ## Method details
@@ -75,6 +75,36 @@ try {
 
 ---
 
+### authorizedLocation
+
+Used to fetch information about the location currently authorized for Reader
+SDK.
+
+* **On success**: returns information about the currently authorized location as a
+  [Location](#location) object.
+* **On failure**: throws [`usageError`](#e1).
+
+#### Example usage
+
+```dart
+import 'package:square_reader_sdk/reader_sdk.dart';
+
+try {
+  var location = await ReaderSdk.authorizedLocation;
+  // Start using the location object
+} on ReaderSdkException catch (e) {
+  var errorMessage = e.message;
+  if (_debug) {
+    errorMessage += '\n\nDebug Message: ${e.debugMessage}';
+    print('${e.code}:${e.debugCode}:${e.debugMessage}');
+  }
+  displayErrorModal(context, errorMessage);
+}
+```
+
+
+---
+
 ### canDeauthorize
 
 Used to determine if it is safe to deauthorize Reader SDK.
@@ -116,36 +146,6 @@ import 'package:square_reader_sdk/reader_sdk.dart';
 try {
   await ReaderSdk.deauthorize();
   // Deauthorize finished successfully
-} on ReaderSdkException catch (e) {
-  var errorMessage = e.message;
-  if (_debug) {
-    errorMessage += '\n\nDebug Message: ${e.debugMessage}';
-    print('${e.code}:${e.debugCode}:${e.debugMessage}');
-  }
-  displayErrorModal(context, errorMessage);
-}
-```
-
-
----
-
-### authorizedLocation
-
-Used to fetch information about the location currently authorized for Reader
-SDK.
-
-* **On success**: returns information about the currently authorized location as a
-  [Location](#location) object.
-* **On failure**: throws [`usageError`](#e1).
-
-#### Example usage
-
-```dart
-import 'package:square_reader_sdk/reader_sdk.dart';
-
-try {
-  var location = await ReaderSdk.authorizedLocation;
-  // Start using the location object
 } on ReaderSdkException catch (e) {
   var errorMessage = e.message;
   if (_debug) {
@@ -271,10 +271,13 @@ try {
 
 Used to start the store a card for a customer flow.
 
-Card information is only stored on Square servers, not on the mobile device running Reader SDK, which means cards cannot be saved while the device is offline. Saved card information can be requested using Square APIs and the associated customer ID.
+Card information is only stored on Square servers, not on the mobile device
+running Reader SDK, which means cards cannot be saved while the device is
+offline. Saved card information can be requested using Square APIs and the
+associated customer ID.
 
-* **On success**: returns information about the stored card as a
-  [Card](#card) object.
+* **On success**: returns information about the stored card as a [Card](#card)
+  object.
 * **On failure**: throws [`usageError`](#e1),
 [`storeCustomerErrorCanceled`](#e6),
 [`storeCustomerErrorInvalidCustomerId`](#e7),
