@@ -1,6 +1,10 @@
 ---
-name: 🐛 Issue report
+name: "\U0001F41B Issue report"
 about: I hit an error when I tried to use this plugin.
+title: ''
+labels: bug
+assignees: ''
+
 ---
 
 ### Describe the issue
@@ -68,5 +72,5 @@ about: I hit an error when I tried to use this plugin.
 ### Screenshots
 <!-- If applicable, add screenshots to help explain your problem. -->
 
-### Additional context**
+### Additional context
 <!-- Add any other context about the problem here. -->
