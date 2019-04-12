@@ -1,5 +1,9 @@
 ## Changelog
 
+### v2.0.1 Mar 29, 2019
+
+* Fix the bug on Android default Reader SDK version setting
+
 ### v2.0.0 Mar 29, 2019
 
 * Support AnroidX.
