@@ -61,8 +61,8 @@ flutter {
 }
 
 dependencies {
-    implementation 'com.google.android.gms:play-services-safetynet:15.0.1'
-    implementation 'com.google.android.gms:play-services-ads-identifier:15.0.1'
+    implementation 'com.google.android.gms:play-services-safetynet:16.0.1'
+    implementation 'com.google.android.gms:play-services-ads-identifier:16.0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
@@ -76,8 +76,8 @@ configurations.all {
                 && details.requested.name != 'multidex'
                 && details.requested.name != 'multidex-instrumentation') {
                 // Force the version that works for you.
-                // Square has tested ReaderSDK with 26.0.2
-                details.useVersion '26.0.2'
+                // Square has tested ReaderSDK with 28.0.0
+                details.useVersion '28.0.0'
             }
         }
     }
