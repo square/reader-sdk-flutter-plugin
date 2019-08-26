@@ -424,6 +424,7 @@ amountMoney            | [Money](#money)             | **REQUIRED**. The total p
 skipReceipt            | bool                        | Indicates that the digital receipt options screen should not be displayed during checkout. Default: `false`
 collectSignature       | boolean                     | Indicates that signature collection is required during checkout. When false, the signature screen will never be displayed; when true, it will always be used. Default: `false`
 allowSplitTender       | bool                        | Indicates that multiple payment methods are allowed. Default: `false`
+delayCapture           | bool                        | When true, if checkout completes successfully, the SDK will only authorize,but not capture any card payments. You can then use the Square Connect CaptureTransaction endpoint to capture the card payments at a later time. Default: `false`
 note                   | String                      | A note to display on digital receipts and in the [Square Dashboard]. Default: `null`
 tipSettings            | [TipSettings](#tipsettings) | Settings that configure the tipping behavior of the checkout flow. Default: `null`
 additionalPaymentTypes | String[]                    | [AdditionalPaymentType](#additionalpaymenttype) constant denoting valid payment methods for checkout (in addition to payments via Square Readers). Default: empty set.
@@ -438,6 +439,7 @@ builder.amountMoney = MoneyBuilder()
 builder.skipReceipt = false;
 builder.collectSignature = true;
 builder.allowSplitTender = false;
+builder.delayCapture = false;
 builder.note = 'Payment for dogsitting';
 builder.additionalPaymentTypes =
     ListBuilder([

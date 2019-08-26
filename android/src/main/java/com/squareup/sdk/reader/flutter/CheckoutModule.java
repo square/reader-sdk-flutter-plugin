@@ -112,6 +112,9 @@ final class CheckoutModule {
     if (checkoutParameters.containsKey("allowSplitTender")) {
       checkoutParamsBuilder.allowSplitTender((Boolean)checkoutParameters.get("allowSplitTender"));
     }
+    if (checkoutParameters.containsKey("delayCapture")) {
+      checkoutParamsBuilder.delayCapture((Boolean)checkoutParameters.get("delayCapture"));
+    }
     if (checkoutParameters.containsKey("tipSettings")) {
       TipSettings tipSettings = buildTipSettings((HashMap<String, Object>)checkoutParameters.get("tipSettings"));
       checkoutParamsBuilder.tipSettings(tipSettings);
@@ -138,6 +141,9 @@ final class CheckoutModule {
       return false;
     } else if (checkoutParamsMap.containsKey("allowSplitTender") && !(checkoutParamsMap.get("allowSplitTender") instanceof Boolean)) {
       paramError.append("'allowSplitTender' is not a boolean");
+      return false;
+    } else if (checkoutParamsMap.containsKey("delayCapture") && !(checkoutParamsMap.get("delayCapture") instanceof Boolean)) {
+      paramError.append("'delayCapture' is not a boolean");
       return false;
     } else if (checkoutParamsMap.containsKey("note") && !(checkoutParamsMap.get("note") instanceof String)) {
       paramError.append("'note' is not a string");

@@ -223,6 +223,9 @@ abstract class CheckoutParameters
   bool get allowSplitTender;
 
   @nullable
+  bool get delayCapture;
+
+  @nullable
   String get note;
 
   @nullable
