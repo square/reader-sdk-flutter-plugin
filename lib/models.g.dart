@@ -225,7 +225,7 @@ class _$MoneySerializer implements StructuredSerializer<Money> {
   final String wireName = 'Money';
 
   @override
-  Iterable serialize(Serializers serializers, Money object,
+  Iterable<Object> serialize(Serializers serializers, Money object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'amount',
@@ -237,12 +237,11 @@ class _$MoneySerializer implements StructuredSerializer<Money> {
         ..add(serializers.serialize(object.currencyCode,
             specifiedType: const FullType(String)));
     }
-
     return result;
   }
 
   @override
-  Money deserialize(Serializers serializers, Iterable serialized,
+  Money deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new MoneyBuilder();
 
@@ -274,7 +273,7 @@ class _$LocationSerializer implements StructuredSerializer<Location> {
   final String wireName = 'Location';
 
   @override
-  Iterable serialize(Serializers serializers, Location object,
+  Iterable<Object> serialize(Serializers serializers, Location object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'currencyCode',
@@ -303,7 +302,7 @@ class _$LocationSerializer implements StructuredSerializer<Location> {
   }
 
   @override
-  Location deserialize(Serializers serializers, Iterable serialized,
+  Location deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new LocationBuilder();
 
@@ -358,7 +357,7 @@ class _$CheckoutResultSerializer
   final String wireName = 'CheckoutResult';
 
   @override
-  Iterable serialize(Serializers serializers, CheckoutResult object,
+  Iterable<Object> serialize(Serializers serializers, CheckoutResult object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'transactionClientId',
@@ -387,12 +386,12 @@ class _$CheckoutResultSerializer
         ..add(serializers.serialize(object.transactionId,
             specifiedType: const FullType(String)));
     }
-
     return result;
   }
 
   @override
-  CheckoutResult deserialize(Serializers serializers, Iterable serialized,
+  CheckoutResult deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CheckoutResultBuilder();
 
@@ -430,7 +429,7 @@ class _$CheckoutResultSerializer
           result.tenders.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(Tender)]))
-              as BuiltList);
+              as BuiltList<dynamic>);
           break;
       }
     }
@@ -463,7 +462,7 @@ class _$TenderSerializer implements StructuredSerializer<Tender> {
   final String wireName = 'Tender';
 
   @override
-  Iterable serialize(Serializers serializers, Tender object,
+  Iterable<Object> serialize(Serializers serializers, Tender object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'totalMoney',
@@ -497,12 +496,11 @@ class _$TenderSerializer implements StructuredSerializer<Tender> {
         ..add(serializers.serialize(object.cashDetails,
             specifiedType: const FullType(CashDetails)));
     }
-
     return result;
   }
 
   @override
-  Tender deserialize(Serializers serializers, Iterable serialized,
+  Tender deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new TenderBuilder();
 
@@ -554,7 +552,7 @@ class _$CashDetailsSerializer implements StructuredSerializer<CashDetails> {
   final String wireName = 'CashDetails';
 
   @override
-  Iterable serialize(Serializers serializers, CashDetails object,
+  Iterable<Object> serialize(Serializers serializers, CashDetails object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'buyerTenderedMoney',
@@ -569,7 +567,7 @@ class _$CashDetailsSerializer implements StructuredSerializer<CashDetails> {
   }
 
   @override
-  CashDetails deserialize(Serializers serializers, Iterable serialized,
+  CashDetails deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CashDetailsBuilder();
 
@@ -633,7 +631,7 @@ class _$CardDetailsSerializer implements StructuredSerializer<CardDetails> {
   final String wireName = 'CardDetails';
 
   @override
-  Iterable serialize(Serializers serializers, CardDetails object,
+  Iterable<Object> serialize(Serializers serializers, CardDetails object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'entryMethod',
@@ -647,7 +645,7 @@ class _$CardDetailsSerializer implements StructuredSerializer<CardDetails> {
   }
 
   @override
-  CardDetails deserialize(Serializers serializers, Iterable serialized,
+  CardDetails deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CardDetailsBuilder();
 
@@ -723,7 +721,7 @@ class _$CardSerializer implements StructuredSerializer<Card> {
   final String wireName = 'Card';
 
   @override
-  Iterable serialize(Serializers serializers, Card object,
+  Iterable<Object> serialize(Serializers serializers, Card object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'brand',
@@ -756,12 +754,11 @@ class _$CardSerializer implements StructuredSerializer<Card> {
         ..add(serializers.serialize(object.cardholderName,
             specifiedType: const FullType(String)));
     }
-
     return result;
   }
 
   @override
-  Card deserialize(Serializers serializers, Iterable serialized,
+  Card deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CardBuilder();
 
@@ -840,7 +837,7 @@ class _$CheckoutParametersSerializer
   final String wireName = 'CheckoutParameters';
 
   @override
-  Iterable serialize(Serializers serializers, CheckoutParameters object,
+  Iterable<Object> serialize(Serializers serializers, CheckoutParameters object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'amountMoney',
@@ -865,6 +862,12 @@ class _$CheckoutParametersSerializer
         ..add(serializers.serialize(object.allowSplitTender,
             specifiedType: const FullType(bool)));
     }
+    if (object.delayCapture != null) {
+      result
+        ..add('delayCapture')
+        ..add(serializers.serialize(object.delayCapture,
+            specifiedType: const FullType(bool)));
+    }
     if (object.note != null) {
       result
         ..add('note')
@@ -884,12 +887,12 @@ class _$CheckoutParametersSerializer
         ..add(serializers.serialize(object.tipSettings,
             specifiedType: const FullType(TipSettings)));
     }
-
     return result;
   }
 
   @override
-  CheckoutParameters deserialize(Serializers serializers, Iterable serialized,
+  CheckoutParameters deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CheckoutParametersBuilder();
 
@@ -915,6 +918,10 @@ class _$CheckoutParametersSerializer
           result.allowSplitTender = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool;
           break;
+        case 'delayCapture':
+          result.delayCapture = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
         case 'note':
           result.note = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -923,7 +930,7 @@ class _$CheckoutParametersSerializer
           result.additionalPaymentTypes.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(AdditionalPaymentType)]))
-              as BuiltList);
+              as BuiltList<dynamic>);
           break;
         case 'tipSettings':
           result.tipSettings.replace(serializers.deserialize(value,
@@ -943,7 +950,7 @@ class _$TipSettingsSerializer implements StructuredSerializer<TipSettings> {
   final String wireName = 'TipSettings';
 
   @override
-  Iterable serialize(Serializers serializers, TipSettings object,
+  Iterable<Object> serialize(Serializers serializers, TipSettings object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.showCustomTipField != null) {
@@ -965,12 +972,11 @@ class _$TipSettingsSerializer implements StructuredSerializer<TipSettings> {
             specifiedType:
                 const FullType(BuiltList, const [const FullType(int)])));
     }
-
     return result;
   }
 
   @override
-  TipSettings deserialize(Serializers serializers, Iterable serialized,
+  TipSettings deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new TipSettingsBuilder();
 
@@ -992,7 +998,7 @@ class _$TipSettingsSerializer implements StructuredSerializer<TipSettings> {
           result.tipPercentages.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(int)]))
-              as BuiltList);
+              as BuiltList<dynamic>);
           break;
       }
     }
@@ -1051,7 +1057,7 @@ class _$Money extends Money {
   @override
   final String currencyCode;
 
-  factory _$Money([void updates(MoneyBuilder b)]) =>
+  factory _$Money([void Function(MoneyBuilder) updates]) =>
       (new MoneyBuilder()..update(updates)).build();
 
   _$Money._({this.amount, this.currencyCode}) : super._() {
@@ -1061,7 +1067,7 @@ class _$Money extends Money {
   }
 
   @override
-  Money rebuild(void updates(MoneyBuilder b)) =>
+  Money rebuild(void Function(MoneyBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -1120,7 +1126,7 @@ class MoneyBuilder implements Builder<Money, MoneyBuilder> {
   }
 
   @override
-  void update(void updates(MoneyBuilder b)) {
+  void update(void Function(MoneyBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -1149,7 +1155,7 @@ class _$Location extends Location {
   @override
   final Money minimumCardPaymentAmountMoney;
 
-  factory _$Location([void updates(LocationBuilder b)]) =>
+  factory _$Location([void Function(LocationBuilder) updates]) =>
       (new LocationBuilder()..update(updates)).build();
 
   _$Location._(
@@ -1188,7 +1194,7 @@ class _$Location extends Location {
   }
 
   @override
-  Location rebuild(void updates(LocationBuilder b)) =>
+  Location rebuild(void Function(LocationBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -1302,7 +1308,7 @@ class LocationBuilder implements Builder<Location, LocationBuilder> {
   }
 
   @override
-  void update(void updates(LocationBuilder b)) {
+  void update(void Function(LocationBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -1355,7 +1361,7 @@ class _$CheckoutResult extends CheckoutResult {
   @override
   final BuiltList<Tender> tenders;
 
-  factory _$CheckoutResult([void updates(CheckoutResultBuilder b)]) =>
+  factory _$CheckoutResult([void Function(CheckoutResultBuilder) updates]) =>
       (new CheckoutResultBuilder()..update(updates)).build();
 
   _$CheckoutResult._(
@@ -1389,7 +1395,7 @@ class _$CheckoutResult extends CheckoutResult {
   }
 
   @override
-  CheckoutResult rebuild(void updates(CheckoutResultBuilder b)) =>
+  CheckoutResult rebuild(void Function(CheckoutResultBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -1501,7 +1507,7 @@ class CheckoutResultBuilder
   }
 
   @override
-  void update(void updates(CheckoutResultBuilder b)) {
+  void update(void Function(CheckoutResultBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -1554,7 +1560,7 @@ class _$Tender extends Tender {
   @override
   final CashDetails cashDetails;
 
-  factory _$Tender([void updates(TenderBuilder b)]) =>
+  factory _$Tender([void Function(TenderBuilder) updates]) =>
       (new TenderBuilder()..update(updates)).build();
 
   _$Tender._(
@@ -1581,7 +1587,7 @@ class _$Tender extends Tender {
   }
 
   @override
-  Tender rebuild(void updates(TenderBuilder b)) =>
+  Tender rebuild(void Function(TenderBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -1688,7 +1694,7 @@ class TenderBuilder implements Builder<Tender, TenderBuilder> {
   }
 
   @override
-  void update(void updates(TenderBuilder b)) {
+  void update(void Function(TenderBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -1734,7 +1740,7 @@ class _$CashDetails extends CashDetails {
   @override
   final Money changeBackMoney;
 
-  factory _$CashDetails([void updates(CashDetailsBuilder b)]) =>
+  factory _$CashDetails([void Function(CashDetailsBuilder) updates]) =>
       (new CashDetailsBuilder()..update(updates)).build();
 
   _$CashDetails._({this.buyerTenderedMoney, this.changeBackMoney}) : super._() {
@@ -1747,7 +1753,7 @@ class _$CashDetails extends CashDetails {
   }
 
   @override
-  CashDetails rebuild(void updates(CashDetailsBuilder b)) =>
+  CashDetails rebuild(void Function(CashDetailsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -1811,7 +1817,7 @@ class CashDetailsBuilder implements Builder<CashDetails, CashDetailsBuilder> {
   }
 
   @override
-  void update(void updates(CashDetailsBuilder b)) {
+  void update(void Function(CashDetailsBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -1847,7 +1853,7 @@ class _$CardDetails extends CardDetails {
   @override
   final Card card;
 
-  factory _$CardDetails([void updates(CardDetailsBuilder b)]) =>
+  factory _$CardDetails([void Function(CardDetailsBuilder) updates]) =>
       (new CardDetailsBuilder()..update(updates)).build();
 
   _$CardDetails._({this.entryMethod, this.card}) : super._() {
@@ -1860,7 +1866,7 @@ class _$CardDetails extends CardDetails {
   }
 
   @override
-  CardDetails rebuild(void updates(CardDetailsBuilder b)) =>
+  CardDetails rebuild(void Function(CardDetailsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -1919,7 +1925,7 @@ class CardDetailsBuilder implements Builder<CardDetails, CardDetailsBuilder> {
   }
 
   @override
-  void update(void updates(CardDetailsBuilder b)) {
+  void update(void Function(CardDetailsBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -1959,7 +1965,7 @@ class _$Card extends Card {
   @override
   final String cardholderName;
 
-  factory _$Card([void updates(CardBuilder b)]) =>
+  factory _$Card([void Function(CardBuilder) updates]) =>
       (new CardBuilder()..update(updates)).build();
 
   _$Card._(
@@ -1979,7 +1985,7 @@ class _$Card extends Card {
   }
 
   @override
-  Card rebuild(void updates(CardBuilder b)) =>
+  Card rebuild(void Function(CardBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -2077,7 +2083,7 @@ class CardBuilder implements Builder<Card, CardBuilder> {
   }
 
   @override
-  void update(void updates(CardBuilder b)) {
+  void update(void Function(CardBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -2106,13 +2112,16 @@ class _$CheckoutParameters extends CheckoutParameters {
   @override
   final bool allowSplitTender;
   @override
+  final bool delayCapture;
+  @override
   final String note;
   @override
   final BuiltList<AdditionalPaymentType> additionalPaymentTypes;
   @override
   final TipSettings tipSettings;
 
-  factory _$CheckoutParameters([void updates(CheckoutParametersBuilder b)]) =>
+  factory _$CheckoutParameters(
+          [void Function(CheckoutParametersBuilder) updates]) =>
       (new CheckoutParametersBuilder()..update(updates)).build();
 
   _$CheckoutParameters._(
@@ -2120,6 +2129,7 @@ class _$CheckoutParameters extends CheckoutParameters {
       this.skipReceipt,
       this.collectSignature,
       this.allowSplitTender,
+      this.delayCapture,
       this.note,
       this.additionalPaymentTypes,
       this.tipSettings})
@@ -2130,7 +2140,8 @@ class _$CheckoutParameters extends CheckoutParameters {
   }
 
   @override
-  CheckoutParameters rebuild(void updates(CheckoutParametersBuilder b)) =>
+  CheckoutParameters rebuild(
+          void Function(CheckoutParametersBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -2145,6 +2156,7 @@ class _$CheckoutParameters extends CheckoutParameters {
         skipReceipt == other.skipReceipt &&
         collectSignature == other.collectSignature &&
         allowSplitTender == other.allowSplitTender &&
+        delayCapture == other.delayCapture &&
         note == other.note &&
         additionalPaymentTypes == other.additionalPaymentTypes &&
         tipSettings == other.tipSettings;
@@ -2156,9 +2168,13 @@ class _$CheckoutParameters extends CheckoutParameters {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, amountMoney.hashCode), skipReceipt.hashCode),
-                        collectSignature.hashCode),
-                    allowSplitTender.hashCode),
+                    $jc(
+                        $jc(
+                            $jc($jc(0, amountMoney.hashCode),
+                                skipReceipt.hashCode),
+                            collectSignature.hashCode),
+                        allowSplitTender.hashCode),
+                    delayCapture.hashCode),
                 note.hashCode),
             additionalPaymentTypes.hashCode),
         tipSettings.hashCode));
@@ -2171,6 +2187,7 @@ class _$CheckoutParameters extends CheckoutParameters {
           ..add('skipReceipt', skipReceipt)
           ..add('collectSignature', collectSignature)
           ..add('allowSplitTender', allowSplitTender)
+          ..add('delayCapture', delayCapture)
           ..add('note', note)
           ..add('additionalPaymentTypes', additionalPaymentTypes)
           ..add('tipSettings', tipSettings))
@@ -2201,6 +2218,10 @@ class CheckoutParametersBuilder
   set allowSplitTender(bool allowSplitTender) =>
       _$this._allowSplitTender = allowSplitTender;
 
+  bool _delayCapture;
+  bool get delayCapture => _$this._delayCapture;
+  set delayCapture(bool delayCapture) => _$this._delayCapture = delayCapture;
+
   String _note;
   String get note => _$this._note;
   set note(String note) => _$this._note = note;
@@ -2227,6 +2248,7 @@ class CheckoutParametersBuilder
       _skipReceipt = _$v.skipReceipt;
       _collectSignature = _$v.collectSignature;
       _allowSplitTender = _$v.allowSplitTender;
+      _delayCapture = _$v.delayCapture;
       _note = _$v.note;
       _additionalPaymentTypes = _$v.additionalPaymentTypes?.toBuilder();
       _tipSettings = _$v.tipSettings?.toBuilder();
@@ -2244,7 +2266,7 @@ class CheckoutParametersBuilder
   }
 
   @override
-  void update(void updates(CheckoutParametersBuilder b)) {
+  void update(void Function(CheckoutParametersBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -2258,6 +2280,7 @@ class CheckoutParametersBuilder
               skipReceipt: skipReceipt,
               collectSignature: collectSignature,
               allowSplitTender: allowSplitTender,
+              delayCapture: delayCapture,
               note: note,
               additionalPaymentTypes: _additionalPaymentTypes?.build(),
               tipSettings: _tipSettings?.build());
@@ -2290,7 +2313,7 @@ class _$TipSettings extends TipSettings {
   @override
   final BuiltList<int> tipPercentages;
 
-  factory _$TipSettings([void updates(TipSettingsBuilder b)]) =>
+  factory _$TipSettings([void Function(TipSettingsBuilder) updates]) =>
       (new TipSettingsBuilder()..update(updates)).build();
 
   _$TipSettings._(
@@ -2300,7 +2323,7 @@ class _$TipSettings extends TipSettings {
       : super._();
 
   @override
-  TipSettings rebuild(void updates(TipSettingsBuilder b)) =>
+  TipSettings rebuild(void Function(TipSettingsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -2373,7 +2396,7 @@ class TipSettingsBuilder implements Builder<TipSettings, TipSettingsBuilder> {
   }
 
   @override
-  void update(void updates(TipSettingsBuilder b)) {
+  void update(void Function(TipSettingsBuilder) updates) {
     if (updates != null) updates(this);
   }
 

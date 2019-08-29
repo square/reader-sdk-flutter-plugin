@@ -85,6 +85,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     builder.skipReceipt = false;
     builder.collectSignature = true;
     builder.allowSplitTender = false;
+    builder.delayCapture = false;
     builder.note = 'Hello 💳 💰 World!';
     builder.additionalPaymentTypes =
         ListBuilder([AdditionalPaymentType.cash, AdditionalPaymentType.manualCardEntry, AdditionalPaymentType.other]);

@@ -81,6 +81,9 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
     if (checkoutParametersDictionary[@"allowSplitTender"]) {
         checkoutParams.allowSplitTender = [checkoutParametersDictionary[@"allowSplitTender"] boolValue];
     }
+    if (checkoutParametersDictionary[@"delayCapture"]) {
+        checkoutParams.delayCapture = [checkoutParametersDictionary[@"delayCapture"] boolValue];
+    }
     if (checkoutParametersDictionary[@"tipSettings"]) {
         SQRDTipSettings *tipSettings = [self _buildTipSettings:checkoutParametersDictionary[@"tipSettings"]];
         checkoutParams.tipSettings = tipSettings;
@@ -144,6 +147,10 @@ static NSString *const FlutterReaderSDKMessageCheckoutInvalidParameter = @"Inval
     }
     if (checkoutParametersDictionary[@"allowSplitTender"] && ![checkoutParametersDictionary[@"allowSplitTender"] isKindOfClass:[NSNumber class]]) {
         *errorMsg = @"'allowSplitTender' is not a boolean";
+        return NO;
+    }
+    if (checkoutParametersDictionary[@"delayCapture"] && ![checkoutParametersDictionary[@"delayCapture"] isKindOfClass:[NSNumber class]]) {
+        *errorMsg = @"'delayCapture' is not a boolean";
         return NO;
     }
     if (checkoutParametersDictionary[@"note"] && ![checkoutParametersDictionary[@"note"] isKindOfClass:[NSString class]]) {

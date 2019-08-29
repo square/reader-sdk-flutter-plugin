@@ -4,7 +4,7 @@ PODS:
     - MTBBarcodeScanner
   - Flutter (1.0.0)
   - MTBBarcodeScanner (5.0.8)
-  - permission_handler (3.0.0):
+  - permission_handler (3.2.2):
     - Flutter
   - square_reader_sdk (2.0.0):
     - Flutter
@@ -30,12 +30,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/square_reader_sdk/ios"
 
 SPEC CHECKSUMS:
-  barcode_scan: 8288e70cb430072003bce2c794a1431e7adbcb4d
-  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+  barcode_scan: 33f586d02270046fc6559135038b34b5754eaa4f
+  Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
   MTBBarcodeScanner: 5b97f10a037e2560ff104da413343c5ce9413911
-  permission_handler: 03dcf3ade9d5f398b8854b366cb9de718d3daa76
-  square_reader_sdk: b211b55be3ba400ce2de50aa693b48152062447f
+  permission_handler: d59f41439f5bc6c4d1005f3355e98f05ddc68ece
+  square_reader_sdk: a8320c16510030996d3cb76860ea91caf4e9d360
 
 PODFILE CHECKSUM: cb6b50d323655cc2ec3bd136559937da3b86ed80
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.7.5

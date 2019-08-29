@@ -13,8 +13,8 @@ solutions on Android and iOS.
 The Flutter plugin for Reader SDK acts as a wrapper on the native SDKs and is
 currently compatible with the following native Reader SDK versions:
 
-  * iOS: 1.1.1 and above
-  * Android: 1.2.1 and above
+  * iOS: 1.3.1 and above
+  * Android: 1.3.1 and above
 
 Try the [sample app] to see the plugin in action or follow the instructions in
 the [getting started guide] to build a custom solution from scratch.

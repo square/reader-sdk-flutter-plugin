@@ -1,5 +1,10 @@
 ## Changelog
 
+### v2.0.2 Aug 25, 2019
+
+* Update Square Reader SDK minimum supported version to 1.3.1
+* Add delay capture support
+
 ### v2.0.1 Mar 29, 2019
 
 * Fix the bug on Android default Reader SDK version setting

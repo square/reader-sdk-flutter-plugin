@@ -297,6 +297,7 @@ builder.amountMoney = MoneyBuilder()
 builder.skipReceipt = false;
 builder.collectSignature = true;
 builder.allowSplitTender = false;
+builder.delayCapture = false;
 builder.note = 'Hello 💳 💰 World!';
 builder.additionalPaymentTypes =
     ListBuilder(['cash', 'manual_card_entry', 'other']);
