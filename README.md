@@ -41,7 +41,7 @@ In addition to this README, the following is available in the
 * Android SDK build tools: 28.0.2
 * Android Gradle Plugin: 3.0.0 or greater.
 * Support library: 26.0.2
-* Google Play Services: 12.0.1
+* Google Play Services: 16.0.1
 * Google APIs Intel x86 Atom_64 System Image
 
 ### iOS
