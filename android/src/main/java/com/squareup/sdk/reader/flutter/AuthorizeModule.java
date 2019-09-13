@@ -56,6 +56,10 @@ final class AuthorizeModule {
     flutterResult.success(ReaderSdk.authorizationManager().getAuthorizationState().isAuthorized());
   }
 
+  public void isAuthorizationInProgress(Result flutterResult) {
+    flutterResult.success(ReaderSdk.authorizationManager().getAuthorizationState().isAuthorizationInProgress());
+  }
+
   public void authorizedLocation(Result flutterResult) {
     if (ReaderSdk.authorizationManager().getAuthorizationState().isAuthorized()) {
       flutterResult.success(locationConverter.toMapObject(ReaderSdk.authorizationManager().getAuthorizationState().getAuthorizedLocation()));

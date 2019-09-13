@@ -37,6 +37,16 @@ class ReaderSdk {
     }
   }
 
+  static Future<bool> get isAuthorizationInProgress async {
+    try {
+      bool isAuthorizationInProgress = await _channel.invokeMethod('isAuthorizationInProgress');
+      return isAuthorizationInProgress;
+    } on PlatformException catch (ex) {
+      throw ReaderSdkException(ex.code, ex.message, ex.details['debugCode'],
+          ex.details['debugMessage']);
+    }
+  }
+
   static Future<Location> get authorizedLocation async {
     try {
       Map locationNativeObject =

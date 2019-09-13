@@ -58,6 +58,8 @@
 {
     if ([@"isAuthorized" isEqualToString:call.method]) {
         [self.authorization isAuthorized:result];
+    } else if ([@"isAuthorizationInProgress" isEqualToString:call.method]) {
+        [self.authorization isAuthorizationInProgress:result];
     } else if ([@"authorizedLocation" isEqualToString:call.method]) {
         [self.authorization authorizedLocation:result];
     } else if ([@"authorize" isEqualToString:call.method]) {
