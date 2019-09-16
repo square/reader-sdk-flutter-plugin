@@ -25,6 +25,7 @@ Method                                          | Return Object                 
 [canDeauthorize](#candeauthorize)               | bool                              | Verifies Reader SDK can be deauthorized.
 [deauthorize](#deauthorize)                     | void                              | Deauthorizes Reader SDK.
 [isAuthorized](#isauthorized)                   | bool                              | Verifies Reader SDK is currently authorized for payment collection.
+[isAuthorizationInProgress](#isauthorizationinprogress) | bool                      | Verifies Reader SDK authorization is in progress.
 [startCheckout](#startcheckout)                 | [CheckoutResult](#checkoutresult) | Begins the checkout workflow.
 [startReaderSettings](#startreadersettings)     | void                              | Starts the Reader settings flow for connecting Square Reader
 [startStoreCard](#startstorecard)               | [Card](#card)                     | Starts the checkout flow for saving a card on file
@@ -179,6 +180,31 @@ if (await ReaderSdk.isAuthorized) {
 
 } else {
   print('Unable to take payments', 'Reader SDK is not authorized.');
+}
+```
+
+
+---
+
+### isAuthorizationInProgress
+
+Used to determine if Reader SDK authorization is in progress.
+
+* **On success**: returns `true` if a Reader SDK authorization is in progress, `false` otherwise.
+* **On failure**: throws [`usageError`](#e1).
+
+
+#### Example usage
+
+```dart
+import 'package:square_reader_sdk/reader_sdk.dart';
+
+if (await ReaderSdk.isAuthorizationInProgress) {
+
+  // Reader SDK authorization is in progress
+
+} else {
+  print('Reader SDK authorization is not in progress.');
 }
 ```
 

@@ -21,6 +21,7 @@ limitations under the License.
 @interface FlutterReaderSDKAuthorization : NSObject
 
 - (void)isAuthorized:(FlutterResult)result;
+- (void)isAuthorizationInProgress:(FlutterResult)result;
 - (void)authorizedLocation:(FlutterResult)result;
 - (void)authorize:(FlutterResult)result authCode:(NSString *)authCode;
 - (void)canDeauthorize:(FlutterResult)result;

@@ -1,5 +1,8 @@
 ## Changelog
 
+### v2.0.3 Sep 16, 2019
+* add support for isAuthorizationInProgress
+
 ### v2.0.2 Aug 25, 2019
 
 * Update Square Reader SDK minimum supported version to 1.3.1

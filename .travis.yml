@@ -37,7 +37,7 @@ matrix:
 
     - language: objective-c
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode11
       before_install:
         - cd example
         - git clone https://github.com/flutter/flutter.git -b stable --depth 1
@@ -46,7 +46,6 @@ matrix:
         - ./flutter/bin/flutter packages pub cache repair
         - ./flutter/bin/flutter packages get
         - cd ios && ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id $SQUARE_READER_SDK_APPLICATION_ID --repo-password $SQUARE_READER_SDK_REPOSITORY_PASSWORD > /dev/null
-        - pod update MTBBarcodeScanner # a workaround for flutter issue
       script:
         - cd ..
         - ls -la

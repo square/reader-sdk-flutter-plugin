@@ -47,6 +47,8 @@ public class SquareReaderSdkFlutterPlugin implements MethodCallHandler {
     String methodName = call.method;
     if (methodName.equals("isAuthorized")) {
       authorizeModule.isAuthorized(result);
+    } else if (methodName.equals("isAuthorizationInProgress")) {
+      authorizeModule.isAuthorizationInProgress(result);
     } else if (methodName.equals("authorizedLocation")) {
       authorizeModule.authorizedLocation(result);
     } else if (methodName.equals("authorize")) {

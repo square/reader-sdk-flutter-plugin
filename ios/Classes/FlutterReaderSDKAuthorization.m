@@ -39,6 +39,11 @@ static NSString *const FlutterReaderSDKMessageAuthLocationNotAuthorized = @"This
     result(@(SQRDReaderSDK.sharedSDK.isAuthorized));
 }
 
+- (void)isAuthorizationInProgress:(FlutterResult)result
+{
+    result(@(SQRDReaderSDK.sharedSDK.isAuthorizationInProgress));
+}
+
 - (void)authorizedLocation:(FlutterResult)result
 {
     if (SQRDReaderSDK.sharedSDK.isAuthorized) {
