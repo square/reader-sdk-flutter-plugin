@@ -1,5 +1,10 @@
 ## Changelog
 
+### v2.1.0 Oct 22, 2019
+
+* Update Square Reader SDK minimum supported version to 1.3.3 in order to support iOS 13
+* Now requires Xcode 10.2+
+
 ### v2.0.3 Sep 16, 2019
 * add support for isAuthorizationInProgress
 
@@ -14,7 +19,7 @@
 
 ### v2.0.0 Mar 29, 2019
 
-* Support AnroidX.
+* Support AndroidX.
 * Upgrade to Square Reader SDK 1.2.1 (Android Only)
 
 ### v1.1.1 Mar 13, 2019
