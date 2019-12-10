@@ -30,11 +30,12 @@ class SQButtonContainer extends StatelessWidget {
     // last button has additional padding
     final lastButton = buttons.removeLast();
 
-    final buttonContainers = buttons.map((button) => Container(
-      margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 32.0),
-      width: double.infinity,
-      child: button)
-    ).toList();
+    final buttonContainers = buttons
+        .map((button) => Container(
+            margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 32.0),
+            width: double.infinity,
+            child: button))
+        .toList();
 
     buttonContainers.add(Container(
         margin:
@@ -47,8 +48,7 @@ class SQButtonContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-    Column(children: _buildButtonContainers());
-  
+      Column(children: _buildButtonContainers());
 }
 
 /// A button that is styled with a white outline
@@ -61,20 +61,20 @@ class SQOutlineButton extends StatelessWidget {
 
   /// the text displayed in the button
   final String text;
+
   /// a callback that is fired when the button is pressed
   final void Function() onPressed;
 
   @override
-  Widget build(BuildContext context) =>
-    OutlineButton(
-      child: Text(text),
-      textColor: Colors.white,
-      highlightColor: Color.fromRGBO(57, 114, 178, 1.0),
-      borderSide:
-          BorderSide(color: Colors.white, style: BorderStyle.solid, width: 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      onPressed: onPressed,
-    );
+  Widget build(BuildContext context) => OutlineButton(
+        child: Text(text),
+        textColor: Colors.white,
+        highlightColor: Color.fromRGBO(57, 114, 178, 1.0),
+        borderSide: BorderSide(
+            color: Colors.white, style: BorderStyle.solid, width: 1.0),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        onPressed: onPressed,
+      );
 }
 
 /// A button with a blue background
@@ -87,16 +87,16 @@ class SQRaisedButton extends StatelessWidget {
 
   /// the text displayed in the button
   final String text;
+
   /// a callback that is fired when the button is pressed
   final void Function() onPressed;
 
   @override
-  Widget build(BuildContext context) =>
-    RaisedButton(
-      child: Text(text),
-      textColor: Colors.white,
-      color: Color.fromRGBO(57, 114, 178, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      onPressed: onPressed,
-    );
+  Widget build(BuildContext context) => RaisedButton(
+        child: Text(text),
+        textColor: Colors.white,
+        color: Color.fromRGBO(57, 114, 178, 1.0),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        onPressed: onPressed,
+      );
 }

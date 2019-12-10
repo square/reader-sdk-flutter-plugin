@@ -87,8 +87,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     builder.allowSplitTender = false;
     builder.delayCapture = false;
     builder.note = 'Hello 💳 💰 World!';
-    builder.additionalPaymentTypes =
-        ListBuilder([AdditionalPaymentType.cash, AdditionalPaymentType.manualCardEntry, AdditionalPaymentType.other]);
+    builder.additionalPaymentTypes = ListBuilder([
+      AdditionalPaymentType.cash,
+      AdditionalPaymentType.manualCardEntry,
+      AdditionalPaymentType.other
+    ]);
     builder.tipSettings = TipSettingsBuilder()
       ..showCustomTipField = true
       ..showSeparateTipScreen = false
@@ -125,7 +128,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     try {
       await ReaderSdk.startReaderSettings();
     } on ReaderSdkException catch (e) {
-      switch(e.code) {
+      switch (e.code) {
         case ErrorCode.readerSettingsErrorSdkNotAuthorized:
           // Handle sdk not authorized
           Navigator.pushReplacementNamed(context, '/');
@@ -169,10 +172,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     showCupertinoModalPopup(
       context: context,
       builder: (var context) => _SettingsModalPopup(
-            locationName: location.name,
-            onReaderSDKSettings: onReaderSDKSettings,
-            onDeauthorize: onDeauthorize,
-          ),
+        locationName: location.name,
+        onReaderSDKSettings: onReaderSDKSettings,
+        onDeauthorize: onDeauthorize,
+      ),
     );
   }
 

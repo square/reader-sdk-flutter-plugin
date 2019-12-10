@@ -200,7 +200,9 @@ class _ButtonContainerState extends State<_ButtonContainer> {
 
 Future<List<PermissionStatus>> get _permissionsStatus async {
   var permissionHandler = PermissionHandler();
-  var locationPermission = await permissionHandler.checkPermissionStatus(PermissionGroup.locationWhenInUse);
-  var microphonePermission = await permissionHandler.checkPermissionStatus(PermissionGroup.microphone);
+  var locationPermission = await permissionHandler
+      .checkPermissionStatus(PermissionGroup.locationWhenInUse);
+  var microphonePermission =
+      await permissionHandler.checkPermissionStatus(PermissionGroup.microphone);
   return [locationPermission, microphonePermission];
 }

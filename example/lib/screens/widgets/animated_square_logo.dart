@@ -48,13 +48,15 @@ class AnimatedSquareLogo extends StatefulWidget {
   AnimatedSquareLogo({
     this.onLogoAnimated,
   });
+
   /// callback that fires after the logo animation is finished
   final VoidCallback onLogoAnimated;
 
   _LogoState createState() => _LogoState();
 }
 
-class _LogoState extends State<AnimatedSquareLogo> with SingleTickerProviderStateMixin {
+class _LogoState extends State<AnimatedSquareLogo>
+    with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> animation;
 
