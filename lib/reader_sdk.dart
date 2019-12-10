@@ -39,7 +39,8 @@ class ReaderSdk {
 
   static Future<bool> get isAuthorizationInProgress async {
     try {
-      bool isAuthorizationInProgress = await _channel.invokeMethod('isAuthorizationInProgress');
+      bool isAuthorizationInProgress =
+          await _channel.invokeMethod('isAuthorizationInProgress');
       return isAuthorizationInProgress;
     } on PlatformException catch (ex) {
       throw ReaderSdkException(ex.code, ex.message, ex.details['debugCode'],
@@ -125,8 +126,7 @@ class ReaderSdk {
     };
     try {
       Map cardObject = await _channel.invokeMethod('startStoreCard', params);
-      return _standardSerializers.deserializeWith(
-          Card.serializer, cardObject);
+      return _standardSerializers.deserializeWith(Card.serializer, cardObject);
     } on PlatformException catch (ex) {
       throw ReaderSdkException(ex.code, ex.message, ex.details['debugCode'],
           ex.details['debugMessage']);

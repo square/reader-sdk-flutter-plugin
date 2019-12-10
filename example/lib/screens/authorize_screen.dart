@@ -56,7 +56,7 @@ class _AuthorizeScreenState extends State<AuthorizeScreen> {
       await ReaderSdk.authorize(authCode);
       Navigator.pushNamed(context, '/checkout');
     } on ReaderSdkException catch (e) {
-      switch(e.code) {
+      switch (e.code) {
         case ErrorCode.authorizeErrorNoNetwork:
           displayErrorModal(context, 'Please connect your device to network.');
           break;
@@ -141,7 +141,7 @@ class _Buttons extends StatelessWidget {
   _Buttons({
     this.scanQRCode,
     this.manuallyEnterCode,
-    });
+  });
 
   @override
   Widget build(BuildContext context) => Container(
