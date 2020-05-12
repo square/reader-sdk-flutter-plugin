@@ -68,7 +68,7 @@ In addition to this README, the following is available in the
   configured in Reader SDK. Tipping on printed receipts is not supported at this
   time.
 * Reader SDK cannot issue refunds. Refunds can be issued programmatically using
-  the Transactions API or manually in the [Square Dashboard].
+  the Refunds API or manually in the [Square Dashboard].
 * Reader SDK is not supported in the Square sandbox. See [Testing Mobile Apps]
   for testing recommendations.
 * Your version of Reader SDK must adhere to the Square SDK update policy. To
@@ -97,12 +97,12 @@ limitations under the License.
 
 
 [//]: # "Link anchor definitions"
-[Mobile Authorization API]: https://docs.connect.squareup.com/payments/readersdk/mobile-authz-guide
-[Reader SDK]: https://docs.connect.squareup.com/payments/readersdk/overview
+[Mobile Authorization API]: https://developer.squareup.com/docs/mobile-authz/build-with-mobile-authz
+[Reader SDK]: https://developer.squareup.com/docs/reader-sdk/what-it-does
 [Square Dashboard]: https://squareup.com/dashboard/
 [Square]: https://squareup.com
-[update policy for Reader SDK]: https://docs.connect.squareup.com/payments/readersdk/updatepolicy
-[Testing Mobile Apps]: https://docs.connect.squareup.com/testing/mobile
+[update policy for Reader SDK]: https://developer.squareup.com/docs/reader-sdk/what-it-does#reader-sdk-update-policy
+[Testing Mobile Apps]: https://developer.squareup.com/docs/testing/mobile
 [`doc`]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/doc
 [`example`]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/example
 [Getting Started]: https://github.com/square/reader-sdk-flutter-plugin/tree/master/doc/get-started.md
