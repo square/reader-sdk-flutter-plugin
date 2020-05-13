@@ -13,6 +13,14 @@ allprojects {
     repositories {
         google()
         jcenter()
+
+        maven {
+            url "https://sdk.squareup.com/android"
+            credentials {
+                username SQUARE_READER_SDK_APPLICATION_ID
+                password SQUARE_READER_SDK_REPOSITORY_PASSWORD
+            }
+        }
     }
 }
 
