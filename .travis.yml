@@ -8,10 +8,6 @@ matrix:
           - $HOME/.pub-cache
       os:
         - linux
-      licenses:
-        - 'android-sdk-preview-license-.+'
-        - 'android-sdk-license-.+'
-        - 'google-gdk-license-.+'
       android:
         components:
           - tools
