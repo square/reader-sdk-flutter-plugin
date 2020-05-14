@@ -31,6 +31,9 @@ matrix:
         - openssl aes-256-cbc -K $encrypted_cd445d9edb5b_key -iv $encrypted_cd445d9edb5b_iv -in android/gradle.properties.enc -out android/gradle.properties -d
         - pwd
         - ls android
+        - ls ../android
+        - openssl aes-256-cbc -K $encrypted_cd445d9edb5b_key -iv $encrypted_cd445d9edb5b_iv -in android/gradle.properties.enc -out ../android/gradle.properties -d
+        - ls ../android
         - echo $GRADLE_HOME
         - echo $GRADLE_HOME
       script:
