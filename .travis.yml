@@ -8,14 +8,6 @@ matrix:
           - $HOME/.pub-cache
       os:
         - linux
-      android:
-        components:
-          - tools
-          - platform-tools
-          - tools
-          - build-tools-28.0.3
-          - android-28
-          - extra-google-google_play_services
       addons:
         apt:
           # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
@@ -30,6 +22,8 @@ matrix:
         - echo yes | sdkmanager "platform-tools" >/dev/null
         - echo yes | sdkmanager "build-tools;28.0.3" >/dev/null
         - echo yes | sdkmanager "platforms;android-28" >/dev/null
+        - echo y | sdkmanager "extras;android;m2repository" >/dev/null
+        - echo y | sdkmanager "extras;google;m2repository" >/dev/null
         - sdkmanager --list
       install:
         - git clone https://github.com/flutter/flutter.git -b stable --depth 1
@@ -39,6 +33,8 @@ matrix:
         - openssl aes-256-cbc -K $encrypted_cd445d9edb5b_key -iv $encrypted_cd445d9edb5b_iv -in android/gradle.properties.enc -out android/gradle.properties -d
         - pwd
         - ls android
+        - echo $GRADLE_HOME
+        - export GRADLE_HOME=/home/travis/build/square/reader-sdk-flutter-plugin/example/android
         - echo $GRADLE_HOME
       script:
         - ./flutter/bin/flutter -v build apk
