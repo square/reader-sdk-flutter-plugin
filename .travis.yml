@@ -35,7 +35,6 @@ matrix:
         - pwd
         - ls android
         - echo $GRADLE_HOME
-        - export GRADLE_HOME=/home/travis/build/square/reader-sdk-flutter-plugin/example/android
         - echo $GRADLE_HOME
       script:
         - ./flutter/bin/flutter -v build apk
