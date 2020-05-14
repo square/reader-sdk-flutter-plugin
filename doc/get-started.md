@@ -156,7 +156,7 @@ To use the Flutter plugin on iOS devices, you need to configure Xcode so it can
 download the Reader SDK package properly and make it available to the Flutter
 library as a resource. The key installation steps are outlined below. For more
 information on installing Reader SDK for iOS, see the
-[Reader SDK iOS Setup Guide] at [docs.connect.squareup.com].
+[Reader SDK iOS Setup Guide].
 
 **TIP**: You can find the minimum supported Reader SDK version for iOS in the
 [root README] for this repo.
@@ -350,7 +350,7 @@ generate mobile authorization tokens for production use.
 You can save cards on file with the Reader SDK Flutter plugin to create a
 seamless purchase experience for returning customers and enable recurring
 payments with Square APIs. It is important to note that while Reader SDK can
-save card information, you must work with the Connect Transactions API to
+save card information, you must work with the Connect Payments API to
 [charge a card on file].
 
 The Reader SDK card on file workflow creates a customer card for an **existing**
@@ -460,18 +460,17 @@ if (await canDeauthorize) {
 
 
 [//]: # "Link anchor definitions"
-[docs.connect.squareup.com]: https://docs.connect.squareup.com
-[Mobile Authorization API]: https://docs.connect.squareup.com/payments/readersdk/mobile-authz-guide
-[Reader SDK]: https://docs.connect.squareup.com/payments/readersdk/overview
+[Mobile Authorization API]: https://developer.squareup.com/docs/mobile-authz/build-with-mobile-authz
+[Reader SDK]: https://developer.squareup.com/docs/reader-sdk/what-it-does
 [Square Dashboard]: https://squareup.com/dashboard/
-[update policy for Reader SDK]: https://docs.connect.squareup.com/payments/readersdk/overview#readersdkupdatepolicy
-[Testing Mobile Apps]: https://docs.connect.squareup.com/testing/mobile
+[update policy for Reader SDK]: https://developer.squareup.com/docs/reader-sdk/what-it-does#reader-sdk-update-policy
+[Testing Mobile Apps]: https://developer.squareup.com/docs/testing/mobile
 [squareup.com/activate]: https://squareup.com/activate
 [Square Application Dashboard]: https://connect.squareup.com/apps/
-[Reader SDK Android Setup Guide]: https://docs.connect.squareup.com/payments/readersdk/setup-android
-[Reader SDK iOS Setup Guide]: https://docs.connect.squareup.com/payments/readersdk/setup-ios
+[Reader SDK Android Setup Guide]: https://developer.squareup.com/docs/reader-sdk/build-on-android
+[Reader SDK iOS Setup Guide]: https://developer.squareup.com/docs/reader-sdk/build-on-ios
 [root README]: ../README.md
 [Flutter Getting Started]: https://flutter.io/docs/get-started/install
 [Test Drive]: https://flutter.io/docs/get-started/test-drive
-[Customer profile]: https://docs.connect.squareup.com/more-apis/customers/setup
-[charge a card on file]: https://docs.connect.squareup.com/payments/transactions/cookbook/charge-cards-on-file
+[Customer profile]: https://developer.squareup.com/docs/customers-api/build-with-customers
+[charge a card on file]: https://developer.squareup.com/docs/payments-api/take-payments#take-a-payment-using-a-card-on-file
