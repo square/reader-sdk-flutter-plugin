@@ -15,15 +15,8 @@ limitations under the License.
 */
 package com.example.flutter.squareup.sdk.reader;
 
-import android.os.Bundle;
-import com.squareup.sdk.reader.ReaderSdk;
-import io.flutter.app.FlutterActivity;
-import io.flutter.plugins.GeneratedPluginRegistrant;
+import io.flutter.embedding.android.FlutterActivity;
 
 public class MainActivity extends FlutterActivity {
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    GeneratedPluginRegistrant.registerWith(this);
-  }
 }
+

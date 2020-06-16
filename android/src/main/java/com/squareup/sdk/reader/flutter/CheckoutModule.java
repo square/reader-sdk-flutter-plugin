@@ -16,6 +16,8 @@ limitations under the License.
 package com.squareup.sdk.reader.flutter;
 
 import android.app.Activity;
+import android.content.Context;
+
 import com.squareup.sdk.reader.ReaderSdk;
 import com.squareup.sdk.reader.checkout.AdditionalPaymentType;
 import com.squareup.sdk.reader.checkout.CheckoutActivityCallback;
@@ -48,13 +50,13 @@ final class CheckoutModule {
   private static final String FL_MESSAGE_CHECKOUT_ALREADY_IN_PROGRESS = "A checkout operation is already in progress. Ensure that the in-progress checkout is completed before calling startCheckoutAsync again.";
   private static final String FL_MESSAGE_CHECKOUT_INVALID_PARAMETER = "Invalid parameter found in checkout parameters.";
 
-  private final Activity currentActivity;
+  private Context currentContext;
   private final CheckoutResultConverter checkoutResultConverter;
   private volatile CallbackReference checkoutCallbackRef;
 
 
-  public CheckoutModule(Activity activity) {
-    currentActivity = activity;
+  public CheckoutModule(Context context) {
+    currentContext = context;
     checkoutResultConverter = new CheckoutResultConverter();
   }
 
@@ -125,7 +127,11 @@ final class CheckoutModule {
     }
 
     final CheckoutParameters checkoutParams = checkoutParamsBuilder.build();
-    ReaderSdk.checkoutManager().startCheckoutActivity(currentActivity, checkoutParams);
+    ReaderSdk.checkoutManager().startCheckoutActivity(currentContext, checkoutParams);
+  }
+
+  public void setContext(Context context) {
+    this.currentContext = context;
   }
 
   static private boolean validateCheckoutParams(HashMap<String, Object> checkoutParamsMap, StringBuilder paramError) {
