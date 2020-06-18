@@ -35,6 +35,7 @@ public class SquareReaderSdkFlutterPlugin implements MethodCallHandler, FlutterP
   public static void registerWith(Registrar registrar) {
     SquareReaderSdkFlutterPlugin instance = new SquareReaderSdkFlutterPlugin(registrar.activity());
     instance.onAttachedToEngine(registrar.activity(), registrar.messenger());
+    methodChannel.setMethodCallHandler(instance);
   }
 
   private MethodChannel methodChannel;
@@ -98,12 +99,12 @@ public class SquareReaderSdkFlutterPlugin implements MethodCallHandler, FlutterP
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
     onAttachedToEngine(flutterPluginBinding.getApplicationContext(), flutterPluginBinding.getBinaryMessenger());
+    methodChannel.setMethodCallHandler(this);
   }
 
   private void onAttachedToEngine(Context context, BinaryMessenger messenger) {
     methodChannel = new MethodChannel(messenger, "square_reader_sdk");
     init(context);
-    methodChannel.setMethodCallHandler(this);
   }
 
 
