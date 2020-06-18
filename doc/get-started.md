@@ -121,22 +121,19 @@ create it**. Add code to extend the Flutter Application class
     ```java
     package com.example.flutter.squareup.sdk.reader;
 
-    import com.squareup.sdk.reader.ReaderSdk;
+    import com.squareup.sdk.reader.ReaderSdk;   
     import io.flutter.app.FlutterApplication;
-    import io.flutter.plugin.common.PluginRegistry;
-    import io.flutter.plugins.GeneratedPluginRegistrant;
-
-    public class MainApplication extends FlutterApplication implements PluginRegistry.PluginRegistrantCallback {
-      @Override
-      public void onCreate() {
-        super.onCreate();
-        ReaderSdk.initialize(this);
-      }
-
-      @Override
-      public void registerWith(PluginRegistry registry) {
-        GeneratedPluginRegistrant.registerWith(registry);
-      }
+    import io.flutter.view.FlutterMain;
+   
+   
+   public class MainApplication extends FlutterApplication {
+   
+     @Override
+     public void onCreate() {
+       super.onCreate();
+       ReaderSdk.initialize(this);
+       FlutterMain.startInitialization(this);
+     }   
     }
     ```
 
@@ -148,7 +145,23 @@ create it**. Add code to extend the Flutter Application class
         ... />
       </application>
     ```
-
+1. If you are using any minor version of Flutter 1.12 you may need to add this method to your `MainActivity`.
+ However, if you are using Flutter version 1.16+ you will not need the additional method below.   
+    ```java
+     import androidx.annotation.NonNull;
+     
+     import io.flutter.embedding.android.FlutterActivity;
+     import io.flutter.embedding.engine.FlutterEngine;
+     import io.flutter.plugins.GeneratedPluginRegistrant;
+     
+     public class MainActivity extends FlutterActivity {
+     
+         @Override
+         public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
+             GeneratedPluginRegistrant.registerWith(flutterEngine);
+         }
+     }
+    ``` 
 
 ## Step 5: Configure Xcode for Reader SDK (iOS)
 
