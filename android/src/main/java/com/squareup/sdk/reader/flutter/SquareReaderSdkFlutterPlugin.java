@@ -32,17 +32,18 @@ import java.util.HashMap;
 
 public class SquareReaderSdkFlutterPlugin implements MethodCallHandler, FlutterPlugin, ActivityAware {
 
-  public static void registerWith(Registrar registrar) {
-    SquareReaderSdkFlutterPlugin instance = new SquareReaderSdkFlutterPlugin(registrar.activity());
-    instance.onAttachedToEngine(registrar.activity(), registrar.messenger());
-    methodChannel.setMethodCallHandler(instance);
-  }
-
   private static MethodChannel methodChannel;
   private AuthorizeModule authorizeModule;
   private CheckoutModule checkoutModule;
   private ReaderSettingsModule readerSettingsModule;
   private StoreCustomerCardModule storeCustomerCardModule;
+
+  public static void registerWith(Registrar registrar) {
+    SquareReaderSdkFlutterPlugin instance = new SquareReaderSdkFlutterPlugin(registrar.activity());
+    instance.onAttachedToEngine(registrar.activity(), registrar.messenger());
+    methodChannel.setMethodCallHandler(instance);
+
+  }
 
   private SquareReaderSdkFlutterPlugin(Context context) {
     init(context);

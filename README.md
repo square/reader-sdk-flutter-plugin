@@ -37,6 +37,10 @@ In addition to this README, the following is available in the
 
 ## Build requirements
 
+### Flutter
+
+A version of Flutter greater than 1.12 is required for v2 embedding support. Any application that uses v1 embeddings for android will still be backwards compatible and supported.
+  
 ### Android
 
 * minSdkVersion is API 21 (Lollipop 5.0) or higher.

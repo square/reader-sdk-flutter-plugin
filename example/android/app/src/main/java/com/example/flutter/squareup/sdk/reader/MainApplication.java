@@ -21,25 +21,17 @@ import androidx.annotation.CallSuper;
 
 import com.squareup.sdk.reader.ReaderSdk;
 import io.flutter.app.FlutterApplication;
+
 import io.flutter.view.FlutterMain;
+
 
 public class MainApplication extends FlutterApplication {
 
   @Override
-  @CallSuper
   public void onCreate() {
     super.onCreate();
     ReaderSdk.initialize(this);
     FlutterMain.startInitialization(this);
   }
 
-  private Activity mCurrentActivity = null;
-
-  public Activity getCurrentActivity() {
-    return mCurrentActivity;
-  }
-
-  public void setCurrentActivity(Activity mCurrentActivity) {
-    this.mCurrentActivity = mCurrentActivity;
-  }
 }
