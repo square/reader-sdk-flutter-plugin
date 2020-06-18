@@ -15,20 +15,23 @@ limitations under the License.
 */
 package com.example.flutter.squareup.sdk.reader;
 
+import android.app.Activity;
+
+import androidx.annotation.CallSuper;
+
 import com.squareup.sdk.reader.ReaderSdk;
 import io.flutter.app.FlutterApplication;
-import io.flutter.plugin.common.PluginRegistry;
-import io.flutter.plugins.GeneratedPluginRegistrant;
 
-public class MainApplication extends FlutterApplication implements PluginRegistry.PluginRegistrantCallback {
+import io.flutter.view.FlutterMain;
+
+
+public class MainApplication extends FlutterApplication {
+
   @Override
   public void onCreate() {
     super.onCreate();
     ReaderSdk.initialize(this);
+    FlutterMain.startInitialization(this);
   }
 
-  @Override
-  public void registerWith(PluginRegistry registry) {
-    GeneratedPluginRegistrant.registerWith(registry);
-  }
 }

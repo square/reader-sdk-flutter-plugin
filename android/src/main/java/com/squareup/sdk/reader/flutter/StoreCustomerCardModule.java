@@ -16,6 +16,8 @@ limitations under the License.
 package com.squareup.sdk.reader.flutter;
 
 import android.app.Activity;
+import android.content.Context;
+
 import com.squareup.sdk.reader.ReaderSdk;
 import com.squareup.sdk.reader.checkout.Card;
 import com.squareup.sdk.reader.core.CallbackReference;
@@ -37,13 +39,13 @@ final class StoreCustomerCardModule {
   // flutter plugin debug messages
   private static final String FL_MESSAGE_STORE_CUSTOMER_CARD_ALREADY_IN_PROGRESS = "A store customer card operation is already in progress. Ensure that the in-progress store customer card is completed before calling startStoreCardAsync again.";
 
-  private final Activity currentActivity;
+  private Context currentContext;
   private final CardConverter cardConverter;
   private volatile CallbackReference storeCustomerCardCallbackRef;
 
 
-  public StoreCustomerCardModule(Activity activity) {
-    currentActivity = activity;
+  public StoreCustomerCardModule(Context context) {
+    currentContext = context;
     cardConverter = new CardConverter();
   }
 
@@ -76,6 +78,10 @@ final class StoreCustomerCardModule {
     };
 
     storeCustomerCardCallbackRef = ReaderSdk.customerCardManager().addStoreCardActivityCallback(storeCardActivityCallback);
-    ReaderSdk.customerCardManager().startStoreCardActivity(currentActivity, customerId);
+    ReaderSdk.customerCardManager().startStoreCardActivity(currentContext, customerId);
+  }
+
+  public void setContext(Context context) {
+    this.currentContext = context;
   }
 }

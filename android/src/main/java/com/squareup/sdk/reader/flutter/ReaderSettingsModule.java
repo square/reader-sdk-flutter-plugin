@@ -16,6 +16,8 @@ limitations under the License.
 package com.squareup.sdk.reader.flutter;
 
 import android.app.Activity;
+import android.content.Context;
+
 import com.squareup.sdk.reader.ReaderSdk;
 import com.squareup.sdk.reader.core.CallbackReference;
 import com.squareup.sdk.reader.core.ResultError;
@@ -36,10 +38,10 @@ final class ReaderSettingsModule {
   private static final String FL_MESSAGE_READER_SETTINGS_ALREADY_IN_PROGRESS = "A reader settings operation is already in progress. Ensure that the in-progress reader settings is completed before calling startReaderSettingsAsync again.";
 
   private volatile CallbackReference readerSettingCallbackRef;
-  private final Activity currentActivity;
+  private Context currentContext;
 
-  public ReaderSettingsModule(Activity activity) {
-    currentActivity = activity;
+  public ReaderSettingsModule(Context context) {
+    currentContext = context;
   }
 
   public void startReaderSettings(final Result flutterResult) {
@@ -69,6 +71,10 @@ final class ReaderSettingsModule {
     readerSettingCallbackRef = ReaderSdk.readerManager()
         .addReaderSettingsActivityCallback(readerSettingsCallback);
 
-    ReaderSdk.readerManager().startReaderSettingsActivity(currentActivity);
+    ReaderSdk.readerManager().startReaderSettingsActivity(currentContext);
+  }
+
+  public void setContext(Context context) {
+    this.currentContext = context;
   }
 }
