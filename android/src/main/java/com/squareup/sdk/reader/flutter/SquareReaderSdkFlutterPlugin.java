@@ -38,7 +38,7 @@ public class SquareReaderSdkFlutterPlugin implements MethodCallHandler, FlutterP
     methodChannel.setMethodCallHandler(instance);
   }
 
-  private MethodChannel methodChannel;
+  private static MethodChannel methodChannel;
   private AuthorizeModule authorizeModule;
   private CheckoutModule checkoutModule;
   private ReaderSettingsModule readerSettingsModule;
