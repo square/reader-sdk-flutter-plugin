@@ -1,5 +1,9 @@
 ## Changelog
 
+### v2.2.0 June 24, 2020
+
+* Added support for v2 flutter embeddings (flutter 1.12+).
+
 ### v2.1.0 Oct 22, 2019
 
 * Update Square Reader SDK minimum supported version to 1.3.3 in order to support iOS 13
