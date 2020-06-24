@@ -5,7 +5,7 @@ author: Square Flutter Team <flutter-team@squareup.com>
 homepage: https://github.com/square/reader-sdk-flutter-plugin
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: ">=2.0.0 <3.0.0"
 
 dependencies:
   flutter:
