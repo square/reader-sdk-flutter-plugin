@@ -119,7 +119,7 @@ create it**. Add code to extend the Flutter Application class
 (`FlutterApplication`) that imports and initializes Reader SDK:
 
     ```java
-    package com.example.flutter.squareup.sdk.reader;
+    package <YOUR_PACKAGE_NAME>;
 
     import com.squareup.sdk.reader.ReaderSdk;   
     import io.flutter.app.FlutterApplication;
