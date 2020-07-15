@@ -429,7 +429,7 @@ class _$CheckoutResultSerializer
           result.tenders.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(Tender)]))
-              as BuiltList<dynamic>);
+              as BuiltList<Object>);
           break;
       }
     }
@@ -593,14 +593,14 @@ class _$CashDetailsSerializer implements StructuredSerializer<CashDetails> {
 }
 
 class _$EntryMethodSerializer implements PrimitiveSerializer<EntryMethod> {
-  static const Map<String, String> _toWire = const <String, String>{
+  static const Map<String, Object> _toWire = const <String, Object>{
     'chip': 'CHIP',
     'contactless': 'CONTACTLESS',
     'manuallyEntered': 'MANUALLY_ENTERED',
     'swipe': 'SWIPE',
     'unknown': 'UNKNOWN',
   };
-  static const Map<String, String> _fromWire = const <String, String>{
+  static const Map<Object, String> _fromWire = const <Object, String>{
     'CHIP': 'chip',
     'CONTACTLESS': 'contactless',
     'MANUALLY_ENTERED': 'manuallyEntered',
@@ -671,7 +671,7 @@ class _$CardDetailsSerializer implements StructuredSerializer<CardDetails> {
 }
 
 class _$BrandSerializer implements PrimitiveSerializer<Brand> {
-  static const Map<String, String> _toWire = const <String, String>{
+  static const Map<String, Object> _toWire = const <String, Object>{
     'otherBrand': 'OTHER_BRAND',
     'visa': 'VISA',
     'mastercard': 'MASTERCARD',
@@ -684,7 +684,7 @@ class _$BrandSerializer implements PrimitiveSerializer<Brand> {
     'squareGiftCard': 'SQUARE_GIFT_CARD',
     'eftpos': 'EFTPOS',
   };
-  static const Map<String, String> _fromWire = const <String, String>{
+  static const Map<Object, String> _fromWire = const <Object, String>{
     'OTHER_BRAND': 'otherBrand',
     'VISA': 'visa',
     'MASTERCARD': 'mastercard',
@@ -801,12 +801,12 @@ class _$CardSerializer implements StructuredSerializer<Card> {
 
 class _$AdditionalPaymentTypeSerializer
     implements PrimitiveSerializer<AdditionalPaymentType> {
-  static const Map<String, String> _toWire = const <String, String>{
+  static const Map<String, Object> _toWire = const <String, Object>{
     'manualCardEntry': 'manual_card_entry',
     'cash': 'cash',
     'other': 'other',
   };
-  static const Map<String, String> _fromWire = const <String, String>{
+  static const Map<Object, String> _fromWire = const <Object, String>{
     'manual_card_entry': 'manualCardEntry',
     'cash': 'cash',
     'other': 'other',
@@ -930,7 +930,7 @@ class _$CheckoutParametersSerializer
           result.additionalPaymentTypes.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(AdditionalPaymentType)]))
-              as BuiltList<dynamic>);
+              as BuiltList<Object>);
           break;
         case 'tipSettings':
           result.tipSettings.replace(serializers.deserialize(value,
@@ -998,7 +998,7 @@ class _$TipSettingsSerializer implements StructuredSerializer<TipSettings> {
           result.tipPercentages.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(int)]))
-              as BuiltList<dynamic>);
+              as BuiltList<Object>);
           break;
       }
     }
@@ -1008,7 +1008,7 @@ class _$TipSettingsSerializer implements StructuredSerializer<TipSettings> {
 }
 
 class _$ErrorCodeSerializer implements PrimitiveSerializer<ErrorCode> {
-  static const Map<String, String> _toWire = const <String, String>{
+  static const Map<String, Object> _toWire = const <String, Object>{
     'usageError': 'USAGE_ERROR',
     'authorizeErrorNoNetwork': 'AUTHORIZE_NO_NETWORK',
     'checkoutErrorCanceled': 'CHECKOUT_CANCELED',
@@ -1021,7 +1021,7 @@ class _$ErrorCodeSerializer implements PrimitiveSerializer<ErrorCode> {
         'STORE_CUSTOMER_CARD_SDK_NOT_AUTHORIZED',
     'storeCustomerErrorNoNetwork': 'STORE_CUSTOMER_CARD_NO_NETWORK',
   };
-  static const Map<String, String> _fromWire = const <String, String>{
+  static const Map<Object, String> _fromWire = const <Object, String>{
     'USAGE_ERROR': 'usageError',
     'AUTHORIZE_NO_NETWORK': 'authorizeErrorNoNetwork',
     'CHECKOUT_CANCELED': 'checkoutErrorCanceled',
