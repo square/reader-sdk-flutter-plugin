@@ -1,49 +1,60 @@
 matrix:
   include:
-    - language: android
-      sudo: false
-      jdk: oraclejdk8
-      os:
-        - linux
-      addons:
-        apt:
-          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
-          sources:
-            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
-          packages:
-            - libstdc++6
-            - fonts-droid
-      before_install:
-        - cd example
-        - echo yes | sdkmanager "tools" >/dev/null
-        - echo yes | sdkmanager "platform-tools" >/dev/null
-        - echo yes | sdkmanager "build-tools;28.0.3" >/dev/null
-        - echo yes | sdkmanager "platforms;android-26" >/dev/null
-        - echo yes | sdkmanager "platforms;android-28" >/dev/null
-        - echo y | sdkmanager "extras;android;m2repository" >/dev/null
-        - echo y | sdkmanager "extras;google;m2repository" >/dev/null
-        - sdkmanager --list
-      install:
-        - git clone https://github.com/flutter/flutter.git -b stable --depth 1
-        - ./flutter/bin/flutter doctor -v
-      before_script:
-        # the file is encrypted by following https://docs.travis-ci.com/user/encrypting-files/
-        - openssl aes-256-cbc -K $encrypted_cd445d9edb5b_key -iv $encrypted_cd445d9edb5b_iv -in android/gradle.properties.enc -out android/gradle.properties -d
-      script:
-        - ./flutter/bin/flutter -v build apk
-
-    - language: objective-c
-      os: osx
-      osx_image: xcode11.1
-      before_install:
-        - cd example
-        - git clone https://github.com/flutter/flutter.git -b stable --depth 1
-        - ./flutter/bin/flutter doctor -v
-      before_script:
-        - ./flutter/bin/flutter packages pub cache repair
-        - ./flutter/bin/flutter packages get
-        - cd ios && ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id $SQUARE_READER_SDK_APPLICATION_ID --repo-password $SQUARE_READER_SDK_REPOSITORY_PASSWORD > /dev/null
-      script:
-        - cd ..
-        - ls -la
-        - ./flutter/bin/flutter -v build ios --no-codesign
+  - language: android
+    sudo: false
+    jdk: oraclejdk8
+    os:
+    - linux
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - libstdc++6
+        - fonts-droid
+    before_install:
+    - cd example
+    - echo yes | sdkmanager "tools" >/dev/null
+    - echo yes | sdkmanager "platform-tools" >/dev/null
+    - echo yes | sdkmanager "build-tools;28.0.3" >/dev/null
+    - echo yes | sdkmanager "platforms;android-26" >/dev/null
+    - echo yes | sdkmanager "platforms;android-28" >/dev/null
+    - echo y | sdkmanager "extras;android;m2repository" >/dev/null
+    - echo y | sdkmanager "extras;google;m2repository" >/dev/null
+    - sdkmanager --list
+    install:
+    - git clone https://github.com/flutter/flutter.git -b stable --depth 1
+    - "./flutter/bin/flutter doctor -v"
+    before_script:
+    - openssl aes-256-cbc -K $encrypted_cd445d9edb5b_key -iv $encrypted_cd445d9edb5b_iv
+      -in android/gradle.properties.enc -out android/gradle.properties -d
+    script:
+    - "./flutter/bin/flutter -v build apk"
+  - language: objective-c
+    os: osx
+    osx_image: xcode11.1
+    before_install:
+    - cd example
+    - git clone https://github.com/flutter/flutter.git -b stable --depth 1
+    - "./flutter/bin/flutter doctor -v"
+    before_script:
+    - "./flutter/bin/flutter packages pub cache repair"
+    - "./flutter/bin/flutter packages get"
+    - cd ios && ruby <(curl https://connect.squareup.com/readersdk-installer) install
+      --app-id $SQUARE_READER_SDK_APPLICATION_ID --repo-password $SQUARE_READER_SDK_REPOSITORY_PASSWORD
+      > /dev/null
+    script:
+    - cd ..
+    - ls -la
+    - "./flutter/bin/flutter -v build ios --no-codesign"
+notifications:
+  slack:
+    secure: lsfWQYZ4Tu+fkx6KZOf2RKaf8Q+4M7Pq52/xx6Z/5d7g/CloQExb1emoUQOXgVrPLCB750MQdeNLTOSQCqDjJk8SCf+w25IfepnyOPHHuJCw9bC3EtTF78/XDlRJ1KsJNIJ+ZF2eyi1krHHfEwgGD6vicn2hBd17r+LSBUp0D5UqEnyeWZJvyGTUNvyjb3B0OQdHoXdUKRyDgLUE7opUqKB0LyE1ex1WlB6f73ozEKlBbBggHAxh2r8nahxl0HYLaCdVxy3HxvvwzQ0+s68CtMmqka029YOelAIG/0H2MUa7F878eyPnqTfy/WhZ+2NyWBAzj8/3SYwvg9+ZXnCgkHAhZ7I/CvTbyAxsUE7WpgPZSv0BlnKZlNKqY1JcfxGCZ1E7zsXRpNLZX22ErX4TzLD07ijWFCKgITSw1K2vI34F9m8sW6h+vtMmmm2vA/6XTYmbdO4bApWq8o6e8fKGRh36187sfWZXdOvkl7QATseewIG88AYlLgtHVLTnlTXKCq7hhOshbm7VoQ5CFtSgYijTujdNnCkkYnCGX7EksR8gOW40jDhtpKGvPPDyO6Za9IRL453t0RBPIMjUOqKTVnx5b6sNg4ZY93NcugrrWgwdbKjGL11lwnVIxepPHyVHM6aECJonvrLedRjPu47gA/a1yGJK3DaKPvhu1xTpzU0=
+    on_success: change
+    template:
+        - "@oncall"
+        - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} in PR <%{pull_request_url}|#%{pull_request_number}> by %{author} %{result} in %{duration}"
+  email:
+    recipients:
+      - devs-apex-alerts+travis@squareup.com
+    on_success: change
