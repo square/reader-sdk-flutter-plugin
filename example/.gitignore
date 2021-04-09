@@ -15,7 +15,7 @@ android/app/.classpath
 android/app/.project
 android/app/.settings/org.eclipse.buildship.core.prefs
 android/app/bin/
+ios/flutter
 ios/SquareReaderSDK.xcframework
 ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
-ios/flutter
 .vscode
