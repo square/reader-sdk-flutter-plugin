@@ -92,7 +92,7 @@ Flutter library as a resource. The key installation steps are outlined below.
     android {
       defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         multiDexEnabled true
       }
       ...
@@ -177,7 +177,7 @@ information on installing Reader SDK for iOS, see the
 1. Change to the iOS folder (`ios`) at the root of your Flutter project.
 1. Modify your `Podfile` and uncomment the platform configuration line (`platform :ios, '<version>'`) if it is commented out.
    **NOTE**: you must target iOS `11.1` or higher (i.e.: `platform :ios, '11.1'`).
-1. Download and configure the latest version of `SquareReaderSDK.framework` in
+1. Download and configure the latest version of `SquareReaderSDK.xcframework` in
    your project root by replacing `YOUR_SQUARE_READER_APP_ID` and
    `YOUR_SQUARE_READER_REPOSITORY_PASSWORD` with your Reader SDK credentials.
    
@@ -190,7 +190,7 @@ information on installing Reader SDK for iOS, see the
 1. Add Reader SDK to your Xcode project:
    * Open `Runner.xcworkspace` in Xcode.
    * Open the **General** tab for your app target in Xcode.
-   * Drag the newly downloaded `SquareReaderSDK.framework` into the
+   * Drag the newly downloaded `SquareReaderSDK.xcframework` into the
      **Embedded Binaries** section and click "Finish" in the modal that appears.
 1. Add a Reader SDK build phase:
    * Open `Runner.xcworkspace` in Xcode.
