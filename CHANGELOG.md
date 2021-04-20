@@ -1,5 +1,10 @@
 ## Changelog
 
+### v2.3.0 April 20, 2021
+
+* Adding support for Reader SDK 1.4.4+ on both Android and iOS.
+* On iOS, in Reader SDK 1.4.7+, the plugin now correctly handles the `SquareReaderSDK.xcframework` being downloaded
+
 ### v2.2.0 June 24, 2020
 
 * Added support for v2 flutter embeddings (flutter 1.12+).
