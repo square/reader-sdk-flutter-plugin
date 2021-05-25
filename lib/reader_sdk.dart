@@ -50,10 +50,10 @@ class ReaderSdk {
 
   static Future<Location> get authorizedLocation async {
     try {
-      Map locationNativeObject =
+      var locationNativeObject =
           await _channel.invokeMethod('authorizedLocation');
       return _standardSerializers.deserializeWith(
-          Location.serializer, locationNativeObject);
+          Location.serializer, locationNativeObject)!;
     } on PlatformException catch (ex) {
       throw ReaderSdkException(ex.code, ex.message, ex.details['debugCode'],
           ex.details['debugMessage']);
@@ -65,10 +65,10 @@ class ReaderSdk {
       var params = <String, dynamic>{
         'authCode': authCode,
       };
-      Map locationNativeObject =
+      var locationNativeObject =
           await _channel.invokeMethod('authorize', params);
       return _standardSerializers.deserializeWith(
-          Location.serializer, locationNativeObject);
+          Location.serializer, locationNativeObject)!;
     } on PlatformException catch (ex) {
       throw ReaderSdkException(ex.code, ex.message, ex.details['debugCode'],
           ex.details['debugMessage']);
@@ -101,10 +101,10 @@ class ReaderSdk {
         'checkoutParams': _standardSerializers.serializeWith(
             CheckoutParameters.serializer, checkoutParams),
       };
-      Map checkoutResultNativeObject =
+      var checkoutResultNativeObject =
           await _channel.invokeMethod('startCheckout', params);
       return _standardSerializers.deserializeWith(
-          CheckoutResult.serializer, checkoutResultNativeObject);
+          CheckoutResult.serializer, checkoutResultNativeObject)!;
     } on PlatformException catch (ex) {
       throw ReaderSdkException(ex.code, ex.message, ex.details['debugCode'],
           ex.details['debugMessage']);
@@ -125,7 +125,7 @@ class ReaderSdk {
       'customerId': customerId,
     };
     try {
-      Map cardObject = await _channel.invokeMethod('startStoreCard', params);
+      var cardObject = await _channel.invokeMethod('startStoreCard', params);
       return _standardSerializers.deserializeWith(Card.serializer, cardObject);
     } on PlatformException catch (ex) {
       throw ReaderSdkException(ex.code, ex.message, ex.details['debugCode'],
@@ -140,13 +140,13 @@ class ReaderSdkException implements Exception {
 
   final String _code;
 
-  final String message;
+  final String? message;
 
   final String debugCode;
 
-  final String debugMessage;
+  final String? debugMessage;
 
-  ErrorCode get code =>
+  ErrorCode? get code =>
       _standardSerializers.deserializeWith(ErrorCode.serializer, _code);
 
   ReaderSdkException(
@@ -154,8 +154,7 @@ class ReaderSdkException implements Exception {
     this.message,
     this.debugCode,
     this.debugMessage,
-  )   : assert(_code != null),
-        assert(debugCode != null);
+  );
 
   @override
   String toString() =>

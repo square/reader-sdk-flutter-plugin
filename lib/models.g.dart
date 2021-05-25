@@ -225,23 +225,25 @@ class _$MoneySerializer implements StructuredSerializer<Money> {
   final String wireName = 'Money';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Money object,
+  Iterable<Object?> serialize(Serializers serializers, Money object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'amount',
       serializers.serialize(object.amount, specifiedType: const FullType(int)),
     ];
-    if (object.currencyCode != null) {
+    Object? value;
+    value = object.currencyCode;
+    if (value != null) {
       result
         ..add('currencyCode')
-        ..add(serializers.serialize(object.currencyCode,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  Money deserialize(Serializers serializers, Iterable<Object> serialized,
+  Money deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new MoneyBuilder();
 
@@ -249,7 +251,7 @@ class _$MoneySerializer implements StructuredSerializer<Money> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'amount':
           result.amount = serializers.deserialize(value,
@@ -273,9 +275,9 @@ class _$LocationSerializer implements StructuredSerializer<Location> {
   final String wireName = 'Location';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Location object,
+  Iterable<Object?> serialize(Serializers serializers, Location object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'currencyCode',
       serializers.serialize(object.currencyCode,
           specifiedType: const FullType(String)),
@@ -302,7 +304,7 @@ class _$LocationSerializer implements StructuredSerializer<Location> {
   }
 
   @override
-  Location deserialize(Serializers serializers, Iterable<Object> serialized,
+  Location deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new LocationBuilder();
 
@@ -310,7 +312,7 @@ class _$LocationSerializer implements StructuredSerializer<Location> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'currencyCode':
           result.currencyCode = serializers.deserialize(value,
@@ -335,12 +337,12 @@ class _$LocationSerializer implements StructuredSerializer<Location> {
         case 'maximumCardPaymentAmountMoney':
           result.maximumCardPaymentAmountMoney.replace(serializers.deserialize(
               value,
-              specifiedType: const FullType(Money)) as Money);
+              specifiedType: const FullType(Money))! as Money);
           break;
         case 'minimumCardPaymentAmountMoney':
           result.minimumCardPaymentAmountMoney.replace(serializers.deserialize(
               value,
-              specifiedType: const FullType(Money)) as Money);
+              specifiedType: const FullType(Money))! as Money);
           break;
       }
     }
@@ -357,9 +359,9 @@ class _$CheckoutResultSerializer
   final String wireName = 'CheckoutResult';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, CheckoutResult object,
+  Iterable<Object?> serialize(Serializers serializers, CheckoutResult object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'transactionClientId',
       serializers.serialize(object.transactionClientId,
           specifiedType: const FullType(String)),
@@ -380,10 +382,12 @@ class _$CheckoutResultSerializer
           specifiedType:
               const FullType(BuiltList, const [const FullType(Tender)])),
     ];
-    if (object.transactionId != null) {
+    Object? value;
+    value = object.transactionId;
+    if (value != null) {
       result
         ..add('transactionId')
-        ..add(serializers.serialize(object.transactionId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -391,7 +395,7 @@ class _$CheckoutResultSerializer
 
   @override
   CheckoutResult deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CheckoutResultBuilder();
 
@@ -399,7 +403,7 @@ class _$CheckoutResultSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'transactionId':
           result.transactionId = serializers.deserialize(value,
@@ -419,16 +423,16 @@ class _$CheckoutResultSerializer
           break;
         case 'totalMoney':
           result.totalMoney.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Money)) as Money);
+              specifiedType: const FullType(Money))! as Money);
           break;
         case 'totalTipMoney':
           result.totalTipMoney.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Money)) as Money);
+              specifiedType: const FullType(Money))! as Money);
           break;
         case 'tenders':
           result.tenders.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(Tender)]))
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(Tender)]))!
               as BuiltList<Object>);
           break;
       }
@@ -462,9 +466,9 @@ class _$TenderSerializer implements StructuredSerializer<Tender> {
   final String wireName = 'Tender';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Tender object,
+  Iterable<Object?> serialize(Serializers serializers, Tender object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'totalMoney',
       serializers.serialize(object.totalMoney,
           specifiedType: const FullType(Money)),
@@ -478,29 +482,33 @@ class _$TenderSerializer implements StructuredSerializer<Tender> {
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(String)),
     ];
-    if (object.tenderId != null) {
+    Object? value;
+    value = object.tenderId;
+    if (value != null) {
       result
         ..add('tenderId')
-        ..add(serializers.serialize(object.tenderId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.cardDetails != null) {
+    value = object.cardDetails;
+    if (value != null) {
       result
         ..add('cardDetails')
-        ..add(serializers.serialize(object.cardDetails,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(CardDetails)));
     }
-    if (object.cashDetails != null) {
+    value = object.cashDetails;
+    if (value != null) {
       result
         ..add('cashDetails')
-        ..add(serializers.serialize(object.cashDetails,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(CashDetails)));
     }
     return result;
   }
 
   @override
-  Tender deserialize(Serializers serializers, Iterable<Object> serialized,
+  Tender deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new TenderBuilder();
 
@@ -508,15 +516,15 @@ class _$TenderSerializer implements StructuredSerializer<Tender> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'totalMoney':
           result.totalMoney.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Money)) as Money);
+              specifiedType: const FullType(Money))! as Money);
           break;
         case 'tipMoney':
           result.tipMoney.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Money)) as Money);
+              specifiedType: const FullType(Money))! as Money);
           break;
         case 'type':
           result.type = serializers.deserialize(value,
@@ -532,11 +540,11 @@ class _$TenderSerializer implements StructuredSerializer<Tender> {
           break;
         case 'cardDetails':
           result.cardDetails.replace(serializers.deserialize(value,
-              specifiedType: const FullType(CardDetails)) as CardDetails);
+              specifiedType: const FullType(CardDetails))! as CardDetails);
           break;
         case 'cashDetails':
           result.cashDetails.replace(serializers.deserialize(value,
-              specifiedType: const FullType(CashDetails)) as CashDetails);
+              specifiedType: const FullType(CashDetails))! as CashDetails);
           break;
       }
     }
@@ -552,9 +560,9 @@ class _$CashDetailsSerializer implements StructuredSerializer<CashDetails> {
   final String wireName = 'CashDetails';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, CashDetails object,
+  Iterable<Object?> serialize(Serializers serializers, CashDetails object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'buyerTenderedMoney',
       serializers.serialize(object.buyerTenderedMoney,
           specifiedType: const FullType(Money)),
@@ -567,7 +575,7 @@ class _$CashDetailsSerializer implements StructuredSerializer<CashDetails> {
   }
 
   @override
-  CashDetails deserialize(Serializers serializers, Iterable<Object> serialized,
+  CashDetails deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CashDetailsBuilder();
 
@@ -575,15 +583,15 @@ class _$CashDetailsSerializer implements StructuredSerializer<CashDetails> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'buyerTenderedMoney':
           result.buyerTenderedMoney.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Money)) as Money);
+              specifiedType: const FullType(Money))! as Money);
           break;
         case 'changeBackMoney':
           result.changeBackMoney.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Money)) as Money);
+              specifiedType: const FullType(Money))! as Money);
           break;
       }
     }
@@ -631,9 +639,9 @@ class _$CardDetailsSerializer implements StructuredSerializer<CardDetails> {
   final String wireName = 'CardDetails';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, CardDetails object,
+  Iterable<Object?> serialize(Serializers serializers, CardDetails object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'entryMethod',
       serializers.serialize(object.entryMethod,
           specifiedType: const FullType(EntryMethod)),
@@ -645,7 +653,7 @@ class _$CardDetailsSerializer implements StructuredSerializer<CardDetails> {
   }
 
   @override
-  CardDetails deserialize(Serializers serializers, Iterable<Object> serialized,
+  CardDetails deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CardDetailsBuilder();
 
@@ -653,7 +661,7 @@ class _$CardDetailsSerializer implements StructuredSerializer<CardDetails> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'entryMethod':
           result.entryMethod = serializers.deserialize(value,
@@ -661,7 +669,7 @@ class _$CardDetailsSerializer implements StructuredSerializer<CardDetails> {
           break;
         case 'card':
           result.card.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Card)) as Card);
+              specifiedType: const FullType(Card))! as Card);
           break;
       }
     }
@@ -721,44 +729,47 @@ class _$CardSerializer implements StructuredSerializer<Card> {
   final String wireName = 'Card';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Card object,
+  Iterable<Object?> serialize(Serializers serializers, Card object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'brand',
       serializers.serialize(object.brand, specifiedType: const FullType(Brand)),
       'lastFourDigits',
       serializers.serialize(object.lastFourDigits,
           specifiedType: const FullType(String)),
     ];
-    if (object.expirationMonth != null) {
+    Object? value;
+    value = object.expirationMonth;
+    if (value != null) {
       result
         ..add('expirationMonth')
-        ..add(serializers.serialize(object.expirationMonth,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.expirationYear != null) {
+    value = object.expirationYear;
+    if (value != null) {
       result
         ..add('expirationYear')
-        ..add(serializers.serialize(object.expirationYear,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.id != null) {
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.cardholderName != null) {
+    value = object.cardholderName;
+    if (value != null) {
       result
         ..add('cardholderName')
-        ..add(serializers.serialize(object.cardholderName,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  Card deserialize(Serializers serializers, Iterable<Object> serialized,
+  Card deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CardBuilder();
 
@@ -766,7 +777,7 @@ class _$CardSerializer implements StructuredSerializer<Card> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'brand':
           result.brand = serializers.deserialize(value,
@@ -837,54 +848,63 @@ class _$CheckoutParametersSerializer
   final String wireName = 'CheckoutParameters';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, CheckoutParameters object,
+  Iterable<Object?> serialize(
+      Serializers serializers, CheckoutParameters object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'amountMoney',
       serializers.serialize(object.amountMoney,
           specifiedType: const FullType(Money)),
     ];
-    if (object.skipReceipt != null) {
+    Object? value;
+    value = object.skipReceipt;
+    if (value != null) {
       result
         ..add('skipReceipt')
-        ..add(serializers.serialize(object.skipReceipt,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.collectSignature != null) {
+    value = object.collectSignature;
+    if (value != null) {
       result
         ..add('collectSignature')
-        ..add(serializers.serialize(object.collectSignature,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.allowSplitTender != null) {
+    value = object.allowSplitTender;
+    if (value != null) {
       result
         ..add('allowSplitTender')
-        ..add(serializers.serialize(object.allowSplitTender,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.delayCapture != null) {
+    value = object.delayCapture;
+    if (value != null) {
       result
         ..add('delayCapture')
-        ..add(serializers.serialize(object.delayCapture,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.note != null) {
+    value = object.note;
+    if (value != null) {
       result
         ..add('note')
-        ..add(serializers.serialize(object.note,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.additionalPaymentTypes != null) {
+    value = object.additionalPaymentTypes;
+    if (value != null) {
       result
         ..add('additionalPaymentTypes')
-        ..add(serializers.serialize(object.additionalPaymentTypes,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 BuiltList, const [const FullType(AdditionalPaymentType)])));
     }
-    if (object.tipSettings != null) {
+    value = object.tipSettings;
+    if (value != null) {
       result
         ..add('tipSettings')
-        ..add(serializers.serialize(object.tipSettings,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(TipSettings)));
     }
     return result;
@@ -892,7 +912,7 @@ class _$CheckoutParametersSerializer
 
   @override
   CheckoutParameters deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CheckoutParametersBuilder();
 
@@ -900,11 +920,11 @@ class _$CheckoutParametersSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'amountMoney':
           result.amountMoney.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Money)) as Money);
+              specifiedType: const FullType(Money))! as Money);
           break;
         case 'skipReceipt':
           result.skipReceipt = serializers.deserialize(value,
@@ -928,13 +948,13 @@ class _$CheckoutParametersSerializer
           break;
         case 'additionalPaymentTypes':
           result.additionalPaymentTypes.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(AdditionalPaymentType)]))
-              as BuiltList<Object>);
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(AdditionalPaymentType)
+              ]))! as BuiltList<Object>);
           break;
         case 'tipSettings':
           result.tipSettings.replace(serializers.deserialize(value,
-              specifiedType: const FullType(TipSettings)) as TipSettings);
+              specifiedType: const FullType(TipSettings))! as TipSettings);
           break;
       }
     }
@@ -950,25 +970,29 @@ class _$TipSettingsSerializer implements StructuredSerializer<TipSettings> {
   final String wireName = 'TipSettings';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, TipSettings object,
+  Iterable<Object?> serialize(Serializers serializers, TipSettings object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.showCustomTipField != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.showCustomTipField;
+    if (value != null) {
       result
         ..add('showCustomTipField')
-        ..add(serializers.serialize(object.showCustomTipField,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.showSeparateTipScreen != null) {
+    value = object.showSeparateTipScreen;
+    if (value != null) {
       result
         ..add('showSeparateTipScreen')
-        ..add(serializers.serialize(object.showSeparateTipScreen,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.tipPercentages != null) {
+    value = object.tipPercentages;
+    if (value != null) {
       result
         ..add('tipPercentages')
-        ..add(serializers.serialize(object.tipPercentages,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(int)])));
     }
@@ -976,7 +1000,7 @@ class _$TipSettingsSerializer implements StructuredSerializer<TipSettings> {
   }
 
   @override
-  TipSettings deserialize(Serializers serializers, Iterable<Object> serialized,
+  TipSettings deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new TipSettingsBuilder();
 
@@ -984,7 +1008,7 @@ class _$TipSettingsSerializer implements StructuredSerializer<TipSettings> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'showCustomTipField':
           result.showCustomTipField = serializers.deserialize(value,
@@ -997,7 +1021,7 @@ class _$TipSettingsSerializer implements StructuredSerializer<TipSettings> {
         case 'tipPercentages':
           result.tipPercentages.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(BuiltList, const [const FullType(int)]))
+                      const FullType(BuiltList, const [const FullType(int)]))!
               as BuiltList<Object>);
           break;
       }
@@ -1055,15 +1079,13 @@ class _$Money extends Money {
   @override
   final int amount;
   @override
-  final String currencyCode;
+  final String? currencyCode;
 
-  factory _$Money([void Function(MoneyBuilder) updates]) =>
+  factory _$Money([void Function(MoneyBuilder)? updates]) =>
       (new MoneyBuilder()..update(updates)).build();
 
-  _$Money._({this.amount, this.currencyCode}) : super._() {
-    if (amount == null) {
-      throw new BuiltValueNullFieldError('Money', 'amount');
-    }
+  _$Money._({required this.amount, this.currencyCode}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(amount, 'Money', 'amount');
   }
 
   @override
@@ -1096,22 +1118,23 @@ class _$Money extends Money {
 }
 
 class MoneyBuilder implements Builder<Money, MoneyBuilder> {
-  _$Money _$v;
+  _$Money? _$v;
 
-  int _amount;
-  int get amount => _$this._amount;
-  set amount(int amount) => _$this._amount = amount;
+  int? _amount;
+  int? get amount => _$this._amount;
+  set amount(int? amount) => _$this._amount = amount;
 
-  String _currencyCode;
-  String get currencyCode => _$this._currencyCode;
-  set currencyCode(String currencyCode) => _$this._currencyCode = currencyCode;
+  String? _currencyCode;
+  String? get currencyCode => _$this._currencyCode;
+  set currencyCode(String? currencyCode) => _$this._currencyCode = currencyCode;
 
   MoneyBuilder();
 
   MoneyBuilder get _$this {
-    if (_$v != null) {
-      _amount = _$v.amount;
-      _currencyCode = _$v.currencyCode;
+    final $v = _$v;
+    if ($v != null) {
+      _amount = $v.amount;
+      _currencyCode = $v.currencyCode;
       _$v = null;
     }
     return this;
@@ -1119,21 +1142,22 @@ class MoneyBuilder implements Builder<Money, MoneyBuilder> {
 
   @override
   void replace(Money other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Money;
   }
 
   @override
-  void update(void Function(MoneyBuilder) updates) {
+  void update(void Function(MoneyBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$Money build() {
-    final _$result =
-        _$v ?? new _$Money._(amount: amount, currencyCode: currencyCode);
+    final _$result = _$v ??
+        new _$Money._(
+            amount: BuiltValueNullFieldError.checkNotNull(
+                amount, 'Money', 'amount'),
+            currencyCode: currencyCode);
     replace(_$result);
     return _$result;
   }
@@ -1155,42 +1179,30 @@ class _$Location extends Location {
   @override
   final Money minimumCardPaymentAmountMoney;
 
-  factory _$Location([void Function(LocationBuilder) updates]) =>
+  factory _$Location([void Function(LocationBuilder)? updates]) =>
       (new LocationBuilder()..update(updates)).build();
 
   _$Location._(
-      {this.currencyCode,
-      this.businessName,
-      this.name,
-      this.locationId,
-      this.isCardProcessingActivated,
-      this.maximumCardPaymentAmountMoney,
-      this.minimumCardPaymentAmountMoney})
+      {required this.currencyCode,
+      required this.businessName,
+      required this.name,
+      required this.locationId,
+      required this.isCardProcessingActivated,
+      required this.maximumCardPaymentAmountMoney,
+      required this.minimumCardPaymentAmountMoney})
       : super._() {
-    if (currencyCode == null) {
-      throw new BuiltValueNullFieldError('Location', 'currencyCode');
-    }
-    if (businessName == null) {
-      throw new BuiltValueNullFieldError('Location', 'businessName');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('Location', 'name');
-    }
-    if (locationId == null) {
-      throw new BuiltValueNullFieldError('Location', 'locationId');
-    }
-    if (isCardProcessingActivated == null) {
-      throw new BuiltValueNullFieldError(
-          'Location', 'isCardProcessingActivated');
-    }
-    if (maximumCardPaymentAmountMoney == null) {
-      throw new BuiltValueNullFieldError(
-          'Location', 'maximumCardPaymentAmountMoney');
-    }
-    if (minimumCardPaymentAmountMoney == null) {
-      throw new BuiltValueNullFieldError(
-          'Location', 'minimumCardPaymentAmountMoney');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        currencyCode, 'Location', 'currencyCode');
+    BuiltValueNullFieldError.checkNotNull(
+        businessName, 'Location', 'businessName');
+    BuiltValueNullFieldError.checkNotNull(name, 'Location', 'name');
+    BuiltValueNullFieldError.checkNotNull(locationId, 'Location', 'locationId');
+    BuiltValueNullFieldError.checkNotNull(
+        isCardProcessingActivated, 'Location', 'isCardProcessingActivated');
+    BuiltValueNullFieldError.checkNotNull(maximumCardPaymentAmountMoney,
+        'Location', 'maximumCardPaymentAmountMoney');
+    BuiltValueNullFieldError.checkNotNull(minimumCardPaymentAmountMoney,
+        'Location', 'minimumCardPaymentAmountMoney');
   }
 
   @override
@@ -1244,56 +1256,57 @@ class _$Location extends Location {
 }
 
 class LocationBuilder implements Builder<Location, LocationBuilder> {
-  _$Location _$v;
+  _$Location? _$v;
 
-  String _currencyCode;
-  String get currencyCode => _$this._currencyCode;
-  set currencyCode(String currencyCode) => _$this._currencyCode = currencyCode;
+  String? _currencyCode;
+  String? get currencyCode => _$this._currencyCode;
+  set currencyCode(String? currencyCode) => _$this._currencyCode = currencyCode;
 
-  String _businessName;
-  String get businessName => _$this._businessName;
-  set businessName(String businessName) => _$this._businessName = businessName;
+  String? _businessName;
+  String? get businessName => _$this._businessName;
+  set businessName(String? businessName) => _$this._businessName = businessName;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _locationId;
-  String get locationId => _$this._locationId;
-  set locationId(String locationId) => _$this._locationId = locationId;
+  String? _locationId;
+  String? get locationId => _$this._locationId;
+  set locationId(String? locationId) => _$this._locationId = locationId;
 
-  bool _isCardProcessingActivated;
-  bool get isCardProcessingActivated => _$this._isCardProcessingActivated;
-  set isCardProcessingActivated(bool isCardProcessingActivated) =>
+  bool? _isCardProcessingActivated;
+  bool? get isCardProcessingActivated => _$this._isCardProcessingActivated;
+  set isCardProcessingActivated(bool? isCardProcessingActivated) =>
       _$this._isCardProcessingActivated = isCardProcessingActivated;
 
-  MoneyBuilder _maximumCardPaymentAmountMoney;
+  MoneyBuilder? _maximumCardPaymentAmountMoney;
   MoneyBuilder get maximumCardPaymentAmountMoney =>
       _$this._maximumCardPaymentAmountMoney ??= new MoneyBuilder();
   set maximumCardPaymentAmountMoney(
-          MoneyBuilder maximumCardPaymentAmountMoney) =>
+          MoneyBuilder? maximumCardPaymentAmountMoney) =>
       _$this._maximumCardPaymentAmountMoney = maximumCardPaymentAmountMoney;
 
-  MoneyBuilder _minimumCardPaymentAmountMoney;
+  MoneyBuilder? _minimumCardPaymentAmountMoney;
   MoneyBuilder get minimumCardPaymentAmountMoney =>
       _$this._minimumCardPaymentAmountMoney ??= new MoneyBuilder();
   set minimumCardPaymentAmountMoney(
-          MoneyBuilder minimumCardPaymentAmountMoney) =>
+          MoneyBuilder? minimumCardPaymentAmountMoney) =>
       _$this._minimumCardPaymentAmountMoney = minimumCardPaymentAmountMoney;
 
   LocationBuilder();
 
   LocationBuilder get _$this {
-    if (_$v != null) {
-      _currencyCode = _$v.currencyCode;
-      _businessName = _$v.businessName;
-      _name = _$v.name;
-      _locationId = _$v.locationId;
-      _isCardProcessingActivated = _$v.isCardProcessingActivated;
+    final $v = _$v;
+    if ($v != null) {
+      _currencyCode = $v.currencyCode;
+      _businessName = $v.businessName;
+      _name = $v.name;
+      _locationId = $v.locationId;
+      _isCardProcessingActivated = $v.isCardProcessingActivated;
       _maximumCardPaymentAmountMoney =
-          _$v.maximumCardPaymentAmountMoney?.toBuilder();
+          $v.maximumCardPaymentAmountMoney.toBuilder();
       _minimumCardPaymentAmountMoney =
-          _$v.minimumCardPaymentAmountMoney?.toBuilder();
+          $v.minimumCardPaymentAmountMoney.toBuilder();
       _$v = null;
     }
     return this;
@@ -1301,14 +1314,12 @@ class LocationBuilder implements Builder<Location, LocationBuilder> {
 
   @override
   void replace(Location other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Location;
   }
 
   @override
-  void update(void Function(LocationBuilder) updates) {
+  void update(void Function(LocationBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -1318,17 +1329,24 @@ class LocationBuilder implements Builder<Location, LocationBuilder> {
     try {
       _$result = _$v ??
           new _$Location._(
-              currencyCode: currencyCode,
-              businessName: businessName,
-              name: name,
-              locationId: locationId,
-              isCardProcessingActivated: isCardProcessingActivated,
+              currencyCode: BuiltValueNullFieldError.checkNotNull(
+                  currencyCode, 'Location', 'currencyCode'),
+              businessName: BuiltValueNullFieldError.checkNotNull(
+                  businessName, 'Location', 'businessName'),
+              name: BuiltValueNullFieldError.checkNotNull(
+                  name, 'Location', 'name'),
+              locationId: BuiltValueNullFieldError.checkNotNull(
+                  locationId, 'Location', 'locationId'),
+              isCardProcessingActivated: BuiltValueNullFieldError.checkNotNull(
+                  isCardProcessingActivated,
+                  'Location',
+                  'isCardProcessingActivated'),
               maximumCardPaymentAmountMoney:
                   maximumCardPaymentAmountMoney.build(),
               minimumCardPaymentAmountMoney:
                   minimumCardPaymentAmountMoney.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'maximumCardPaymentAmountMoney';
         maximumCardPaymentAmountMoney.build();
@@ -1347,7 +1365,7 @@ class LocationBuilder implements Builder<Location, LocationBuilder> {
 
 class _$CheckoutResult extends CheckoutResult {
   @override
-  final String transactionId;
+  final String? transactionId;
   @override
   final String transactionClientId;
   @override
@@ -1361,37 +1379,29 @@ class _$CheckoutResult extends CheckoutResult {
   @override
   final BuiltList<Tender> tenders;
 
-  factory _$CheckoutResult([void Function(CheckoutResultBuilder) updates]) =>
+  factory _$CheckoutResult([void Function(CheckoutResultBuilder)? updates]) =>
       (new CheckoutResultBuilder()..update(updates)).build();
 
   _$CheckoutResult._(
       {this.transactionId,
-      this.transactionClientId,
-      this.locationId,
-      this.createdAt,
-      this.totalMoney,
-      this.totalTipMoney,
-      this.tenders})
+      required this.transactionClientId,
+      required this.locationId,
+      required this.createdAt,
+      required this.totalMoney,
+      required this.totalTipMoney,
+      required this.tenders})
       : super._() {
-    if (transactionClientId == null) {
-      throw new BuiltValueNullFieldError(
-          'CheckoutResult', 'transactionClientId');
-    }
-    if (locationId == null) {
-      throw new BuiltValueNullFieldError('CheckoutResult', 'locationId');
-    }
-    if (createdAt == null) {
-      throw new BuiltValueNullFieldError('CheckoutResult', 'createdAt');
-    }
-    if (totalMoney == null) {
-      throw new BuiltValueNullFieldError('CheckoutResult', 'totalMoney');
-    }
-    if (totalTipMoney == null) {
-      throw new BuiltValueNullFieldError('CheckoutResult', 'totalTipMoney');
-    }
-    if (tenders == null) {
-      throw new BuiltValueNullFieldError('CheckoutResult', 'tenders');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        transactionClientId, 'CheckoutResult', 'transactionClientId');
+    BuiltValueNullFieldError.checkNotNull(
+        locationId, 'CheckoutResult', 'locationId');
+    BuiltValueNullFieldError.checkNotNull(
+        createdAt, 'CheckoutResult', 'createdAt');
+    BuiltValueNullFieldError.checkNotNull(
+        totalMoney, 'CheckoutResult', 'totalMoney');
+    BuiltValueNullFieldError.checkNotNull(
+        totalTipMoney, 'CheckoutResult', 'totalTipMoney');
+    BuiltValueNullFieldError.checkNotNull(tenders, 'CheckoutResult', 'tenders');
   }
 
   @override
@@ -1447,52 +1457,53 @@ class _$CheckoutResult extends CheckoutResult {
 
 class CheckoutResultBuilder
     implements Builder<CheckoutResult, CheckoutResultBuilder> {
-  _$CheckoutResult _$v;
+  _$CheckoutResult? _$v;
 
-  String _transactionId;
-  String get transactionId => _$this._transactionId;
-  set transactionId(String transactionId) =>
+  String? _transactionId;
+  String? get transactionId => _$this._transactionId;
+  set transactionId(String? transactionId) =>
       _$this._transactionId = transactionId;
 
-  String _transactionClientId;
-  String get transactionClientId => _$this._transactionClientId;
-  set transactionClientId(String transactionClientId) =>
+  String? _transactionClientId;
+  String? get transactionClientId => _$this._transactionClientId;
+  set transactionClientId(String? transactionClientId) =>
       _$this._transactionClientId = transactionClientId;
 
-  String _locationId;
-  String get locationId => _$this._locationId;
-  set locationId(String locationId) => _$this._locationId = locationId;
+  String? _locationId;
+  String? get locationId => _$this._locationId;
+  set locationId(String? locationId) => _$this._locationId = locationId;
 
-  String _createdAt;
-  String get createdAt => _$this._createdAt;
-  set createdAt(String createdAt) => _$this._createdAt = createdAt;
+  String? _createdAt;
+  String? get createdAt => _$this._createdAt;
+  set createdAt(String? createdAt) => _$this._createdAt = createdAt;
 
-  MoneyBuilder _totalMoney;
+  MoneyBuilder? _totalMoney;
   MoneyBuilder get totalMoney => _$this._totalMoney ??= new MoneyBuilder();
-  set totalMoney(MoneyBuilder totalMoney) => _$this._totalMoney = totalMoney;
+  set totalMoney(MoneyBuilder? totalMoney) => _$this._totalMoney = totalMoney;
 
-  MoneyBuilder _totalTipMoney;
+  MoneyBuilder? _totalTipMoney;
   MoneyBuilder get totalTipMoney =>
       _$this._totalTipMoney ??= new MoneyBuilder();
-  set totalTipMoney(MoneyBuilder totalTipMoney) =>
+  set totalTipMoney(MoneyBuilder? totalTipMoney) =>
       _$this._totalTipMoney = totalTipMoney;
 
-  ListBuilder<Tender> _tenders;
+  ListBuilder<Tender>? _tenders;
   ListBuilder<Tender> get tenders =>
       _$this._tenders ??= new ListBuilder<Tender>();
-  set tenders(ListBuilder<Tender> tenders) => _$this._tenders = tenders;
+  set tenders(ListBuilder<Tender>? tenders) => _$this._tenders = tenders;
 
   CheckoutResultBuilder();
 
   CheckoutResultBuilder get _$this {
-    if (_$v != null) {
-      _transactionId = _$v.transactionId;
-      _transactionClientId = _$v.transactionClientId;
-      _locationId = _$v.locationId;
-      _createdAt = _$v.createdAt;
-      _totalMoney = _$v.totalMoney?.toBuilder();
-      _totalTipMoney = _$v.totalTipMoney?.toBuilder();
-      _tenders = _$v.tenders?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _transactionId = $v.transactionId;
+      _transactionClientId = $v.transactionClientId;
+      _locationId = $v.locationId;
+      _createdAt = $v.createdAt;
+      _totalMoney = $v.totalMoney.toBuilder();
+      _totalTipMoney = $v.totalTipMoney.toBuilder();
+      _tenders = $v.tenders.toBuilder();
       _$v = null;
     }
     return this;
@@ -1500,14 +1511,12 @@ class CheckoutResultBuilder
 
   @override
   void replace(CheckoutResult other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CheckoutResult;
   }
 
   @override
-  void update(void Function(CheckoutResultBuilder) updates) {
+  void update(void Function(CheckoutResultBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -1518,14 +1527,17 @@ class CheckoutResultBuilder
       _$result = _$v ??
           new _$CheckoutResult._(
               transactionId: transactionId,
-              transactionClientId: transactionClientId,
-              locationId: locationId,
-              createdAt: createdAt,
+              transactionClientId: BuiltValueNullFieldError.checkNotNull(
+                  transactionClientId, 'CheckoutResult', 'transactionClientId'),
+              locationId: BuiltValueNullFieldError.checkNotNull(
+                  locationId, 'CheckoutResult', 'locationId'),
+              createdAt: BuiltValueNullFieldError.checkNotNull(
+                  createdAt, 'CheckoutResult', 'createdAt'),
               totalMoney: totalMoney.build(),
               totalTipMoney: totalTipMoney.build(),
               tenders: tenders.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'totalMoney';
         totalMoney.build();
@@ -1552,38 +1564,30 @@ class _$Tender extends Tender {
   @override
   final TenderType type;
   @override
-  final String tenderId;
+  final String? tenderId;
   @override
   final String createdAt;
   @override
-  final CardDetails cardDetails;
+  final CardDetails? cardDetails;
   @override
-  final CashDetails cashDetails;
+  final CashDetails? cashDetails;
 
-  factory _$Tender([void Function(TenderBuilder) updates]) =>
+  factory _$Tender([void Function(TenderBuilder)? updates]) =>
       (new TenderBuilder()..update(updates)).build();
 
   _$Tender._(
-      {this.totalMoney,
-      this.tipMoney,
-      this.type,
+      {required this.totalMoney,
+      required this.tipMoney,
+      required this.type,
       this.tenderId,
-      this.createdAt,
+      required this.createdAt,
       this.cardDetails,
       this.cashDetails})
       : super._() {
-    if (totalMoney == null) {
-      throw new BuiltValueNullFieldError('Tender', 'totalMoney');
-    }
-    if (tipMoney == null) {
-      throw new BuiltValueNullFieldError('Tender', 'tipMoney');
-    }
-    if (type == null) {
-      throw new BuiltValueNullFieldError('Tender', 'type');
-    }
-    if (createdAt == null) {
-      throw new BuiltValueNullFieldError('Tender', 'createdAt');
-    }
+    BuiltValueNullFieldError.checkNotNull(totalMoney, 'Tender', 'totalMoney');
+    BuiltValueNullFieldError.checkNotNull(tipMoney, 'Tender', 'tipMoney');
+    BuiltValueNullFieldError.checkNotNull(type, 'Tender', 'type');
+    BuiltValueNullFieldError.checkNotNull(createdAt, 'Tender', 'createdAt');
   }
 
   @override
@@ -1635,51 +1639,52 @@ class _$Tender extends Tender {
 }
 
 class TenderBuilder implements Builder<Tender, TenderBuilder> {
-  _$Tender _$v;
+  _$Tender? _$v;
 
-  MoneyBuilder _totalMoney;
+  MoneyBuilder? _totalMoney;
   MoneyBuilder get totalMoney => _$this._totalMoney ??= new MoneyBuilder();
-  set totalMoney(MoneyBuilder totalMoney) => _$this._totalMoney = totalMoney;
+  set totalMoney(MoneyBuilder? totalMoney) => _$this._totalMoney = totalMoney;
 
-  MoneyBuilder _tipMoney;
+  MoneyBuilder? _tipMoney;
   MoneyBuilder get tipMoney => _$this._tipMoney ??= new MoneyBuilder();
-  set tipMoney(MoneyBuilder tipMoney) => _$this._tipMoney = tipMoney;
+  set tipMoney(MoneyBuilder? tipMoney) => _$this._tipMoney = tipMoney;
 
-  TenderType _type;
-  TenderType get type => _$this._type;
-  set type(TenderType type) => _$this._type = type;
+  TenderType? _type;
+  TenderType? get type => _$this._type;
+  set type(TenderType? type) => _$this._type = type;
 
-  String _tenderId;
-  String get tenderId => _$this._tenderId;
-  set tenderId(String tenderId) => _$this._tenderId = tenderId;
+  String? _tenderId;
+  String? get tenderId => _$this._tenderId;
+  set tenderId(String? tenderId) => _$this._tenderId = tenderId;
 
-  String _createdAt;
-  String get createdAt => _$this._createdAt;
-  set createdAt(String createdAt) => _$this._createdAt = createdAt;
+  String? _createdAt;
+  String? get createdAt => _$this._createdAt;
+  set createdAt(String? createdAt) => _$this._createdAt = createdAt;
 
-  CardDetailsBuilder _cardDetails;
+  CardDetailsBuilder? _cardDetails;
   CardDetailsBuilder get cardDetails =>
       _$this._cardDetails ??= new CardDetailsBuilder();
-  set cardDetails(CardDetailsBuilder cardDetails) =>
+  set cardDetails(CardDetailsBuilder? cardDetails) =>
       _$this._cardDetails = cardDetails;
 
-  CashDetailsBuilder _cashDetails;
+  CashDetailsBuilder? _cashDetails;
   CashDetailsBuilder get cashDetails =>
       _$this._cashDetails ??= new CashDetailsBuilder();
-  set cashDetails(CashDetailsBuilder cashDetails) =>
+  set cashDetails(CashDetailsBuilder? cashDetails) =>
       _$this._cashDetails = cashDetails;
 
   TenderBuilder();
 
   TenderBuilder get _$this {
-    if (_$v != null) {
-      _totalMoney = _$v.totalMoney?.toBuilder();
-      _tipMoney = _$v.tipMoney?.toBuilder();
-      _type = _$v.type;
-      _tenderId = _$v.tenderId;
-      _createdAt = _$v.createdAt;
-      _cardDetails = _$v.cardDetails?.toBuilder();
-      _cashDetails = _$v.cashDetails?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _totalMoney = $v.totalMoney.toBuilder();
+      _tipMoney = $v.tipMoney.toBuilder();
+      _type = $v.type;
+      _tenderId = $v.tenderId;
+      _createdAt = $v.createdAt;
+      _cardDetails = $v.cardDetails?.toBuilder();
+      _cashDetails = $v.cashDetails?.toBuilder();
       _$v = null;
     }
     return this;
@@ -1687,14 +1692,12 @@ class TenderBuilder implements Builder<Tender, TenderBuilder> {
 
   @override
   void replace(Tender other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Tender;
   }
 
   @override
-  void update(void Function(TenderBuilder) updates) {
+  void update(void Function(TenderBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -1706,13 +1709,15 @@ class TenderBuilder implements Builder<Tender, TenderBuilder> {
           new _$Tender._(
               totalMoney: totalMoney.build(),
               tipMoney: tipMoney.build(),
-              type: type,
+              type:
+                  BuiltValueNullFieldError.checkNotNull(type, 'Tender', 'type'),
               tenderId: tenderId,
-              createdAt: createdAt,
+              createdAt: BuiltValueNullFieldError.checkNotNull(
+                  createdAt, 'Tender', 'createdAt'),
               cardDetails: _cardDetails?.build(),
               cashDetails: _cashDetails?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'totalMoney';
         totalMoney.build();
@@ -1740,16 +1745,16 @@ class _$CashDetails extends CashDetails {
   @override
   final Money changeBackMoney;
 
-  factory _$CashDetails([void Function(CashDetailsBuilder) updates]) =>
+  factory _$CashDetails([void Function(CashDetailsBuilder)? updates]) =>
       (new CashDetailsBuilder()..update(updates)).build();
 
-  _$CashDetails._({this.buyerTenderedMoney, this.changeBackMoney}) : super._() {
-    if (buyerTenderedMoney == null) {
-      throw new BuiltValueNullFieldError('CashDetails', 'buyerTenderedMoney');
-    }
-    if (changeBackMoney == null) {
-      throw new BuiltValueNullFieldError('CashDetails', 'changeBackMoney');
-    }
+  _$CashDetails._(
+      {required this.buyerTenderedMoney, required this.changeBackMoney})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        buyerTenderedMoney, 'CashDetails', 'buyerTenderedMoney');
+    BuiltValueNullFieldError.checkNotNull(
+        changeBackMoney, 'CashDetails', 'changeBackMoney');
   }
 
   @override
@@ -1783,26 +1788,27 @@ class _$CashDetails extends CashDetails {
 }
 
 class CashDetailsBuilder implements Builder<CashDetails, CashDetailsBuilder> {
-  _$CashDetails _$v;
+  _$CashDetails? _$v;
 
-  MoneyBuilder _buyerTenderedMoney;
+  MoneyBuilder? _buyerTenderedMoney;
   MoneyBuilder get buyerTenderedMoney =>
       _$this._buyerTenderedMoney ??= new MoneyBuilder();
-  set buyerTenderedMoney(MoneyBuilder buyerTenderedMoney) =>
+  set buyerTenderedMoney(MoneyBuilder? buyerTenderedMoney) =>
       _$this._buyerTenderedMoney = buyerTenderedMoney;
 
-  MoneyBuilder _changeBackMoney;
+  MoneyBuilder? _changeBackMoney;
   MoneyBuilder get changeBackMoney =>
       _$this._changeBackMoney ??= new MoneyBuilder();
-  set changeBackMoney(MoneyBuilder changeBackMoney) =>
+  set changeBackMoney(MoneyBuilder? changeBackMoney) =>
       _$this._changeBackMoney = changeBackMoney;
 
   CashDetailsBuilder();
 
   CashDetailsBuilder get _$this {
-    if (_$v != null) {
-      _buyerTenderedMoney = _$v.buyerTenderedMoney?.toBuilder();
-      _changeBackMoney = _$v.changeBackMoney?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _buyerTenderedMoney = $v.buyerTenderedMoney.toBuilder();
+      _changeBackMoney = $v.changeBackMoney.toBuilder();
       _$v = null;
     }
     return this;
@@ -1810,14 +1816,12 @@ class CashDetailsBuilder implements Builder<CashDetails, CashDetailsBuilder> {
 
   @override
   void replace(CashDetails other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CashDetails;
   }
 
   @override
-  void update(void Function(CashDetailsBuilder) updates) {
+  void update(void Function(CashDetailsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -1830,7 +1834,7 @@ class CashDetailsBuilder implements Builder<CashDetails, CashDetailsBuilder> {
               buyerTenderedMoney: buyerTenderedMoney.build(),
               changeBackMoney: changeBackMoney.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'buyerTenderedMoney';
         buyerTenderedMoney.build();
@@ -1853,16 +1857,13 @@ class _$CardDetails extends CardDetails {
   @override
   final Card card;
 
-  factory _$CardDetails([void Function(CardDetailsBuilder) updates]) =>
+  factory _$CardDetails([void Function(CardDetailsBuilder)? updates]) =>
       (new CardDetailsBuilder()..update(updates)).build();
 
-  _$CardDetails._({this.entryMethod, this.card}) : super._() {
-    if (entryMethod == null) {
-      throw new BuiltValueNullFieldError('CardDetails', 'entryMethod');
-    }
-    if (card == null) {
-      throw new BuiltValueNullFieldError('CardDetails', 'card');
-    }
+  _$CardDetails._({required this.entryMethod, required this.card}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        entryMethod, 'CardDetails', 'entryMethod');
+    BuiltValueNullFieldError.checkNotNull(card, 'CardDetails', 'card');
   }
 
   @override
@@ -1895,22 +1896,24 @@ class _$CardDetails extends CardDetails {
 }
 
 class CardDetailsBuilder implements Builder<CardDetails, CardDetailsBuilder> {
-  _$CardDetails _$v;
+  _$CardDetails? _$v;
 
-  EntryMethod _entryMethod;
-  EntryMethod get entryMethod => _$this._entryMethod;
-  set entryMethod(EntryMethod entryMethod) => _$this._entryMethod = entryMethod;
+  EntryMethod? _entryMethod;
+  EntryMethod? get entryMethod => _$this._entryMethod;
+  set entryMethod(EntryMethod? entryMethod) =>
+      _$this._entryMethod = entryMethod;
 
-  CardBuilder _card;
+  CardBuilder? _card;
   CardBuilder get card => _$this._card ??= new CardBuilder();
-  set card(CardBuilder card) => _$this._card = card;
+  set card(CardBuilder? card) => _$this._card = card;
 
   CardDetailsBuilder();
 
   CardDetailsBuilder get _$this {
-    if (_$v != null) {
-      _entryMethod = _$v.entryMethod;
-      _card = _$v.card?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _entryMethod = $v.entryMethod;
+      _card = $v.card.toBuilder();
       _$v = null;
     }
     return this;
@@ -1918,14 +1921,12 @@ class CardDetailsBuilder implements Builder<CardDetails, CardDetailsBuilder> {
 
   @override
   void replace(CardDetails other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CardDetails;
   }
 
   @override
-  void update(void Function(CardDetailsBuilder) updates) {
+  void update(void Function(CardDetailsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -1934,9 +1935,12 @@ class CardDetailsBuilder implements Builder<CardDetails, CardDetailsBuilder> {
     _$CardDetails _$result;
     try {
       _$result = _$v ??
-          new _$CardDetails._(entryMethod: entryMethod, card: card.build());
+          new _$CardDetails._(
+              entryMethod: BuiltValueNullFieldError.checkNotNull(
+                  entryMethod, 'CardDetails', 'entryMethod'),
+              card: card.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'card';
         card.build();
@@ -1957,31 +1961,28 @@ class _$Card extends Card {
   @override
   final String lastFourDigits;
   @override
-  final int expirationMonth;
+  final int? expirationMonth;
   @override
-  final int expirationYear;
+  final int? expirationYear;
   @override
-  final String id;
+  final String? id;
   @override
-  final String cardholderName;
+  final String? cardholderName;
 
-  factory _$Card([void Function(CardBuilder) updates]) =>
+  factory _$Card([void Function(CardBuilder)? updates]) =>
       (new CardBuilder()..update(updates)).build();
 
   _$Card._(
-      {this.brand,
-      this.lastFourDigits,
+      {required this.brand,
+      required this.lastFourDigits,
       this.expirationMonth,
       this.expirationYear,
       this.id,
       this.cardholderName})
       : super._() {
-    if (brand == null) {
-      throw new BuiltValueNullFieldError('Card', 'brand');
-    }
-    if (lastFourDigits == null) {
-      throw new BuiltValueNullFieldError('Card', 'lastFourDigits');
-    }
+    BuiltValueNullFieldError.checkNotNull(brand, 'Card', 'brand');
+    BuiltValueNullFieldError.checkNotNull(
+        lastFourDigits, 'Card', 'lastFourDigits');
   }
 
   @override
@@ -2029,46 +2030,47 @@ class _$Card extends Card {
 }
 
 class CardBuilder implements Builder<Card, CardBuilder> {
-  _$Card _$v;
+  _$Card? _$v;
 
-  Brand _brand;
-  Brand get brand => _$this._brand;
-  set brand(Brand brand) => _$this._brand = brand;
+  Brand? _brand;
+  Brand? get brand => _$this._brand;
+  set brand(Brand? brand) => _$this._brand = brand;
 
-  String _lastFourDigits;
-  String get lastFourDigits => _$this._lastFourDigits;
-  set lastFourDigits(String lastFourDigits) =>
+  String? _lastFourDigits;
+  String? get lastFourDigits => _$this._lastFourDigits;
+  set lastFourDigits(String? lastFourDigits) =>
       _$this._lastFourDigits = lastFourDigits;
 
-  int _expirationMonth;
-  int get expirationMonth => _$this._expirationMonth;
-  set expirationMonth(int expirationMonth) =>
+  int? _expirationMonth;
+  int? get expirationMonth => _$this._expirationMonth;
+  set expirationMonth(int? expirationMonth) =>
       _$this._expirationMonth = expirationMonth;
 
-  int _expirationYear;
-  int get expirationYear => _$this._expirationYear;
-  set expirationYear(int expirationYear) =>
+  int? _expirationYear;
+  int? get expirationYear => _$this._expirationYear;
+  set expirationYear(int? expirationYear) =>
       _$this._expirationYear = expirationYear;
 
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
-  String _cardholderName;
-  String get cardholderName => _$this._cardholderName;
-  set cardholderName(String cardholderName) =>
+  String? _cardholderName;
+  String? get cardholderName => _$this._cardholderName;
+  set cardholderName(String? cardholderName) =>
       _$this._cardholderName = cardholderName;
 
   CardBuilder();
 
   CardBuilder get _$this {
-    if (_$v != null) {
-      _brand = _$v.brand;
-      _lastFourDigits = _$v.lastFourDigits;
-      _expirationMonth = _$v.expirationMonth;
-      _expirationYear = _$v.expirationYear;
-      _id = _$v.id;
-      _cardholderName = _$v.cardholderName;
+    final $v = _$v;
+    if ($v != null) {
+      _brand = $v.brand;
+      _lastFourDigits = $v.lastFourDigits;
+      _expirationMonth = $v.expirationMonth;
+      _expirationYear = $v.expirationYear;
+      _id = $v.id;
+      _cardholderName = $v.cardholderName;
       _$v = null;
     }
     return this;
@@ -2076,14 +2078,12 @@ class CardBuilder implements Builder<Card, CardBuilder> {
 
   @override
   void replace(Card other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Card;
   }
 
   @override
-  void update(void Function(CardBuilder) updates) {
+  void update(void Function(CardBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -2091,8 +2091,10 @@ class CardBuilder implements Builder<Card, CardBuilder> {
   _$Card build() {
     final _$result = _$v ??
         new _$Card._(
-            brand: brand,
-            lastFourDigits: lastFourDigits,
+            brand:
+                BuiltValueNullFieldError.checkNotNull(brand, 'Card', 'brand'),
+            lastFourDigits: BuiltValueNullFieldError.checkNotNull(
+                lastFourDigits, 'Card', 'lastFourDigits'),
             expirationMonth: expirationMonth,
             expirationYear: expirationYear,
             id: id,
@@ -2106,26 +2108,26 @@ class _$CheckoutParameters extends CheckoutParameters {
   @override
   final Money amountMoney;
   @override
-  final bool skipReceipt;
+  final bool? skipReceipt;
   @override
-  final bool collectSignature;
+  final bool? collectSignature;
   @override
-  final bool allowSplitTender;
+  final bool? allowSplitTender;
   @override
-  final bool delayCapture;
+  final bool? delayCapture;
   @override
-  final String note;
+  final String? note;
   @override
-  final BuiltList<AdditionalPaymentType> additionalPaymentTypes;
+  final BuiltList<AdditionalPaymentType>? additionalPaymentTypes;
   @override
-  final TipSettings tipSettings;
+  final TipSettings? tipSettings;
 
   factory _$CheckoutParameters(
-          [void Function(CheckoutParametersBuilder) updates]) =>
+          [void Function(CheckoutParametersBuilder)? updates]) =>
       (new CheckoutParametersBuilder()..update(updates)).build();
 
   _$CheckoutParameters._(
-      {this.amountMoney,
+      {required this.amountMoney,
       this.skipReceipt,
       this.collectSignature,
       this.allowSplitTender,
@@ -2134,9 +2136,8 @@ class _$CheckoutParameters extends CheckoutParameters {
       this.additionalPaymentTypes,
       this.tipSettings})
       : super._() {
-    if (amountMoney == null) {
-      throw new BuiltValueNullFieldError('CheckoutParameters', 'amountMoney');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        amountMoney, 'CheckoutParameters', 'amountMoney');
   }
 
   @override
@@ -2197,61 +2198,62 @@ class _$CheckoutParameters extends CheckoutParameters {
 
 class CheckoutParametersBuilder
     implements Builder<CheckoutParameters, CheckoutParametersBuilder> {
-  _$CheckoutParameters _$v;
+  _$CheckoutParameters? _$v;
 
-  MoneyBuilder _amountMoney;
+  MoneyBuilder? _amountMoney;
   MoneyBuilder get amountMoney => _$this._amountMoney ??= new MoneyBuilder();
-  set amountMoney(MoneyBuilder amountMoney) =>
+  set amountMoney(MoneyBuilder? amountMoney) =>
       _$this._amountMoney = amountMoney;
 
-  bool _skipReceipt;
-  bool get skipReceipt => _$this._skipReceipt;
-  set skipReceipt(bool skipReceipt) => _$this._skipReceipt = skipReceipt;
+  bool? _skipReceipt;
+  bool? get skipReceipt => _$this._skipReceipt;
+  set skipReceipt(bool? skipReceipt) => _$this._skipReceipt = skipReceipt;
 
-  bool _collectSignature;
-  bool get collectSignature => _$this._collectSignature;
-  set collectSignature(bool collectSignature) =>
+  bool? _collectSignature;
+  bool? get collectSignature => _$this._collectSignature;
+  set collectSignature(bool? collectSignature) =>
       _$this._collectSignature = collectSignature;
 
-  bool _allowSplitTender;
-  bool get allowSplitTender => _$this._allowSplitTender;
-  set allowSplitTender(bool allowSplitTender) =>
+  bool? _allowSplitTender;
+  bool? get allowSplitTender => _$this._allowSplitTender;
+  set allowSplitTender(bool? allowSplitTender) =>
       _$this._allowSplitTender = allowSplitTender;
 
-  bool _delayCapture;
-  bool get delayCapture => _$this._delayCapture;
-  set delayCapture(bool delayCapture) => _$this._delayCapture = delayCapture;
+  bool? _delayCapture;
+  bool? get delayCapture => _$this._delayCapture;
+  set delayCapture(bool? delayCapture) => _$this._delayCapture = delayCapture;
 
-  String _note;
-  String get note => _$this._note;
-  set note(String note) => _$this._note = note;
+  String? _note;
+  String? get note => _$this._note;
+  set note(String? note) => _$this._note = note;
 
-  ListBuilder<AdditionalPaymentType> _additionalPaymentTypes;
+  ListBuilder<AdditionalPaymentType>? _additionalPaymentTypes;
   ListBuilder<AdditionalPaymentType> get additionalPaymentTypes =>
       _$this._additionalPaymentTypes ??=
           new ListBuilder<AdditionalPaymentType>();
   set additionalPaymentTypes(
-          ListBuilder<AdditionalPaymentType> additionalPaymentTypes) =>
+          ListBuilder<AdditionalPaymentType>? additionalPaymentTypes) =>
       _$this._additionalPaymentTypes = additionalPaymentTypes;
 
-  TipSettingsBuilder _tipSettings;
+  TipSettingsBuilder? _tipSettings;
   TipSettingsBuilder get tipSettings =>
       _$this._tipSettings ??= new TipSettingsBuilder();
-  set tipSettings(TipSettingsBuilder tipSettings) =>
+  set tipSettings(TipSettingsBuilder? tipSettings) =>
       _$this._tipSettings = tipSettings;
 
   CheckoutParametersBuilder();
 
   CheckoutParametersBuilder get _$this {
-    if (_$v != null) {
-      _amountMoney = _$v.amountMoney?.toBuilder();
-      _skipReceipt = _$v.skipReceipt;
-      _collectSignature = _$v.collectSignature;
-      _allowSplitTender = _$v.allowSplitTender;
-      _delayCapture = _$v.delayCapture;
-      _note = _$v.note;
-      _additionalPaymentTypes = _$v.additionalPaymentTypes?.toBuilder();
-      _tipSettings = _$v.tipSettings?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _amountMoney = $v.amountMoney.toBuilder();
+      _skipReceipt = $v.skipReceipt;
+      _collectSignature = $v.collectSignature;
+      _allowSplitTender = $v.allowSplitTender;
+      _delayCapture = $v.delayCapture;
+      _note = $v.note;
+      _additionalPaymentTypes = $v.additionalPaymentTypes?.toBuilder();
+      _tipSettings = $v.tipSettings?.toBuilder();
       _$v = null;
     }
     return this;
@@ -2259,14 +2261,12 @@ class CheckoutParametersBuilder
 
   @override
   void replace(CheckoutParameters other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CheckoutParameters;
   }
 
   @override
-  void update(void Function(CheckoutParametersBuilder) updates) {
+  void update(void Function(CheckoutParametersBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -2285,7 +2285,7 @@ class CheckoutParametersBuilder
               additionalPaymentTypes: _additionalPaymentTypes?.build(),
               tipSettings: _tipSettings?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'amountMoney';
         amountMoney.build();
@@ -2307,13 +2307,13 @@ class CheckoutParametersBuilder
 
 class _$TipSettings extends TipSettings {
   @override
-  final bool showCustomTipField;
+  final bool? showCustomTipField;
   @override
-  final bool showSeparateTipScreen;
+  final bool? showSeparateTipScreen;
   @override
-  final BuiltList<int> tipPercentages;
+  final BuiltList<int>? tipPercentages;
 
-  factory _$TipSettings([void Function(TipSettingsBuilder) updates]) =>
+  factory _$TipSettings([void Function(TipSettingsBuilder)? updates]) =>
       (new TipSettingsBuilder()..update(updates)).build();
 
   _$TipSettings._(
@@ -2357,31 +2357,32 @@ class _$TipSettings extends TipSettings {
 }
 
 class TipSettingsBuilder implements Builder<TipSettings, TipSettingsBuilder> {
-  _$TipSettings _$v;
+  _$TipSettings? _$v;
 
-  bool _showCustomTipField;
-  bool get showCustomTipField => _$this._showCustomTipField;
-  set showCustomTipField(bool showCustomTipField) =>
+  bool? _showCustomTipField;
+  bool? get showCustomTipField => _$this._showCustomTipField;
+  set showCustomTipField(bool? showCustomTipField) =>
       _$this._showCustomTipField = showCustomTipField;
 
-  bool _showSeparateTipScreen;
-  bool get showSeparateTipScreen => _$this._showSeparateTipScreen;
-  set showSeparateTipScreen(bool showSeparateTipScreen) =>
+  bool? _showSeparateTipScreen;
+  bool? get showSeparateTipScreen => _$this._showSeparateTipScreen;
+  set showSeparateTipScreen(bool? showSeparateTipScreen) =>
       _$this._showSeparateTipScreen = showSeparateTipScreen;
 
-  ListBuilder<int> _tipPercentages;
+  ListBuilder<int>? _tipPercentages;
   ListBuilder<int> get tipPercentages =>
       _$this._tipPercentages ??= new ListBuilder<int>();
-  set tipPercentages(ListBuilder<int> tipPercentages) =>
+  set tipPercentages(ListBuilder<int>? tipPercentages) =>
       _$this._tipPercentages = tipPercentages;
 
   TipSettingsBuilder();
 
   TipSettingsBuilder get _$this {
-    if (_$v != null) {
-      _showCustomTipField = _$v.showCustomTipField;
-      _showSeparateTipScreen = _$v.showSeparateTipScreen;
-      _tipPercentages = _$v.tipPercentages?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _showCustomTipField = $v.showCustomTipField;
+      _showSeparateTipScreen = $v.showSeparateTipScreen;
+      _tipPercentages = $v.tipPercentages?.toBuilder();
       _$v = null;
     }
     return this;
@@ -2389,14 +2390,12 @@ class TipSettingsBuilder implements Builder<TipSettings, TipSettingsBuilder> {
 
   @override
   void replace(TipSettings other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TipSettings;
   }
 
   @override
-  void update(void Function(TipSettingsBuilder) updates) {
+  void update(void Function(TipSettingsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -2410,7 +2409,7 @@ class TipSettingsBuilder implements Builder<TipSettings, TipSettingsBuilder> {
               showSeparateTipScreen: showSeparateTipScreen,
               tipPercentages: _tipPercentages?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'tipPercentages';
         _tipPercentages?.build();
