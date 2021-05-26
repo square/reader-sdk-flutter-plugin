@@ -24,11 +24,11 @@ class _LogoAnimated extends AnimatedWidget {
   );
   static final _sizeTween = Tween<double>(begin: 80.0, end: 48.0);
 
-  _LogoAnimated({Key key, Animation<double> animation})
+  _LogoAnimated({Key? key, required Animation<double> animation})
       : super(key: key, listenable: animation);
 
   Widget build(BuildContext context) {
-    final Animation<double> animation = listenable;
+    final Animation<double> animation = listenable as Animation<double>;
     return Container(
       alignment: _alignmentTween.evaluate(animation),
       margin: EdgeInsets.symmetric(vertical: 100.0),
@@ -50,15 +50,15 @@ class AnimatedSquareLogo extends StatefulWidget {
   });
 
   /// callback that fires after the logo animation is finished
-  final VoidCallback onLogoAnimated;
+  final VoidCallback? onLogoAnimated;
 
   _LogoState createState() => _LogoState();
 }
 
 class _LogoState extends State<AnimatedSquareLogo>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> animation;
+  late AnimationController controller;
+  late Animation<double> animation;
 
   void initState() {
     super.initState();
@@ -67,7 +67,7 @@ class _LogoState extends State<AnimatedSquareLogo>
     animation = CurvedAnimation(parent: controller, curve: Curves.linear);
     animation.addStatusListener((var status) {
       if (status == AnimationStatus.completed) {
-        widget.onLogoAnimated();
+        widget.onLogoAnimated!();
       }
     });
     controller.forward();

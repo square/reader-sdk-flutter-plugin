@@ -114,12 +114,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           Navigator.pushReplacementNamed(context, '/');
           break;
         default:
-          var errorMessage = e.message;
+          var errorMessage = e.message!;
           if (_debug) {
             errorMessage += '\n\nDebug Message: ${e.debugMessage}';
             print('${e.code}:${e.debugCode}:${e.debugMessage}');
           }
-          displayErrorModal(context, errorMessage);
+          displayErrorModal(context, errorMessage!);
       }
     }
   }
@@ -134,12 +134,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           Navigator.pushReplacementNamed(context, '/');
           break;
         default:
-          var errorMessage = e.message;
+          var errorMessage = e.message!;
           if (_debug) {
             errorMessage += '\n\nDebug Message: ${e.debugMessage}';
             print('${e.code}:${e.debugCode}:${e.debugMessage}');
           }
-          displayErrorModal(context, errorMessage);
+          displayErrorModal(context, errorMessage!);
       }
     }
   }
@@ -154,12 +154,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         Navigator.pushNamed(context, '/authorize');
       }
     } on ReaderSdkException catch (e) {
-      var errorMessage = e.message;
+      var errorMessage = e.message!;
       if (_debug) {
         errorMessage += '\n\nDebug Message: ${e.debugMessage}';
         print('${e.code}:${e.debugCode}:${e.debugMessage}');
       }
-      displayErrorModal(context, errorMessage);
+      displayErrorModal(context, errorMessage!);
     } finally {
       setState(() {
         _isLoading = false;
@@ -212,8 +212,8 @@ class _Buttons extends StatelessWidget {
   final Function onSettings;
 
   _Buttons({
-    this.onCharge,
-    this.onSettings,
+    required this.onCharge,
+    required this.onSettings,
   });
 
   @override
@@ -221,9 +221,9 @@ class _Buttons extends StatelessWidget {
         child: SQButtonContainer(buttons: [
           SQRaisedButton(
             text: 'Charge \$1.00',
-            onPressed: onCharge,
+            onPressed: onCharge as void Function(),
           ),
-          SQOutlineButton(text: 'Settings', onPressed: onSettings),
+          SQOutlineButton(text: 'Settings', onPressed: onSettings as void Function()),
         ]),
       );
 }
@@ -234,9 +234,9 @@ class _SettingsModalPopup extends StatelessWidget {
   final Function onDeauthorize;
 
   _SettingsModalPopup({
-    @required this.locationName,
-    this.onReaderSDKSettings,
-    this.onDeauthorize,
+    required this.locationName,
+    required this.onReaderSDKSettings,
+    required this.onDeauthorize,
   });
 
   @override
@@ -248,14 +248,14 @@ class _SettingsModalPopup extends StatelessWidget {
               'Reader Settings',
               style: TextStyle(color: Colors.blue),
             ),
-            onPressed: onReaderSDKSettings,
+            onPressed: onReaderSDKSettings as void Function()?,
           ),
           FlatButton(
             child: Text(
               'Deauthorize',
               style: TextStyle(color: Colors.red),
             ),
-            onPressed: onDeauthorize,
+            onPressed: onDeauthorize as void Function()?,
           ),
         ],
         cancelButton: FlatButton(

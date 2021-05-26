@@ -20,7 +20,7 @@ import 'package:flutter/material.dart';
 class SQButtonContainer extends StatelessWidget {
   /// initialize with a list of buttons
   SQButtonContainer({
-    this.buttons,
+    required this.buttons,
   });
 
   /// buttons are that displays in the order they appear in the list
@@ -60,14 +60,14 @@ class SQOutlineButton extends StatelessWidget {
   });
 
   /// the text displayed in the button
-  final String text;
+  final String? text;
 
   /// a callback that is fired when the button is pressed
-  final void Function() onPressed;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) => OutlineButton(
-        child: Text(text),
+        child: Text(text!),
         textColor: Colors.white,
         highlightColor: Color.fromRGBO(57, 114, 178, 1.0),
         borderSide: BorderSide(
@@ -81,8 +81,8 @@ class SQOutlineButton extends StatelessWidget {
 class SQRaisedButton extends StatelessWidget {
   /// initializer
   SQRaisedButton({
-    this.text,
-    this.onPressed,
+    required this.text,
+    required this.onPressed,
   });
 
   /// the text displayed in the button

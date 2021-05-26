@@ -61,12 +61,12 @@ class _AuthorizeScreenState extends State<AuthorizeScreen> {
           displayErrorModal(context, 'Please connect your device to network.');
           break;
         case ErrorCode.usageError:
-          var errorMessage = e.message;
+          var errorMessage = e.message!;
           if (_debug) {
             errorMessage += '\n\nDebug Message: ${e.debugMessage}';
             print('${e.code}:${e.debugCode}:${e.debugMessage}');
           }
-          displayErrorModal(context, errorMessage);
+          displayErrorModal(context, errorMessage!);
           break;
       }
     } finally {
@@ -139,8 +139,8 @@ class _Buttons extends StatelessWidget {
   final Function scanQRCode;
 
   _Buttons({
-    this.scanQRCode,
-    this.manuallyEnterCode,
+    required this.scanQRCode,
+    required this.manuallyEnterCode,
   });
 
   @override
@@ -148,9 +148,9 @@ class _Buttons extends StatelessWidget {
           child: SQButtonContainer(buttons: [
         SQRaisedButton(
           text: 'Scan QR Code',
-          onPressed: scanQRCode,
+          onPressed: scanQRCode as void Function(),
         ),
         SQOutlineButton(
-            text: 'Manually Enter Code', onPressed: manuallyEnterCode),
+            text: 'Manually Enter Code', onPressed: manuallyEnterCode as void Function()),
       ]));
 }

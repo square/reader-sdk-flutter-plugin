@@ -51,12 +51,12 @@ class _ManualAuthorizeScreenState extends State<ManualAuthorizeScreen> {
           displayErrorModal(context, 'Please connect your device to network.');
           break;
         case ErrorCode.usageError:
-          var errorMessage = e.message;
+          var errorMessage = e.message!;
           if (_debug) {
             errorMessage += '\n\nDebug Message: ${e.debugMessage}';
             print('${e.code}:${e.debugCode}:${e.debugMessage}');
           }
-          displayErrorModal(context, errorMessage);
+          displayErrorModal(context, errorMessage!);
           break;
       }
     } finally {

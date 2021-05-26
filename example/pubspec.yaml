@@ -10,14 +10,14 @@ description: Demonstrates how to use the square_reader_sdk plugin.
 version: 1.1.2+1
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
   permission_handler: ^8.0.0+2
-  barcode_scan: ^1.0.0
+  barcode_scan: ^2.0.2
   intl: ^0.17.0
 
   # The following adds the Cupertino Icons font to your application.
