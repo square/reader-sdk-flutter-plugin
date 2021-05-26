@@ -98,34 +98,30 @@ class _ButtonContainerState extends State<_ButtonContainer> {
   bool _hasMicrophoneAccess = false;
   String _microphoneButtonText = 'Enable Microphone Access';
 
-  final PermissionHandler _permissionHandler = PermissionHandler();
-
   // @override
   void initState() {
     super.initState();
     checkPermissionsAndNavigate();
   }
 
-  void requestPermission(PermissionGroup permission) async {
-    var permissionMap =
-        await _permissionHandler.requestPermissions([permission]);
-    switch (permissionMap[permission]) {
-      case PermissionStatus.denied:
-        await _permissionHandler.openAppSettings();
+  void requestPermission(Permission permission) async {
+    switch (await permission.status) {
+      case PermissionStatus.permanentlyDenied:
+        openAppSettings();
         break;
       default:
-        await _permissionHandler.requestPermissions([permission]);
+        await permission.request();
     }
 
     checkPermissionsAndNavigate();
   }
 
   void onRequestLocationPermission() {
-    requestPermission(PermissionGroup.locationWhenInUse);
+    requestPermission(Permission.locationWhenInUse);
   }
 
   void onRequestAudioPermission() {
-    requestPermission(PermissionGroup.microphone);
+    requestPermission(Permission.microphone);
   }
 
   void checkPermissionsAndNavigate() async {
@@ -150,14 +146,14 @@ class _ButtonContainerState extends State<_ButtonContainer> {
         case PermissionStatus.granted:
           _locationButtonText = 'Location Enabled';
           break;
-        case PermissionStatus.denied:
-        case PermissionStatus.disabled:
+        case PermissionStatus.permanentlyDenied:
           _locationButtonText = 'Enable Location in Settings';
           break;
         case PermissionStatus.restricted:
           _locationButtonText = 'Location permission is restricted';
           break;
-        case PermissionStatus.unknown:
+        case PermissionStatus.denied:
+        case PermissionStatus.limited:
           _locationButtonText = 'Enable Location Access';
           break;
       }
@@ -172,14 +168,14 @@ class _ButtonContainerState extends State<_ButtonContainer> {
         case PermissionStatus.granted:
           _microphoneButtonText = 'Microphone Enabled';
           break;
-        case PermissionStatus.denied:
-        case PermissionStatus.disabled:
+        case PermissionStatus.permanentlyDenied:
           _microphoneButtonText = 'Enable Microphone in Settings';
           break;
         case PermissionStatus.restricted:
           _microphoneButtonText = 'Microphone permission is restricted';
           break;
-        case PermissionStatus.unknown:
+        case PermissionStatus.denied:
+        case PermissionStatus.limited:
           _microphoneButtonText = 'Enable Microphone Access';
           break;
       }
@@ -199,10 +195,7 @@ class _ButtonContainerState extends State<_ButtonContainer> {
 }
 
 Future<List<PermissionStatus>> get _permissionsStatus async {
-  var permissionHandler = PermissionHandler();
-  var locationPermission = await permissionHandler
-      .checkPermissionStatus(PermissionGroup.locationWhenInUse);
-  var microphonePermission =
-      await permissionHandler.checkPermissionStatus(PermissionGroup.microphone);
+  var locationPermission = await Permission.locationWhenInUse.status;
+  var microphonePermission = await Permission.microphone.status;
   return [locationPermission, microphonePermission];
 }
