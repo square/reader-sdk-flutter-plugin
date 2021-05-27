@@ -67,4 +67,3 @@ ThemeData _buildTheme() {
         )),
   );
 }
-
