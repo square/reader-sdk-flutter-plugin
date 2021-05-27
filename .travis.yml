@@ -32,7 +32,7 @@ matrix:
     - "./flutter/bin/flutter -v build apk"
   - language: objective-c
     os: osx
-    osx_image: xcode11.1
+    osx_image: xcode12.0.1
     before_install:
     - cd example
     - git clone https://github.com/flutter/flutter.git -b stable --depth 1
