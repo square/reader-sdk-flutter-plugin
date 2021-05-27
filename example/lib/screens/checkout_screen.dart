@@ -119,7 +119,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             errorMessage += '\n\nDebug Message: ${e.debugMessage}';
             print('${e.code}:${e.debugCode}:${e.debugMessage}');
           }
-          displayErrorModal(context, errorMessage!);
+          displayErrorModal(context, errorMessage);
       }
     }
   }
@@ -139,7 +139,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             errorMessage += '\n\nDebug Message: ${e.debugMessage}';
             print('${e.code}:${e.debugCode}:${e.debugMessage}');
           }
-          displayErrorModal(context, errorMessage!);
+          displayErrorModal(context, errorMessage);
       }
     }
   }
@@ -159,7 +159,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         errorMessage += '\n\nDebug Message: ${e.debugMessage}';
         print('${e.code}:${e.debugCode}:${e.debugMessage}');
       }
-      displayErrorModal(context, errorMessage!);
+      displayErrorModal(context, errorMessage);
     } finally {
       setState(() {
         _isLoading = false;

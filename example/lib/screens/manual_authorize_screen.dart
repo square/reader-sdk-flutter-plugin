@@ -56,7 +56,7 @@ class _ManualAuthorizeScreenState extends State<ManualAuthorizeScreen> {
             errorMessage += '\n\nDebug Message: ${e.debugMessage}';
             print('${e.code}:${e.debugCode}:${e.debugMessage}');
           }
-          displayErrorModal(context, errorMessage!);
+          displayErrorModal(context, errorMessage);
           break;
       }
     } finally {
