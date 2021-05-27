@@ -106,11 +106,16 @@ class _ButtonContainerState extends State<_ButtonContainer> {
 
   void requestPermission(Permission permission) async {
     switch (await permission.status) {
+      //Works in ios
       case PermissionStatus.permanentlyDenied:
         openAppSettings();
         break;
       default:
-        await permission.request();
+        //This condition is to check 'Don't ask again' on android'
+        if(await permission.request().isPermanentlyDenied) {
+          openAppSettings();
+        }
+        break;
     }
 
     checkPermissionsAndNavigate();
