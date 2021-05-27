@@ -158,9 +158,10 @@ class _ButtonContainerState extends State<_ButtonContainer> {
           _locationButtonText = 'Location permission is restricted';
           break;
         case PermissionStatus.denied:
-        case PermissionStatus.limited:
           _locationButtonText = 'Enable Location Access';
           break;
+        case PermissionStatus.limited:
+          _microphoneButtonText = 'Location permission is limited';
       }
     });
   }
@@ -180,9 +181,10 @@ class _ButtonContainerState extends State<_ButtonContainer> {
           _microphoneButtonText = 'Microphone permission is restricted';
           break;
         case PermissionStatus.denied:
-        case PermissionStatus.limited:
           _microphoneButtonText = 'Enable Microphone Access';
           break;
+        case PermissionStatus.limited:
+          _microphoneButtonText = 'Microphone permission is limited';
       }
     });
   }
