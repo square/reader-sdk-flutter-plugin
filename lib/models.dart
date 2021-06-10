@@ -22,11 +22,10 @@ part 'models.g.dart';
 abstract class Money implements Built<Money, MoneyBuilder> {
   int get amount;
 
-  @nullable
-  String get currencyCode;
+  String? get currencyCode;
 
   Money._();
-  factory Money([updates(MoneyBuilder b)]) = _$Money;
+  factory Money([updates(MoneyBuilder b)/*!*/]) = _$Money;
   static Serializer<Money> get serializer => _$moneySerializer;
 }
 
@@ -40,14 +39,13 @@ abstract class Location implements Built<Location, LocationBuilder> {
   Money get minimumCardPaymentAmountMoney;
 
   Location._();
-  factory Location([updates(LocationBuilder b)]) = _$Location;
+  factory Location([updates(LocationBuilder b)/*!*/]) = _$Location;
   static Serializer<Location> get serializer => _$locationSerializer;
 }
 
 abstract class CheckoutResult
     implements Built<CheckoutResult, CheckoutResultBuilder> {
-  @nullable
-  String get transactionId;
+  String? get transactionId;
   String get transactionClientId;
   String get locationId;
   String get createdAt;
@@ -56,7 +54,7 @@ abstract class CheckoutResult
   BuiltList<Tender> get tenders;
 
   CheckoutResult._();
-  factory CheckoutResult([updates(CheckoutResultBuilder b)]) = _$CheckoutResult;
+  factory CheckoutResult([updates(CheckoutResultBuilder b)/*!*/]) = _$CheckoutResult;
   static Serializer<CheckoutResult> get serializer =>
       _$checkoutResultSerializer;
 }
@@ -81,19 +79,16 @@ abstract class Tender implements Built<Tender, TenderBuilder> {
 
   TenderType get type;
 
-  @nullable
-  String get tenderId;
+  String? get tenderId;
 
   String get createdAt;
 
-  @nullable
-  CardDetails get cardDetails;
+  CardDetails? get cardDetails;
 
-  @nullable
-  CashDetails get cashDetails;
+  CashDetails? get cashDetails;
 
   Tender._();
-  factory Tender([updates(TenderBuilder b)]) = _$Tender;
+  factory Tender([updates(TenderBuilder b)/*!*/]) = _$Tender;
   static Serializer<Tender> get serializer => _$tenderSerializer;
 }
 
@@ -103,7 +98,7 @@ abstract class CashDetails implements Built<CashDetails, CashDetailsBuilder> {
   Money get changeBackMoney;
 
   CashDetails._();
-  factory CashDetails([updates(CashDetailsBuilder b)]) = _$CashDetails;
+  factory CashDetails([updates(CashDetailsBuilder b)/*!*/]) = _$CashDetails;
   static Serializer<CashDetails> get serializer => _$cashDetailsSerializer;
 }
 
@@ -132,7 +127,7 @@ abstract class CardDetails implements Built<CardDetails, CardDetailsBuilder> {
   Card get card;
 
   CardDetails._();
-  factory CardDetails([updates(CardDetailsBuilder b)]) = _$CardDetails;
+  factory CardDetails([updates(CardDetailsBuilder b)/*!*/]) = _$CardDetails;
   static Serializer<CardDetails> get serializer => _$cardDetailsSerializer;
 }
 
@@ -172,20 +167,16 @@ abstract class Card implements Built<Card, CardBuilder> {
   Brand get brand;
   String get lastFourDigits;
 
-  @nullable
-  int get expirationMonth;
+  int? get expirationMonth;
 
-  @nullable
-  int get expirationYear;
+  int? get expirationYear;
 
-  @nullable
-  String get id;
+  String? get id;
 
-  @nullable
-  String get cardholderName;
+  String? get cardholderName;
 
   Card._();
-  factory Card([updates(CardBuilder b)]) = _$Card;
+  factory Card([updates(CardBuilder b)/*!*/]) = _$Card;
   static Serializer<Card> get serializer => _$cardSerializer;
 }
 
@@ -213,44 +204,34 @@ abstract class CheckoutParameters
     implements Built<CheckoutParameters, CheckoutParametersBuilder> {
   Money get amountMoney;
 
-  @nullable
-  bool get skipReceipt;
+  bool? get skipReceipt;
 
-  @nullable
-  bool get collectSignature;
+  bool? get collectSignature;
 
-  @nullable
-  bool get allowSplitTender;
+  bool? get allowSplitTender;
 
-  @nullable
-  bool get delayCapture;
+  bool? get delayCapture;
 
-  @nullable
-  String get note;
+  String? get note;
 
-  @nullable
-  BuiltList<AdditionalPaymentType> get additionalPaymentTypes;
+  BuiltList<AdditionalPaymentType>? get additionalPaymentTypes;
 
-  @nullable
-  TipSettings get tipSettings;
+  TipSettings? get tipSettings;
 
   CheckoutParameters._();
-  factory CheckoutParameters([updates(CheckoutParametersBuilder b)]) =
+  factory CheckoutParameters([updates(CheckoutParametersBuilder b)/*!*/]) =
       _$CheckoutParameters;
   static Serializer<CheckoutParameters> get serializer =>
       _$checkoutParametersSerializer;
 }
 
 abstract class TipSettings implements Built<TipSettings, TipSettingsBuilder> {
-  @nullable
-  bool get showCustomTipField;
-  @nullable
-  bool get showSeparateTipScreen;
-  @nullable
-  BuiltList<int> get tipPercentages;
+  bool? get showCustomTipField;
+  bool? get showSeparateTipScreen;
+  BuiltList<int>? get tipPercentages;
 
   TipSettings._();
-  factory TipSettings([updates(TipSettingsBuilder b)]) = _$TipSettings;
+  factory TipSettings([updates(TipSettingsBuilder b)/*!*/]) = _$TipSettings;
   static Serializer<TipSettings> get serializer => _$tipSettingsSerializer;
 }
 
