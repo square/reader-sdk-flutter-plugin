@@ -1,4 +1,3 @@
-// @dart=2.9
 /*
 Copyright 2018 Square Inc.
 
@@ -16,6 +15,7 @@ limitations under the License.
 */
 
 import 'package:flutter/material.dart';
+import 'package:square_reader_sdk_example/screens/widgets/qr_scanner.dart';
 import 'screens/authorize_screen.dart';
 import 'screens/checkout_screen.dart';
 import 'screens/manual_authorize_screen.dart';
@@ -34,6 +34,7 @@ class ExampleApp extends StatelessWidget {
           '/authorize': (context) => AuthorizeScreen(),
           '/authorize/manual': (context) => ManualAuthorizeScreen(),
           '/checkout': (context) => CheckoutScreen(),
+          '/sqScanner':(context) => SQScanner(),
         },
       );
 }
