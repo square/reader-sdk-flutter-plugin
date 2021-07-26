@@ -1,5 +1,11 @@
 ## Changelog
 
+### v2.4.0 July 23rd, 2021
+
+* Update package dependencies to latest versions for Null Safety support.
+* Plugin and Example code migration to null safety.
+* Dart version : 2.12
+
 ### v2.3.0 April 20, 2021
 
 * Adding support for Reader SDK 1.4.4+ on both Android and iOS.
