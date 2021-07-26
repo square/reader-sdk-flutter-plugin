@@ -1,6 +1,6 @@
 ## Changelog
 
-### v2.3.1 July 23rd, 2021
+### v2.4.0 July 23rd, 2021
 
 * Update package dependencies to latest versions for Null Safety support.
 * Plugin and Example code migration to null safety.
