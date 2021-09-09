@@ -1,6 +1,6 @@
 # Flutter plugin for Reader SDK
 
-[![Build Status](https://travis-ci.com/square/reader-sdk-flutter-plugin.svg?branch=master)](https://travis-ci.com/square/reader-sdk-flutter-plugin)
+[![build](https://github.com/square/reader-sdk-flutter-plugin/actions/workflows/build.yml/badge.svg)](https://github.com/square/reader-sdk-flutter-plugin/actions/workflows/build.yml)
 [![Pub](https://img.shields.io/pub/v/square_reader_sdk)](https://pub.dev/packages/square_reader_sdk)
 
 Square [Reader SDK] lets developers embed the [Square] checkout flow and accept
