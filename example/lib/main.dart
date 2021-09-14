@@ -60,7 +60,7 @@ ThemeData _buildTheme() {
           fontWeight: FontWeight.w600,
           color: Colors.white,
         ),
-        body1: TextStyle(
+        bodyText2: TextStyle(
           fontSize: 24.0,
           fontWeight: FontWeight.w600,
           color: Colors.white,
