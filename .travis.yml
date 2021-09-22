@@ -26,7 +26,7 @@ matrix:
     - git clone https://github.com/flutter/flutter.git -b stable --depth 1
     - "./flutter/bin/flutter doctor -v"
     before_script:
-    - openssl aes-256-cbc -K $encrypted_2afbb999f001_key -iv $encrypted_2afbb999f001_iv
+    - openssl aes-256-cbc -K $encrypted_0921_key -iv $encrypted_0921_iv
       -in android/gradle.properties.enc -out android/gradle.properties -d
     script:
     - "./flutter/bin/flutter -v build apk"
