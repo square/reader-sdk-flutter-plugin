@@ -54,7 +54,7 @@ dependencies:
 
   ...
 
-  square_reader_sdk: ^2.0.0
+  square_reader_sdk: ^3.0.0
 ```
 
 
