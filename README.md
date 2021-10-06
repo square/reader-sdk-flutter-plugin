@@ -41,7 +41,6 @@ In addition to this README, the following is available in the
 
 * Flutter version 2.0 or higher
 * Dart version 2.12 or higher
-* A version of Flutter greater than 2.0 is required for v2 embedding support. Any application that uses v1 embeddings for android will still be backwards compatible and supported.
    
 ### Android
 
