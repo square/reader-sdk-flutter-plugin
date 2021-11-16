@@ -104,3 +104,6 @@ You can view the [transaction details in Square Dashboard].
 [Flutter Getting Started]: https://flutter.io/docs/get-started/install
 [root README]: ../README.md
 [transaction details in Square Dashboard]: https://squareup.com/dashboard/sales/transactions
+
+## Feedback
+Rate this sample app [here](https://delighted.com/t/Z1xmKSqy)!
