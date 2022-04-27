@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Square Inc.
+Copyright 2022 Square Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import 'package:barcode_scan/barcode_scan.dart';
+// import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:square_reader_sdk/reader_sdk.dart';
@@ -77,18 +77,18 @@ class _AuthorizeScreenState extends State<AuthorizeScreen> {
   }
 
   Future scan() async {
-    try {
-      var barcode = await BarcodeScanner.scan();
-      authorizeQRCode(barcode);
-    } on PlatformException catch (e) {
-      if (e.code == BarcodeScanner.CameraAccessDenied) {
-        displayErrorModal(context, 'Camera Access was not granted');
-      } else {
-        displayErrorModal(context, e.toString());
-      }
-    } on Exception catch (e) {
-      displayErrorModal(context, e.toString());
-    }
+    // try {
+    //   var barcode = await BarcodeScanner.scan();
+    //   authorizeQRCode(barcode);
+    // } on PlatformException catch (e) {
+    //   if (e.code == BarcodeScanner.CameraAccessDenied) {
+    //     displayErrorModal(context, 'Camera Access was not granted');
+    //   } else {
+    //     displayErrorModal(context, e.toString());
+    //   }
+    // } on Exception catch (e) {
+    //   displayErrorModal(context, e.toString());
+    // }
   }
 
   void scanQRCode() async {
@@ -151,6 +151,7 @@ class _Buttons extends StatelessWidget {
           onPressed: scanQRCode as void Function(),
         ),
         SQOutlineButton(
-            text: 'Manually Enter Code', onPressed: manuallyEnterCode as void Function()),
+            text: 'Manually Enter Code',
+            onPressed: manuallyEnterCode as void Function()),
       ]));
 }

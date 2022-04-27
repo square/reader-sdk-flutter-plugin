@@ -8,17 +8,17 @@ description: Demonstrates how to use the square_reader_sdk plugin.
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
 version: 1.1.2+1
-
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.14.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
-  permission_handler: ^8.0.0+2
+  permission_handler:
   barcode_scan: ^2.0.2
   intl: ^0.17.0
+  # google_sign_in: ^5.2.4
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Square Inc.
+Copyright 2022 Square Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -112,7 +112,7 @@ class _ButtonContainerState extends State<_ButtonContainer> {
         break;
       default:
         //This condition is to check 'Don't ask again' on android'
-        if(await permission.request().isPermanentlyDenied) {
+        if (await permission.request().isPermanentlyDenied) {
           openAppSettings();
         }
         break;

@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Square Inc.
+Copyright 2022 Square Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -223,7 +223,8 @@ class _Buttons extends StatelessWidget {
             text: 'Charge \$1.00',
             onPressed: onCharge as void Function(),
           ),
-          SQOutlineButton(text: 'Settings', onPressed: onSettings as void Function()),
+          SQOutlineButton(
+              text: 'Settings', onPressed: onSettings as void Function()),
         ]),
       );
 }
