@@ -16,7 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  permission_handler: any
+  permission_handler: ^9.2.0
   barcode_scan: ^2.0.2
   intl: ^0.17.0
   firebase_core: ^1.16.0
