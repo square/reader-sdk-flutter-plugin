@@ -174,7 +174,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       builder: (var context) => _SettingsModalPopup(
         locationName: location.name,
         onReaderSDKSettings: onReaderSDKSettings,
-        onDeauthorize: onDeauthorize,
+        onDeauthorize: () => confirmOnDeauthorize(
+            context: context,
+            onPressed: () {
+              Navigator.of(context).pop();
+              onDeauthorize();
+            }),
       ),
     );
   }
@@ -183,16 +188,24 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget build(BuildContext context) => Scaffold(
         body: _isLoading
             ? LoadingWidget()
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                    SquareLogo(),
-                    _Description(),
-                    _Buttons(
-                      onCharge: onCharge,
-                      onSettings: onSettings,
-                    ),
-                  ]),
+            : Container(
+                margin: EdgeInsets.only(top: 30.0),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        alignment: Alignment.centerRight,
+                        child: SQSettingButton(
+                            onPressed: onSettings as void Function()),
+                      ),
+                      SquareLogo(),
+                      _Description(),
+                      _Buttons(
+                        onCharge: onCharge,
+                        onSettings: onSettings,
+                      ),
+                    ]),
+              ),
       );
 }
 
@@ -202,6 +215,7 @@ class _Description extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: 32.0, vertical: 48.0),
         child: Text(
           'Take a payment.',
+          style: TextStyle(fontSize: 20.0),
           textAlign: TextAlign.center,
         ),
       );
@@ -223,7 +237,6 @@ class _Buttons extends StatelessWidget {
             text: 'Charge \$1.00',
             onPressed: onCharge as void Function(),
           ),
-          SQOutlineButton(text: 'Settings', onPressed: onSettings as void Function()),
         ]),
       );
 }
@@ -231,7 +244,7 @@ class _Buttons extends StatelessWidget {
 class _SettingsModalPopup extends StatelessWidget {
   final String locationName;
   final Function onReaderSDKSettings;
-  final Function onDeauthorize;
+  final VoidCallback? onDeauthorize;
 
   _SettingsModalPopup({
     required this.locationName,
@@ -255,7 +268,7 @@ class _SettingsModalPopup extends StatelessWidget {
               'Deauthorize',
               style: TextStyle(color: Colors.red),
             ),
-            onPressed: onDeauthorize as void Function()?,
+            onPressed: onDeauthorize,
           ),
         ],
         cancelButton: FlatButton(

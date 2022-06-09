@@ -48,3 +48,61 @@ Future<Null> displayErrorModal(BuildContext context, String message) =>
                 ),
               ],
             ));
+
+Future<Null> displayModal(BuildContext context, String message, void onPress) =>
+    showDialog(
+        context: context,
+        builder: (var context) => AlertDialog(
+              title: Text('AlertDialog Title'),
+              content: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Text('This is a demo alert dialog.'),
+                    Text('Would you like to approve of this message?'),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Confirm'),
+                  onPressed: () {
+                    print('Confirmed');
+                    Navigator.of(context).pop();
+                    onPress;
+                  },
+                ),
+                TextButton(
+                  child: Text('Cancel'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ));
+
+        Future<Null> confirmOnDeauthorize({
+          BuildContext? context,
+          VoidCallback? onPressed,
+        }) =>
+            showDialog(
+              context: context!,
+              barrierDismissible: false, // user must tap button!
+              builder: (var context) => AlertDialog(
+                title: const Text(
+                  'Are you sure you want to Deauthorize Token ?',
+                  style: TextStyle(color: Colors.black, fontSize: 16),
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(
+                      context,
+                    ),
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: onPressed,
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+            );
