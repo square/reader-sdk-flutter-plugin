@@ -173,7 +173,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       context: context,
       builder: (var context) => _SettingsModalPopup(
         locationName: location.name,
-        onReaderSDKSettings: onReaderSDKSettings,
+        onReaderSDKSettings: () => onReaderSDKSettings,
         onDeauthorize: onDeauthorize,
       ),
     );
@@ -223,7 +223,8 @@ class _Buttons extends StatelessWidget {
             text: 'Charge \$1.00',
             onPressed: onCharge as void Function(),
           ),
-          SQOutlineButton(text: 'Settings', onPressed: onSettings as void Function()),
+          SQOutlineButton(
+              text: 'Settings', onPressed: onSettings as void Function()),
         ]),
       );
 }
