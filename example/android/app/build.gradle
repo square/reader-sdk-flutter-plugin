@@ -73,6 +73,7 @@ dependencies {
         resolutionStrategy {
             force 'com.android.support:support-v4:27.1.0'
         }}
+    implementation "androidx.multidex:multidex:2.0.1"
     implementation 'com.google.android.gms:play-services-safetynet:15.0.1'
     implementation 'com.google.android.gms:play-services-ads-identifier:15.0.1'
     testImplementation 'junit:junit:4.12'

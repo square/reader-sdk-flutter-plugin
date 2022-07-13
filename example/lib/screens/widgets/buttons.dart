@@ -66,17 +66,21 @@ class SQOutlineButton extends StatelessWidget {
   final void Function()? onPressed;
 
   @override
-  Widget build(BuildContext context) => OutlineButton(
-        child: Text(text!),
-        textColor: Colors.white,
-        highlightColor: Color.fromRGBO(57, 114, 178, 1.0),
-        borderSide: BorderSide(
-            color: Colors.white, style: BorderStyle.solid, width: 1.0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+  Widget build(BuildContext context) => OutlinedButton(
+        child: Text(
+          text!,
+          style: TextStyle(color: Colors.white),
+        ),
+        style: OutlinedButton.styleFrom(
+          padding: EdgeInsets.all(20.0),
+          side: BorderSide(
+              color: Colors.white, style: BorderStyle.solid, width: 1.0),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        ),
         onPressed: onPressed,
       );
 }
-
 
 /// A button that is styled with a white outline
 class SQSettingButton extends StatelessWidget {
@@ -84,17 +88,24 @@ class SQSettingButton extends StatelessWidget {
   SQSettingButton({
     this.onPressed,
   });
+
   /// a callback that is fired when the button is pressed
   final void Function()? onPressed;
 
   @override
-  Widget build(BuildContext context) => OutlineButton(
+  Widget build(BuildContext context) => OutlinedButton(
         child: Icon(
           Icons.settings,
           size: 35.0,
           color: Colors.white,
         ),
-        borderSide: BorderSide(color: Colors.blue, width: 0.1),
+        style: OutlinedButton.styleFrom(
+          padding: EdgeInsets.all(20.0),
+          side: BorderSide(
+              color: Colors.blue, style: BorderStyle.solid, width: 0.1),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        ),
         onPressed: onPressed,
       );
 }
