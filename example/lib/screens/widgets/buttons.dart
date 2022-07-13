@@ -77,6 +77,28 @@ class SQOutlineButton extends StatelessWidget {
       );
 }
 
+
+/// A button that is styled with a white outline
+class SQSettingButton extends StatelessWidget {
+  /// initializer
+  SQSettingButton({
+    this.onPressed,
+  });
+  /// a callback that is fired when the button is pressed
+  final void Function()? onPressed;
+
+  @override
+  Widget build(BuildContext context) => OutlineButton(
+        child: Icon(
+          Icons.settings,
+          size: 35.0,
+          color: Colors.white,
+        ),
+        borderSide: BorderSide(color: Colors.blue, width: 0.1),
+        onPressed: onPressed,
+      );
+}
+
 /// A button with a blue background
 class SQRaisedButton extends StatelessWidget {
   /// initializer

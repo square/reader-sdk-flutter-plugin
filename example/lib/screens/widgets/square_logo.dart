@@ -24,8 +24,8 @@ class SquareLogo extends StatelessWidget {
         margin: EdgeInsets.only(top: 100.0),
         child: Image.asset(
           'icons/ic_jewel.png',
-          height: 48.0,
-          width: 48.0,
+          height: 58.0,
+          width: 58.0,
         ),
       );
 }
