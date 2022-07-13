@@ -173,7 +173,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       context: context,
       builder: (var context) => _SettingsModalPopup(
         locationName: location.name,
-        onReaderSDKSettings: onReaderSDKSettings,
+        onReaderSDKSettings:() => onReaderSDKSettings,
         onDeauthorize: () => confirmOnDeauthorize(
             context: context,
             onPressed: () {
