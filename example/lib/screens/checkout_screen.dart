@@ -66,7 +66,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 ),
               ),
               actions: <Widget>[
-                FlatButton(
+                TextButton(
                   child: Text('OK'),
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -196,7 +196,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       Container(
                         alignment: Alignment.centerRight,
                         child: SQSettingButton(
-                            onPressed: onSettings as void Function()),
+                            onPressed: onSettings),
                       ),
                       SquareLogo(),
                       _Description(),
@@ -256,14 +256,14 @@ class _SettingsModalPopup extends StatelessWidget {
   Widget build(BuildContext context) => CupertinoActionSheet(
         title: Text('Location: $locationName'),
         actions: [
-          FlatButton(
+          TextButton(
             child: Text(
               'Reader Settings',
               style: TextStyle(color: Colors.blue),
             ),
             onPressed: onReaderSDKSettings as void Function()?,
           ),
-          FlatButton(
+          TextButton(
             child: Text(
               'Deauthorize',
               style: TextStyle(color: Colors.red),
@@ -271,7 +271,7 @@ class _SettingsModalPopup extends StatelessWidget {
             onPressed: onDeauthorize,
           ),
         ],
-        cancelButton: FlatButton(
+        cancelButton: TextButton(
           child: Text(
             'Cancel',
             style: TextStyle(color: Colors.blue),

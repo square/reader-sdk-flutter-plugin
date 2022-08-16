@@ -125,11 +125,13 @@ class SQRaisedButton extends StatelessWidget {
   final void Function() onPressed;
 
   @override
-  Widget build(BuildContext context) => RaisedButton(
+  Widget build(BuildContext context) => ElevatedButton(
         child: Text(text),
-        textColor: Colors.white,
-        color: Color.fromRGBO(57, 114, 178, 1.0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        style: ElevatedButton.styleFrom(
+          primary: Color.fromRGBO(57, 114, 178, 1.0),
+          onPrimary: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        ),
         onPressed: onPressed,
       );
 }

@@ -91,8 +91,8 @@ Flutter library as a resource. The key installation steps are outlined below.
     ```
     android {
       defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion 24
+        targetSdkVersion 32
         multiDexEnabled true
       }
       ...
@@ -113,55 +113,6 @@ Flutter library as a resource. The key installation steps are outlined below.
       ...
     }
     ```
-1. Open the `MainApplication` class for your project. **Note that `MainApplication`
-is not created by default through `flutter create <Project>`, so you may need to
-create it**. Add code to extend the Flutter Application class
-(`FlutterApplication`) that imports and initializes Reader SDK:
-
-    ```java
-    package <YOUR_PACKAGE_NAME>;
-
-    import com.squareup.sdk.reader.ReaderSdk;   
-    import io.flutter.app.FlutterApplication;
-    import io.flutter.view.FlutterMain;
-   
-   
-   public class MainApplication extends FlutterApplication {
-   
-     @Override
-     public void onCreate() {
-       super.onCreate();
-       ReaderSdk.initialize(this);
-       FlutterMain.startInitialization(this);
-     }   
-    }
-    ```
-
-1. If you create `MainApplication` class in above step, update `AndroidManifest.xml` in your project:
-    ```xml
-      <application
-        <!-- use custom "MainApplication" class instead of "io.flutter.app.FlutterApplication" -->
-        android:name=".MainApplication" 
-        ... />
-      </application>
-    ```
-1. If you are using any minor version of Flutter 1.12 you may need to add this method to your `MainActivity`.
- However, if you are using Flutter version 1.16+ you will not need the additional method below.   
-    ```java
-     import androidx.annotation.NonNull;
-     
-     import io.flutter.embedding.android.FlutterActivity;
-     import io.flutter.embedding.engine.FlutterEngine;
-     import io.flutter.plugins.GeneratedPluginRegistrant;
-     
-     public class MainActivity extends FlutterActivity {
-     
-         @Override
-         public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
-             GeneratedPluginRegistrant.registerWith(flutterEngine);
-         }
-     }
-    ``` 
 
 ## Step 5: Configure Xcode for Reader SDK (iOS)
 
@@ -283,6 +234,9 @@ try {
 
 > For iOS, you will also need to add code to your Flutter project to request
 > location and microphone permissions.
+> 
+> For Android 12, you will also need to add code to your Flutter project to request
+> bluetoothScan and bluetoothConnect permissions.
 
 ---
 
