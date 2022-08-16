@@ -13,3 +13,5 @@ android/.settings/org.eclipse.buildship.core.prefs
 .clang-format
 android/bin
 .vscode/launch.json
+
+.idea/
