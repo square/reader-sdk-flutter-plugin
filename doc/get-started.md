@@ -157,8 +157,6 @@ information on installing Reader SDK for iOS, see the
    **Deployment Target** is set to 11.0+.
 1. In Xcode, open the **General** tab for your app target and make sure the
    **Landscape Left** and **Landscape Right** device orientations are supported.
-1. In Xcode, open the **Build Settings** tab for your app target and add **$(PROJECT_DIR)**
-   to **Framework Search Paths**.
 1. If you are on Xcode 10+, set build system to `Legacy Build System`
 1. Update your Info.plist with the following key:value pairs in the **Info** tab
    for your application target to explain why your application requires these
