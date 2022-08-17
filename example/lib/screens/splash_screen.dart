@@ -16,6 +16,7 @@ limitations under the License.
 
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:square_reader_sdk/reader_sdk.dart';
@@ -99,7 +100,7 @@ class _ButtonContainerState extends State<_ButtonContainer> {
   bool _hasMicrophoneAccess = false;
   String _microphoneButtonText = 'Enable Microphone Access';
 
-  bool _hasBluetoothAccess = false;
+  bool _hasBluetoothAccess = _requireBluetoothPermission;
   String _bluetoothButtonText = 'Enable Bluetooth Access';
 
   // @override
@@ -212,6 +213,9 @@ class _ButtonContainerState extends State<_ButtonContainer> {
   }
 
   void updateBluetoothStatus(Iterable<PermissionStatus> statuses) {
+    if (statuses.isEmpty) {
+      return;
+    }
     setState(() {
       _hasBluetoothAccess = statuses.every((status) => status.isGranted);
 
@@ -243,23 +247,33 @@ class _ButtonContainerState extends State<_ButtonContainer> {
   }
 
   @override
-  Widget build(BuildContext context) => SQButtonContainer(buttons: [
+  Widget build(BuildContext context) => SQButtonContainer(
+    buttons: [
+      SQOutlineButton(
+        text: _microphoneButtonText,
+        onPressed: _hasMicrophoneAccess ? null : onRequestAudioPermission,
+      ),
+      SQOutlineButton(
+        text: _locationButtonText,
+        onPressed: _hasLocationAccess ? null : onRequestLocationPermission
+      ),
+      if (_requireBluetoothPermission)
         SQOutlineButton(
-          text: _microphoneButtonText,
-          onPressed: _hasMicrophoneAccess ? null : onRequestAudioPermission,
+          text: _bluetoothButtonText,
+          onPressed: _hasBluetoothAccess ? null : onRequestBluetooth,
         ),
-        SQOutlineButton(
-            text: _locationButtonText,
-            onPressed: _hasLocationAccess ? null : onRequestLocationPermission),
-        SQOutlineButton(
-            text: _bluetoothButtonText,
-            onPressed: _hasBluetoothAccess ? null : onRequestBluetooth),
-      ]);
+    ]
+  );
 }
 
 Future<List<PermissionStatus>> get _permissionsStatus => Future.wait([
   Permission.locationWhenInUse.status,
   Permission.microphone.status,
-  Permission.bluetoothConnect.status,
-  Permission.bluetoothScan.status,
+  if (_requireBluetoothPermission)
+    ...[
+      Permission.bluetoothConnect.status,
+      Permission.bluetoothScan.status,
+    ]
 ]);
+
+bool _requireBluetoothPermission = (TargetPlatform.android == defaultTargetPlatform);
