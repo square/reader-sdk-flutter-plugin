@@ -58,11 +58,6 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
-    dexOptions {
-        preDexLibraries true
-        jumboMode true
-        keepRuntimeAnnotatedClasses false
-    }
 }
 
 dependencies {
