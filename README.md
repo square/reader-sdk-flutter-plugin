@@ -16,8 +16,8 @@ solutions on Android and iOS.
 The Flutter plugin for Reader SDK acts as a wrapper on the native SDKs and is
 currently compatible with the following native Reader SDK versions:
 
-  * iOS: 1.5.2 and above
-  * Android: 1.5.1 and above
+  * iOS: 1.6.0 and above
+  * Android: 1.6.1 and above
 
 Try the [sample app] to see the plugin in action or follow the instructions in
 the [getting started guide] to build a custom solution from scratch.
@@ -39,13 +39,13 @@ In addition to this README, the following is available in the
 
 ### Flutter
 
-* Flutter version 2.0 or higher
+* Flutter version 3.0 or higher
 * Dart version 2.12 or higher
    
 ### Android
 
-* minSdkVersion is API 21 (Lollipop 5.0) or higher.
-* Android SDK platform: API 29.
+* minSdkVersion is API 24 or higher.
+* Android SDK platform: API 31.
 * Android SDK build tools: 28.0.2
 * Android Gradle Plugin: 3.0.0 or greater.
 * Support library: 26.0.2
@@ -57,7 +57,6 @@ In addition to this README, the following is available in the
 * Xcode version: 10.2 or greater.
 * iOS Base SDK: 11.1 or greater.
 * Deployment target: iOS 11.0 or greater.
-* Currently, this plugin will work only on Mac with Intel processor. This will not work on Mac with M1 chip.
 
 
 ## Reader SDK requirements and limitations
