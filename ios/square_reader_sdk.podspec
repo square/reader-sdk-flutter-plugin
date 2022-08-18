@@ -18,6 +18,7 @@ iOS part of a flutter plugin for Square Reader SDK.
   s.frameworks       = 'SquareReaderSDK'
   s.xcconfig = {
     'OTHER_LDFLAGS' => '-framework SquareReaderSDK',
+    'ENABLE_BITCODE' => 'NO',
     'FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]' => '$(inherited) $(PROJECT_DIR)/../SquareReaderSDK.xcframework/ios-arm64',
     'FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]' => '$(inherited) $(PROJECT_DIR)/../SquareReaderSDK.xcframework/ios-arm64_x86_64-simulator'
   }
