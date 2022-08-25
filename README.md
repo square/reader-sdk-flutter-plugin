@@ -19,8 +19,6 @@ package <YOUR_PACKAGE_NAME>;
 
 - import com.squareup.sdk.reader.ReaderSdk;   
 import io.flutter.app.FlutterApplication;
-import io.flutter.view.FlutterMain;
-
 
 public class MainApplication extends FlutterApplication {
 
