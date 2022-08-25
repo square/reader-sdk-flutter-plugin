@@ -14,7 +14,7 @@ solutions on Android and iOS.
 
 Remove initialize method from `onCreate` method in your application class in Android portion
 
-```java
+```diff
 package <YOUR_PACKAGE_NAME>;
 
 - import com.squareup.sdk.reader.ReaderSdk;   
