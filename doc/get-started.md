@@ -54,7 +54,7 @@ dependencies:
 
   ...
 
-  square_reader_sdk: ^3.0.0
+  square_reader_sdk: ^4.0.0
 ```
 
 
@@ -138,6 +138,9 @@ information on installing Reader SDK for iOS, see the
     --app-id YOUR_SQUARE_READER_APP_ID                                    \
     --repo-password YOUR_SQUARE_READER_REPOSITORY_PASSWORD
     ```
+   
+    Optionally you can use `--version` key to specify what version of iOS Reader SDK
+    you want to install.
 1. Add Reader SDK to your Xcode project:
    * Open `Runner.xcworkspace` in Xcode.
    * Open the **General** tab for your app target in Xcode.
