@@ -58,6 +58,14 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
+    dexOptions {
+        // Ensures incremental builds remain fast
+        preDexLibraries true
+        // Required to build with Reader SDK
+        jumboMode true
+        // Required to build with Reader SDK
+        keepRuntimeAnnotatedClasses false
+    }
 }
 
 dependencies {
