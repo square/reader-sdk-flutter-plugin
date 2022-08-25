@@ -173,7 +173,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       context: context,
       builder: (var context) => _SettingsModalPopup(
         locationName: location.name,
-        onReaderSDKSettings: () => onReaderSDKSettings,
+        onReaderSDKSettings: onReaderSDKSettings,
         onDeauthorize: () => confirmOnDeauthorize(
             context: context,
             onPressed: () {
@@ -243,7 +243,7 @@ class _Buttons extends StatelessWidget {
 
 class _SettingsModalPopup extends StatelessWidget {
   final String locationName;
-  final Function onReaderSDKSettings;
+  final Function()? onReaderSDKSettings;
   final VoidCallback? onDeauthorize;
 
   _SettingsModalPopup({
@@ -261,7 +261,7 @@ class _SettingsModalPopup extends StatelessWidget {
               'Reader Settings',
               style: TextStyle(color: Colors.blue),
             ),
-            onPressed: onReaderSDKSettings as void Function()?,
+            onPressed: onReaderSDKSettings,
           ),
           TextButton(
             child: Text(

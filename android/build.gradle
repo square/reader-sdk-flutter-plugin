@@ -47,11 +47,11 @@ def DEFAULT_PLAY_SERVICES_BASE_VERSION = '16.0.1'
 def READER_SDK_VERSION = '[1.5.1, 2.0)'
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 32
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 33
+        minSdkVersion 24
+        targetSdkVersion 32
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
