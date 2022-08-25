@@ -10,6 +10,31 @@ authorization, transaction processing, and Reader management.
 Use Square's official Flutter plugin for Reader SDK to build in-person payment
 solutions on Android and iOS.
 
+## Migration from 3.x to 4.x
+
+Remove initialize method from `onCreate` method in your application class in Android portion
+
+```java
+package <YOUR_PACKAGE_NAME>;
+
+- import com.squareup.sdk.reader.ReaderSdk;   
+import io.flutter.app.FlutterApplication;
+import io.flutter.view.FlutterMain;
+
+
+public class MainApplication extends FlutterApplication {
+
+ @Override
+ public void onCreate() {
+   super.onCreate();
+-   ReaderSdk.initialize(this);
+ }   
+}
+```
+
+### If you targeting SDK 31 and above
+Go to your app and add code to request `BLUETOOTH_SCAN` and `BLUETOOTH_CONNECT` permissions before
+you invoke any of Reader plugin method.
 
 ## How to use
 
@@ -39,7 +64,7 @@ In addition to this README, the following is available in the
 
 ### Flutter
 
-* Flutter version 3.0 or higher
+* Flutter version 2.0 or higher
 * Dart version 2.12 or higher
    
 ### Android
