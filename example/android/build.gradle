@@ -3,7 +3,6 @@ buildscript {
 
     repositories {
         google()
-        jcenter()
         mavenCentral()
     }
 
@@ -17,14 +16,14 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
 ext {
     // Override the reader sdk version with the this parameter
-    // make sure the version is above min version 1.3.3
-    readerSdkVersion = "[1.5.1, 2.0)"
+    // make sure the version is above min version 1.6.1
+    readerSdkVersion = "[1.6.1, 2.0)"
 }
 
 rootProject.buildDir = '../build'
