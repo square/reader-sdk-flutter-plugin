@@ -100,7 +100,7 @@ class _ButtonContainerState extends State<_ButtonContainer> {
   bool _hasMicrophoneAccess = false;
   String _microphoneButtonText = 'Enable Microphone Access';
 
-  bool _hasBluetoothAccess = _requireBluetoothPermission;
+  bool _hasBluetoothAccess = !_requireBluetoothPermission;
   String _bluetoothButtonText = 'Enable Bluetooth Access';
 
   // @override
