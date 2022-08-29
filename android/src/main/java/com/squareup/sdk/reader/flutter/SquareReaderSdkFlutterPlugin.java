@@ -41,7 +41,7 @@ public class SquareReaderSdkFlutterPlugin implements MethodCallHandler, FlutterP
   private ReaderSettingsModule readerSettingsModule;
   private StoreCustomerCardModule storeCustomerCardModule;
   private Activity currentActivity;
-  private boolean initialized = false;
+  private static boolean sdkInitialized = false;
 
   public static void registerWith(Registrar registrar) {
     SquareReaderSdkFlutterPlugin instance = new SquareReaderSdkFlutterPlugin(registrar.activity());
@@ -75,11 +75,8 @@ public class SquareReaderSdkFlutterPlugin implements MethodCallHandler, FlutterP
   }
 
   @Override
-  public void onMethodCall(MethodCall call, Result result) {
-    if (!initialized) {
-      ReaderSdk.initialize(currentActivity.getApplication());
-      initialized = true;
-    }
+  public void onMethodCall(MethodCall call, @NonNull Result result) {
+    initializeReaderSdk();
 
     String methodName = call.method;
     switch (methodName) {
@@ -153,5 +150,14 @@ public class SquareReaderSdkFlutterPlugin implements MethodCallHandler, FlutterP
   @Override
   public void onDetachedFromActivity() {
 
+  }
+
+  private void initializeReaderSdk() {
+    if (sdkInitialized) {
+      return;
+    }
+
+    ReaderSdk.initialize(currentActivity.getApplication());
+    sdkInitialized = true;
   }
 }
