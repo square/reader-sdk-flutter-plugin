@@ -76,7 +76,7 @@ class _AuthorizeScreenState extends State<AuthorizeScreen> {
     }
   }
 
-  Future scan() async {
+  Future<void> scan() async {
     try {
       var result = await BarcodeScanner.scan();
       authorizeQRCode(result.rawContent);
@@ -91,11 +91,11 @@ class _AuthorizeScreenState extends State<AuthorizeScreen> {
     }
   }
 
-  void scanQRCode() async {
+  void scanQRCode() {
     scan();
   }
 
-  void manuallyEnterCode() async {
+  void manuallyEnterCode() {
     Navigator.pushNamed(context, '/authorize/manual');
   }
 
@@ -135,8 +135,8 @@ class _Description extends StatelessWidget {
 }
 
 class _Buttons extends StatelessWidget {
-  final Function manuallyEnterCode;
-  final Function scanQRCode;
+  final VoidCallback manuallyEnterCode;
+  final VoidCallback scanQRCode;
 
   _Buttons({
     required this.scanQRCode,
@@ -148,9 +148,9 @@ class _Buttons extends StatelessWidget {
           child: SQButtonContainer(buttons: [
         SQRaisedButton(
           text: 'Scan QR Code',
-          onPressed: scanQRCode as void Function(),
+          onPressed: scanQRCode,
         ),
         SQOutlineButton(
-            text: 'Manually Enter Code', onPressed: manuallyEnterCode as void Function()),
+            text: 'Manually Enter Code', onPressed: manuallyEnterCode),
       ]));
 }

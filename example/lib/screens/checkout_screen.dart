@@ -202,7 +202,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       _Description(),
                       _Buttons(
                         onCharge: onCharge,
-                        onSettings: onSettings,
                       ),
                     ]),
               ),
@@ -222,12 +221,10 @@ class _Description extends StatelessWidget {
 }
 
 class _Buttons extends StatelessWidget {
-  final Function onCharge;
-  final Function onSettings;
+  final VoidCallback onCharge;
 
   _Buttons({
     required this.onCharge,
-    required this.onSettings,
   });
 
   @override
@@ -235,7 +232,7 @@ class _Buttons extends StatelessWidget {
         child: SQButtonContainer(buttons: [
           SQRaisedButton(
             text: 'Charge \$1.00',
-            onPressed: onCharge as void Function(),
+            onPressed: onCharge,
           ),
         ]),
       );

@@ -90,7 +90,7 @@ class SQSettingButton extends StatelessWidget {
   });
 
   /// a callback that is fired when the button is pressed
-  final void Function()? onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) => OutlinedButton(
