@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Square Inc.
+Copyright 2022 Square Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,25 +13,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package com.example.flutter.squareup.sdk.reader;
+package com.example.flutter.squareup.sdk.reader
+import io.flutter.embedding.android.FlutterActivity
 
-import android.app.Activity;
-
-import androidx.annotation.CallSuper;
-
-import com.squareup.sdk.reader.ReaderSdk;
-import io.flutter.app.FlutterApplication;
-
-import io.flutter.view.FlutterMain;
-
-
-public class MainApplication extends FlutterApplication {
-
-  @Override
-  public void onCreate() {
-    super.onCreate();
-    ReaderSdk.initialize(this);
-    FlutterMain.startInitialization(this);
-  }
-
+class MainActivity : FlutterActivity() {
 }

@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Square Inc.
+Copyright 2022 Square Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -125,11 +125,15 @@ class SQRaisedButton extends StatelessWidget {
   final void Function() onPressed;
 
   @override
-  Widget build(BuildContext context) => RaisedButton(
+  Widget build(BuildContext context) => ElevatedButton(
         child: Text(text),
-        textColor: Colors.white,
-        color: Color.fromRGBO(57, 114, 178, 1.0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        style: ElevatedButton.styleFrom(
+          primary: Color.fromRGBO(57, 114, 178, 1.0),
+          onPrimary: Colors.white,
+          padding: EdgeInsets.all(15.0),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        ),
         onPressed: onPressed,
       );
 }

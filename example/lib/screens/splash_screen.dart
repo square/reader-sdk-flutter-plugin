@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Square Inc.
+Copyright 2022 Square Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@ limitations under the License.
 
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:square_reader_sdk/reader_sdk.dart';
@@ -39,20 +40,16 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future _checkStatusAndNavigate() async {
-    if (await ReaderSdk.isAuthorized) {
-      Navigator.popAndPushNamed(context, '/checkout');
-      return;
-    }
-    var permissionsStatus = await _permissionsStatus;
-    var hasPermissions = permissionsStatus[0] == PermissionStatus.granted &&
-        permissionsStatus[1] == PermissionStatus.granted;
-    if (hasPermissions) {
-      Navigator.popAndPushNamed(context, '/authorize');
-    } else {
+    var hasPermissions = await _permissionsStatus
+        .then((statuses) => statuses.every((status) => status.isGranted));
+    if (!hasPermissions) {
       setState(() {
         _isCheckingPermissions = false;
       });
+      return;
     }
+    Navigator.popAndPushNamed(
+        context, await ReaderSdk.isAuthorized ? '/checkout' : '/authorize');
   }
 
   @override
@@ -98,6 +95,9 @@ class _ButtonContainerState extends State<_ButtonContainer> {
   bool _hasMicrophoneAccess = false;
   String _microphoneButtonText = 'Enable Microphone Access';
 
+  bool _hasBluetoothAccess = !_requireBluetoothPermission;
+  String _bluetoothButtonText = 'Enable Bluetooth Access';
+
   // @override
   void initState() {
     super.initState();
@@ -112,7 +112,7 @@ class _ButtonContainerState extends State<_ButtonContainer> {
         break;
       default:
         //This condition is to check 'Don't ask again' on android'
-        if(await permission.request().isPermanentlyDenied) {
+        if (await permission.request().isPermanentlyDenied) {
           openAppSettings();
         }
         break;
@@ -129,6 +129,26 @@ class _ButtonContainerState extends State<_ButtonContainer> {
     requestPermission(Permission.microphone);
   }
 
+  void onRequestBluetooth() async {
+    // iOS
+    if ((await _permissionsStatus)
+        .sublist(2)
+        .any((status) => status.isPermanentlyDenied)) {
+      openAppSettings();
+      return;
+    }
+
+    final statuses =
+        await [Permission.bluetoothScan, Permission.bluetoothConnect].request();
+
+    if (statuses.values.any((status) => status.isPermanentlyDenied)) {
+      openAppSettings();
+      // return;
+    } else {
+      checkPermissionsAndNavigate();
+    }
+  }
+
   void checkPermissionsAndNavigate() async {
     var permissionsStatus = await _permissionsStatus;
 
@@ -137,8 +157,9 @@ class _ButtonContainerState extends State<_ButtonContainer> {
 
     updateLocationStatus(permissionsStatus[0]);
     updateMicrophoneStatus(permissionsStatus[1]);
+    updateBlutoothStatus(permissionsStatus[2]);
 
-    if (_hasLocationAccess && _hasMicrophoneAccess) {
+    if (_hasLocationAccess && _hasMicrophoneAccess && _hasBluetoothAccess) {
       Navigator.popAndPushNamed(context, '/authorize');
     }
   }
@@ -189,6 +210,63 @@ class _ButtonContainerState extends State<_ButtonContainer> {
     });
   }
 
+  void updateBlutoothStatus(PermissionStatus status) {
+    setState(() {
+      _hasBluetoothAccess = status == PermissionStatus.granted;
+
+      switch (status) {
+        case PermissionStatus.granted:
+          _microphoneButtonText = 'Microphone Enabled';
+          break;
+        case PermissionStatus.permanentlyDenied:
+          _microphoneButtonText = 'Enable Microphone in Settings';
+          break;
+        case PermissionStatus.restricted:
+          _microphoneButtonText = 'Microphone permission is restricted';
+          break;
+        case PermissionStatus.denied:
+          _microphoneButtonText = 'Enable Microphone Access';
+          break;
+        case PermissionStatus.limited:
+          _microphoneButtonText = 'Microphone permission is limited';
+      }
+    });
+  }
+
+  void updateBluetoothStatus(Iterable<PermissionStatus> statuses) {
+    if (statuses.isEmpty) {
+      return;
+    }
+    setState(() {
+      _hasBluetoothAccess = statuses.every((status) => status.isGranted);
+
+      if (_hasBluetoothAccess) {
+        _bluetoothButtonText = 'Bluetooth Enabled';
+        return;
+      }
+
+      if (statuses.any((status) => status.isPermanentlyDenied)) {
+        _bluetoothButtonText = 'Enable Bluetooth in Settings';
+        return;
+      }
+
+      if (statuses.any((status) => status.isRestricted)) {
+        _bluetoothButtonText = 'Bluetooth permission is restricted';
+        return;
+      }
+
+      if (statuses.any((status) => status.isDenied)) {
+        _bluetoothButtonText = 'Enable Bluetooth Access';
+        return;
+      }
+
+      if (statuses.any((status) => status.isLimited)) {
+        _bluetoothButtonText = 'Bluetooth permission is limited';
+        return;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) => SQButtonContainer(buttons: [
         SQOutlineButton(
@@ -198,11 +276,22 @@ class _ButtonContainerState extends State<_ButtonContainer> {
         SQOutlineButton(
             text: _locationButtonText,
             onPressed: _hasLocationAccess ? null : onRequestLocationPermission),
+        if (_requireBluetoothPermission)
+          SQOutlineButton(
+            text: _bluetoothButtonText,
+            onPressed: _hasBluetoothAccess ? null : onRequestBluetooth,
+          ),
       ]);
 }
 
-Future<List<PermissionStatus>> get _permissionsStatus async {
-  var locationPermission = await Permission.locationWhenInUse.status;
-  var microphonePermission = await Permission.microphone.status;
-  return [locationPermission, microphonePermission];
-}
+Future<List<PermissionStatus>> get _permissionsStatus => Future.wait([
+      Permission.locationWhenInUse.status,
+      Permission.microphone.status,
+      if (_requireBluetoothPermission) ...[
+        Permission.bluetoothConnect.status,
+        Permission.bluetoothScan.status,
+      ]
+    ]);
+
+bool _requireBluetoothPermission =
+    (TargetPlatform.android == defaultTargetPlatform);

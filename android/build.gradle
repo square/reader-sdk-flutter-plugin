@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Square Inc.
+Copyright 2022 Square Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -44,14 +44,14 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 def DEFAULT_PLAY_SERVICES_BASE_VERSION = '16.0.1'
-def READER_SDK_VERSION = '[1.5.1, 2.0)'
+def READER_SDK_VERSION = '[1.6.1, 2.0)'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 31
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion 24
+        targetSdkVersion 31
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }

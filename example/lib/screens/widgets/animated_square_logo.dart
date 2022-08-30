@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Square Inc.
+Copyright 2022 Square Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
 class _LogoAnimated extends AnimatedWidget {
@@ -28,7 +27,7 @@ class _LogoAnimated extends AnimatedWidget {
       : super(key: key, listenable: animation);
 
   Widget build(BuildContext context) {
-    final Animation<double> animation = listenable as Animation<double>;
+    final animation = listenable as Animation<double>;
     return Container(
       alignment: _alignmentTween.evaluate(animation),
       margin: EdgeInsets.symmetric(vertical: 100.0),

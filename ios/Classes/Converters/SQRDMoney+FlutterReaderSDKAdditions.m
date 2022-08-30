@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Square Inc.
+Copyright 2022 Square Inc.
  
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ limitations under the License.
 - (NSDictionary *)jsonDictionary
 {
     return @{
-        @"amount" : @(self.amount),
-        @"currencyCode" : SQRDCurrencyCodeGetISOCurrencyCode(self.currencyCode),
+        @"amount" : @(*self.amount),
+        @"currencyCode" : SQRDCurrencyCodeGetISOCurrencyCode(*self.currencyCode),
     };
 }
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../../android" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$USER_HOME$/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/barcode_scan2-4.2.1/android" />
+            <option value="$USER_HOME$/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.21.1/android" />
+            <option value="$USER_HOME$/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.7.2/android" />
+            <option value="$USER_HOME$/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler-9.2.0/android" />
+            <option value="$USER_HOME$/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_android-9.0.2+1/android" />
+            <option value="$USER_HOME$/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.4/android" />
+            <option value="$USER_HOME$/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_windows-0.1.0/android" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

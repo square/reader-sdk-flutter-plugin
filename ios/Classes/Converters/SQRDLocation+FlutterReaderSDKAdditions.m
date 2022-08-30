@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Square Inc.
+Copyright 2022 Square Inc.
  
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,13 +23,13 @@ limitations under the License.
 - (NSDictionary *)jsonDictionary
 {
     return @{
-        @"locationId" : self.locationID,
-        @"name" : self.name,
-        @"businessName" : self.businessName,
-        @"isCardProcessingActivated" : @(self.isCardProcessingActivated),
-        @"minimumCardPaymentAmountMoney" : [self.minimumCardPaymentAmountMoney jsonDictionary],
-        @"maximumCardPaymentAmountMoney" : [self.maximumCardPaymentAmountMoney jsonDictionary],
-        @"currencyCode" : SQRDCurrencyCodeGetISOCurrencyCode(self.currencyCode),
+        @"locationId" : *self.locationID,
+        @"name" : *self.name,
+        @"businessName" : *self.businessName,
+        @"isCardProcessingActivated" : @(*self.isCardProcessingActivated),
+        @"minimumCardPaymentAmountMoney" : [*self.minimumCardPaymentAmountMoney jsonDictionary],
+        @"maximumCardPaymentAmountMoney" : [*self.maximumCardPaymentAmountMoney jsonDictionary],
+        @"currencyCode" : SQRDCurrencyCodeGetISOCurrencyCode(*self.currencyCode),
     };
 }
 

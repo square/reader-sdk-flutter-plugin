@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Square Inc.
+Copyright 2022 Square Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -66,7 +66,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 ),
               ),
               actions: <Widget>[
-                FlatButton(
+                TextButton(
                   child: Text('OK'),
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -195,8 +195,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     children: [
                       Container(
                         alignment: Alignment.centerRight,
-                        child: SQSettingButton(
-                            onPressed: onSettings as void Function()),
+                        child: SQSettingButton(onPressed: onSettings),
                       ),
                       SquareLogo(),
                       _Description(),
@@ -243,7 +242,7 @@ class _Buttons extends StatelessWidget {
 
 class _SettingsModalPopup extends StatelessWidget {
   final String locationName;
-  final Function onReaderSDKSettings;
+  final Function()? onReaderSDKSettings;
   final VoidCallback? onDeauthorize;
 
   _SettingsModalPopup({
@@ -256,14 +255,14 @@ class _SettingsModalPopup extends StatelessWidget {
   Widget build(BuildContext context) => CupertinoActionSheet(
         title: Text('Location: $locationName'),
         actions: [
-          FlatButton(
+          TextButton(
             child: Text(
               'Reader Settings',
               style: TextStyle(color: Colors.blue),
             ),
-            onPressed: onReaderSDKSettings as void Function()?,
+            onPressed: onReaderSDKSettings,
           ),
-          FlatButton(
+          TextButton(
             child: Text(
               'Deauthorize',
               style: TextStyle(color: Colors.red),
@@ -271,7 +270,7 @@ class _SettingsModalPopup extends StatelessWidget {
             onPressed: onDeauthorize,
           ),
         ],
-        cancelButton: FlatButton(
+        cancelButton: TextButton(
           child: Text(
             'Cancel',
             style: TextStyle(color: Colors.blue),

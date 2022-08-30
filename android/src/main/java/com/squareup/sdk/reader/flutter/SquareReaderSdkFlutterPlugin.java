@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Square Inc.
+Copyright 2022 Square Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@ limitations under the License.
 */
 package com.squareup.sdk.reader.flutter;
 
+import android.app.Activity;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -30,106 +31,133 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 import java.util.HashMap;
 
+import com.squareup.sdk.reader.ReaderSdk;
+
 public class SquareReaderSdkFlutterPlugin implements MethodCallHandler, FlutterPlugin, ActivityAware {
 
-  private static MethodChannel methodChannel;
-  private AuthorizeModule authorizeModule;
-  private CheckoutModule checkoutModule;
-  private ReaderSettingsModule readerSettingsModule;
-  private StoreCustomerCardModule storeCustomerCardModule;
+    private static MethodChannel methodChannel;
+    private AuthorizeModule authorizeModule;
+    private CheckoutModule checkoutModule;
+    private ReaderSettingsModule readerSettingsModule;
+    private StoreCustomerCardModule storeCustomerCardModule;
+    private Activity currentActivity;
+    private static boolean sdkInitialized = false;
 
-  public static void registerWith(Registrar registrar) {
-    SquareReaderSdkFlutterPlugin instance = new SquareReaderSdkFlutterPlugin(registrar.activity());
-    instance.onAttachedToEngine(registrar.activity(), registrar.messenger());
-    methodChannel.setMethodCallHandler(instance);
+    public static void registerWith(Registrar registrar) {
+        SquareReaderSdkFlutterPlugin instance = new SquareReaderSdkFlutterPlugin(registrar.activity());
+        instance.onAttachedToEngine(registrar.activity(), registrar.messenger());
+        methodChannel.setMethodCallHandler(instance);
 
-  }
-
-  private SquareReaderSdkFlutterPlugin(Context context) {
-    init(context);
-  }
-
-  /**
-   * Needed by GeneratedPluginRegistrant to be able to construct the plugin and call onAttachedToEngine.
-   */
-  public SquareReaderSdkFlutterPlugin() {
-  }
-
-  private void init(Context context) {
-    authorizeModule = new AuthorizeModule();
-    checkoutModule = new CheckoutModule(context);
-    readerSettingsModule = new ReaderSettingsModule(context);
-    storeCustomerCardModule = new StoreCustomerCardModule(context);
-  }
-
-  private void setContextForModules(final Context context) {
-    checkoutModule.setContext(context);
-    readerSettingsModule.setContext(context);
-    storeCustomerCardModule.setContext(context);
-  }
-
-  @Override
-  public void onMethodCall(MethodCall call, Result result) {
-    String methodName = call.method;
-    if (methodName.equals("isAuthorized")) {
-      authorizeModule.isAuthorized(result);
-    } else if (methodName.equals("isAuthorizationInProgress")) {
-      authorizeModule.isAuthorizationInProgress(result);
-    } else if (methodName.equals("authorizedLocation")) {
-      authorizeModule.authorizedLocation(result);
-    } else if (methodName.equals("authorize")) {
-      String authCode = call.argument("authCode");
-      authorizeModule.authorize(authCode, result);
-    } else if (methodName.equals("canDeauthorize")) {
-      authorizeModule.canDeauthorize(result);
-    } else if (methodName.equals("deauthorize")) {
-      authorizeModule.deauthorize(result);
-    } else if (methodName.equals("startCheckout")) {
-      HashMap<String, Object> checkoutParams = call.argument("checkoutParams");
-      checkoutModule.startCheckout(checkoutParams, result);
-    } else if (methodName.equals("startReaderSettings")) {
-      readerSettingsModule.startReaderSettings(result);
-    } else if (methodName.equals("startStoreCard")) {
-      String customerId = call.argument("customerId");
-      storeCustomerCardModule.startStoreCard(customerId, result);
-    } else {
-      result.notImplemented();
     }
-  }
 
-  @Override
-  public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-    onAttachedToEngine(flutterPluginBinding.getApplicationContext(), flutterPluginBinding.getBinaryMessenger());
-    methodChannel.setMethodCallHandler(this);
-  }
+    private SquareReaderSdkFlutterPlugin(Context context) {
+        init(context);
+    }
 
-  private void onAttachedToEngine(Context context, BinaryMessenger messenger) {
-    methodChannel = new MethodChannel(messenger, "square_reader_sdk");
-    init(context);
-  }
+    /**
+     * Needed by GeneratedPluginRegistrant to be able to construct the plugin and call onAttachedToEngine.
+     */
+    public SquareReaderSdkFlutterPlugin() {
+    }
+
+    private void init(Context context) {
+        authorizeModule = new AuthorizeModule();
+        checkoutModule = new CheckoutModule(context);
+        readerSettingsModule = new ReaderSettingsModule(context);
+        storeCustomerCardModule = new StoreCustomerCardModule(context);
+    }
+
+    private void setContextForModules(final Activity activity) {
+        currentActivity = activity;
+        checkoutModule.setContext(activity);
+        readerSettingsModule.setContext(activity);
+        storeCustomerCardModule.setContext(activity);
+    }
+
+    @Override
+    public void onMethodCall(MethodCall call, @NonNull Result result) {
+        initializeReaderSdk();
+
+        String methodName = call.method;
+        switch (methodName) {
+            case "isAuthorized":
+                authorizeModule.isAuthorized(result);
+                break;
+            case "isAuthorizationInProgress":
+                authorizeModule.isAuthorizationInProgress(result);
+                break;
+            case "authorizedLocation":
+                authorizeModule.authorizedLocation(result);
+                break;
+            case "authorize":
+                String authCode = call.argument("authCode");
+                authorizeModule.authorize(authCode, result);
+                break;
+            case "canDeauthorize":
+                authorizeModule.canDeauthorize(result);
+                break;
+            case "deauthorize":
+                authorizeModule.deauthorize(result);
+                break;
+            case "startCheckout":
+                HashMap<String, Object> checkoutParams = call.argument("checkoutParams");
+                checkoutModule.startCheckout(checkoutParams, result);
+                break;
+            case "startReaderSettings":
+                readerSettingsModule.startReaderSettings(result);
+                break;
+            case "startStoreCard":
+                String customerId = call.argument("customerId");
+                storeCustomerCardModule.startStoreCard(customerId, result);
+                break;
+            default:
+                result.notImplemented();
+                break;
+        }
+    }
+
+    @Override
+    public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
+        onAttachedToEngine(flutterPluginBinding.getApplicationContext(), flutterPluginBinding.getBinaryMessenger());
+        methodChannel.setMethodCallHandler(this);
+    }
+
+    private void onAttachedToEngine(Context context, BinaryMessenger messenger) {
+        methodChannel = new MethodChannel(messenger, "square_reader_sdk");
+        init(context);
+    }
 
 
-  @Override
-  public void onDetachedFromEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-    methodChannel = null;
-  }
+    @Override
+    public void onDetachedFromEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
+        methodChannel = null;
+    }
 
-  @Override
-  public void onAttachedToActivity(@NonNull ActivityPluginBinding activityPluginBinding) {
-    setContextForModules(activityPluginBinding.getActivity());
-  }
+    @Override
+    public void onAttachedToActivity(@NonNull ActivityPluginBinding activityPluginBinding) {
+        setContextForModules(activityPluginBinding.getActivity());
+    }
 
-  @Override
-  public void onDetachedFromActivityForConfigChanges() {
-  }
+    @Override
+    public void onDetachedFromActivityForConfigChanges() {
+    }
 
-  @Override
-  public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding activityPluginBinding) {
-    setContextForModules(activityPluginBinding.getActivity());
-  }
+    @Override
+    public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding activityPluginBinding) {
+        setContextForModules(activityPluginBinding.getActivity());
+    }
 
-  @Override
-  public void onDetachedFromActivity() {
+    @Override
+    public void onDetachedFromActivity() {
 
-  }
+    }
+
+    private void initializeReaderSdk() {
+        if (sdkInitialized) {
+            return;
+        }
+
+        ReaderSdk.initialize(currentActivity.getApplication());
+        sdkInitialized = true;
+    }
 }
