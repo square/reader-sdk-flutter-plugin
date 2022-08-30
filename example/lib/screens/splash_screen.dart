@@ -162,7 +162,12 @@ class _ButtonContainerState extends State<_ButtonContainer> {
     updateBluetoothStatus(permissionsStatus.sublist(2));
 
     if (_hasLocationAccess && _hasMicrophoneAccess && _hasBluetoothAccess) {
-      Navigator.popAndPushNamed(context, '/authorize');
+      Navigator.popAndPushNamed(
+        context,
+        await ReaderSdk.isAuthorized
+            ? '/checkout'
+            : '/authorize'
+      );
     }
   }
 
