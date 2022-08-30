@@ -92,7 +92,7 @@ Flutter library as a resource. The key installation steps are outlined below.
     android {
       defaultConfig {
         minSdkVersion 24
-        targetSdkVersion 32
+        targetSdkVersion 31
         multiDexEnabled true
       }
       ...
