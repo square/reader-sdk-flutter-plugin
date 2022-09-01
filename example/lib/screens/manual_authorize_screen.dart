@@ -15,8 +15,8 @@ limitations under the License.
 */
 
 import 'package:flutter/material.dart';
-import 'package:square_reader_sdk/reader_sdk.dart';
 import 'package:square_reader_sdk/models.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
 import 'widgets/buttons.dart';
 import 'widgets/dialog_modal.dart';

@@ -14,11 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import 'package:barcode_scan/barcode_scan.dart';
+import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:square_reader_sdk/reader_sdk.dart';
 import 'package:square_reader_sdk/models.dart';
+import 'package:square_reader_sdk/reader_sdk.dart';
 
 import 'widgets/buttons.dart';
 import 'widgets/dialog_modal.dart';
@@ -76,12 +76,12 @@ class _AuthorizeScreenState extends State<AuthorizeScreen> {
     }
   }
 
-  Future scan() async {
+  Future<void> scan() async {
     try {
-      var barcode = await BarcodeScanner.scan();
-      authorizeQRCode(barcode);
+      var result = await BarcodeScanner.scan();
+      authorizeQRCode(result.rawContent);
     } on PlatformException catch (e) {
-      if (e.code == BarcodeScanner.CameraAccessDenied) {
+      if (e.code == BarcodeScanner.cameraAccessDenied) {
         displayErrorModal(context, 'Camera Access was not granted');
       } else {
         displayErrorModal(context, e.toString());
@@ -91,11 +91,11 @@ class _AuthorizeScreenState extends State<AuthorizeScreen> {
     }
   }
 
-  void scanQRCode() async {
+  void scanQRCode() {
     scan();
   }
 
-  void manuallyEnterCode() async {
+  void manuallyEnterCode() {
     Navigator.pushNamed(context, '/authorize/manual');
   }
 
@@ -135,8 +135,8 @@ class _Description extends StatelessWidget {
 }
 
 class _Buttons extends StatelessWidget {
-  final Function manuallyEnterCode;
-  final Function scanQRCode;
+  final VoidCallback manuallyEnterCode;
+  final VoidCallback scanQRCode;
 
   _Buttons({
     required this.scanQRCode,
@@ -148,9 +148,9 @@ class _Buttons extends StatelessWidget {
           child: SQButtonContainer(buttons: [
         SQRaisedButton(
           text: 'Scan QR Code',
-          onPressed: scanQRCode as void Function(),
+          onPressed: scanQRCode,
         ),
         SQOutlineButton(
-            text: 'Manually Enter Code', onPressed: manuallyEnterCode as void Function()),
+            text: 'Manually Enter Code', onPressed: manuallyEnterCode),
       ]));
 }

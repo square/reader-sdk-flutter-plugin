@@ -15,6 +15,7 @@ limitations under the License.
 */
 package com.squareup.sdk.reader.flutter;
 
+import android.app.Activity;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,8 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 import java.util.HashMap;
 
+import com.squareup.sdk.reader.ReaderSdk;
+
 public class SquareReaderSdkFlutterPlugin implements MethodCallHandler, FlutterPlugin, ActivityAware {
 
   private static MethodChannel methodChannel;
@@ -37,6 +40,8 @@ public class SquareReaderSdkFlutterPlugin implements MethodCallHandler, FlutterP
   private CheckoutModule checkoutModule;
   private ReaderSettingsModule readerSettingsModule;
   private StoreCustomerCardModule storeCustomerCardModule;
+  private Activity currentActivity;
+  private static boolean sdkInitialized = false;
 
   public static void registerWith(Registrar registrar) {
     SquareReaderSdkFlutterPlugin instance = new SquareReaderSdkFlutterPlugin(registrar.activity());
@@ -62,38 +67,52 @@ public class SquareReaderSdkFlutterPlugin implements MethodCallHandler, FlutterP
     storeCustomerCardModule = new StoreCustomerCardModule(context);
   }
 
-  private void setContextForModules(final Context context) {
-    checkoutModule.setContext(context);
-    readerSettingsModule.setContext(context);
-    storeCustomerCardModule.setContext(context);
+  private void setContextForModules(final Activity activity) {
+    currentActivity = activity;
+    checkoutModule.setContext(activity);
+    readerSettingsModule.setContext(activity);
+    storeCustomerCardModule.setContext(activity);
   }
 
   @Override
-  public void onMethodCall(MethodCall call, Result result) {
+  public void onMethodCall(MethodCall call, @NonNull Result result) {
+    initializeReaderSdk();
+
     String methodName = call.method;
-    if (methodName.equals("isAuthorized")) {
-      authorizeModule.isAuthorized(result);
-    } else if (methodName.equals("isAuthorizationInProgress")) {
-      authorizeModule.isAuthorizationInProgress(result);
-    } else if (methodName.equals("authorizedLocation")) {
-      authorizeModule.authorizedLocation(result);
-    } else if (methodName.equals("authorize")) {
-      String authCode = call.argument("authCode");
-      authorizeModule.authorize(authCode, result);
-    } else if (methodName.equals("canDeauthorize")) {
-      authorizeModule.canDeauthorize(result);
-    } else if (methodName.equals("deauthorize")) {
-      authorizeModule.deauthorize(result);
-    } else if (methodName.equals("startCheckout")) {
-      HashMap<String, Object> checkoutParams = call.argument("checkoutParams");
-      checkoutModule.startCheckout(checkoutParams, result);
-    } else if (methodName.equals("startReaderSettings")) {
-      readerSettingsModule.startReaderSettings(result);
-    } else if (methodName.equals("startStoreCard")) {
-      String customerId = call.argument("customerId");
-      storeCustomerCardModule.startStoreCard(customerId, result);
-    } else {
-      result.notImplemented();
+    switch (methodName) {
+      case "isAuthorized":
+        authorizeModule.isAuthorized(result);
+        break;
+      case "isAuthorizationInProgress":
+        authorizeModule.isAuthorizationInProgress(result);
+        break;
+      case "authorizedLocation":
+        authorizeModule.authorizedLocation(result);
+        break;
+      case "authorize":
+        String authCode = call.argument("authCode");
+        authorizeModule.authorize(authCode, result);
+        break;
+      case "canDeauthorize":
+        authorizeModule.canDeauthorize(result);
+        break;
+      case "deauthorize":
+        authorizeModule.deauthorize(result);
+        break;
+      case "startCheckout":
+        HashMap<String, Object> checkoutParams = call.argument("checkoutParams");
+        checkoutModule.startCheckout(checkoutParams, result);
+        break;
+      case "startReaderSettings":
+        readerSettingsModule.startReaderSettings(result);
+        break;
+      case "startStoreCard":
+        String customerId = call.argument("customerId");
+        storeCustomerCardModule.startStoreCard(customerId, result);
+        break;
+      default:
+        result.notImplemented();
+        break;
     }
   }
 
@@ -131,5 +150,14 @@ public class SquareReaderSdkFlutterPlugin implements MethodCallHandler, FlutterP
   @Override
   public void onDetachedFromActivity() {
 
+  }
+
+  private void initializeReaderSdk() {
+    if (sdkInitialized) {
+      return;
+    }
+
+    ReaderSdk.initialize(currentActivity.getApplication());
+    sdkInitialized = true;
   }
 }

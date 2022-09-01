@@ -20,24 +20,7 @@ Flutter 2.5.0 introduced M1 support.  The In-App-Payments SDK does not have M1 s
 
 ### Solution
 
-Manually change your app settings to exclude arm64 simulator support.  Xcode won't try to build against this architecture so there shouldn't be any errors.
-
-**IMPORTANT NOTE:**
-**This solution will only work on intel-based macs.  M1 macs are unsupported by our SDK without any workarounds available**
-
-1.) Add the following to the bottom of your podfile:
-```
-post_install do |installer|
-  installer.pods_project.build_configurations.each do |config|
-    config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
-    config.build_settings["ONLY_ACTIVE_ARCH"] = "YES"
-  end
-end
-```
-
-2.) run `pod install`
-
-3.) You should be able to run the Reader SDK using the latest version of flutter on intel-based macs.
+Ensure that you using iOS SDK version 1.6.0 and above
 
 
 ## I get Xcode compile errors when building Reader SDK

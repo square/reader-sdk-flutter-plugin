@@ -44,14 +44,14 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 def DEFAULT_PLAY_SERVICES_BASE_VERSION = '16.0.1'
-def READER_SDK_VERSION = '[1.5.1, 2.0)'
+def READER_SDK_VERSION = '[1.6.1, 2.0)'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 32
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion 24
+        targetSdkVersion 31
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -59,8 +59,11 @@ android {
         disable 'InvalidPackage'
     }
     dexOptions {
+        // Ensures incremental builds remain fast
         preDexLibraries true
+        // Required to build with Reader SDK
         jumboMode true
+        // Required to build with Reader SDK
         keepRuntimeAnnotatedClasses false
     }
 }

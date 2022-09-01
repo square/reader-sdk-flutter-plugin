@@ -54,7 +54,7 @@ dependencies:
 
   ...
 
-  square_reader_sdk: ^3.0.0
+  square_reader_sdk: ^4.0.0
 ```
 
 
@@ -91,8 +91,8 @@ Flutter library as a resource. The key installation steps are outlined below.
     ```
     android {
       defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion 24
+        targetSdkVersion 31
         multiDexEnabled true
       }
       ...
@@ -113,55 +113,6 @@ Flutter library as a resource. The key installation steps are outlined below.
       ...
     }
     ```
-1. Open the `MainApplication` class for your project. **Note that `MainApplication`
-is not created by default through `flutter create <Project>`, so you may need to
-create it**. Add code to extend the Flutter Application class
-(`FlutterApplication`) that imports and initializes Reader SDK:
-
-    ```java
-    package <YOUR_PACKAGE_NAME>;
-
-    import com.squareup.sdk.reader.ReaderSdk;   
-    import io.flutter.app.FlutterApplication;
-    import io.flutter.view.FlutterMain;
-   
-   
-   public class MainApplication extends FlutterApplication {
-   
-     @Override
-     public void onCreate() {
-       super.onCreate();
-       ReaderSdk.initialize(this);
-       FlutterMain.startInitialization(this);
-     }   
-    }
-    ```
-
-1. If you create `MainApplication` class in above step, update `AndroidManifest.xml` in your project:
-    ```xml
-      <application
-        <!-- use custom "MainApplication" class instead of "io.flutter.app.FlutterApplication" -->
-        android:name=".MainApplication" 
-        ... />
-      </application>
-    ```
-1. If you are using any minor version of Flutter 1.12 you may need to add this method to your `MainActivity`.
- However, if you are using Flutter version 1.16+ you will not need the additional method below.   
-    ```java
-     import androidx.annotation.NonNull;
-     
-     import io.flutter.embedding.android.FlutterActivity;
-     import io.flutter.embedding.engine.FlutterEngine;
-     import io.flutter.plugins.GeneratedPluginRegistrant;
-     
-     public class MainActivity extends FlutterActivity {
-     
-         @Override
-         public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
-             GeneratedPluginRegistrant.registerWith(flutterEngine);
-         }
-     }
-    ``` 
 
 ## Step 5: Configure Xcode for Reader SDK (iOS)
 
@@ -187,6 +138,9 @@ information on installing Reader SDK for iOS, see the
     --app-id YOUR_SQUARE_READER_APP_ID                                    \
     --repo-password YOUR_SQUARE_READER_REPOSITORY_PASSWORD
     ```
+   
+    Optionally you can use `--version` key to specify what version of iOS Reader SDK
+    you want to install.
 1. Add Reader SDK to your Xcode project:
    * Open `Runner.xcworkspace` in Xcode.
    * Open the **General** tab for your app target in Xcode.
@@ -206,8 +160,6 @@ information on installing Reader SDK for iOS, see the
    **Deployment Target** is set to 11.0+.
 1. In Xcode, open the **General** tab for your app target and make sure the
    **Landscape Left** and **Landscape Right** device orientations are supported.
-1. In Xcode, open the **Build Settings** tab for your app target and add **$(PROJECT_DIR)**
-   to **Framework Search Paths**.
 1. If you are on Xcode 10+, set build system to `Legacy Build System`
 1. Update your Info.plist with the following key:value pairs in the **Info** tab
    for your application target to explain why your application requires these
@@ -283,6 +235,9 @@ try {
 
 > For iOS, you will also need to add code to your Flutter project to request
 > location and microphone permissions.
+> 
+> For Android 12, you will also need to add code to your Flutter project to request
+> bluetoothScan and bluetoothConnect permissions.
 
 ---
 

@@ -66,7 +66,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 ),
               ),
               actions: <Widget>[
-                FlatButton(
+                TextButton(
                   child: Text('OK'),
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -173,7 +173,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       context: context,
       builder: (var context) => _SettingsModalPopup(
         locationName: location.name,
-        onReaderSDKSettings: () => onReaderSDKSettings,
+        onReaderSDKSettings: onReaderSDKSettings,
         onDeauthorize: () => confirmOnDeauthorize(
             context: context,
             onPressed: () {
@@ -196,13 +196,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       Container(
                         alignment: Alignment.centerRight,
                         child: SQSettingButton(
-                            onPressed: onSettings as void Function()),
+                            onPressed: onSettings),
                       ),
                       SquareLogo(),
                       _Description(),
                       _Buttons(
                         onCharge: onCharge,
-                        onSettings: onSettings,
                       ),
                     ]),
               ),
@@ -222,12 +221,10 @@ class _Description extends StatelessWidget {
 }
 
 class _Buttons extends StatelessWidget {
-  final Function onCharge;
-  final Function onSettings;
+  final VoidCallback onCharge;
 
   _Buttons({
     required this.onCharge,
-    required this.onSettings,
   });
 
   @override
@@ -235,7 +232,7 @@ class _Buttons extends StatelessWidget {
         child: SQButtonContainer(buttons: [
           SQRaisedButton(
             text: 'Charge \$1.00',
-            onPressed: onCharge as void Function(),
+            onPressed: onCharge,
           ),
         ]),
       );
@@ -243,7 +240,7 @@ class _Buttons extends StatelessWidget {
 
 class _SettingsModalPopup extends StatelessWidget {
   final String locationName;
-  final Function onReaderSDKSettings;
+  final Function()? onReaderSDKSettings;
   final VoidCallback? onDeauthorize;
 
   _SettingsModalPopup({
@@ -256,14 +253,14 @@ class _SettingsModalPopup extends StatelessWidget {
   Widget build(BuildContext context) => CupertinoActionSheet(
         title: Text('Location: $locationName'),
         actions: [
-          FlatButton(
+          TextButton(
             child: Text(
               'Reader Settings',
               style: TextStyle(color: Colors.blue),
             ),
-            onPressed: onReaderSDKSettings as void Function()?,
+            onPressed: onReaderSDKSettings,
           ),
-          FlatButton(
+          TextButton(
             child: Text(
               'Deauthorize',
               style: TextStyle(color: Colors.red),
@@ -271,7 +268,7 @@ class _SettingsModalPopup extends StatelessWidget {
             onPressed: onDeauthorize,
           ),
         ],
-        cancelButton: FlatButton(
+        cancelButton: TextButton(
           child: Text(
             'Cancel',
             style: TextStyle(color: Colors.blue),
