@@ -129,8 +129,10 @@ class SQRaisedButton extends StatelessWidget {
         child: Text(text),
         style: ElevatedButton.styleFrom(
           primary: Color.fromRGBO(57, 114, 178, 1.0),
+          padding: EdgeInsets.all(15.0),
           onPrimary: Colors.white,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         ),
         onPressed: onPressed,
       );
