@@ -181,23 +181,26 @@ information on installing Reader SDK for iOS, see the
       with the photos stored on your mobile device.
 1. Update the `application:didFinishLaunchingWithOptions:` method in your app
    delegate to initialize Reader SDK:
-    ```objective-c
-    #include "AppDelegate.h"
-    #include "GeneratedPluginRegistrant.h"
-    @import SquareReaderSDK;
+    ```swift
 
-    @implementation AppDelegate
-
-    (BOOL)application:(UIApplication * )application didFinishLaunchingWithOptions:(NSDictionary * )launchOptions
+    import UIKit
+    import Flutter
+    import SquareReaderSDK
+    @UIApplicationMain
+    @objc class AppDelegate: FlutterAppDelegate {
+    override func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
     {
 
     ...
 
-    [SQRDReaderSDK initializeWithApplicationLaunchOptions:launchOptions];
-    return YES;
+    SQRDReaderSDK.initialize(applicationLaunchOptions: launchOptions)
+    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    }
     }
 
-    @end
     ```
 
 
