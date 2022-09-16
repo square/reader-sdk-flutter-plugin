@@ -179,7 +179,7 @@ information on installing Reader SDK for iOS, see the
    * `NSPhotoLibraryUsageDescription` : This app integrates with Square for card
       processing. Upload your account logo, feature photo and product images
       with the photos stored on your mobile device.
-1. Update the `application:didFinishLaunchingWithOptions:` method in your app
+1. Update the `application: UIApplication,didFinishLaunchingWithOptions launchOptions:` method in your app
    delegate to initialize Reader SDK:
     ```swift
 
