@@ -3,7 +3,7 @@
 ### v4.0.0 Sep 1st, 2022
 
 * Update package dependencies to latest versions for Null Safety support.
-* Update application UI 
+* Update example UI 
 * Support Flutter 3
 * Upgrade to Reader SDK 1.6.0 on iOS and 1.6.1 on Android.
 * Support CompileSDK and targetSDK 30+ on Android
