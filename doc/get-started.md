@@ -5,33 +5,30 @@ project with Reader SDK. See the
 [Flutter Reader SDK Technical Reference](reference.md)
 for more detailed information about the methods available.
 
-
 ## Before you start
 
-* You will need a Square account enabled for payment processing. If you have not
+- You will need a Square account enabled for payment processing. If you have not
   enabled payment processing on your account (or you are not sure), visit
   [squareup.com/activate].
-* Follow the **Install** instructions in the [Flutter Getting Started] guide to
+- Follow the **Install** instructions in the [Flutter Getting Started] guide to
   setup your Flutter development environment.
-
 
 ## Process overview
 
-* [Step 1: Create a Flutter project](#step-1-create-a-flutter-project)
-* [Step 2: Configure the Reader SDK dependency](#step-2-configure-the-reader-sdk-dependency)
-* [Step 3: Request Reader SDK credentials](#step-3-request-reader-sdk-credentials)
-* [Step 4: Configure Gradle for Reader SDK (Android)](#step-4-configure-gradle-for-reader-sdk-android)
-* [Step 5: Configure Xcode for Reader SDK (iOS)](#step-5-configure-Xcode-for-reader-sdk-ios)
-* [Step 6: Implement Reader SDK authorization](#step-6-implement-reader-sdk-authorization)
-* [Step 7: Implement the Checkout flow](#step-7-implement-the-checkout-flow)
-* [Step 8: Implement Mobile Authorization](#step-8-implement-mobile-authorization)
+- [Step 1: Create a Flutter project](#step-1-create-a-flutter-project)
+- [Step 2: Configure the Reader SDK dependency](#step-2-configure-the-reader-sdk-dependency)
+- [Step 3: Request Reader SDK credentials](#step-3-request-reader-sdk-credentials)
+- [Step 4: Configure Gradle for Reader SDK (Android)](#step-4-configure-gradle-for-reader-sdk-android)
+- [Step 5: Configure Xcode for Reader SDK (iOS)](#step-5-configure-Xcode-for-reader-sdk-ios)
+- [Step 6: Implement Reader SDK authorization](#step-6-implement-reader-sdk-authorization)
+- [Step 7: Implement the Checkout flow](#step-7-implement-the-checkout-flow)
+- [Step 8: Implement Mobile Authorization](#step-8-implement-mobile-authorization)
 
 Optional steps:
 
-* [Save a card on file](#save-a-card-on-file)
-* [Support Contactless Readers](#support-contactless-readers)
-* [Support Reader SDK deauthorization](#support-reader-sdk-deauthorization)
-
+- [Save a card on file](#save-a-card-on-file)
+- [Support Contactless Readers](#support-contactless-readers)
+- [Support Reader SDK deauthorization](#support-reader-sdk-deauthorization)
 
 ## Step 1: Create a Flutter project
 
@@ -44,11 +41,11 @@ flutter create reader_sdk_flutter_app
 See the **Create the app** step of the [Test Drive] section in Flutters getting
 started guide for more detailed instructions.
 
-
 ## Step 2: Configure the Reader SDK dependency
 
 Edit the `pubspec.yaml` file in your `reader_sdk_flutter_app` directory to
 define the Reader SDK dependency:
+
 ```yaml
 dependencies:
 
@@ -56,7 +53,6 @@ dependencies:
 
   square_reader_sdk: ^4.0.0
 ```
-
 
 ## Step 3: Request Reader SDK credentials
 
@@ -68,7 +64,6 @@ dependencies:
    Reader SDK repository password.
 1. You will need the **Application ID** and **Repository password** from the
    **Reader SDK** settings page to configure Reader SDK in the next steps.
-
 
 ## Step 4: Configure Gradle for Reader SDK (Android)
 
@@ -88,31 +83,31 @@ Flutter library as a resource. The key installation steps are outlined below.
    ```
 1. Reader SDK and its dependencies contain more than 65k methods, so your build
    script must enable Multidex:
-    ```
-    android {
-      defaultConfig {
-        minSdkVersion 24
-        targetSdkVersion 31
-        multiDexEnabled true
-      }
-      ...
-    }
-    ```
+   ```
+   android {
+     defaultConfig {
+       minSdkVersion 24
+       targetSdkVersion 31
+       multiDexEnabled true
+     }
+     ...
+   }
+   ```
 1. Configure the Multidex options:
-    ```
-    android {
-      ...
-      dexOptions {
-        // Ensures incremental builds remain fast
-        preDexLibraries true
-        // Required to build with Reader SDK
-        jumboMode true
-        // Required to build with Reader SDK
-        keepRuntimeAnnotatedClasses false
-      }
-      ...
-    }
-    ```
+   ```
+   android {
+     ...
+     dexOptions {
+       // Ensures incremental builds remain fast
+       preDexLibraries true
+       // Required to build with Reader SDK
+       jumboMode true
+       // Required to build with Reader SDK
+       keepRuntimeAnnotatedClasses false
+     }
+     ...
+   }
+   ```
 
 ## Step 5: Configure Xcode for Reader SDK (iOS)
 
@@ -131,31 +126,33 @@ information on installing Reader SDK for iOS, see the
 1. Download and configure the latest version of `SquareReaderSDK.xcframework` in
    your project root by replacing `YOUR_SQUARE_READER_APP_ID` and
    `YOUR_SQUARE_READER_REPOSITORY_PASSWORD` with your Reader SDK credentials.
-   
+
    The command below will download the framework into the current directory. **The framework must be in either the `ios` directory or the `ios/Frameworks` directory of your Flutter project.**
-    ```bash
-    ruby <(curl https://connect.squareup.com/readersdk-installer) install \
-    --app-id YOUR_SQUARE_READER_APP_ID                                    \
-    --repo-password YOUR_SQUARE_READER_REPOSITORY_PASSWORD
-    ```
-   
-    Optionally you can use `--version` key to specify what version of iOS Reader SDK
-    you want to install.
+
+   ```bash
+   ruby <(curl https://connect.squareup.com/readersdk-installer) install \
+   --app-id YOUR_SQUARE_READER_APP_ID                                    \
+   --repo-password YOUR_SQUARE_READER_REPOSITORY_PASSWORD
+   ```
+
+   Optionally you can use `--version` key to specify what version of iOS Reader SDK
+   you want to install.
+
 1. Add Reader SDK to your Xcode project:
-   * Open `Runner.xcworkspace` in Xcode.
-   * Open the **General** tab for your app target in Xcode.
-   * Drag the newly downloaded `SquareReaderSDK.xcframework` into the
+   - Open `Runner.xcworkspace` in Xcode.
+   - Open the **General** tab for your app target in Xcode.
+   - Drag the newly downloaded `SquareReaderSDK.xcframework` into the
      **Embedded Binaries** section and click "Finish" in the modal that appears.
 1. Add a Reader SDK build phase:
-   * Open `Runner.xcworkspace` in Xcode.
-   * In the **Build Phases** tab for your application target, click the **+**
-      button (at the top of the pane).
-   * Select **New Run Script Phase**.
-   * Paste the following into the editor panel of the new run script:
-      ```
-      FRAMEWORKS="${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}"
-      "${FRAMEWORKS}/SquareReaderSDK.framework/setup"
-      ```
+   - Open `Runner.xcworkspace` in Xcode.
+   - In the **Build Phases** tab for your application target, click the **+**
+     button (at the top of the pane).
+   - Select **New Run Script Phase**.
+   - Paste the following into the editor panel of the new run script:
+     ```
+     FRAMEWORKS="${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}"
+     "${FRAMEWORKS}/SquareReaderSDK.framework/setup"
+     ```
 1. In Xcode, open the **General** tab for your app target and make sure the
    **Deployment Target** is set to 11.0+.
 1. In Xcode, open the **General** tab for your app target and make sure the
@@ -164,45 +161,43 @@ information on installing Reader SDK for iOS, see the
 1. Update your Info.plist with the following key:value pairs in the **Info** tab
    for your application target to explain why your application requires these
    device permissions:
-   * `NSLocationWhenInUseUsageDescription` : "This app integrates with Square
+   - `NSLocationWhenInUseUsageDescription` : "This app integrates with Square
      for card processing. To protect buyers and sellers, Square requires your
      location to process payments."
-   * `NSMicrophoneUsageDescription` : "This app integrates with Square for card
+   - `NSMicrophoneUsageDescription` : "This app integrates with Square for card
      processing. To swipe magnetic cards via the headphone jack, Square requires
      access to the microphone."
-   * `NSBluetoothPeripheralUsageDescription` : This app integrates with Square
+   - `NSBluetoothPeripheralUsageDescription` : This app integrates with Square
      for card processing. Square uses Bluetooth to connect your device to
      compatible hardware.
-   * `NSCameraUsageDescription` : This app integrates with Square for card
-      processing. Upload your account logo, feature photo and product images
-      with the photos stored on your mobile device.
-   * `NSPhotoLibraryUsageDescription` : This app integrates with Square for card
-      processing. Upload your account logo, feature photo and product images
-      with the photos stored on your mobile device.
+   - `NSCameraUsageDescription` : This app integrates with Square for card
+     processing. Upload your account logo, feature photo and product images
+     with the photos stored on your mobile device.
+   - `NSPhotoLibraryUsageDescription` : This app integrates with Square for card
+     processing. Upload your account logo, feature photo and product images
+     with the photos stored on your mobile device.
 1. Update the `func application` method in your app
    delegate to initialize Reader SDK:
-    ```swift
 
-    import UIKit
-    import Flutter
-    import SquareReaderSDK
-    @UIApplicationMain
-    @objc class AppDelegate: FlutterAppDelegate {
-    override func application(
-    _ application: UIApplication,
-    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-  ) -> Bool {
+   ```swift
+   import UIKit
+   import Flutter
+   import SquareReaderSDK
+
+   @UIApplicationMain
+   @objc class AppDelegate: FlutterAppDelegate {
+
+   override func application(_ application: UIApplication,didFinishLaunchingWithOptions
+   launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
+      //...
 
-    ...
-
-    SQRDReaderSDK.initialize(applicationLaunchOptions: launchOptions)
-    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+      SQRDReaderSDK.initialize(applicationLaunchOptions: launchOptions)
+      return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
-    }
+   }
 
-    ```
-
+   ```
 
 ## Step 6: Implement Reader SDK authorization
 
@@ -238,7 +233,7 @@ try {
 
 > For iOS, you will also need to add code to your Flutter project to request
 > location and microphone permissions.
-> 
+>
 > For Android 12, you will also need to add code to your Flutter project to request
 > bluetoothScan and bluetoothConnect permissions.
 
@@ -313,7 +308,6 @@ the **Reader SDK** settings page in the [Square Application Dashboard]. See the
 [Mobile Authorization API] documentation for help setting up a service to
 generate mobile authorization tokens for production use.
 
-
 ## Optional steps
 
 ### Save a card on file
@@ -371,7 +365,6 @@ try {
 }
 ```
 
-
 ### Support Contactless Readers
 
 You do not need to write explicit code to take payment with a Magstripe Reader.
@@ -428,20 +421,18 @@ if (await canDeauthorize) {
 }
 ```
 
-
-
 [//]: # "Link anchor definitions"
-[Mobile Authorization API]: https://developer.squareup.com/docs/mobile-authz/build-with-mobile-authz
-[Reader SDK]: https://developer.squareup.com/docs/reader-sdk/what-it-does
-[Square Dashboard]: https://squareup.com/dashboard/
-[update policy for Reader SDK]: https://developer.squareup.com/docs/reader-sdk/what-it-does#reader-sdk-update-policy
-[Testing Mobile Apps]: https://developer.squareup.com/docs/testing/mobile
+[mobile authorization api]: https://developer.squareup.com/docs/mobile-authz/build-with-mobile-authz
+[reader sdk]: https://developer.squareup.com/docs/reader-sdk/what-it-does
+[square dashboard]: https://squareup.com/dashboard/
+[update policy for reader sdk]: https://developer.squareup.com/docs/reader-sdk/what-it-does#reader-sdk-update-policy
+[testing mobile apps]: https://developer.squareup.com/docs/testing/mobile
 [squareup.com/activate]: https://squareup.com/activate
-[Square Application Dashboard]: https://connect.squareup.com/apps/
-[Reader SDK Android Setup Guide]: https://developer.squareup.com/docs/reader-sdk/build-on-android
-[Reader SDK iOS Setup Guide]: https://developer.squareup.com/docs/reader-sdk/build-on-ios
-[root README]: ../README.md
-[Flutter Getting Started]: https://flutter.io/docs/get-started/install
-[Test Drive]: https://flutter.io/docs/get-started/test-drive
-[Customer profile]: https://developer.squareup.com/docs/customers-api/build-with-customers
+[square application dashboard]: https://connect.squareup.com/apps/
+[reader sdk android setup guide]: https://developer.squareup.com/docs/reader-sdk/build-on-android
+[reader sdk ios setup guide]: https://developer.squareup.com/docs/reader-sdk/build-on-ios
+[root readme]: ../README.md
+[flutter getting started]: https://flutter.io/docs/get-started/install
+[test drive]: https://flutter.io/docs/get-started/test-drive
+[customer profile]: https://developer.squareup.com/docs/customers-api/build-with-customers
 [charge a card on file]: https://developer.squareup.com/docs/payments-api/take-payments#take-a-payment-using-a-card-on-file
