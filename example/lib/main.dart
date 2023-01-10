@@ -29,6 +29,7 @@ class ExampleApp extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
         theme: _buildTheme(),
         initialRoute: '/',
+        debugShowCheckedModeBanner: false,
         routes: {
           '/': (context) => SplashScreen(),
           '/authorize': (context) => AuthorizeScreen(),
