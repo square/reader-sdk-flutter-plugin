@@ -1,49 +1,29 @@
-name: reader-SDK-flutter-plugin
+name: build
 on: [push]
 jobs:
   build:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
         with:
-          node-version: 14.x
+          java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          channel: "stable" # or: 'beta', 'dev' or 'master'
+          channel: 'stable' # or: 'beta', 'dev' or 'master'
       - run: flutter pub get
-  build-android:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Gradle Wrapper
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
-      - name: Cache Gradle Dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-caches-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-caches-
-      - name: Checkout the current repo
-        uses: actions/checkout@v3
-      - name: Install pub
-        working-directory: ./example
-        run: flutter pub get
       #IOS
-      # - run: |
-      #     cd example
-      #     cd ios
-      #     ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{ secrets.USERNAME }} --repo-password ${{ secrets.PASSWORD }}>
-      #     cd ..
-      #     flutter pub get
-      #     flutter build ios --no-codesign
+      - run: |
+          cd example
+          cd ios
+          ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{ secrets.USERNAME }} --repo-password ${{ secrets.PASSWORD }}>
+          cd ..
+          flutter pub get
+          flutter build ios --no-codesign
       #Android
-      # - run: |
-      #     cd example
-      #     flutter pub get
-      #     openssl aes-256-cbc -K ${{secrets.ENCRYPTED_KEY}} -iv ${{secrets.ENCRYPTED_IV}}
-      #       - in android/gradle.properties.enc -out android/gradle.properties -d
-      #     flutter build apk
+      - run: |
+          cd example
+          flutter pub get
+          openssl aes-256-cbc -K ${{secrets.ENCRYPTED_KEY}} -iv ${{secrets.ENCRYPTED_IV}}
+            - in android/gradle.properties.enc -out android/gradle.properties -d
+          flutter build apk
