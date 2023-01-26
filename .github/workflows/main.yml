@@ -13,13 +13,13 @@ jobs:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - run: flutter pub get
       #IOS
-      - run: |
-          cd example
-          cd ios
-          ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{ secrets.USERNAME }} --repo-password ${{ secrets.PASSWORD }}>
-          cd ..
-          flutter pub get
-          flutter build ios --no-codesign
+      # - run: |
+      #     cd example
+      #     cd ios
+      #     ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{ secrets.USERNAME }} --repo-password ${{ secrets.PASSWORD }}>
+      #     cd ..
+      #     flutter pub get
+      #     flutter build ios --no-codesign
       #Android
       - run: |
           cd example
