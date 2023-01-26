@@ -29,7 +29,7 @@ jobs:
             ${{ runner.os }}-gradle-caches-
       - name: Checkout the current repo
         uses: actions/checkout@v3
-      - name: Install npm dependencies
+      - name: Install pub
         working-directory: ./example
         run: flutter pub get
       #IOS
