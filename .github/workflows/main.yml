@@ -15,21 +15,21 @@ jobs:
         with:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - run: flutter pub get
-      #IOS
-      - run: |
-          cd example
-          cd ios
-          ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{ secrets.USERNAME }} --repo-password ${{ secrets.PASSWORD }}>
-          cd ..
-          flutter pub get
-          flutter build ios --no-codesign
-      #Android
-      - run: |
-          cd example
-          flutter pub get
-          openssl aes-256-cbc -K ${{secrets.ENCRYPTED_KEY}} -iv ${{secrets.ENCRYPTED_IV}}
-            - in android/gradle.properties.enc -out android/gradle.properties -d
-          flutter build apk
+      # #IOS
+      # - run: |
+      #     cd example
+      #     cd ios
+      #     ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{ secrets.SQUARE_READER_SDK_APPLICATION_ID }} --repo-password ${{ secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD }}>
+      #     cd ..
+      #     flutter pub get
+      #     flutter build ios --no-codesign
+      # #Android
+      # - run: |
+      #     cd example
+      #     flutter pub get
+      #     openssl aes-256-cbc -K ${{secrets.ENCRYPTED_KEY}} -iv ${{secrets.ENCRYPTED_IV}}
+      #       - in android/gradle.properties.enc -out android/gradle.properties -d
+      #     flutter build apk
 
 # name: build
 # on: [push]
