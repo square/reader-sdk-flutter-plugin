@@ -26,14 +26,14 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 32
 
     lintOptions {
         disable 'InvalidPackage'
         checkReleaseBuilds false
     }
-    compileSdkVersion 31
-    ndkVersion "19.2.5345600"
+    compileSdkVersion 32
+    ndkVersion = "21.4.7075529"
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
