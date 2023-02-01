@@ -15,14 +15,14 @@ jobs:
         with:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - run: flutter pub get
-      # #IOS
-      # - run: |
-      #     cd example
-      #     cd ios
-      #     ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{ secrets.SQUARE_READER_SDK_APPLICATION_ID }} --repo-password ${{ secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD }}>
-      #     cd ..
-      #     flutter pub get
-      #     flutter build ios --no-codesign
+      #IOS
+      - run: |
+          cd example
+          cd ios
+          ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{ secrets.SQUARE_READER_SDK_APPLICATION_ID }} --repo-password ${{ secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD }}>
+          cd ..
+          flutter pub get
+          flutter build ios --no-codesign
       #Android
       - run: |
           cd example
