@@ -23,14 +23,13 @@ jobs:
       #     cd ..
       #     flutter pub get
       #     flutter build ios --no-codesign
-      # #Android
-      # - run: |
-      #     cd example
-      #     flutter pub get
-      #     openssl aes-256-cbc -K ${{secrets.ENCRYPTED_KEY}} -iv ${{secrets.ENCRYPTED_IV}}
-      #       - in android/gradle.properties.enc -out android/gradle.properties -d
-      #     flutter build apk
-
+      #Android
+      - run: |
+          cd example
+          flutter pub get
+          openssl aes-256-cbc -K ${{secrets.ENCRYPTED_KEY}} -iv ${{secrets.ENCRYPTED_IV}}
+            - in android/gradle.properties.enc -out android/gradle.properties -d
+          flutter build apk
 # name: build
 # on: [push]
 # jobs:
