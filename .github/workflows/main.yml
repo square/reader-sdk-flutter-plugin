@@ -18,6 +18,7 @@ jobs:
       # #IOS
       - run: |
           cd example
+          cd ios
       # #IOS
       #   - run: |
       #     cd example
@@ -29,7 +30,7 @@ jobs:
       #     ./gradlew clean build -PSQUARE_READER_SDK_APPLICATION_ID=${{secrets.SQUARE_READER_SDK_APPLICATION_ID}} -PSQUARE_READER_SDK_REPOSITORY_PASSWORD=${{secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD}}
       
 
-      
+
     # name: build
 # on: [push]
 # jobs:
