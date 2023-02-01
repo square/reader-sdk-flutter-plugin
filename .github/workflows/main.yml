@@ -24,25 +24,9 @@ jobs:
       #     flutter pub get
       #     flutter build ios --no-codesign
       #Android
-  build-android:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Gradle Wrapper
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
-      - name: Cache Gradle Dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-caches-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-caches-
-      - name: Checkout the current repo
-        uses: actions/checkout@v3
-      - run: cd example
-             flutter pub get
+      - run: |
+          cd example
+          flutter pub get
       # - name: Build
       #   working-directory: ./example/android
       #   env:
