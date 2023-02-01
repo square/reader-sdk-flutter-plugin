@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Square Inc.
+Copyright 2022 Square Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -50,11 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     Navigator.popAndPushNamed(
-      context,
-      await ReaderSdk.isAuthorized
-          ? '/checkout'
-          : '/authorize'
-    );
+        context, await ReaderSdk.isAuthorized ? '/checkout' : '/authorize');
   }
 
   @override
@@ -117,7 +113,7 @@ class _ButtonContainerState extends State<_ButtonContainer> {
         break;
       default:
         //This condition is to check 'Don't ask again' on android'
-        if(await permission.request().isPermanentlyDenied) {
+        if (await permission.request().isPermanentlyDenied) {
           openAppSettings();
         }
         break;
@@ -136,12 +132,15 @@ class _ButtonContainerState extends State<_ButtonContainer> {
 
   void onRequestBluetooth() async {
     // iOS
-    if ((await _permissionsStatus).sublist(2).any((status) => status.isPermanentlyDenied)) {
+    if ((await _permissionsStatus)
+        .sublist(2)
+        .any((status) => status.isPermanentlyDenied)) {
       openAppSettings();
       return;
     }
 
-    final statuses = await [Permission.bluetoothScan, Permission.bluetoothConnect].request();
+    final statuses =
+        await [Permission.bluetoothScan, Permission.bluetoothConnect].request();
 
     if (statuses.values.any((status) => status.isPermanentlyDenied)) {
       openAppSettings();
@@ -163,11 +162,7 @@ class _ButtonContainerState extends State<_ButtonContainer> {
 
     if (_hasLocationAccess && _hasMicrophoneAccess && _hasBluetoothAccess) {
       Navigator.popAndPushNamed(
-        context,
-        await ReaderSdk.isAuthorized
-            ? '/checkout'
-            : '/authorize'
-      );
+          context, await ReaderSdk.isAuthorized ? '/checkout' : '/authorize');
     }
   }
 
@@ -252,33 +247,30 @@ class _ButtonContainerState extends State<_ButtonContainer> {
   }
 
   @override
-  Widget build(BuildContext context) => SQButtonContainer(
-    buttons: [
-      SQOutlineButton(
-        text: _microphoneButtonText,
-        onPressed: _hasMicrophoneAccess ? null : onRequestAudioPermission,
-      ),
-      SQOutlineButton(
-        text: _locationButtonText,
-        onPressed: _hasLocationAccess ? null : onRequestLocationPermission
-      ),
-      if (_requireBluetoothPermission)
+  Widget build(BuildContext context) => SQButtonContainer(buttons: [
         SQOutlineButton(
-          text: _bluetoothButtonText,
-          onPressed: _hasBluetoothAccess ? null : onRequestBluetooth,
+          text: _microphoneButtonText,
+          onPressed: _hasMicrophoneAccess ? null : onRequestAudioPermission,
         ),
-    ]
-  );
+        SQOutlineButton(
+            text: _locationButtonText,
+            onPressed: _hasLocationAccess ? null : onRequestLocationPermission),
+        if (_requireBluetoothPermission)
+          SQOutlineButton(
+            text: _bluetoothButtonText,
+            onPressed: _hasBluetoothAccess ? null : onRequestBluetooth,
+          ),
+      ]);
 }
 
 Future<List<PermissionStatus>> get _permissionsStatus => Future.wait([
-  Permission.locationWhenInUse.status,
-  Permission.microphone.status,
-  if (_requireBluetoothPermission)
-    ...[
-      Permission.bluetoothConnect.status,
-      Permission.bluetoothScan.status,
-    ]
-]);
+      Permission.locationWhenInUse.status,
+      Permission.microphone.status,
+      if (_requireBluetoothPermission) ...[
+        Permission.bluetoothConnect.status,
+        Permission.bluetoothScan.status,
+      ]
+    ]);
 
-bool _requireBluetoothPermission = (TargetPlatform.android == defaultTargetPlatform);
+bool _requireBluetoothPermission =
+    (TargetPlatform.android == defaultTargetPlatform);

@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Square Inc.
+Copyright 2022 Square Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ abstract class Money implements Built<Money, MoneyBuilder> {
   String? get currencyCode;
 
   Money._();
-  factory Money([updates(MoneyBuilder b)/*!*/]) = _$Money;
+  factory Money([updates(MoneyBuilder b) /*!*/]) = _$Money;
   static Serializer<Money> get serializer => _$moneySerializer;
 }
 
@@ -39,7 +39,7 @@ abstract class Location implements Built<Location, LocationBuilder> {
   Money get minimumCardPaymentAmountMoney;
 
   Location._();
-  factory Location([updates(LocationBuilder b)/*!*/]) = _$Location;
+  factory Location([updates(LocationBuilder b) /*!*/]) = _$Location;
   static Serializer<Location> get serializer => _$locationSerializer;
 }
 
@@ -54,7 +54,8 @@ abstract class CheckoutResult
   BuiltList<Tender> get tenders;
 
   CheckoutResult._();
-  factory CheckoutResult([updates(CheckoutResultBuilder b)/*!*/]) = _$CheckoutResult;
+  factory CheckoutResult([updates(CheckoutResultBuilder b) /*!*/]) =
+      _$CheckoutResult;
   static Serializer<CheckoutResult> get serializer =>
       _$checkoutResultSerializer;
 }
@@ -88,7 +89,7 @@ abstract class Tender implements Built<Tender, TenderBuilder> {
   CashDetails? get cashDetails;
 
   Tender._();
-  factory Tender([updates(TenderBuilder b)/*!*/]) = _$Tender;
+  factory Tender([updates(TenderBuilder b) /*!*/]) = _$Tender;
   static Serializer<Tender> get serializer => _$tenderSerializer;
 }
 
@@ -98,7 +99,7 @@ abstract class CashDetails implements Built<CashDetails, CashDetailsBuilder> {
   Money get changeBackMoney;
 
   CashDetails._();
-  factory CashDetails([updates(CashDetailsBuilder b)/*!*/]) = _$CashDetails;
+  factory CashDetails([updates(CashDetailsBuilder b) /*!*/]) = _$CashDetails;
   static Serializer<CashDetails> get serializer => _$cashDetailsSerializer;
 }
 
@@ -127,7 +128,7 @@ abstract class CardDetails implements Built<CardDetails, CardDetailsBuilder> {
   Card get card;
 
   CardDetails._();
-  factory CardDetails([updates(CardDetailsBuilder b)/*!*/]) = _$CardDetails;
+  factory CardDetails([updates(CardDetailsBuilder b) /*!*/]) = _$CardDetails;
   static Serializer<CardDetails> get serializer => _$cardDetailsSerializer;
 }
 
@@ -176,7 +177,7 @@ abstract class Card implements Built<Card, CardBuilder> {
   String? get cardholderName;
 
   Card._();
-  factory Card([updates(CardBuilder b)/*!*/]) = _$Card;
+  factory Card([updates(CardBuilder b) /*!*/]) = _$Card;
   static Serializer<Card> get serializer => _$cardSerializer;
 }
 
@@ -219,7 +220,7 @@ abstract class CheckoutParameters
   TipSettings? get tipSettings;
 
   CheckoutParameters._();
-  factory CheckoutParameters([updates(CheckoutParametersBuilder b)/*!*/]) =
+  factory CheckoutParameters([updates(CheckoutParametersBuilder b) /*!*/]) =
       _$CheckoutParameters;
   static Serializer<CheckoutParameters> get serializer =>
       _$checkoutParametersSerializer;
@@ -231,7 +232,7 @@ abstract class TipSettings implements Built<TipSettings, TipSettingsBuilder> {
   BuiltList<int>? get tipPercentages;
 
   TipSettings._();
-  factory TipSettings([updates(TipSettingsBuilder b)/*!*/]) = _$TipSettings;
+  factory TipSettings([updates(TipSettingsBuilder b) /*!*/]) = _$TipSettings;
   static Serializer<TipSettings> get serializer => _$tipSettingsSerializer;
 }
 
