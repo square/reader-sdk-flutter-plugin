@@ -15,28 +15,21 @@ jobs:
         with:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - run: flutter pub get
-      #IOS
+      # #IOS
       - run: |
           cd example
-          cd ios
-          ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{ secrets.SQUARE_READER_SDK_APPLICATION_ID }} --repo-password ${{ secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD }}>
-          cd ..
-          flutter pub get
-          flutter build ios --no-codesign
-      #Android
-      - run: |
-          cd example
-          flutter pub get
-          cd android
-          ./gradlew clean build -PSQUARE_READER_SDK_APPLICATION_ID=${{secrets.SQUARE_READER_SDK_APPLICATION_ID}} -PSQUARE_READER_SDK_REPOSITORY_PASSWORD=${{secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD}}
-      # - name: Build
-      #   working-directory: ./example/android
-      #   env:
-      #     SQUARE_READER_SDK_APPLICATION_ID: ${{secrets.SQUARE_READER_SDK_APPLICATION_ID}}
-      #     SQUARE_READER_SDK_REPOSITORY_PASSWORD: ${{secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD}}
-      #   run: |
-      #     ./gradlew clean build -PSQUARE_READER_SDK_APPLICATION_ID=$SQUARE_READER_SDK_APPLICATION_ID -PSQUARE_READER_SDK_REPOSITORY_PASSWORD=$SQUARE_READER_SDK_REPOSITORY_PASSWORD
-    
+      # #IOS
+      #   - run: |
+      #     cd example
+      # Android
+      # - run: |
+      #     cd example
+      #     flutter pub get
+      #     cd android
+      #     ./gradlew clean build -PSQUARE_READER_SDK_APPLICATION_ID=${{secrets.SQUARE_READER_SDK_APPLICATION_ID}} -PSQUARE_READER_SDK_REPOSITORY_PASSWORD=${{secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD}}
+      
+
+      
     # name: build
 # on: [push]
 # jobs:
