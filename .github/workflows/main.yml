@@ -18,10 +18,8 @@ jobs:
       # #IOS
       - run: |
           cd example
-          cd ios ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{secrets.SQUARE_READER_SDK_APPLICATION_ID}} --repo-password ${{secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD}}>
-      # #IOS
-      #   - run: |
-      #     cd example
+          cd ios
+          ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{secrets.SQUARE_READER_SDK_APPLICATION_ID}} --repo-password ${{secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD}} --version 1.6.1 > /dev/null
       # Android
       # - run: |
       #     cd example
