@@ -13,7 +13,7 @@ jobs:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - run: flutter pub get
   build-android:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
        - run: |
           cd example
