@@ -32,7 +32,6 @@ jobs:
       - name: Install pub dependencies
         working-directory: ./example
         run: |
-          cd example
           flutter pub get
           cd android
           ./gradlew clean build -PSQUARE_READER_SDK_APPLICATION_ID=${{secrets.SQUARE_READER_SDK_APPLICATION_ID}} -PSQUARE_READER_SDK_REPOSITORY_PASSWORD=${{secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD}}
