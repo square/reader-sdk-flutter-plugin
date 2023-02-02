@@ -21,7 +21,7 @@ jobs:
           flutter pub get
           cd ios
           ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{secrets.SQUARE_READER_SDK_APPLICATION_ID}} --repo-password ${{secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD}} --version 1.6.1 > /dev/null
-          pod install
+          flutter clean && flutter pub get && arch -x86_64 pod install --repo-update
           xcodebuild -workspace Runner.xcworkspace -configuration Debug -scheme Runner -destination "platform=iOS Simulator,OS=16.2,name=iPhone 14"
       # Android
       # - run: |
