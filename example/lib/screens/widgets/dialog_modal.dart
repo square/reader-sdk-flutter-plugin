@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Square Inc.
+Copyright 2022 Square Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -80,29 +80,29 @@ Future<Null> displayModal(BuildContext context, String message, void onPress) =>
               ],
             ));
 
-        Future<Null> confirmOnDeauthorize({
-          BuildContext? context,
-          VoidCallback? onPressed,
-        }) =>
-            showDialog(
-              context: context!,
-              barrierDismissible: false, // user must tap button!
-              builder: (var context) => AlertDialog(
-                title: const Text(
-                  'Are you sure you want to Deauthorize Token ?',
-                  style: TextStyle(color: Colors.black, fontSize: 16),
-                ),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(
-                      context,
-                    ),
-                    child: const Text('Cancel'),
-                  ),
-                  TextButton(
-                    onPressed: onPressed,
-                    child: const Text('OK'),
-                  ),
-                ],
-              ),
-            );
+Future<Null> confirmOnDeauthorize({
+  BuildContext? context,
+  VoidCallback? onPressed,
+}) =>
+    showDialog(
+      context: context!,
+      barrierDismissible: false, // user must tap button!
+      builder: (var context) => AlertDialog(
+        title: const Text(
+          'Are you sure you want to Deauthorize Token ?',
+          style: TextStyle(color: Colors.black, fontSize: 16),
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(
+              context,
+            ),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: onPressed,
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
