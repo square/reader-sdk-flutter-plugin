@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.6.21'
+    ext.kotlin_version = '1.8.0'
 
     repositories {
         google()
@@ -29,8 +29,8 @@ allprojects {
 
 ext {
     // Override the reader sdk version with the this parameter
-    // make sure the version is above min version 1.6.1
-    readerSdkVersion = "[1.6.1, 2.0)"
+    // make sure the version is above min version 1.7.5
+    readerSdkVersion = "[1.7.5, 2.0)"
 }
 
 rootProject.buildDir = '../build'
@@ -41,6 +41,6 @@ subprojects {
     project.evaluationDependsOn(':app')
 }
 
-task clean(type: Delete) {
+tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }

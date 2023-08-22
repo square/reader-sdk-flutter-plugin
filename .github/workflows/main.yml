@@ -23,7 +23,7 @@ jobs:
           cd example
           flutter pub get
           cd ios
-          ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{secrets.SQUARE_READER_SDK_APPLICATION_ID}} --repo-password ${{secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD}} --version 1.6.1 > /dev/null
+          ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{secrets.SQUARE_READER_SDK_APPLICATION_ID}} --repo-password ${{secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD}} --version 1.7.5 > /dev/null
           flutter clean
           rm Pods && rm Podfile.lock
           flutter pub get
