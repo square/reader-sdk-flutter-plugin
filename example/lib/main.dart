@@ -1,4 +1,3 @@
-// @dart=2.9
 /*
 Copyright 2022 Square Inc.
 
