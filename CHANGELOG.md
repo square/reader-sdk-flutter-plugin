@@ -1,5 +1,9 @@
 ## Changelog
 
+### v6.0.0 Apr 22st, 2024
+
+* Upgrade to Reader SDK 1.7.2 on iOS.
+
 ### v5.0.0 Aug 22st, 2023
 
 * Upgrade to Reader SDK 1.7.5 on Android.
