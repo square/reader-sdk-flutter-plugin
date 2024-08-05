@@ -41,7 +41,6 @@ class ExampleApp extends StatelessWidget {
 ThemeData _buildTheme() {
   var base = ThemeData.light();
   return base.copyWith(
-    backgroundColor: Color.fromRGBO(64, 135, 225, 1.0),
     canvasColor: Colors.transparent,
     scaffoldBackgroundColor: Color.fromRGBO(64, 135, 225, 1.0),
     buttonTheme: ButtonThemeData(
@@ -54,15 +53,15 @@ ThemeData _buildTheme() {
       ),
     ),
     textTheme: TextTheme(
-        button: TextStyle(
+        labelLarge: TextStyle(
           fontSize: 20.0,
           fontWeight: FontWeight.w600,
           color: Colors.white,
         ),
-        bodyText1: TextStyle(
+        bodyLarge: TextStyle(
           fontSize: 24.0,
           fontWeight: FontWeight.w600,
           color: Colors.white,
-        )),
+        )), colorScheme: ColorScheme.dark()
   );
 }
