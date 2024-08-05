@@ -30,6 +30,6 @@ iOS part of a flutter plugin for Square Reader SDK.
   }
   s.swift_version = '5.0'
 
-  s.ios.deployment_target = '11.1'
+  s.ios.deployment_target = '14.0'
 end
 

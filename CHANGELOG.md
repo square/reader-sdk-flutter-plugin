@@ -1,6 +1,6 @@
 ## Changelog
 
-### v6.0.0 Apr 22st, 2024
+### v6.0.0 Apr 22, 2024
 
 * Upgrade to Reader SDK 1.7.2 on iOS.
 
