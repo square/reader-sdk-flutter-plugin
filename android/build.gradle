@@ -34,8 +34,8 @@ rootProject.allprojects {
         maven {
             url "https://sdk.squareup.com/android"
             credentials {
-                username SQUARE_READER_SDK_APPLICATION_ID
-                password SQUARE_READER_SDK_REPOSITORY_PASSWORD
+                username "SQUARE_READER_SDK_APPLICATION_ID"
+                password "SQUARE_READER_SDK_REPOSITORY_PASSWORD"
             }
         }
     }
@@ -47,11 +47,11 @@ def DEFAULT_PLAY_SERVICES_BASE_VERSION = '16.0.1'
 def READER_SDK_VERSION = '[1.7.5, 2.0)'
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
 
     defaultConfig {
         minSdkVersion 24
-        targetSdkVersion 31
+        targetSdkVersion 33
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -72,6 +72,6 @@ dependencies {
     def readerSdkVersion = rootProject.hasProperty('readerSdkVersion') ? rootProject.readerSdkVersion : READER_SDK_VERSION
     def playServicesBaseVersion = rootProject.hasProperty('googlePlayServiceVersion') ? rootProject.googlePlayServiceVersion : DEFAULT_PLAY_SERVICES_BASE_VERSION
     implementation "com.google.android.gms:play-services-base:$playServicesBaseVersion"
-    api "com.squareup.sdk.reader:reader-sdk-$SQUARE_READER_SDK_APPLICATION_ID:$readerSdkVersion"
+    api "com.squareup.sdk.reader:reader-$SQUARE_READER_SDK_APPLICATION_ID:$readerSdkVersion"
     runtimeOnly "com.squareup.sdk.reader:reader-sdk-internals:$readerSdkVersion"
 }
