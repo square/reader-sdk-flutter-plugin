@@ -26,13 +26,8 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 33
-
-    lintOptions {
-        disable 'InvalidPackage'
-        checkReleaseBuilds false
-    }
-    compileSdkVersion 33
+    namespace 'com.example.flutter.squareup.sdk.reader'
+    compileSdkVersion 34
     ndkVersion = "21.4.7075529"
 
     sourceSets {
@@ -43,11 +38,26 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.flutter.squareup.sdk.reader"
         minSdkVersion 26
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
     }
 
     buildTypes {
@@ -57,15 +67,21 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-
     packagingOptions {
-        exclude("META-INF/*.kotlin_module")
+        resources {
+            excludes += ['META-INF/*.kotlin_module']
+        }
     }
+
 
     dexOptions {
         preDexLibraries true
         jumboMode true
         keepRuntimeAnnotatedClasses false
+    }
+    lint {
+        checkReleaseBuilds false
+        disable 'InvalidPackage'
     }
 }
 
