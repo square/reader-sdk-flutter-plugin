@@ -157,7 +157,11 @@ public class SquareReaderSdkFlutterPlugin implements MethodCallHandler, FlutterP
       return;
     }
 
-    ReaderSdk.initialize(currentActivity.getApplication());
-    sdkInitialized = true;
+    try {
+      ReaderSdk.initialize(currentActivity.getApplication());
+      sdkInitialized = true; 
+    } catch (IllegalStateException e) {
+      // do nothing; something already initialized the SDK outside the plugin.
+    }
   }
 }
