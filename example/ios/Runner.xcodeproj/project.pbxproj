@@ -204,7 +204,6 @@
 /* Begin PBXShellScriptBuildPhase section */
 		17130ABE28ACDC4A007FE54B /* Square setup script */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
