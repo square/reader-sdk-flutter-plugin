@@ -15,7 +15,10 @@ limitations under the License.
 */
 package com.example.flutter.squareup.sdk.reader;
 
-import io.flutter.app.FlutterApplication
+import androidx.annotation.NonNull;
 
-class MainApplication: FlutterApplication() {
+import io.flutter.embedding.android.FlutterActivity;
+
+public class MainActivity extends FlutterActivity {
 }
+
