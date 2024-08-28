@@ -19,18 +19,18 @@ version '2.0-SNAPSHOT'
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.android.tools.build:gradle:8.5.2'
     }
 }
 
 rootProject.allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         maven {
             url "https://sdk.squareup.com/android"
             credentials {
@@ -44,14 +44,14 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 def DEFAULT_PLAY_SERVICES_BASE_VERSION = '16.0.1'
-def READER_SDK_VERSION = '[1.7.5, 2.0)'
+def READER_SDK_VERSION = '1.7.5'
 
 android {
-    compileSdkVersion 32
-
+    compileSdkVersion 34
+    namespace 'com.squareup.readersdkflutterplugin'
     defaultConfig {
         minSdkVersion 24
-        targetSdkVersion 31
+        targetSdkVersion 34
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }

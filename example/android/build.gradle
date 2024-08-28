@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.2'
+        classpath 'com.android.tools.build:gradle:8.5.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.dipien:bye-bye-jetifier:1.2.1'
     }
@@ -28,16 +28,15 @@ allprojects {
 }
 
 ext {
-    // Override the reader sdk version with the this parameter
-    // make sure the version is above min version 1.7.5
-    readerSdkVersion = "[1.7.5, 2.0)"
+    // Override the reader sdk version with this parameter
+    // Make sure the version is above min version 1.7.5
+    readerSdkVersion = "1.7.5"
 }
 
 rootProject.buildDir = '../build'
+
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-}
-subprojects {
     project.evaluationDependsOn(':app')
 }
 

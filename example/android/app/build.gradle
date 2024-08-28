@@ -26,14 +26,9 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 33
-
-    lintOptions {
-        disable 'InvalidPackage'
-        checkReleaseBuilds false
-    }
-    compileSdkVersion 33
-    ndkVersion = "21.4.7075529"
+    namespace 'com.example.flutter.squareup.sdk.reader'
+    compileSdkVersion 34
+    ndkVersion = "26.1.10909125"
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -43,11 +38,26 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.flutter.squareup.sdk.reader"
         minSdkVersion 26
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
     }
 
     buildTypes {
@@ -55,17 +65,24 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+            minifyEnabled false
+            shrinkResources false        }
+    }
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/*.kotlin_module']
         }
     }
 
-    packagingOptions {
-        exclude("META-INF/*.kotlin_module")
-    }
 
     dexOptions {
         preDexLibraries true
         jumboMode true
         keepRuntimeAnnotatedClasses false
+    }
+    lint {
+        checkReleaseBuilds false
+        disable 'InvalidPackage'
     }
 }
 
