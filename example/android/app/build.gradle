@@ -28,7 +28,7 @@ apply plugin: 'kotlin-android'
 android {
     namespace 'com.example.flutter.squareup.sdk.reader'
     compileSdkVersion 34
-    ndkVersion = "21.4.7075529"
+    ndkVersion = "26.1.10909125"
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
