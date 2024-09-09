@@ -219,7 +219,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "FRAMEWORKS=\"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}\"\n\"${FRAMEWORKS}/SquareReaderSDK.framework/setup\"\n\n";
+			shellScript = "# Skip the script in CI builds\nif [ \"$SKIP_SETUP_SCRIPT\" = \"YES\" ]; then\n  exit 0\nfi\n\nFRAMEWORKS=\"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}\"\n\"${FRAMEWORKS}/SquareReaderSDK.framework/setup\"\n";
 		};
 		324E410A8DA310037B0B821B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

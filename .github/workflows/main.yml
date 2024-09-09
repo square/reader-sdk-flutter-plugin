@@ -1,7 +1,7 @@
 name: reader-sdk-flutter-plugin
 on: [push]
 jobs:
-  install-and-test:
+  install-and-test-android:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -13,24 +13,31 @@ jobs:
         with:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - run: flutter pub get
+
       # Android
       - run: |
           cd example
           flutter pub get
           cd android
           ./gradlew clean build -PSQUARE_READER_SDK_APPLICATION_ID=${{secrets.SQUARE_READER_SDK_APPLICATION_ID}} -PSQUARE_READER_SDK_REPOSITORY_PASSWORD=${{secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD}}
-      # #IOS
+
+  install-and-test-ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable' # or: 'beta', 'dev' or 'master'
+      - run: flutter pub get
+      # iOS
       - run: |
           cd example
           flutter pub get
           cd ios
-          ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{secrets.SQUARE_READER_SDK_APPLICATION_ID}} --repo-password ${{secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD}} --version 1.6.1 > /dev/null
+          ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{secrets.SQUARE_READER_SDK_APPLICATION_ID}} --repo-password ${{secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD}} --version 1.7.4 > /dev/null
           flutter clean
           rm Pods && rm Podfile.lock
           flutter pub get
           pod update Firebase/CoreOnly
           pod install --repo-update
-          xcodebuild -workspace Runner.xcworkspace -configuration Debug -scheme Runner -destination "platform=iOS Simulator,OS=16.2,name=iPhone 14
-          CODE_SIGNING_ALLOWED=NO /
-          CODE_SIGNING_REQUIRED=NO /
-          CODE_SIGN_IDENTITY=NO"
+          xcodebuild -workspace Runner.xcworkspace -configuration Debug -scheme Runner -sdk iphoneos SKIP_SETUP_SCRIPT=YES CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
