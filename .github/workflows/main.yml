@@ -1,5 +1,10 @@
 name: reader-sdk-flutter-plugin
+
 on: [push]
+
+env:
+  IOS_READER_SDK_VERSION: 1.7.4
+
 jobs:
   install-and-test:
     runs-on: macos-latest
@@ -7,13 +12,13 @@ jobs:
 
       - name: Cleanup
         run: |
-          sudo rm -rf /Users/runner/.gradle/caches
-          sudo rm -rf /Library/Developer/CoreSimulator/Profiles/Runtimes/*
           sudo rm -rf ~/Library/Developer/Xcode/DerivedData/*
           sudo rm -rf ~/Library/Developer/Xcode/Archives/*
           sudo rm -rf ~/Library/Caches/*
+          sudo rm -rf /Library/Developer/CoreSimulator/Profiles/Runtimes/*
           sudo rm -rf /Users/runner/Library/Developer/CoreSimulator/Caches/*
           sudo rm -rf /Users/runner/Library/Developer/CoreSimulator/Devices/*
+          sudo rm -rf /Users/runner/.gradle/caches
 
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -44,7 +49,7 @@ jobs:
           cd example
           flutter pub get
           cd ios
-          ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{secrets.SQUARE_READER_SDK_APPLICATION_ID}} --repo-password ${{secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD}} --version 1.7.4 > /dev/null
+          ruby <(curl https://connect.squareup.com/readersdk-installer) install --app-id ${{secrets.SQUARE_READER_SDK_APPLICATION_ID}} --repo-password ${{secrets.SQUARE_READER_SDK_REPOSITORY_PASSWORD}} --version $IOS_READER_SDK_VERSION > /dev/null
           flutter clean
           
           flutter pub get
