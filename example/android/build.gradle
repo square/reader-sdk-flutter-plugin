@@ -29,7 +29,7 @@ allprojects {
 
 ext {
     // Override the reader sdk version with this parameter
-    // Make sure the version is above min version 1.7.5
+    // Make sure the version is above min version 1.7.7
     readerSdkVersion = "1.7.7"
 }
 

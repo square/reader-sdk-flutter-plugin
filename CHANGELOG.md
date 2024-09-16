@@ -2,7 +2,7 @@
 
 ### v5.0.0 Aug 22st, 2023
 
-* Upgrade to Reader SDK 1.7.5 on Android.
+* Upgrade to Reader SDK 1.7.7 on Android.
 * Support CompileSDK and targetSDK 33 on Android
 
 ### v4.0.0 Sep 1st, 2022
