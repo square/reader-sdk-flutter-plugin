@@ -1,6 +1,6 @@
 name: square_reader_sdk
 description: An open source Flutter plugin for calling Square’s native Reader SDK implementations to take in-person payments on iOS and Android.
-version: 4.0.1
+version: 4.0.2
 homepage: https://github.com/square/reader-sdk-flutter-plugin
 
 environment:

@@ -51,7 +51,7 @@ dependencies:
 
   ...
 
-  square_reader_sdk: ^4.0.0
+  square_reader_sdk: ^4.0.2
 ```
 
 ## Step 3: Request Reader SDK credentials
