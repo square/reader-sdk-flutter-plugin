@@ -1,8 +1,12 @@
 ## Changelog
 
-### v4.0.1 Aug 29st, 2024
+### v4.0.2 Sep 18, 2024
 
 * Upgrade to Reader SDK 1.7.7 on Android.
+
+### v4.0.1 Aug 29st, 2024
+
+* Upgrade to Reader SDK 1.7.5 on Android.
 * Support CompileSDK and targetSDK 34 on Android
 * Fixed the [issue](https://github.com/square/reader-sdk-flutter-plugin/pull/116) with resuming the app after process is killed on Android.
 
