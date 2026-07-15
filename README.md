@@ -1,3 +1,11 @@
+# ⚠️ RETIRED — Reader SDK is no longer supported
+
+> [!CAUTION]
+> **Reader SDK has been retired and can no longer be used to accept payments.**
+> Reader SDK was [deprecated in January 2025](https://developer.squareup.com/docs/changelog/mobile-logs/2025-01-23) and retired on **December 31, 2025**. This plugin no longer functions, and this repository is no longer maintained.
+>
+> Migrate to the [Mobile Payments SDK](https://developer.squareup.com/docs/mobile-payments-sdk), Square's supported solution for in-person payments, which has an official [Flutter plugin](https://github.com/square/mobile-payments-sdk-flutter). See the [migration guide](https://developer.squareup.com/docs/mobile-payments-sdk/migrate) to get started.
+
 # Flutter plugin for Reader SDK
 
 [![build](https://github.com/square/reader-sdk-flutter-plugin/actions/workflows/build.yml/badge.svg)](https://github.com/square/reader-sdk-flutter-plugin/actions/workflows/build.yml)
